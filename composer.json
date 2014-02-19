@@ -1,0 +1,19 @@
+{
+	"name": "addwiki/mediawiki-api",
+	"type": "library",
+	"description": "A Mediawiki api lib",
+	"keywords": ["Mediawiki"],
+	"authors": [
+		{
+			"name": "Addshore"
+		}
+	],
+	"require": {
+		"addshore/guzzle-mediawiki-client": "dev-master"
+	},
+	"autoload": {
+		"psr-4": {
+			"Mediawiki\\Api\\": "src/"
+		}
+	}
+}
