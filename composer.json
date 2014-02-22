@@ -10,7 +10,7 @@
 	],
 	"minimum-stability" : "dev",
 	"require": {
-		"addshore/guzzle-mediawiki-client": "dev-master",
+		"addwiki/guzzle-mediawiki-client": "dev-master",
 		"addwiki/mediawiki-datamodel": "dev-master"
 	},
 	"autoload": {
