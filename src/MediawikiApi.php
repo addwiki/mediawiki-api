@@ -48,8 +48,9 @@ class MediawikiApi {
 	 * @return mixed
 	 */
 	public function getAction( $action, $params = array() ) {
-		//todo throw UsageExceptions
-		return $this->client->getAction( array_merge( array( 'action' => $action ), $params ) );
+		$resultArray = $this->client->getAction( array_merge( array( 'action' => $action ), $params ) );
+		$this->throwUsageExceptions( $resultArray );
+		return $resultArray;
 	}
 
 	/**
@@ -59,8 +60,20 @@ class MediawikiApi {
 	 * @return mixed
 	 */
 	public function postAction( $action, $params = array() ) {
-		//todo throw UsageExceptions
-		return $this->client->postAction( array_merge( array( 'action' => $action ), $params ) );
+		$resultArray = $this->client->postAction( array_merge( array( 'action' => $action ), $params ) );
+		$this->throwUsageExceptions( $resultArray );
+		return $resultArray;
+	}
+
+	/**
+	 * @param array $result
+	 *
+	 * @throws UsageException
+	 */
+	private function throwUsageExceptions( $result ) {
+		if( array_key_exists( 'error', $result ) ) {
+			throw new UsageException( $result['error']['code'], $result['error']['info'] );
+		}
 	}
 
 	/**

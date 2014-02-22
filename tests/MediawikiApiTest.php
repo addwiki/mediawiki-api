@@ -1,7 +1,14 @@
 <?php
 
-use Mediawiki\Api\MediawikiApi;
+namespace Mediawiki\Api\Test;
 
+use Mediawiki\Api\MediawikiApi;
+use Mediawiki\Api\UsageException;
+use stdClass;
+
+/**
+ * @covers Mediawiki\Api\MediawikiApi
+ */
 class MediawikiApiTest extends \PHPUnit_Framework_TestCase {
 
 	public function provideValidConstruction() {
@@ -41,17 +48,56 @@ class MediawikiApiTest extends \PHPUnit_Framework_TestCase {
 		return new MediawikiApi( $client );
 	}
 
-	/**
-	 * @param array $methods any methods that will be used in the mock
-	 *
-	 * @return PHPUnit_Framework_MockObject_MockObject
-	 */
-	private function getMockClient( $methods = array() ) {
+	private function getMockClient() {
 		$mock = $this->getMockBuilder( 'Guzzle\Service\Mediawiki\MediawikiApiClient' )
 			->disableOriginalConstructor()
-			->setMethods( $methods )
+			->setMethods( array( 'getAction', 'postAction' ) )
 			->getMock();
 		return $mock;
+	}
+
+	public function testGetActionThrowsUsageExceptionOnError() {
+		$client = $this->getMockClient();
+		$client->expects( $this->once() )
+			->method( 'getAction' )
+			->will( $this->returnValue(
+				array( 'error' => array(
+					'code' => 'imacode',
+					'info' => 'imamsg',
+				) )
+			) );
+		$api = new MediawikiApi( $client );
+
+		try{
+			$api->getAction( 'foo' );
+			$this->fail( 'No Usage Exception Thrown' );
+		}
+		catch( UsageException $e ) {
+			$this->assertEquals( 'imacode', $e->getApiCode() );
+			$this->assertEquals( 'imamsg', $e->getMessage() );
+		}
+	}
+
+	public function testPostActionThrowsUsageExceptionOnError() {
+		$client = $this->getMockClient();
+		$client->expects( $this->once() )
+			->method( 'postAction' )
+			->will( $this->returnValue(
+				array( 'error' => array(
+					'code' => 'imacode',
+					'info' => 'imamsg',
+				) )
+			) );
+		$api = new MediawikiApi( $client );
+
+		try{
+			$api->postAction( 'foo' );
+			$this->fail( 'No Usage Exception Thrown' );
+		}
+		catch( UsageException $e ) {
+			$this->assertEquals( 'imacode', $e->getApiCode() );
+			$this->assertEquals( 'imamsg', $e->getMessage() );
+		}
 	}
 
 } 
