@@ -3,15 +3,15 @@
 	"type": "library",
 	"description": "A Mediawiki api lib",
 	"keywords": ["Mediawiki"],
+	"license": "GPL-2.0+",
 	"authors": [
 		{
 			"name": "Addshore"
 		}
 	],
-	"minimum-stability" : "dev",
 	"require": {
-		"addwiki/guzzle-mediawiki-client": "dev-master",
-		"addwiki/mediawiki-datamodel": "dev-master"
+		"addwiki/guzzle-mediawiki-client": "0.1.*",
+		"addwiki/mediawiki-datamodel": "0.1.*"
 	},
 	"autoload": {
 		"psr-4": {

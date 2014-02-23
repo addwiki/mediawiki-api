@@ -5,6 +5,9 @@ namespace Mediawiki\Api\Actions;
 use Mediawiki\DataModel\EditFlags;
 use Mediawiki\DataModel\Page;
 
+/**
+ * Class Representing a Mediawiki Edit to a page
+ */
 class Edit {
 
 	/**
