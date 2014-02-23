@@ -11,7 +11,7 @@
 	],
 	"require": {
 		"addwiki/guzzle-mediawiki-client": "0.1.*",
-		"addwiki/mediawiki-datamodel": "0.1.*"
+		"addwiki/mediawiki-datamodel": "0.2.*"
 	},
 	"autoload": {
 		"psr-4": {

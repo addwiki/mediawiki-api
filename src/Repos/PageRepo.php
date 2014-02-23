@@ -3,12 +3,11 @@
 namespace Mediawiki\Api\Repos;
 
 use Mediawiki\Api\MediawikiApi;
-use Mediawiki\DataModel\EditFlags;
+use Mediawiki\DataModel\EditInfo;
 use Mediawiki\DataModel\Page;
 use Mediawiki\DataModel\Revision;
 use Mediawiki\DataModel\Revisions;
 use Mediawiki\DataModel\Title;
-
 
 class PageRepo {
 
@@ -35,11 +34,14 @@ class PageRepo {
 	}
 
 	/**
-	 * @param string $title
+	 * @param string|Title $title
 	 *
 	 * @returns Page
 	 */
 	public function getFromTitle( $title ) {
+		if( $title instanceof Title ) {
+			$title = $title->getTitle();
+		}
 		$result = $this->api->getAction( 'query', $this->getQuery( array( 'titles' => $title ) ) );
 		return $this->newPageFromResult( array_shift( $result['query']['pages'] ) );
 	}
@@ -66,8 +68,7 @@ class PageRepo {
 		return new Page(
 			$page->getTitle(),
 			$page->getId(),
-			$revisions,
-			$page->getContentmodel()
+			$revisions
 		);
 	}
 
@@ -86,8 +87,7 @@ class PageRepo {
 				$result['ns']
 			),
 			$result['pageid'],
-			$revisions,
-			$result['contentmodel']
+			$revisions
 		);
 	}
 
@@ -99,7 +99,7 @@ class PageRepo {
 	private function getQuery( $additionalParams ) {
 		$base = array(
 			'prop' => 'revisions|info|pageprops',
-			'rvprop' => 'ids|flags|timestamp|user|userid|size|sha1|contentmodel|comment|parsedcomment|content|tags',
+			'rvprop' => 'ids|flags|timestamp|user|size|sha1|comment|content|tags',
 			'inprop' => 'protection',
 		);
 		return array_merge( $base, $additionalParams );
@@ -112,17 +112,19 @@ class PageRepo {
 	 */
 	private function getRevisionsFromResult( $array ) {
 		$revisions = new Revisions();
+		$pageid = $array['pageid'];
 		foreach( $array['revisions'] as $revision ) {
 			$revisions->addRevision(
 				new Revision(
-					$revision['revid'],
 					$revision['*'],
-					$revision['user'],
-					new EditFlags(
+					$pageid,
+					$revision['revid'],
+					new EditInfo(
 						$revision['comment'],
 						array_key_exists( 'minor', $revision ),
 						array_key_exists( 'bot', $revision )
 					),
+					$revision['user'],
 					$revision['timestamp']
 				)
 			);
@@ -142,8 +144,7 @@ class PageRepo {
 				$array['ns']
 			),
 			$array['pageid'],
-			$this->getRevisionsFromResult( $array ),
-			$array['contentmodel']
+			$this->getRevisionsFromResult( $array )
 		);
 	}
 

@@ -9,3 +9,18 @@ mediawiki-api
 Use composer to install the library and all its dependencies:
 
     composer require "addwiki/mediawiki-api:0.1.*"
+
+## Example Usage
+
+```php
+require_once ( __DIR__ . '/vendor/autoload.php' );
+
+$api = new \Mediawiki\Api\MediawikiApi( 'http://localhost/w/api.php' );
+$repo = new Mediawiki\Api\Repos\PageRepo( $api );
+$saver = new \Mediawiki\Api\Savers\RevisionSaver( $api );
+
+$page = $repo->getFromTitle( 'Foo' );
+$newRev = \Mediawiki\Api\DataModel\NewRevision::fromRevision( $page->getRevisions()->getLatest() );
+$newRev->setContent( 'blublub' );
+$saver->save( $newRev );
+```
