@@ -8,7 +8,7 @@ mediawiki-api
 
 Use composer to install the library and all its dependencies:
 
-    composer require "addwiki/mediawiki-api:0.1.*"
+    composer require "addwiki/mediawiki-api:0.2.*"
 
 ## Example Usage
 
