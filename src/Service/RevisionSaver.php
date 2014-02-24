@@ -3,6 +3,7 @@
 namespace Mediawiki\Api\Service;
 
 use Mediawiki\Api\MediawikiApi;
+use Mediawiki\DataModel\EditInfo;
 use Mediawiki\DataModel\Revision;
 use Mediawiki\DataModel\WikitextContent;
 use RuntimeException;
@@ -23,11 +24,12 @@ class RevisionSaver {
 
 	/**
 	 * @param Revision $revision
+	 * @param EditInfo $editInfo
 	 *
 	 * @returns bool success
 	 */
-	public function save( Revision $revision ) {
-		$result = $this->api->postAction( 'edit', $this->getEditParams( $revision ) );
+	public function save( Revision $revision, EditInfo $editInfo = null ) {
+		$result = $this->api->postAction( 'edit', $this->getEditParams( $revision, $editInfo ) );
 		if( $result['edit']['result'] == 'Success' ) {
 			return true;
 		}
@@ -36,11 +38,12 @@ class RevisionSaver {
 
 	/**
 	 * @param Revision $revision
+	 * @param EditInfo $editInfo
 	 *
 	 * @throws RuntimeException
 	 * @returns array
 	 */
-	private function getEditParams( Revision $revision ) {
+	private function getEditParams( Revision $revision, EditInfo $editInfo = null ) {
 		$params = array();
 		$assertions = array();
 
@@ -63,20 +66,33 @@ class RevisionSaver {
 		$params['pageid'] = $revision->getPageId();
 		$params['token'] = $this->api->getToken();
 
-		$editInfo = $revision->getEditInfo();
-		$params['summary'] = $editInfo->getSummary();
-		if( $editInfo->getMinor() ) {
-			$params['minor'] = true;
-		}
-		if( $editInfo->getBot() ) {
-			$params['bot'] = true;
-			$assertions[] = 'bot';
-		}
+		$params = array_merge( $params, $this->getEditInfoParams( $editInfo ) );
+
 		if( $this->api->isLoggedin() ) {
 			$assertions[] = 'user';
 		}
 		if( !empty( $assertions ) ) {
 			$params['assert'] = implode( '|', $assertions );
+		}
+		return $params;
+	}
+
+	/**
+	 * @param null|EditInfo $editInfo
+	 *
+	 * @return array
+	 */
+	private function getEditInfoParams( $editInfo ) {
+		$params = array();
+		if( !is_null( $editInfo ) ) {
+			$params['summary'] = $editInfo->getSummary();
+			if( $editInfo->getMinor() ) {
+				$params['minor'] = true;
+			}
+			if( $editInfo->getBot() ) {
+				$params['bot'] = true;
+				$assertions[] = 'bot';
+			}
 		}
 		return $params;
 	}
