@@ -4,6 +4,7 @@ namespace Mediawiki\Api\Savers;
 
 use Mediawiki\Api\MediawikiApi;
 use Mediawiki\DataModel\Revision;
+use Mediawiki\DataModel\WikitextContent;
 use RuntimeException;
 
 class RevisionSaver {
@@ -42,8 +43,17 @@ class RevisionSaver {
 	private function getEditParams( Revision $revision ) {
 		$params = array();
 		$assertions = array();
-		$params['text'] = $revision->getContent();
-		$params['md5'] = md5( $revision->getContent() );
+
+		$content = $revision->getContent();
+		switch ( $content->getModel() ) {
+			case WikitextContent::contentModel;
+				/** @var $content WikitextContent */
+				$params['text'] = $content->getText();
+				$params['md5'] = md5( $content->getText() );
+				break;
+			default:
+				throw new RuntimeException( 'Dont know how to save content of this model' );
+		}
 
 		$timestamp = $revision->getTimestamp();
 		if( !is_null( $timestamp ) ) {

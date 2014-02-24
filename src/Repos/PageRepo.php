@@ -3,11 +3,14 @@
 namespace Mediawiki\Api\Repos;
 
 use Mediawiki\Api\MediawikiApi;
+use Mediawiki\DataModel\Content;
 use Mediawiki\DataModel\EditInfo;
 use Mediawiki\DataModel\Page;
 use Mediawiki\DataModel\Revision;
 use Mediawiki\DataModel\Revisions;
 use Mediawiki\DataModel\Title;
+use Mediawiki\DataModel\WikitextContent;
+use RuntimeException;
 
 class PageRepo {
 
@@ -116,7 +119,7 @@ class PageRepo {
 		foreach( $array['revisions'] as $revision ) {
 			$revisions->addRevision(
 				new Revision(
-					$revision['*'],
+					$this->getContent( $array['contentmodel'], $revision['*'] ),
 					$pageid,
 					$revision['revid'],
 					new EditInfo(
@@ -130,6 +133,22 @@ class PageRepo {
 			);
 		}
 		return $revisions;
+	}
+
+	/**
+	 * @param string $model
+	 * @param string $content returned from the API
+	 *
+	 * @throws RuntimeException
+	 * @return Content
+	 */
+	public function getContent( $model, $content ) {
+		switch ( $model ) {
+			case WikitextContent::contentModel;
+				return new WikitextContent( $content );
+			default:
+				throw new RuntimeException( 'Unknown Content Model' );
+		}
 	}
 
 	/**

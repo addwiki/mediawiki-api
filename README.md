@@ -12,19 +12,18 @@ On Packagist:
 
 Use composer to install the library and all its dependencies:
 
-    composer require "addwiki/mediawiki-api:0.2.*"
+    composer require "addwiki/mediawiki-api:dev-master"
 
 ## Example Usage
 
 ```php
-require_once ( __DIR__ . '/vendor/autoload.php' );
+require_once ( 'autoload.php' );
 
 $api = new \Mediawiki\Api\MediawikiApi( 'http://localhost/w/api.php' );
 $repo = new Mediawiki\Api\Repos\PageRepo( $api );
 $saver = new \Mediawiki\Api\Savers\RevisionSaver( $api );
 
-$page = $repo->getFromTitle( 'Foo' );
-$newRev = \Mediawiki\Api\DataModel\NewRevision::fromRevision( $page->getRevisions()->getLatest() );
-$newRev->setContent( 'blublub' );
-$saver->save( $newRev );
+$revision = $repo->getFromTitle( 'Foo' )->getRevisions()->getLatest();
+$revision->getContent()->setText( 'NewText' );
+$saver->save( $revision );
 ```
