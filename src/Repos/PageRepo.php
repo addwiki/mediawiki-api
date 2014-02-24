@@ -135,16 +135,24 @@ class PageRepo {
 	/**
 	 * @param array $array
 	 *
-	 * @return Revision
+	 * @return Page
 	 */
 	private function newPageFromResult( $array ) {
+		if( array_key_exists( 'pageid', $array ) ) {
+			$pageid = $array['pageid'];
+			$revisions = $this->getRevisionsFromResult( $array );
+		} else {
+			$pageid = null;
+			$revisions = new Revisions();
+		}
+
 		return new Page(
 			new Title(
 				$array['title'],
 				$array['ns']
 			),
-			$array['pageid'],
-			$this->getRevisionsFromResult( $array )
+			$pageid,
+			$revisions
 		);
 	}
 
