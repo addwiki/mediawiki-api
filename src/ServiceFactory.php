@@ -3,7 +3,9 @@
 namespace Mediawiki\Api;
 
 use Mediawiki\Api\Service\PageDeleter;
+use Mediawiki\Api\Service\PageMover;
 use Mediawiki\Api\Service\PageRepo;
+use Mediawiki\Api\Service\TitleUndeleter;
 use Mediawiki\Api\Service\RevisionSaver;
 use Mediawiki\Api\Service\UserRepo;
 
@@ -47,6 +49,13 @@ class ServiceFactory {
 	 */
 	public function newPageDeleter() {
 		return new PageDeleter( $this->api );
+	}
+
+	/**
+	 * @return PageMover
+	 */
+	public function newPageMover() {
+		return new PageMover( $this->api );
 	}
 
 } 
