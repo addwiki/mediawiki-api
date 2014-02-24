@@ -8,7 +8,9 @@ These are the release notes for the [mediawiki-api](README.md).
 
 * Altered everything for changed in mediawiki-datamodel
 * Removed Edit << action class
-* Introcudes NewEditInfo and NewRevision
+* Introduces NewEditInfo and NewRevision
+* Introduces ServiceFactory
+* PageRepo, RevisionSaver and UserRepo moved to the Service Namespace
 
 ## Version 0.1 (2014-02-23)
 

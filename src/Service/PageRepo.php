@@ -1,6 +1,6 @@
 <?php
 
-namespace Mediawiki\Api\Repos;
+namespace Mediawiki\Api\Service;
 
 use Mediawiki\Api\MediawikiApi;
 use Mediawiki\DataModel\Content;

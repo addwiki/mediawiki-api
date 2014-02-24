@@ -17,13 +17,12 @@ Use composer to install the library and all its dependencies:
 ## Example Usage
 
 ```php
-require_once ( 'autoload.php' );
+require_once( __DIR__ . '/vendor/autoload.php' );
+$services = new \Mediawiki\Api\ServiceFactory(
+	new \Mediawiki\Api\MediawikiApi( 'http://localhost/w/api.php' )
+);
 
-$api = new \Mediawiki\Api\MediawikiApi( 'http://localhost/w/api.php' );
-$repo = new Mediawiki\Api\Repos\PageRepo( $api );
-$saver = new \Mediawiki\Api\Savers\RevisionSaver( $api );
-
-$revision = $repo->getFromTitle( 'Foo' )->getRevisions()->getLatest();
+$revision = $services->newPageRepo()->getFromTitle( 'Foo' )->getRevisions()->getLatest();
 $revision->getContent()->setText( 'NewText' );
-$saver->save( $revision );
+$services->newRevisionSaver()->save( $revision );
 ```
