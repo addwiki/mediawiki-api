@@ -2,6 +2,7 @@
 
 namespace Mediawiki\Api;
 
+use Mediawiki\Api\Service\PageDeleter;
 use Mediawiki\Api\Service\PageRepo;
 use Mediawiki\Api\Service\RevisionSaver;
 use Mediawiki\Api\Service\UserRepo;
@@ -39,6 +40,13 @@ class ServiceFactory {
 	 */
 	public function newUserRepo() {
 		return new UserRepo( $this->api );
+	}
+
+	/**
+	 * @return PageDeleter
+	 */
+	public function newPageDeleter() {
+		return new PageDeleter( $this->api );
 	}
 
 } 
