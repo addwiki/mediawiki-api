@@ -17,12 +17,31 @@ Use composer to install the library and all its dependencies:
 ## Example Usage
 
 ```php
+// Load all the stuff
 require_once( __DIR__ . '/vendor/autoload.php' );
-$services = new \Mediawiki\Api\ServiceFactory(
-	new \Mediawiki\Api\MediawikiApi( 'http://localhost/w/api.php' )
-);
 
-$revision = $services->newPageRepo()->getFromTitle( 'Foo' )->getRevisions()->getLatest();
+// Log in to a wiki
+$api = new \Mediawiki\Api\MediawikiApi( 'http://localhost/w/api.php' );
+$api->login( new \Mediawiki\Api\ApiUser( 'username', 'password' ) );
+$services = new \Mediawiki\Api\ServiceFactory( $api );
+
+// Get a page
+$page = $services->newPageRepo()->getFromTitle( 'Foo' );
+
+// Edit a page
+$revision = $page->getRevisions()->getLatest();
 $revision->getContent()->setText( 'NewText' );
 $services->newRevisionSaver()->save( $revision );
+
+// Move a page
+$services->newPageMover()->move(
+	$services->newPageRepo()->getFromTitle( 'FooBar' ),
+	new Title( 'FooBar' )
+);
+
+// Delete a page
+$services->newPageDeleter()->delete(
+	$services->newPageRepo()->getFromTitle( 'DeleteMe!' ),
+	'Reason for Deletion')
+);
 ```
