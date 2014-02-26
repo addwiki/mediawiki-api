@@ -28,20 +28,32 @@ class PageMover {
 	 * @return bool
 	 */
 	public function move( Page $page, Title $target, $reason = null ) {
-		$this->api->postAction( 'move', $this->getMoveParams( $page, $target, $reason ) );
+		$this->api->postAction( 'move', $this->getMoveParams( $page->getId(), $target, $reason ) );
 		return true;
 	}
 
 	/**
-	 * @param Page $page
+	 * @param int $pageid
+	 * @param Title $target
+	 * @param null $reason
+	 *
+	 * @return bool
+	 */
+	public function moveFromPageId( $pageid, Title $target, $reason = null ) {
+		$this->api->postAction( 'move', $this->getMoveParams( $pageid, $target, $reason ) );
+		return true;
+	}
+
+	/**
+	 * @param int $pageid
 	 * @param Title $target
 	 * @param string|null $reason
 	 *
 	 * @return array
 	 */
-	private function getMoveParams( $page, $target, $reason ) {
+	private function getMoveParams( $pageid, $target, $reason ) {
 		$params = array();
-		$params['fromid'] = $page->getId();
+		$params['fromid'] = $pageid;
 		$params['to'] = $target->getTitle();
 		if( !is_null( $reason ) ) {
 			$params['reason'] = $reason;
