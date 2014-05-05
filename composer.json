@@ -9,10 +9,9 @@
 			"name": "Addshore"
 		}
 	],
-	"minimum-stability":"dev",
 	"require": {
-		"addwiki/guzzle-mediawiki-client": "0.1.*",
-		"addwiki/mediawiki-datamodel": "dev-master"
+		"addwiki/guzzle-mediawiki-client": "~0.1.0",
+		"addwiki/mediawiki-datamodel": "dev-master as 0.3.0"
 	},
 	"autoload": {
 		"psr-4": {
