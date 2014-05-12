@@ -5,7 +5,7 @@ namespace Mediawiki\Api\Test;
 use Mediawiki\Api\Service\ServiceFactory;
 
 /**
- * @covers Mediawiki\Api\ServiceFactory
+ * @covers Mediawiki\Api\Service\ServiceFactory
  */
 class ServiceFactoryTest extends \PHPUnit_Framework_TestCase {
 
