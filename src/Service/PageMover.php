@@ -11,7 +11,7 @@ class PageMover {
 	/**
 	 * @var MediawikiApi
 	 */
-	protected $api;
+	private $api;
 
 	/**
 	 * @param MediawikiApi $api
@@ -21,6 +21,8 @@ class PageMover {
 	}
 
 	/**
+	 * @since 0.2
+	 *
 	 * @param Page $page
 	 * @param Title $target
 	 * @param string|null $reason
@@ -33,6 +35,8 @@ class PageMover {
 	}
 
 	/**
+	 * @since 0.2
+	 *
 	 * @param int $pageid
 	 * @param Title $target
 	 * @param null $reason

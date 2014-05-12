@@ -19,6 +19,8 @@ class PageListRepo {
 	}
 
 	/**
+	 * @since 0.3
+	 *
 	 * @param string $name
 	 * @param bool|int $recursive layers of recursion to do
 	 * @returns array

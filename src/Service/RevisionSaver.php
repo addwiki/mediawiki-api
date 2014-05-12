@@ -13,7 +13,7 @@ class RevisionSaver {
 	/**
 	 * @var MediawikiApi
 	 */
-	protected $api;
+	private $api;
 
 	/**
 	 * @param MediawikiApi $api
@@ -23,6 +23,8 @@ class RevisionSaver {
 	}
 
 	/**
+	 * @since 0.2
+	 *
 	 * @param Revision $revision
 	 * @param EditInfo $editInfo
 	 *

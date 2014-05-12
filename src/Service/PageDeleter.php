@@ -11,7 +11,7 @@ class PageDeleter {
 	/**
 	 * @var MediawikiApi
 	 */
-	protected $api;
+	private $api;
 
 	/**
 	 * @param MediawikiApi $api
@@ -21,6 +21,8 @@ class PageDeleter {
 	}
 
 	/**
+	 * @since 0.2
+	 *
 	 * @param Page $page
 	 * @param null|string $reason
 	 *
@@ -32,6 +34,8 @@ class PageDeleter {
 	}
 
 	/**
+	 * @since 0.2
+	 *
 	 * @param Revision $revision
 	 * @param null|string $reason
 	 *
@@ -43,6 +47,8 @@ class PageDeleter {
 	}
 
 	/**
+	 * @since 0.2
+	 *
 	 * @param int $pageid
 	 * @param null|string $reason
 	 *

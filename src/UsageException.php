@@ -12,7 +12,7 @@ class UsageException extends Exception {
 	/**
 	 * @var string
 	 */
-	protected $apiCode;
+	private $apiCode;
 
 	/**
 	 * @param string $apiCode

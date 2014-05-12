@@ -17,7 +17,7 @@ class PageRepo {
 	/**
 	 * @var MediawikiApi
 	 */
-	protected $api;
+	private $api;
 
 	/**
 	 * @param MediawikiApi $api
@@ -27,6 +27,8 @@ class PageRepo {
 	}
 
 	/**
+	 * @since 0.2
+	 *
 	 * @param int $id
 	 *
 	 * @returns Page
@@ -37,6 +39,8 @@ class PageRepo {
 	}
 
 	/**
+	 * @since 0.2
+	 *
 	 * @param string|Title $title
 	 *
 	 * @returns Page
@@ -50,6 +54,8 @@ class PageRepo {
 	}
 
 	/**
+	 * @since 0.2
+	 *
 	 * @param int $id
 	 *
 	 * @returns Page
@@ -60,6 +66,8 @@ class PageRepo {
 	}
 
 	/**
+	 * @since 0.2
+	 *
 	 * @param Page $page
 	 *
 	 * @return Page
@@ -76,6 +84,8 @@ class PageRepo {
 	}
 
 	/**
+	 * @since 0.2
+	 *
 	 * @param Revision $revision
 	 *
 	 * @return Page
@@ -136,6 +146,8 @@ class PageRepo {
 	}
 
 	/**
+	 * @since 0.2
+	 *
 	 * @param string $model
 	 * @param string $content returned from the API
 	 *

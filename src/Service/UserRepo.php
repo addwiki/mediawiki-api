@@ -10,7 +10,7 @@ class UserRepo {
 	/**
 	 * @var MediawikiApi
 	 */
-	protected $api;
+	private $api;
 
 	/**
 	 * @param MediawikiApi $api
