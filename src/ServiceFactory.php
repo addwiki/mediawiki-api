@@ -74,4 +74,12 @@ class ServiceFactory {
 		return new PageRestorer( $this->api );
 	}
 
+	/**
+	 * @since 0.3
+	 * @return PagePurger
+	 */
+	public function newPagePurger() {
+		return new PagePurger( $this->api );
+	}
+
 } 

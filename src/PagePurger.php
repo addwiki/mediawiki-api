@@ -2,18 +2,36 @@
 
 namespace Mediawiki\Api\Service;
 
+use Mediawiki\Api\MediawikiApi;
 use Mediawiki\DataModel\Page;
 
+/**
+ * @author Thomas Arrow
+ */
 class PagePurger {
+
+	/**
+	 * @var MediawikiApi
+	 */
+	private $api;
+
+	/**
+	 * @param MediawikiApi $api
+	 */
+	public function __construct( MediawikiApi $api ) {
+		$this->api = $api;
+	}
 
 	/**
 	 * @since 0.3
 	 *
 	 * @param Page $page
+	 *
+	 * @return bool
 	 */
 	public function purge( Page $page ) {
-		//TODO implement me
-		throw new \BadMethodCallException( 'Not yet implemented' );
+		$this->api->postAction( 'purge', array( 'pageids' => $page->getId() ) );
+		return true;
 	}
 
 } 
