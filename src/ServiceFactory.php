@@ -1,13 +1,8 @@
 <?php
 
-namespace Mediawiki\Api;
+namespace Mediawiki\Api\Service;
 
-use Mediawiki\Api\Service\PageDeleter;
-use Mediawiki\Api\Service\PageListRepo;
-use Mediawiki\Api\Service\PageMover;
-use Mediawiki\Api\Service\PageRepo;
-use Mediawiki\Api\Service\RevisionSaver;
-use Mediawiki\Api\Service\UserRepo;
+use Mediawiki\Api\MediawikiApi;
 
 class ServiceFactory {
 

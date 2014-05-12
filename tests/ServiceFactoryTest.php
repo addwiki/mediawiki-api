@@ -2,7 +2,7 @@
 
 namespace Mediawiki\Api\Test;
 
-use Mediawiki\Api\ServiceFactory;
+use Mediawiki\Api\Service\ServiceFactory;
 
 /**
  * @covers Mediawiki\Api\ServiceFactory

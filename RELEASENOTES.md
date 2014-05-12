@@ -8,6 +8,8 @@ These are the release notes for the [mediawiki-api](README.md).
 * Introduces PageDeleter service
 * Introduces PageListRepo service
 * Correctly handle non existent users in UserRepo
+* Moved basic api functionality to a separate base lib (mediawiki-api-base)
+* Mediawiki\Api\ServiceFactory moved to Mediawiki\Api\Service\ServiceFactory
 
 
 ## Version 0.2 (2014-02-23)

@@ -10,12 +10,12 @@
 		}
 	],
 	"require": {
-		"addwiki/guzzle-mediawiki-client": "~0.1.0",
+		"addwiki/mediawiki-api-base": "~0.1.0",
 		"addwiki/mediawiki-datamodel": "dev-master as 0.3.0"
 	},
 	"autoload": {
 		"psr-4": {
-			"Mediawiki\\Api\\": "src/"
+			"Mediawiki\\Api\\Service\\": "src/"
 		}
 	}
 }
