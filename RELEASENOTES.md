@@ -7,6 +7,7 @@ These are the release notes for the [mediawiki-api](README.md).
 * PageRepo, RevisionSaver and UserRepo moved to the Service Namespace
 * Introduces PageDeleter service
 * Introduces PageListRepo service
+* Correctly handle non existent users in UserRepo
 
 
 ## Version 0.2 (2014-02-23)

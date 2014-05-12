@@ -41,15 +41,20 @@ class UserRepo {
 	 * @return User
 	 */
 	private function newUserFromListUsersResult( $array ) {
-		return new User(
-			$array['name'],
-			$array['userid'],
-			$array['editcount'],
-			$array['registration'],
-			array_merge( $array['groups'], $array['implicitgroups'] ),
-			$array['rights'],
-			$array['gender']
-		);
+		if( array_key_exists( 'userid', $array ) ) {
+			return new User(
+				$array['name'],
+				$array['userid'],
+				$array['editcount'],
+				$array['registration'],
+				array_merge( $array['groups'], $array['implicitgroups'] ),
+				$array['rights'],
+				$array['gender']
+			);
+		} else {
+			return new User( $array['name'], null, null, null, null, null, null );
+		}
+
 	}
 
 }
