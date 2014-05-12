@@ -6,6 +6,7 @@ These are the release notes for the [mediawiki-api](README.md).
 * Introduces ServiceFactory
 * PageRepo, RevisionSaver and UserRepo moved to the Service Namespace
 * Introduces PageDeleter service
+* Introduces PageListRepo service
 
 
 ## Version 0.2 (2014-02-23)
