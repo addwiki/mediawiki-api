@@ -60,4 +60,11 @@ class ServiceFactory {
 		return new PageListRepo( $this->api );
 	}
 
+	/**
+	 * @return PageRestorer
+	 */
+	public function newPageRestorer() {
+		return new PageRestorer( $this->api );
+	}
+
 } 
