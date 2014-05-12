@@ -5,11 +5,20 @@ These are the release notes for the [mediawiki-api](README.md).
 * Removes NewEditInfo and NewRevision
 * Introduces ServiceFactory
 * PageRepo, RevisionSaver and UserRepo moved to the Service Namespace
-* Introduces PageDeleter service
-* Introduces PageListRepo service
 * Correctly handle non existent users in UserRepo
 * Moved basic api functionality to a separate base lib (mediawiki-api-base)
 * Mediawiki\Api\ServiceFactory moved to Mediawiki\Api\Service\ServiceFactory
+* Introduces PageDeleter service
+* Introduces PageListRepo service
+* Introduces PageProtector service
+* Introduces PagePurger service
+* Introduces RevisionDeleter service
+* Introduces RevisionPatroller service
+* Introduces RevisionRollbacker service
+* Introduces UserBlocker service
+* Introduces UserRightsChanger service
+* Introduces PageRestorer service
+* Introduces RevisionRestorer service
 
 
 ## Version 0.2 (2014-02-23)
