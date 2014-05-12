@@ -19,13 +19,15 @@ class ServiceFactory {
 	}
 
 	/**
-	 * @return \Mediawiki\Api\Service\RevisionSaver
+	 * @since 0.3
+	 * @return RevisionSaver
 	 */
 	public function newRevisionSaver() {
 		return new RevisionSaver( $this->api );
 	}
 
 	/**
+	 * @since 0.3
 	 * @return PageRepo
 	 */
 	public function newPageRepo() {
@@ -33,6 +35,7 @@ class ServiceFactory {
 	}
 
 	/**
+	 * @since 0.3
 	 * @return UserRepo
 	 */
 	public function newUserRepo() {
@@ -40,6 +43,7 @@ class ServiceFactory {
 	}
 
 	/**
+	 * @since 0.3
 	 * @return PageDeleter
 	 */
 	public function newPageDeleter() {
@@ -47,6 +51,7 @@ class ServiceFactory {
 	}
 
 	/**
+	 * @since 0.3
 	 * @return PageMover
 	 */
 	public function newPageMover() {
@@ -54,6 +59,7 @@ class ServiceFactory {
 	}
 
 	/**
+	 * @since 0.3
 	 * @return PageListRepo
 	 */
 	public function newPageListRepo() {
@@ -61,6 +67,7 @@ class ServiceFactory {
 	}
 
 	/**
+	 * @since 0.3
 	 * @return PageRestorer
 	 */
 	public function newPageRestorer() {
