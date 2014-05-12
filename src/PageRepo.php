@@ -12,6 +12,9 @@ use Mediawiki\DataModel\Title;
 use Mediawiki\DataModel\WikitextContent;
 use RuntimeException;
 
+/**
+ * @author Adam Shorland
+ */
 class PageRepo {
 
 	/**

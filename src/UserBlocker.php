@@ -4,6 +4,9 @@ namespace Mediawiki\Api\Service;
 
 use Mediawiki\DataModel\User;
 
+/**
+ * @author Adam Shorland
+ */
 class UserBlocker {
 
 	/**

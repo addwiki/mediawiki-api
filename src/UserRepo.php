@@ -5,6 +5,9 @@ namespace Mediawiki\Api\Service;
 use Mediawiki\Api\MediawikiApi;
 use Mediawiki\DataModel\User;
 
+/**
+ * @author Adam Shorland
+ */
 class UserRepo {
 
 	/**

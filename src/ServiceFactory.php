@@ -4,6 +4,9 @@ namespace Mediawiki\Api\Service;
 
 use Mediawiki\Api\MediawikiApi;
 
+/**
+ * @author Adam Shorland
+ */
 class ServiceFactory {
 
 	/**

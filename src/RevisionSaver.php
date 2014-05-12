@@ -8,6 +8,9 @@ use Mediawiki\DataModel\Revision;
 use Mediawiki\DataModel\WikitextContent;
 use RuntimeException;
 
+/**
+ * @author Adam Shorland
+ */
 class RevisionSaver {
 
 	/**

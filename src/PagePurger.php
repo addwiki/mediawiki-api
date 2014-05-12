@@ -6,6 +6,7 @@ use Mediawiki\Api\MediawikiApi;
 use Mediawiki\DataModel\Page;
 
 /**
+ * @author Adam Shorland
  * @author Thomas Arrow
  */
 class PagePurger {

@@ -4,6 +4,9 @@ namespace Mediawiki\Api\Service;
 
 use Mediawiki\DataModel\Revision;
 
+/**
+ * @author Adam Shorland
+ */
 class RevisionRollbacker {
 
 	/**

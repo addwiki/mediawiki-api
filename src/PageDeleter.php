@@ -6,6 +6,9 @@ use Mediawiki\Api\MediawikiApi;
 use Mediawiki\DataModel\Page;
 use Mediawiki\DataModel\Revision;
 
+/**
+ * @author Adam Shorland
+ */
 class PageDeleter {
 
 	/**

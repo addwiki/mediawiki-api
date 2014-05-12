@@ -6,6 +6,8 @@ use Mediawiki\Api\Service\ServiceFactory;
 
 /**
  * @covers Mediawiki\Api\Service\ServiceFactory
+ *
+ * @author Adam Shorland
  */
 class ServiceFactoryTest extends \PHPUnit_Framework_TestCase {
 
