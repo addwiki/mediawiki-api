@@ -1,13 +1,20 @@
 <?php
 
-namespace Mediawiki\Api\Service;
+namespace Mediawiki\Api;
 
-use Mediawiki\Api\MediawikiApi;
+use Mediawiki\Api\Service\PageDeleter;
+use Mediawiki\Api\Service\PageListRepo;
+use Mediawiki\Api\Service\PageMover;
+use Mediawiki\Api\Service\PagePurger;
+use Mediawiki\Api\Service\PageRepo;
+use Mediawiki\Api\Service\PageRestorer;
+use Mediawiki\Api\Service\RevisionSaver;
+use Mediawiki\Api\Service\UserRepo;
 
 /**
  * @author Adam Shorland
  */
-class ServiceFactory {
+class MediawikiFactory {
 
 	/**
 	 * @var MediawikiApi

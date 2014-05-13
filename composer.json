@@ -15,7 +15,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"Mediawiki\\Api\\Service\\": "src/"
+			"Mediawiki\\Api\\": "src/"
 		}
 	}
 }

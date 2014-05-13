@@ -2,10 +2,10 @@
 
 namespace Mediawiki\Api\Test;
 
-use Mediawiki\Api\Service\ServiceFactory;
+use Mediawiki\Api\MediawikiFactory;
 
 /**
- * @covers Mediawiki\Api\Service\ServiceFactory
+ * @covers Mediawiki\Api\MediawikiFactory
  *
  * @author Adam Shorland
  */
@@ -18,17 +18,17 @@ class ServiceFactoryTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testNewPageRepo() {
-		$factory = new ServiceFactory( $this->getMockMediawikiApi() );
+		$factory = new MediawikiFactory( $this->getMockMediawikiApi() );
 		$this->assertInstanceOf( 'Mediawiki\Api\Service\PageRepo', $factory->newPageRepo() );
 	}
 
 	public function testNewUserRepo() {
-		$factory = new ServiceFactory( $this->getMockMediawikiApi() );
+		$factory = new MediawikiFactory( $this->getMockMediawikiApi() );
 		$this->assertInstanceOf( 'Mediawiki\Api\Service\UserRepo', $factory->newUserRepo() );
 	}
 
 	public function testNewRevisionSaver() {
-		$factory = new ServiceFactory( $this->getMockMediawikiApi() );
+		$factory = new MediawikiFactory( $this->getMockMediawikiApi() );
 		$this->assertInstanceOf( 'Mediawiki\Api\Service\RevisionSaver', $factory->newRevisionSaver() );
 	}
 
