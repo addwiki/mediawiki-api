@@ -7,7 +7,7 @@ use Mediawiki\Api\MediawikiApi;
 /**
  * @author Adam Shorland
  */
-class PageListRepo {
+class PageListGetter {
 
 	/**
 	 * @var MediawikiApi

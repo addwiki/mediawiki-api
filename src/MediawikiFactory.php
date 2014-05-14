@@ -3,14 +3,14 @@
 namespace Mediawiki\Api;
 
 use Mediawiki\Api\Service\PageDeleter;
-use Mediawiki\Api\Service\PageListRepo;
+use Mediawiki\Api\Service\PageListGetter;
 use Mediawiki\Api\Service\PageMover;
 use Mediawiki\Api\Service\PagePurger;
-use Mediawiki\Api\Service\PageRepo;
+use Mediawiki\Api\Service\PageGetter;
 use Mediawiki\Api\Service\PageRestorer;
 use Mediawiki\Api\Service\RevisionRollbacker;
 use Mediawiki\Api\Service\RevisionSaver;
-use Mediawiki\Api\Service\UserRepo;
+use Mediawiki\Api\Service\UserGetter;
 
 /**
  * @author Adam Shorland
@@ -39,18 +39,18 @@ class MediawikiFactory {
 
 	/**
 	 * @since 0.3
-	 * @return PageRepo
+	 * @return PageGetter
 	 */
-	public function newPageRepo() {
-		return new PageRepo( $this->api );
+	public function newPageGetter() {
+		return new PageGetter( $this->api );
 	}
 
 	/**
 	 * @since 0.3
-	 * @return UserRepo
+	 * @return UserGetter
 	 */
-	public function newUserRepo() {
-		return new UserRepo( $this->api );
+	public function newUserGetter() {
+		return new UserGetter( $this->api );
 	}
 
 	/**
@@ -71,10 +71,10 @@ class MediawikiFactory {
 
 	/**
 	 * @since 0.3
-	 * @return PageListRepo
+	 * @return PageListGetter
 	 */
-	public function newPageListRepo() {
-		return new PageListRepo( $this->api );
+	public function newPageListGetter() {
+		return new PageListGetter( $this->api );
 	}
 
 	/**

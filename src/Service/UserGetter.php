@@ -8,7 +8,7 @@ use Mediawiki\DataModel\User;
 /**
  * @author Adam Shorland
  */
-class UserRepo {
+class UserGetter {
 
 	/**
 	 * @var MediawikiApi

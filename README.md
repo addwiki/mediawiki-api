@@ -26,7 +26,7 @@ $api->login( new \Mediawiki\Api\ApiUser( 'username', 'password' ) );
 $services = new \Mediawiki\Api\MediawikiFactory( $api );
 
 // Get a page
-$page = $services->newPageRepo()->getFromTitle( 'Foo' );
+$page = $services->newPageGetter()->getFromTitle( 'Foo' );
 
 // Edit a page
 $revision = $page->getRevisions()->getLatest();
@@ -35,13 +35,13 @@ $services->newRevisionSaver()->save( $revision );
 
 // Move a page
 $services->newPageMover()->move(
-	$services->newPageRepo()->getFromTitle( 'FooBar' ),
+	$services->newPageGetter()->getFromTitle( 'FooBar' ),
 	new Title( 'FooBar' )
 );
 
 // Delete a page
 $services->newPageDeleter()->delete(
-	$services->newPageRepo()->getFromTitle( 'DeleteMe!' ),
+	$services->newPageGetter()->getFromTitle( 'DeleteMe!' ),
 	'Reason for Deletion')
 );
 ```

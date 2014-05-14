@@ -15,7 +15,7 @@ use RuntimeException;
 /**
  * @author Adam Shorland
  */
-class PageRepo {
+class PageGetter {
 
 	/**
 	 * @var MediawikiApi

@@ -17,14 +17,14 @@ class ServiceFactoryTest extends \PHPUnit_Framework_TestCase {
 			->getMock();
 	}
 
-	public function testNewPageRepo() {
+	public function testNewPageGetter() {
 		$factory = new MediawikiFactory( $this->getMockMediawikiApi() );
-		$this->assertInstanceOf( 'Mediawiki\Api\Service\PageRepo', $factory->newPageRepo() );
+		$this->assertInstanceOf( 'Mediawiki\Api\Service\PageGetter', $factory->newPageGetter() );
 	}
 
-	public function testNewUserRepo() {
+	public function testNewUserGetter() {
 		$factory = new MediawikiFactory( $this->getMockMediawikiApi() );
-		$this->assertInstanceOf( 'Mediawiki\Api\Service\UserRepo', $factory->newUserRepo() );
+		$this->assertInstanceOf( 'Mediawiki\Api\Service\UserGetter', $factory->newUserGetter() );
 	}
 
 	public function testNewRevisionSaver() {
