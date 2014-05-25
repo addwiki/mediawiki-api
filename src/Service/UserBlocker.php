@@ -14,7 +14,7 @@ class UserBlocker {
 	 *
 	 * @param User $user
 	 */
-	public function patrol( User $user ) {
+	public function block( User $user ) {
 		//TODO implement me
 		throw new \BadMethodCallException( 'Not yet implemented' );
 	}
