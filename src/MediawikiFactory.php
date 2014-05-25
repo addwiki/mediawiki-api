@@ -8,6 +8,7 @@ use Mediawiki\Api\Service\PageMover;
 use Mediawiki\Api\Service\PagePurger;
 use Mediawiki\Api\Service\PageGetter;
 use Mediawiki\Api\Service\PageRestorer;
+use Mediawiki\Api\Service\RevisionPatroller;
 use Mediawiki\Api\Service\RevisionRollbacker;
 use Mediawiki\Api\Service\RevisionSaver;
 use Mediawiki\Api\Service\UserGetter;
@@ -99,6 +100,14 @@ class MediawikiFactory {
 	 */
 	public function newRevisionRollbacker() {
 		return new RevisionRollbacker( $this->api );
+	}
+
+	/**
+	 * @since 0.3
+	 * @return RevisionPatroller
+	 */
+	public function newRevisionPatroller() {
+		return new RevisionPatroller( $this->api );
 	}
 
 } 
