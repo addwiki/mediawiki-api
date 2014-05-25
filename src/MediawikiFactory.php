@@ -5,13 +5,18 @@ namespace Mediawiki\Api;
 use Mediawiki\Api\Service\PageDeleter;
 use Mediawiki\Api\Service\PageListGetter;
 use Mediawiki\Api\Service\PageMover;
+use Mediawiki\Api\Service\PageProtector;
 use Mediawiki\Api\Service\PagePurger;
 use Mediawiki\Api\Service\PageGetter;
 use Mediawiki\Api\Service\PageRestorer;
+use Mediawiki\Api\Service\RevisionDeleter;
 use Mediawiki\Api\Service\RevisionPatroller;
+use Mediawiki\Api\Service\RevisionRestorer;
 use Mediawiki\Api\Service\RevisionRollbacker;
 use Mediawiki\Api\Service\RevisionSaver;
+use Mediawiki\Api\Service\UserBlocker;
 use Mediawiki\Api\Service\UserGetter;
+use Mediawiki\Api\Service\UserRightsChanger;
 
 /**
  * @author Adam Shorland
@@ -108,6 +113,46 @@ class MediawikiFactory {
 	 */
 	public function newRevisionPatroller() {
 		return new RevisionPatroller( $this->api );
+	}
+
+	/**
+	 * @since 0.3
+	 * @return PageProtector
+	 */
+	public function newPageProtector() {
+		return new PageProtector( $this->api );
+	}
+
+	/**
+	 * @since 0.3
+	 * @return RevisionDeleter
+	 */
+	public function newRevisionDeleter() {
+		return new RevisionDeleter( $this->api );
+	}
+
+	/**
+	 * @since 0.3
+	 * @return RevisionRestorer
+	 */
+	public function newRevisionRestorer() {
+		return new RevisionRestorer( $this->api );
+	}
+
+	/**
+	 * @since 0.3
+	 * @return UserBlocker
+	 */
+	public function newUserBlocker() {
+		return new UserBlocker( $this->api );
+	}
+
+	/**
+	 * @since 0.3
+	 * @return UserRightsChanger
+	 */
+	public function newUserRightsChanger() {
+		return new UserRightsChanger( $this->api );
 	}
 
 } 
