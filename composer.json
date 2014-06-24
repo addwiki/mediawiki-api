@@ -11,7 +11,7 @@
 	],
 	"require": {
 		"addwiki/mediawiki-api-base": "~0.1.0",
-		"addwiki/mediawiki-datamodel": "dev-master as 0.3.0"
+		"addwiki/mediawiki-datamodel": "~0.3.0"
 	},
 	"autoload": {
 		"psr-4": {
