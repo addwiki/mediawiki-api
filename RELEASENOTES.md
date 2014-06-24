@@ -1,6 +1,6 @@
 These are the release notes for the [mediawiki-api](README.md).
 
-## Version 0.3 (under development)
+## Version 0.3 (2014-06-24)
 
 * Removes NewEditInfo and NewRevision
 * Moved basic api functionality to a separate base lib (mediawiki-api-base)

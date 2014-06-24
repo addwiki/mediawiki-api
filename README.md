@@ -12,7 +12,7 @@ On Packagist:
 
 Use composer to install the library and all its dependencies:
 
-    composer require "addwiki/mediawiki-api:dev-master"
+    composer require "addwiki/mediawiki-api:~0.3.0"
 
 ## Example Usage
 
