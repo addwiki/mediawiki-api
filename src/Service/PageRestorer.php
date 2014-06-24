@@ -5,6 +5,7 @@ namespace Mediawiki\Api\Service;
 use Mediawiki\Api\MediawikiApi;
 use Mediawiki\DataModel\Page;
 use Mediawiki\DataModel\Title;
+use OutOfBoundsException;
 
 /**
  * @author Adam Shorland
@@ -67,8 +68,7 @@ class PageRestorer {
 		if( array_key_exists( 'token', $response['query']['deletedrevs'][0] ) ) {
 			return $response['query']['deletedrevs'][0]['token'];
 		} else {
-			//TODO THROW EXCEPTION
-			die();
+			throw new OutOfBoundsException( 'Could not get page undelete token from list=deletedrevs query' );
 		}
 	}
 
