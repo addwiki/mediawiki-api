@@ -6,6 +6,7 @@ use Mediawiki\Api\MediawikiApi;
 use Mediawiki\DataModel\Page;
 use Mediawiki\DataModel\Pages;
 use Mediawiki\DataModel\Revisions;
+use Mediawiki\DataModel\Title;
 
 /**
  * @author Adam Shorland
@@ -53,7 +54,7 @@ class PageListGetter {
 
 			foreach ( $result['query']['categorymembers'] as $member ) {
 				$pages->addPage( new Page(
-						$member['title'],
+						new Title( $member['title'], $member['ns'] ),
 						$member['pageid'],
 						new Revisions()
 					)
@@ -94,7 +95,7 @@ class PageListGetter {
 
 			foreach ( $result['query']['embeddedin'] as $member ) {
 				$pages->addPage( new Page(
-						$member['title'],
+						new Title( $member['title'], $member['ns'] ),
 						$member['pageid'],
 						new Revisions()
 					)

@@ -1,5 +1,9 @@
 These are the release notes for the [mediawiki-api](README.md).
 
+## Version 0.4 (under development)
+
+* Issue#8 PageListGetter methods now construct pages with a Title object rather than string
+
 ## Version 0.3 (2014-06-24)
 
 * Removes NewEditInfo and NewRevision
