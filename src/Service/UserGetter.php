@@ -50,12 +50,20 @@ class UserGetter {
 				$array['userid'],
 				$array['editcount'],
 				$array['registration'],
-				array_merge( $array['groups'], $array['implicitgroups'] ),
+				array( 'groups' => $array['groups'], 'implicitgroups' => $array['implicitgroups'] ),
 				$array['rights'],
 				$array['gender']
 			);
 		} else {
-			return new User( $array['name'], null, null, null, null, null, null );
+			return new User(
+				$array['name'],
+				0,
+				0,
+				'',
+				array( 'groups' => array(), 'implicitgroups' => array() ),
+				array(),
+				''
+			);
 		}
 
 	}
