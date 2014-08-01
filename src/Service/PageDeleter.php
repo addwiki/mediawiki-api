@@ -2,6 +2,7 @@
 
 namespace Mediawiki\Api\Service;
 
+use InvalidArgumentException;
 use Mediawiki\Api\MediawikiApi;
 use Mediawiki\DataModel\Page;
 use Mediawiki\DataModel\Revision;
@@ -17,67 +18,59 @@ class PageDeleter {
 	private $api;
 
 	/**
+	 * @var array
+	 */
+	private $params;
+
+	/**
 	 * @param MediawikiApi $api
 	 */
 	public function __construct( MediawikiApi $api ) {
 		$this->api = $api;
+		return $this;
 	}
 
 	/**
-	 * @since 0.2
+	 * @param Page|Revision|int $target int is for pageid
 	 *
-	 * @param Page $page
-	 * @param null|string $reason
-	 *
-	 * @return bool
+	 * @throws InvalidArgumentException
+	 * @return $this
 	 */
-	public function delete( Page $page, $reason = null ) {
-		$this->api->postAction( 'delete', $this->getDeleteParams( $page->getId(), $reason ) );
-		return true;
-	}
-
-	/**
-	 * @since 0.2
-	 *
-	 * @param Revision $revision
-	 * @param null|string $reason
-	 *
-	 * @return bool
-	 */
-	public function deleteFromRevision( Revision $revision, $reason = null ) {
-		$this->api->postAction( 'delete', $this->getDeleteParams( $revision->getPageId(), $reason ) );
-		return true;
-	}
-
-	/**
-	 * @since 0.2
-	 *
-	 * @param int $pageid
-	 * @param null|string $reason
-	 *
-	 * @return bool
-	 */
-	public function deleteFromPageId( $pageid, $reason = null ) {
-		$this->api->postAction( 'delete', $this->getDeleteParams( $pageid, $reason ) );
-		return true;
-	}
-
-	/**
-	 * @param int $pageid
-	 * @param string|null $reason
-	 *
-	 * @return array
-	 */
-	private function getDeleteParams( $pageid, $reason ) {
-		$params = array();
-
-		if( !is_null( $reason ) ) {
-			$params['reason'] = $reason;
+	public function target( $target ) {
+		if( $target instanceof Page ) {
+			$id = $target->getId();
+		} else if ( $target instanceof Revision ) {
+			$id = $target->getPageId();
+		} else if ( is_int( $target ) ) {
+			$id = $target;
+		} else {
+			throw new InvalidArgumentException( '$target must be a Page Revison or int (pageid)' );
 		}
-		$params['pageid'] = $pageid;
-		$params['token'] = $this->api->getToken( 'delete' );
+		$this->params['pageid'] = $id;
+		return $this;
+	}
 
-		return $params;
+	/**
+	 * @param string $reason
+	 *
+	 * @return $this
+	 * @throws InvalidArgumentException
+	 */
+	public function reason( $reason ) {
+		if( !is_string( $reason ) ) {
+			throw new InvalidArgumentException( '$reason must be a string' );
+		}
+		$this->params['reason'] = $reason;
+		return $this;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function delete() {
+		$this->params['token'] = $this->api->getToken( 'delete' );
+		$this->api->postRequest( 'delete', $this->params );
+		return true;
 	}
 
 } 
