@@ -2,6 +2,7 @@
 
 namespace Mediawiki\Api;
 
+use Mediawiki\Api\Service\LogListGetter;
 use Mediawiki\Api\Service\PageDeleter;
 use Mediawiki\Api\Service\PageListGetter;
 use Mediawiki\Api\Service\PageMover;
@@ -155,4 +156,11 @@ class MediawikiFactory {
 		return new UserRightsChanger( $this->api );
 	}
 
+	/**
+	 * @since 0.4
+	 * @return LogListGetter
+	 */
+	public function newLogListGetter() {
+		return new LogListGetter( $this->api );
+	}
 } 
