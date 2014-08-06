@@ -3,14 +3,11 @@
 namespace Mediawiki\Api\Options;
 
 /**
- * Class ListLogEventsOptions
  * @author Thomas Arrow
- * @package Mediawiki\Api\Options
  */
 class ListLogEventsOptions {
 	/**
 	 * @var string
-	 * @since 0.4
 	 */
 	private $type = '';
 	/**
@@ -116,7 +113,6 @@ class ListLogEventsOptions {
 	/**
 	 * @return string
 	 * @since 0.4
-
 	 */
 	public function getStart()
 	{
