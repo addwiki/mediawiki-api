@@ -6,7 +6,7 @@ namespace Mediawiki\Api\Options;
  * @since 0.4
  * @author Adam Shorland
  */
-class PageRestoreOptions {
+class UndeleteOptions {
 
 	/**
 	 * @var string

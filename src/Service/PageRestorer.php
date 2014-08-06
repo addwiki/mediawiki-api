@@ -3,7 +3,7 @@
 namespace Mediawiki\Api\Service;
 
 use Mediawiki\Api\MediawikiApi;
-use Mediawiki\Api\Options\PageRestoreOptions;
+use Mediawiki\Api\Options\UndeleteOptions;
 use Mediawiki\DataModel\Page;
 use Mediawiki\DataModel\Title;
 use OutOfBoundsException;
@@ -29,18 +29,18 @@ class PageRestorer {
 	 * @since 0.3
 	 *
 	 * @param Page $page
-	 * @param PageRestoreOptions|null $options
+	 * @param UndeleteOptions|null $options
 	 *
 	 * @return bool
 	 */
-	public function restore( Page $page, PageRestoreOptions $options = null ) {
+	public function restore( Page $page, UndeleteOptions $options = null ) {
 		$this->api->postAction( 'undelete', $this->getUndeleteParams( $page->getTitle(), $options ) );
 		return true;
 	}
 
 	/**
 	 * @param Title $title
-	 * @param PageRestoreOptions|null $options
+	 * @param UndeleteOptions|null $options
 	 *
 	 * @return array
 	 */

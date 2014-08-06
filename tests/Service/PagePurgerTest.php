@@ -1,6 +1,6 @@
 <?php
 
-namespace Mediawiki\Api\Service\Test;
+namespace Mediawiki\Api\Test\Service;
 
 use Mediawiki\Api\Service\PagePurger;
 use Mediawiki\DataModel\Page;
