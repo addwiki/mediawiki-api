@@ -3,6 +3,7 @@
 namespace Mediawiki\Api\Service;
 
 use Mediawiki\Api\MediawikiApi;
+use Mediawiki\Api\Options\UserRightsOptions;
 use Mediawiki\DataModel\User;
 
 /**
@@ -28,11 +29,11 @@ class UserRightsChanger {
 	 * @param User $user
 	 * @param string[] $add
 	 * @param string[] $remove
-	 * @param string $reason
+	 * @param UserRightsOptions|null $options
 	 *
 	 * @return bool
 	 */
-	public function change( User $user, $add = array(), $remove = array(), $reason = '' ) {
+	public function change( User $user, $add = array(), $remove = array(), UserRightsOptions $options = null ) {
 		$result = $this->api->postAction( 'query', array(
 			'list' => 'users',
 			'ustoken' => 'userrights',
@@ -43,6 +44,7 @@ class UserRightsChanger {
 			'user' => $user->getName(),
 			'token' => $result['query']['users'][0]['userrightstoken'],
 		);
+		$reason = $options->getReason();
 		if( !empty( $reason ) ) {
 			$params['reason'] = $reason;
 		}

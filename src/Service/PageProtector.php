@@ -4,6 +4,7 @@ namespace Mediawiki\Api\Service;
 
 use InvalidArgumentException;
 use Mediawiki\Api\MediawikiApi;
+use Mediawiki\Api\Options\ProtectOptions;
 use Mediawiki\DataModel\Page;
 
 /**
@@ -28,28 +29,14 @@ class PageProtector {
 	 *
 	 * @param Page $page
 	 * @param string[] $protections where the 'key' is the action and the 'value' is the group
-	 * @param string $expiry
-	 * @param string $reason
-	 * @param bool $cascade
-	 * @param string $watchlist
+	 * @param ProtectOptions $options
 	 *
+	 * @return bool
 	 * @throws InvalidArgumentException
 	 */
-	public function protect( Page $page, $protections, $expiry = 'infinite', $reason = '', $cascade = false, $watchlist = 'preferences' ) {
+	public function protect( Page $page, $protections, ProtectOptions $options = null ) {
 		if( !is_array( $protections) || empty( $protections ) ) {
 			throw new InvalidArgumentException( '$protections must be an array with keys and values' );
-		}
-		if( !is_string( $expiry ) ) {
-			throw new InvalidArgumentException( '$expiry must be a string' );
-		}
-		if( !is_string( $reason ) ) {
-			throw new InvalidArgumentException( '$reason must be a string' );
-		}
-		if( !is_bool( $cascade ) ) {
-			throw new InvalidArgumentException( '$cascade must be either true or false' );
-		}
-		if( !is_string( $watchlist ) ) {
-			throw new InvalidArgumentException( '$watchlist must be a string' );
 		}
 
 		$params = array(
@@ -64,21 +51,21 @@ class PageProtector {
 			$protectionsString = $action . '=' . $value . '|';
 		}
 		$params['protections'] = rtrim( $protectionsString, '|' );
-		if( $expiry !== 'infinite' ) {
-			$params['expiry'] = $expiry;
+		if( $options->getExpiry() !== 'infinite' ) {
+			$params['expiry'] = $options->getExpiry();
 		}
-		if( $reason !== '' ) {
-			$params['reason'] = $reason;
+		if( $options->getReason() !== '' ) {
+			$params['reason'] = $options->getReason();
 		}
-		if( $cascade ) {
+		if( $options->getCascade() ) {
 			$params['cascade'] = '';
 		}
-		if( $watchlist !== 'preferences' ) {
-			$params['watchlist'] = $watchlist;
+		if( $options->getWatchlist() !== 'preferences' ) {
+			$params['watchlist'] = $options->getWatchlist();
 		}
 
-		$value = $this->api->postAction( 'protect', $params );
-		var_dump( $value );die();
+		$this->api->postAction( 'protect', $params );
+		return true;
 	}
 
 } 

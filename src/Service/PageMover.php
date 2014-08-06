@@ -3,6 +3,7 @@
 namespace Mediawiki\Api\Service;
 
 use Mediawiki\Api\MediawikiApi;
+use Mediawiki\Api\Options\MoveOptions;
 use Mediawiki\DataModel\Page;
 use Mediawiki\DataModel\Title;
 
@@ -28,12 +29,12 @@ class PageMover {
 	 *
 	 * @param Page $page
 	 * @param Title $target
-	 * @param string|null $reason
+	 * @param MoveOptions|null $options
 	 *
 	 * @return bool
 	 */
-	public function move( Page $page, Title $target, $reason = null ) {
-		$this->api->postAction( 'move', $this->getMoveParams( $page->getId(), $target, $reason ) );
+	public function move( Page $page, Title $target, MoveOptions $options = null ) {
+		$this->api->postAction( 'move', $this->getMoveParams( $page->getId(), $target, $options ) );
 		return true;
 	}
 
@@ -42,27 +43,29 @@ class PageMover {
 	 *
 	 * @param int $pageid
 	 * @param Title $target
-	 * @param null $reason
+	 * @param MoveOptions|null $options
 	 *
 	 * @return bool
 	 */
-	public function moveFromPageId( $pageid, Title $target, $reason = null ) {
-		$this->api->postAction( 'move', $this->getMoveParams( $pageid, $target, $reason ) );
+	public function moveFromPageId( $pageid, Title $target, MoveOptions $options = null ) {
+		$this->api->postAction( 'move', $this->getMoveParams( $pageid, $target, $options ) );
 		return true;
 	}
 
 	/**
 	 * @param int $pageid
 	 * @param Title $target
-	 * @param string|null $reason
+	 * @param MoveOptions|null $options
 	 *
 	 * @return array
 	 */
-	private function getMoveParams( $pageid, $target, $reason ) {
+	private function getMoveParams( $pageid, $target, $options ) {
 		$params = array();
 		$params['fromid'] = $pageid;
 		$params['to'] = $target->getTitle();
-		if( !is_null( $reason ) ) {
+
+		$reason = $options->getReason();
+		if( !empty( $reason ) ) {
 			$params['reason'] = $reason;
 		}
 		$params['token'] = $this->api->getToken( 'move' );

@@ -3,6 +3,7 @@
 namespace Mediawiki\Api\Service;
 
 use Mediawiki\Api\MediawikiApi;
+use Mediawiki\Api\Options\DeleteOptions;
 use Mediawiki\DataModel\Page;
 use Mediawiki\DataModel\Revision;
 
@@ -27,12 +28,12 @@ class PageDeleter {
 	 * @since 0.2
 	 *
 	 * @param Page $page
-	 * @param null|string $reason
+	 * @param DeleteOptions|null $options
 	 *
 	 * @return bool
 	 */
-	public function delete( Page $page, $reason = null ) {
-		$this->api->postAction( 'delete', $this->getDeleteParams( $page->getId(), $reason ) );
+	public function delete( Page $page, DeleteOptions $options = null ) {
+		$this->api->postAction( 'delete', $this->getDeleteParams( $page->getId(), $options ) );
 		return true;
 	}
 
@@ -40,12 +41,12 @@ class PageDeleter {
 	 * @since 0.2
 	 *
 	 * @param Revision $revision
-	 * @param null|string $reason
+	 * @param DeleteOptions|null $options
 	 *
 	 * @return bool
 	 */
-	public function deleteFromRevision( Revision $revision, $reason = null ) {
-		$this->api->postAction( 'delete', $this->getDeleteParams( $revision->getPageId(), $reason ) );
+	public function deleteFromRevision( Revision $revision, DeleteOptions $options = null ) {
+		$this->api->postAction( 'delete', $this->getDeleteParams( $revision->getPageId(), $options ) );
 		return true;
 	}
 
@@ -53,25 +54,26 @@ class PageDeleter {
 	 * @since 0.2
 	 *
 	 * @param int $pageid
-	 * @param null|string $reason
+	 * @param DeleteOptions|null $options
 	 *
 	 * @return bool
 	 */
-	public function deleteFromPageId( $pageid, $reason = null ) {
-		$this->api->postAction( 'delete', $this->getDeleteParams( $pageid, $reason ) );
+	public function deleteFromPageId( $pageid, DeleteOptions $options = null ) {
+		$this->api->postAction( 'delete', $this->getDeleteParams( $pageid, $options ) );
 		return true;
 	}
 
 	/**
 	 * @param int $pageid
-	 * @param string|null $reason
+	 * @param DeleteOptions|null $options
 	 *
 	 * @return array
 	 */
-	private function getDeleteParams( $pageid, $reason ) {
+	private function getDeleteParams( $pageid, $options ) {
 		$params = array();
 
-		if( !is_null( $reason ) ) {
+		$reason = $options->getReason();
+		if( !empty( $reason ) ) {
 			$params['reason'] = $reason;
 		}
 		$params['pageid'] = $pageid;

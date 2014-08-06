@@ -3,6 +3,8 @@
 namespace Mediawiki\Api\Service;
 
 use Mediawiki\Api\MediawikiApi;
+use Mediawiki\Api\Options\ListCategoryMembersOptions;
+use Mediawiki\Api\Options\ListEmbededInOptions;
 use Mediawiki\DataModel\Page;
 use Mediawiki\DataModel\Pages;
 use Mediawiki\DataModel\Revisions;
@@ -29,10 +31,11 @@ class PageListGetter {
 	 * @since 0.3
 	 *
 	 * @param string $name
-	 * @param bool|int $recursive layers of recursion to do
+	 * @param ListCategoryMembersOptions $options
 	 * @returns Pages
 	 */
-	public function getPageListFromCategoryName( $name, $recursive = false ) {
+	public function getPageListFromCategoryName( $name, ListCategoryMembersOptions $options = null ) {
+		$recursive = $options->getRecursive();
 		if( $recursive ) {
 			//TODO implement recursive behaviour
 			throw new \BadMethodCallException( 'Not yet implemented' );
@@ -73,11 +76,11 @@ class PageListGetter {
 
 	/**
 	 * @param string $pageName
-	 * @param array $namespaces
+	 * @param ListEmbededInOptions $options
 	 *
 	 * @return Pages
 	 */
-	public function getPageListFromPageTransclusions( $pageName, $namespaces= array() ) {
+	public function getPageListFromPageTransclusions( $pageName, ListEmbededInOptions $options = null ) {
 		$continue = '';
 		$pages = new Pages();
 
@@ -86,7 +89,7 @@ class PageListGetter {
 				'list' => 'embeddedin',
 				'eititle' => $pageName,
 				'eilimit' => 500,
-				'einamespace' => implode( '|', $namespaces )
+				'einamespace' => implode( '|', $options->getNamespaces() )
 			);
 			if( !empty( $continue ) ) {
 				$params['eicontinue'] = $continue;

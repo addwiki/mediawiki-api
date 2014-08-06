@@ -3,6 +3,7 @@ These are the release notes for the [mediawiki-api](README.md).
 ## Version 0.4 (under development)
 
 * Issue#8 PageListGetter methods now construct pages with a Title object rather than string
+* Page(Deleter|ListGetter|Mover|Protector|Restorer), User(Blocker|RightsChanger) service methods now require an *Options object rather than a selection of parameters.
 
 ## Version 0.3 (2014-06-24)
 
