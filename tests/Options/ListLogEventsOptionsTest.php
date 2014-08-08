@@ -53,4 +53,11 @@ class ListLogEventsOptionsTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals( 'foo', $obj->getUser() );
 	}
 
+	public function testLimit () {
+		$obj = new ListLogEventsOptions();
+		$this->assertEquals( null, $obj->getLimit() );
+		$this->assertEquals( $obj, $obj->setLimit( 100 ) );
+		$this->assertEquals( 100, $obj->getLimit() );
+	}
+
 }

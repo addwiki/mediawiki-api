@@ -32,20 +32,27 @@ class LogListGetter {
 	 * @return LogList
 	 */
 	public function getLogList ( ListLogEventsOptions $options = null ) {
-		$continue = '';
-		$logList = new LogList();
-
 		if ($options == null ) {
 			$options = new ListLogEventsOptions();
 		}
+
+		$logList = new LogList();
+		$continue = '';
+		$limit = $options->getLimit();
 
 		while ( true ) {
 			$params = $this->getParamsFromOptions( $options );
 			if( !empty( $continue ) ) {
 				$params['lecontinue'] = $continue;
 			}
+			if( $limit === null ) {
+				$params['lelimit'] = 5000;
+			} else {
+				$params['lelimit'] = $limit;
+			}
 
 			$result = $this->api->getAction( 'query', $params );
+			$limit = $limit - count( $result[ 'query' ]['logevents'] );
 
 			foreach ( $result[ 'query' ]['logevents'] as $logevent ) {
 				$logList->addLog(
@@ -60,6 +67,9 @@ class LogListGetter {
 				);
 			}
 
+			if( $limit !== null && $limit <= 0 ) {
+				return $logList;
+			}
 			if ( empty( $result['query-continue']['logevents']['lecontinue'] ) ) {
 				return $logList;
 			} else {
@@ -96,8 +106,6 @@ class LogListGetter {
 		if( $options->getNamespace() !== null ) {
 			$params['lenamespace'] = $options->getNamespace();
 		}
-		//TODO bots should be able to request more than 500 at once!
-		$params['lelimit'] = '500';
 		return $params;
 	}
 

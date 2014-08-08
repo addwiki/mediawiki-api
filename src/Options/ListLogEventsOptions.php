@@ -34,6 +34,10 @@ class ListLogEventsOptions {
 	 * @var string
 	 */
 	private $namespace = null;
+	/**
+	 * @var int|null
+	 */
+	private $limit = null;
 
 	/**
 	 * @param string $action
@@ -178,6 +182,25 @@ class ListLogEventsOptions {
 	public function getUser()
 	{
 		return $this->user;
+	}
+
+	/**
+	 * @since 0.4
+	 * @return int|null
+	 */
+	public function getLimit() {
+		return $this->limit;
+	}
+
+	/**
+	 * @since 0.4
+	 * @param int $limit
+	 *
+	 * @return $this
+	 */
+	public function setLimit( $limit ) {
+		$this->limit = $limit;
+		return $this;
 	}
 
 }
