@@ -36,7 +36,7 @@ class LogListGetter {
 			$options = new ListLogEventsOptions();
 		}
 		$params = array( 'list' => 'logevents' );
-		$params['leprop'] = 'namespace|title|ids|type|user|timestamp|comment|details';
+		$params['leprop'] = 'title|ids|type|user|timestamp|comment|details';
 		if( $options->getType() != '' ) {
 			$params['letype'] = $options->getType();
 		}
@@ -55,7 +55,7 @@ class LogListGetter {
 		if( $options->getUser() != '' ) {
 		$params['leuser'] = $options->getUser();
 		}
-		if( $options->getNamespace() != '' ) {
+		if( $options->getNamespace() !== null ) {
 		$params['lenamespace'] = $options->getNamespace();
 		}
 		$result = $this->api->getAction( 'query', $params );
