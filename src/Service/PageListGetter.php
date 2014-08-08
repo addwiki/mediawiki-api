@@ -35,6 +35,10 @@ class PageListGetter {
 	 * @returns Pages
 	 */
 	public function getPageListFromCategoryName( $name, ListCategoryMembersOptions $options = null ) {
+		if( is_null( $options ) ) {
+			$options = new ListCategoryMembersOptions();
+		}
+
 		$recursive = $options->getRecursive();
 		if( $recursive ) {
 			//TODO implement recursive behaviour
@@ -42,18 +46,25 @@ class PageListGetter {
 		}
 
 		$continue = '';
+		$limit = $options->getLimit();
 		$pages = new Pages();
 
 		while ( true ) {
 			$params = array(
 				'list' => 'categorymembers',
 				'cmtitle' => $name,
-				'cmlimit' => 500,
 			);
 			if( !empty( $continue ) ) {
 				$params['cmcontinue'] = $continue;
 			}
+			if( $limit === null ) {
+				$params['cmlimit'] = 5000;
+			} else {
+				$params['cmlimit'] = $limit;
+			}
+
 			$result = $this->api->getAction( 'query', $params );
+			$limit = $limit - count( $result[ 'query' ]['categorymembers'] );
 
 			foreach ( $result['query']['categorymembers'] as $member ) {
 				$pages->addPage( new Page(
@@ -62,6 +73,10 @@ class PageListGetter {
 						new Revisions()
 					)
 				);
+			}
+
+			if( $limit !== null && $limit <= 0 ) {
+				return $pages;
 			}
 			if ( empty( $result['query-continue']['categorymembers']['cmcontinue'] ) ) {
 				if ( $recursive ) {
@@ -81,20 +96,30 @@ class PageListGetter {
 	 * @return Pages
 	 */
 	public function getPageListFromPageTransclusions( $pageName, ListEmbededInOptions $options = null ) {
+		if( is_null( $options ) ) {
+			$options = new ListEmbededInOptions();
+		}
+
 		$continue = '';
+		$limit = $options->getLimit();
 		$pages = new Pages();
 
 		while ( true ) {
 			$params = array(
 				'list' => 'embeddedin',
 				'eititle' => $pageName,
-				'eilimit' => 500,
 				'einamespace' => implode( '|', $options->getNamespaces() )
 			);
 			if( !empty( $continue ) ) {
 				$params['eicontinue'] = $continue;
 			}
+			if( $limit === null ) {
+				$params['eilimit'] = 5000;
+			} else {
+				$params['eilimit'] = $limit;
+			}
 			$result = $this->api->getAction( 'query', $params );
+			$limit = $limit - count( $result[ 'query' ]['embeddedin'] );
 
 			foreach ( $result['query']['embeddedin'] as $member ) {
 				$pages->addPage( new Page(
@@ -103,6 +128,10 @@ class PageListGetter {
 						new Revisions()
 					)
 				);
+			}
+
+			if( $limit !== null && $limit <= 0 ) {
+				return $pages;
 			}
 			if ( empty( $result['query-continue']['embeddedin']['eicontinue'] ) ) {
 				return $pages;

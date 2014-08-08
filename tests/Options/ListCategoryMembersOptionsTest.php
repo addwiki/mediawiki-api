@@ -17,4 +17,11 @@ class ListCategoryMembersOptionsTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals( true, $obj->getRecursive() );
 	}
 
+	public function testLimit () {
+		$obj = new ListCategoryMembersOptions();
+		$this->assertEquals( null, $obj->getLimit() );
+		$this->assertEquals( $obj, $obj->setLimit( 100 ) );
+		$this->assertEquals( 100, $obj->getLimit() );
+	}
+
 } 

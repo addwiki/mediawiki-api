@@ -12,6 +12,10 @@ class ListCategoryMembersOptions {
 	 * @var bool|int number of layers of recursion to do
 	 */
 	private $recursive = false;
+	/**
+	 * @var int|null
+	 */
+	private $limit = null;
 
 	/**
 	 * @since 0.4
@@ -32,6 +36,25 @@ class ListCategoryMembersOptions {
 	 */
 	public function getRecursive() {
 		return $this->recursive;
+	}
+
+	/**
+	 * @since 0.4
+	 * @return int|null
+	 */
+	public function getLimit() {
+		return $this->limit;
+	}
+
+	/**
+	 * @since 0.4
+	 * @param int $limit
+	 *
+	 * @return $this
+	 */
+	public function setLimit( $limit ) {
+		$this->limit = $limit;
+		return $this;
 	}
 
 } 

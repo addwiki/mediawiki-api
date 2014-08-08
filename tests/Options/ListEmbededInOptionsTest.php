@@ -17,4 +17,11 @@ class ListEmbededInOptionsTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals( array( 1 ), $obj->getNamespaces() );
 	}
 
+	public function testLimit () {
+		$obj = new ListEmbededInOptions();
+		$this->assertEquals( null, $obj->getLimit() );
+		$this->assertEquals( $obj, $obj->setLimit( 100 ) );
+		$this->assertEquals( 100, $obj->getLimit() );
+	}
+
 } 
