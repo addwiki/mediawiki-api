@@ -63,7 +63,9 @@ class LogListGetter {
 						$logevent['timestamp'],
 						$logevent['user'],
 						new Page( new Title( $logevent['title'], $logevent['ns']), $logevent['pageid'], new Revisions() ),
-						$logevent['comment'])
+						$logevent['comment'],
+						$this->getLogDetailsFromEvent( $logevent )
+					)
 				);
 			}
 
@@ -76,6 +78,27 @@ class LogListGetter {
 				$continue = $result['query-continue']['logevents']['lecontinue'];
 			}
 		}
+	}
+
+	/**
+	 * @param array $event
+	 *
+	 * @return array
+	 */
+	private function getLogDetailsFromEvent( $event ) {
+		$ignoreKeys = array_flip( array(
+			'logid',
+			'ns',
+			'title',
+			'pageid',
+			'logpage',
+			'type',
+			'action',
+			'user',
+			'type',
+			'timestamp',
+			'comment' ) );
+		return array_diff_key( $event, $ignoreKeys );
 	}
 
 	/**
