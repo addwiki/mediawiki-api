@@ -32,46 +32,73 @@ class LogListGetter {
 	 * @return LogList
 	 */
 	public function getLogList ( ListLogEventsOptions $options = null ) {
+		$continue = '';
+		$logList = new LogList();
+
 		if ($options == null ) {
 			$options = new ListLogEventsOptions();
 		}
+
+		while ( true ) {
+			$params = $this->getParamsFromOptions( $options );
+			if( !empty( $continue ) ) {
+				$params['lecontinue'] = $continue;
+			}
+
+			$result = $this->api->getAction( 'query', $params );
+
+			foreach ( $result[ 'query' ]['logevents'] as $logevent ) {
+				$logList->addLog(
+					new Log(
+						$logevent['logid'],
+						$logevent['type'],
+						$logevent['action'],
+						$logevent['timestamp'],
+						$logevent['user'],
+						new Page( new Title( $logevent['title'], $logevent['ns']), $logevent['pageid'], new Revisions() ),
+						$logevent['comment'])
+				);
+			}
+
+			if ( empty( $result['query-continue']['logevents']['lecontinue'] ) ) {
+				return $logList;
+			} else {
+				$continue = $result['query-continue']['logevents']['lecontinue'];
+			}
+		}
+	}
+
+	/**
+	 * @param ListLogEventsOptions $options
+	 * @return array
+	 */
+	private function getParamsFromOptions( $options ) {
 		$params = array( 'list' => 'logevents' );
 		$params['leprop'] = 'title|ids|type|user|timestamp|comment|details';
-		if( $options->getType() != '' ) {
+		if( $options->getType() !== '' ) {
 			$params['letype'] = $options->getType();
 		}
-		if( $options->getAction() != '' ) {
-		$params['leaction'] = $options->getAction();
+		if( $options->getAction() !== '' ) {
+			$params['leaction'] = $options->getAction();
 		}
-		if( $options->getStart() != '' ) {
-		$params['lestart'] = $options->getStart();
+		if( $options->getStart() !== '' ) {
+			$params['lestart'] = $options->getStart();
 		}
-		if( $options->getEnd() != '' ) {
-		$params['leend'] = $options->getEnd();
+		if( $options->getEnd() !== '' ) {
+			$params['leend'] = $options->getEnd();
 		}
-		if( $options->getTitle() != '' ) {
-		$params['letitle'] = $options->getTitle();
+		if( $options->getTitle() !== '' ) {
+			$params['letitle'] = $options->getTitle();
 		}
-		if( $options->getUser() != '' ) {
-		$params['leuser'] = $options->getUser();
+		if( $options->getUser() !== '' ) {
+			$params['leuser'] = $options->getUser();
 		}
 		if( $options->getNamespace() !== null ) {
-		$params['lenamespace'] = $options->getNamespace();
+			$params['lenamespace'] = $options->getNamespace();
 		}
-		$result = $this->api->getAction( 'query', $params );
-		$loglist = new LogList();
-		foreach ( $result[ 'query' ]['logevents'] as $logevent ) {
-			$loglist->addLog(
-				new Log(
-					$logevent['logid'],
-					$logevent['type'],
-					$logevent['action'],
-					$logevent['timestamp'],
-					$logevent['user'],
-					new Page( new Title( $logevent['title'], $logevent['ns']), $logevent['pageid'], new Revisions() ),
-					$logevent['comment'])
-			);
-		}
-		return $loglist;
+		//TODO bots should be able to request more than 500 at once!
+		$params['lelimit'] = '500';
+		return $params;
 	}
+
 } 
