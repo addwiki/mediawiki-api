@@ -3,6 +3,7 @@
 namespace Mediawiki\Api\Service;
 
 use Mediawiki\Api\MediawikiApi;
+use Mediawiki\Api\Options\QueryOptions;
 use Mediawiki\DataModel\Content;
 use Mediawiki\DataModel\EditInfo;
 use Mediawiki\DataModel\Page;
@@ -33,11 +34,15 @@ class PageGetter {
 	 * @since 0.2
 	 *
 	 * @param int $id
+	 * @param QueryOptions|null $options
 	 *
 	 * @returns Page
 	 */
-	public function getFromRevisionId( $id ) {
-		$result = $this->api->getAction( 'query', $this->getQuery( array( 'revids' => $id ) ) );
+	public function getFromRevisionId( $id, QueryOptions $options = null ) {
+		if( is_null( $options ) ) {
+			$options = new QueryOptions();
+		}
+		$result = $this->api->getAction( 'query', $this->getQuery( array( 'revids' => $id ), $options ) );
 		return $this->newPageFromResult( array_shift( $result['query']['pages'] ) );
 	}
 
@@ -45,14 +50,18 @@ class PageGetter {
 	 * @since 0.2
 	 *
 	 * @param string|Title $title
+	 * @param QueryOptions|null $options
 	 *
 	 * @returns Page
 	 */
-	public function getFromTitle( $title ) {
+	public function getFromTitle( $title, QueryOptions $options = null ) {
+		if( is_null( $options ) ) {
+			$options = new QueryOptions();
+		}
 		if( $title instanceof Title ) {
 			$title = $title->getTitle();
 		}
-		$result = $this->api->getAction( 'query', $this->getQuery( array( 'titles' => $title ) ) );
+		$result = $this->api->getAction( 'query', $this->getQuery( array( 'titles' => $title ), $options ) );
 		return $this->newPageFromResult( array_shift( $result['query']['pages'] ) );
 	}
 
@@ -60,11 +69,15 @@ class PageGetter {
 	 * @since 0.2
 	 *
 	 * @param int $id
+	 * @param QueryOptions|null $options
 	 *
 	 * @returns Page
 	 */
-	public function getFromPageId( $id ) {
-		$result = $this->api->getAction( 'query', $this->getQuery( array( 'pageids' => $id ) ) );
+	public function getFromPageId( $id, QueryOptions $options = null ) {
+		if( is_null( $options ) ) {
+			$options = new QueryOptions();
+		}
+		$result = $this->api->getAction( 'query', $this->getQuery( array( 'pageids' => $id ), $options ) );
 		return $this->newPageFromResult( array_shift( $result['query']['pages'] ) );
 	}
 
@@ -72,11 +85,15 @@ class PageGetter {
 	 * @since 0.2
 	 *
 	 * @param Page $page
+	 * @param QueryOptions|null $options
 	 *
 	 * @return Page
 	 */
-	public function getFromPage( Page $page ) {
-		$result = $this->api->getAction( 'query', $this->getQuery( array( 'pageids' => $page->getId() ) ) );
+	public function getFromPage( Page $page, QueryOptions $options = null ) {
+		if( is_null( $options ) ) {
+			$options = new QueryOptions();
+		}
+		$result = $this->api->getAction( 'query', $this->getQuery( array( 'pageids' => $page->getId() ), $options ) );
 		$revisions = $this->getRevisionsFromResult( array_shift( $result['query']['pages'] ) );
 		$revisions->addRevisions( $page->getRevisions() );
 		return new Page(
@@ -90,11 +107,15 @@ class PageGetter {
 	 * @since 0.2
 	 *
 	 * @param Revision $revision
+	 * @param QueryOptions|null $options
 	 *
 	 * @return Page
 	 */
-	public function getFromRevision( Revision $revision ) {
-		$result = $this->api->getAction( 'query', $this->getQuery( array( 'revids' => $revision->getId() ) ) );
+	public function getFromRevision( Revision $revision, QueryOptions $options = null ) {
+		if( is_null( $options ) ) {
+			$options = new QueryOptions();
+		}
+		$result = $this->api->getAction( 'query', $this->getQuery( array( 'revids' => $revision->getId() ), $options ) );
 		$revisions = $this->getRevisionsFromResult( array_shift( $result['query']['pages'] ) );
 		$revisions->addRevision( $revision );
 		return new Page(
@@ -110,14 +131,19 @@ class PageGetter {
 	/**
 	 * @param array $additionalParams
 	 *
+	 * @param QueryOptions $options
+	 *
 	 * @return array
 	 */
-	private function getQuery( $additionalParams ) {
+	private function getQuery( $additionalParams, QueryOptions $options ) {
 		$base = array(
 			'prop' => 'revisions|info|pageprops',
 			'rvprop' => 'ids|flags|timestamp|user|size|sha1|comment|content|tags',
 			'inprop' => 'protection',
 		);
+		if( $options->getFollowRedirects() ) {
+			$base['redirects'] = '';
+		}
 		return array_merge( $base, $additionalParams );
 	}
 
