@@ -202,7 +202,7 @@ class PageGetter {
 			$pageid = $array['pageid'];
 			$revisions = $this->getRevisionsFromResult( $array );
 		} else {
-			$pageid = null;
+			$pageid = 0;
 			$revisions = new Revisions();
 		}
 
