@@ -83,6 +83,26 @@ class PageGetter {
 	}
 
 	/**
+	 * @since 0.4
+	 *
+	 * @param PageIdentifier $pageIdentifier
+	 * @param QueryOptions|null $options
+	 *
+	 * @throws RuntimeException
+	 * @returns Page
+	 */
+	public function getFromPageIdentifier( PageIdentifier $pageIdentifier, QueryOptions $options = null ) {
+		if( !$pageIdentifier->identifiesPage() ) {
+			throw new RuntimeException( '$pageIdentifier does not identify a page' );
+		}
+		if( !is_null( $pageIdentifier->getId() ) ) {
+			return $this->getFromPageId( $pageIdentifier->getId(), $options );
+		} else {
+			return $this->getFromTitle( $pageIdentifier->getTitle(), $options );
+		}
+	}
+
+	/**
 	 * @since 0.2
 	 *
 	 * @param Page $page

@@ -32,4 +32,25 @@ class IntegrationTest extends IntegrationTestBase {
 		);
 	}
 
+	/**
+	 * This is testGetPageUsingTitle as currently we only know the title
+	 * @depends testCreatePage
+	 */
+	public function testGetPageUsingTitle() {
+		$page = $this->factory->newPageGetter()->getFromPageIdentifier( self::$localPageIdentifier );
+		$this->assertTrue( is_int( $page->getPageIdentifier()->getId() ) );
+		$this->assertEquals( self::$localPageIdentifier->getTitle(), $page->getPageIdentifier()->getTitle() );
+		$this->assertEquals( 'testCreatePage_content', $page->getRevisions()->getLatest()->getContent()->getNativeData() );
+		self::$localPageIdentifier = $page->getPageIdentifier();
+	}
+
+	/**
+	 * @depends testGetPageUsingTitle
+	 */
+	public function testGetPageUsingId() {
+		$page = $this->factory->newPageGetter()->getFromPageId( self::$localPageIdentifier->getId() );
+		$this->assertEquals( self::$localPageIdentifier->getId(), $page->getPageIdentifier()->getId() );
+		$this->assertEquals( self::$localPageIdentifier->getTitle(), $page->getPageIdentifier()->getTitle() );
+	}
+
 }
