@@ -49,6 +49,10 @@ class RevisionSaver {
 	 * @returns array
 	 */
 	private function getEditParams( Revision $revision, EditInfo $editInfo = null ) {
+		if( !$revision->getPageIdentifier()->identifiesPage() ) {
+			throw new RuntimeException( '$revision PageIdentifier does not identify a page' );
+		}
+
 		$params = array();
 		$assertions = array();
 
@@ -68,7 +72,12 @@ class RevisionSaver {
 			$params['basetimestamp'] = $timestamp;
 		}
 
-		$params['pageid'] = $revision->getPageId();
+		if( !is_null( $revision->getPageIdentifier()->getId() ) ) {
+			$params['pageid'] = $revision->getPageIdentifier()->getId();
+		} else {
+			$params['title'] = $revision->getPageIdentifier()->getTitle()->getTitle();
+		}
+
 		$params['token'] = $this->api->getToken();
 
 		$params = array_merge( $params, $this->getEditInfoParams( $editInfo ) );

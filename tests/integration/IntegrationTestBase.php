@@ -21,7 +21,7 @@ class IntegrationTestBase extends \PHPUnit_Framework_TestCase {
 
 	// Needed to stop phpunit complaining
 	public function testFactory() {
-		$this->assertInstanceOf( 'Wikibase\Api\MediawikiFactory', $this->factory );
+		$this->assertInstanceOf( 'Mediawiki\Api\MediawikiFactory', $this->factory );
 	}
 
 	protected function tearDown() {
