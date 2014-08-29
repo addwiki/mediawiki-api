@@ -6,6 +6,7 @@ use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\Options\ListCategoryMembersOptions;
 use Mediawiki\Api\Options\ListEmbededInOptions;
 use Mediawiki\DataModel\Page;
+use Mediawiki\DataModel\PageIdentifier;
 use Mediawiki\DataModel\Pages;
 use Mediawiki\DataModel\Revisions;
 use Mediawiki\DataModel\Title;
@@ -68,8 +69,10 @@ class PageListGetter {
 
 			foreach ( $result['query']['categorymembers'] as $member ) {
 				$pages->addPage( new Page(
-						new Title( $member['title'], $member['ns'] ),
-						$member['pageid'],
+						new PageIdentifier(
+							new Title( $member['title'], $member['ns'] ),
+							$member['pageid']
+						),
 						new Revisions()
 					)
 				);
@@ -123,8 +126,10 @@ class PageListGetter {
 
 			foreach ( $result['query']['embeddedin'] as $member ) {
 				$pages->addPage( new Page(
-						new Title( $member['title'], $member['ns'] ),
-						$member['pageid'],
+						new PageIdentifier(
+							new Title( $member['title'], $member['ns'] ),
+							$member['pageid']
+						),
 						new Revisions()
 					)
 				);

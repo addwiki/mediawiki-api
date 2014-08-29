@@ -4,6 +4,7 @@ namespace Mediawiki\Api\Test\Service;
 
 use Mediawiki\Api\Service\PagePurger;
 use Mediawiki\DataModel\Page;
+use Mediawiki\DataModel\PageIdentifier;
 use Mediawiki\DataModel\Revisions;
 use Mediawiki\DataModel\Title;
 
@@ -38,8 +39,10 @@ class PagePurgerTest extends \PHPUnit_Framework_TestCase {
 		$service = new PagePurger( $api );
 
 		$page = new Page(
-			new Title( 'Foo', 0 ),
-			123,
+			new PageIdentifier(
+				new Title( 'Foo', 0 ),
+				123
+			),
 			new Revisions( array() )
 		);
 

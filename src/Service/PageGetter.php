@@ -7,6 +7,7 @@ use Mediawiki\Api\Options\QueryOptions;
 use Mediawiki\DataModel\Content;
 use Mediawiki\DataModel\EditInfo;
 use Mediawiki\DataModel\Page;
+use Mediawiki\DataModel\PageIdentifier;
 use Mediawiki\DataModel\Revision;
 use Mediawiki\DataModel\Revisions;
 use Mediawiki\DataModel\Title;
@@ -97,8 +98,7 @@ class PageGetter {
 		$revisions = $this->getRevisionsFromResult( array_shift( $result['query']['pages'] ) );
 		$revisions->addRevisions( $page->getRevisions() );
 		return new Page(
-			$page->getTitle(),
-			$page->getId(),
+			$page->getPageIdentifier(),
 			$revisions
 		);
 	}
@@ -119,11 +119,13 @@ class PageGetter {
 		$revisions = $this->getRevisionsFromResult( array_shift( $result['query']['pages'] ) );
 		$revisions->addRevision( $revision );
 		return new Page(
-			new Title(
-				$result['title'],
-				$result['ns']
+			new PageIdentifier(
+				new Title(
+					$result['title'],
+					$result['ns']
+				),
+				$result['pageid']
 			),
-			$result['pageid'],
 			$revisions
 		);
 	}
@@ -159,7 +161,7 @@ class PageGetter {
 			$revisions->addRevision(
 				new Revision(
 					$this->getContent( $array['contentmodel'], $revision['*'] ),
-					$pageid,
+					new PageIdentifier( null, $pageid ),
 					$revision['revid'],
 					new EditInfo(
 						$revision['comment'],
@@ -207,11 +209,13 @@ class PageGetter {
 		}
 
 		return new Page(
-			new Title(
-				$array['title'],
-				$array['ns']
+			new PageIdentifier(
+				new Title(
+					$array['title'],
+					$array['ns']
+				),
+				$pageid
 			),
-			$pageid,
 			$revisions
 		);
 	}

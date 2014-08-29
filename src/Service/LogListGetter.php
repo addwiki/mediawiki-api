@@ -7,6 +7,7 @@ use Mediawiki\Api\Options\ListLogEventsOptions;
 use Mediawiki\DataModel\Log;
 use Mediawiki\DataModel\LogList;
 use Mediawiki\DataModel\Page;
+use Mediawiki\DataModel\PageIdentifier;
 use Mediawiki\DataModel\Revisions;
 use Mediawiki\DataModel\Title;
 
@@ -62,7 +63,13 @@ class LogListGetter {
 						$logevent['action'],
 						$logevent['timestamp'],
 						$logevent['user'],
-						new Page( new Title( $logevent['title'], $logevent['ns']), $logevent['pageid'], new Revisions() ),
+						new Page(
+							new PageIdentifier(
+								new Title( $logevent['title'], $logevent['ns'] ),
+								$logevent['pageid']
+							),
+							new Revisions()
+						),
 						$logevent['comment'],
 						$this->getLogDetailsFromEvent( $logevent )
 					)
