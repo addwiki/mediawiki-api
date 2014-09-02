@@ -2,11 +2,10 @@
 
 namespace Mediawiki\Api\Test;
 
-use Mediawiki\DataModel\EditInfo;
+use Mediawiki\DataModel\Content;
 use Mediawiki\DataModel\PageIdentifier;
 use Mediawiki\DataModel\Revision;
 use Mediawiki\DataModel\Title;
-use Mediawiki\DataModel\WikitextContent;
 
 class IntegrationTest extends IntegrationTestBase {
 
@@ -24,7 +23,7 @@ class IntegrationTest extends IntegrationTestBase {
 		$this->assertTrue(
 			$this->factory->newRevisionSaver()->save(
 				new Revision(
-					new WikitextContent( 'testCreatePage_content' ),
+					new Content( 'testCreatePage_content' ),
 					self::$localPageIdentifier
 				)
 			),
@@ -40,7 +39,7 @@ class IntegrationTest extends IntegrationTestBase {
 		$page = $this->factory->newPageGetter()->getFromPageIdentifier( self::$localPageIdentifier );
 		$this->assertTrue( is_int( $page->getPageIdentifier()->getId() ) );
 		$this->assertEquals( self::$localPageIdentifier->getTitle(), $page->getPageIdentifier()->getTitle() );
-		$this->assertEquals( 'testCreatePage_content', $page->getRevisions()->getLatest()->getContent()->getNativeData() );
+		$this->assertEquals( 'testCreatePage_content', $page->getRevisions()->getLatest()->getContent()->getData() );
 		self::$localPageIdentifier = $page->getPageIdentifier();
 	}
 

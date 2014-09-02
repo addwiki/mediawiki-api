@@ -11,7 +11,6 @@ use Mediawiki\DataModel\PageIdentifier;
 use Mediawiki\DataModel\Revision;
 use Mediawiki\DataModel\Revisions;
 use Mediawiki\DataModel\Title;
-use Mediawiki\DataModel\WikitextContent;
 use RuntimeException;
 
 /**
@@ -206,12 +205,7 @@ class PageGetter {
 	 * @return Content
 	 */
 	public function getContent( $model, $content ) {
-		switch ( $model ) {
-			case WikitextContent::contentModel;
-				return new WikitextContent( $content );
-			default:
-				throw new RuntimeException( 'Unknown Content Model' );
-		}
+		return new Content( $content, $model );
 	}
 
 	/**
