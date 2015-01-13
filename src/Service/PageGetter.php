@@ -196,15 +196,13 @@ class PageGetter {
 	}
 
 	/**
-	 * @since 0.2
-	 *
 	 * @param string $model
 	 * @param string $content returned from the API
 	 *
 	 * @throws RuntimeException
 	 * @return Content
 	 */
-	public function getContent( $model, $content ) {
+	private function getContent( $model, $content ) {
 		return new Content( $content, $model );
 	}
 
