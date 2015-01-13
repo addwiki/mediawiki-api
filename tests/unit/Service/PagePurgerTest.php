@@ -29,10 +29,9 @@ class PagePurgerTest extends \PHPUnit_Framework_TestCase {
 	public function testPurgePage() {
 		$api = $this->getMockApi();
 		$api->expects( $this->once() )
-			->method( 'postAction' )
+			->method( 'postRequest' )
 			->with(
-				$this->equalTo( 'purge' ),
-				$this->equalTo( array( 'pageids' => 123 ) )
+				$this->isInstanceOf( '\Mediawiki\Api\SimpleRequest' )
 			)
 			->will( $this->returnValue( 'SOME no error RESULT' ) );
 

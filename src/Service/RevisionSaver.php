@@ -3,6 +3,7 @@
 namespace Mediawiki\Api\Service;
 
 use Mediawiki\Api\MediawikiApi;
+use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\EditInfo;
 use Mediawiki\DataModel\Revision;
 use RuntimeException;
@@ -33,7 +34,7 @@ class RevisionSaver {
 	 * @returns bool success
 	 */
 	public function save( Revision $revision, EditInfo $editInfo = null ) {
-		$result = $this->api->postAction( 'edit', $this->getEditParams( $revision, $editInfo ) );
+		$result = $this->api->postRequest( new SimpleRequest( 'edit', $this->getEditParams( $revision, $editInfo ) ) );
 		if( $result['edit']['result'] == 'Success' ) {
 			return true;
 		}

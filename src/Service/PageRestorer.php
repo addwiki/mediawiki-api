@@ -4,6 +4,7 @@ namespace Mediawiki\Api\Service;
 
 use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\Options\UndeleteOptions;
+use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\Page;
 use Mediawiki\DataModel\Title;
 use OutOfBoundsException;
@@ -34,7 +35,7 @@ class PageRestorer {
 	 * @return bool
 	 */
 	public function restore( Page $page, UndeleteOptions $options = null ) {
-		$this->api->postAction( 'undelete', $this->getUndeleteParams( $page->getTitle(), $options ) );
+		$this->api->postRequest( new SimpleRequest( 'undelete', $this->getUndeleteParams( $page->getTitle(), $options ) ) );
 		return true;
 	}
 
@@ -64,11 +65,11 @@ class PageRestorer {
 	 * @returns string
 	 */
 	private function getUndeleteToken( Title $title ) {
-		$response = $this->api->postAction( 'query', array(
+		$response = $this->api->postRequest( new SimpleRequest( 'query', array(
 			'list' => 'deletedrevs',
 			'titles' => $title->getTitle(),
 			'drprop' => 'token'
-		) );
+		) ) );
 		if( array_key_exists( 'token', $response['query']['deletedrevs'][0] ) ) {
 			return $response['query']['deletedrevs'][0]['token'];
 		} else {

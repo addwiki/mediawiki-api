@@ -3,6 +3,7 @@
 namespace Mediawiki\Api\Service;
 
 use Mediawiki\Api\MediawikiApi;
+use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\Revision;
 use Mediawiki\DataModel\Title;
 
@@ -32,7 +33,7 @@ class RevisionRollbacker {
 	 * @return bool
 	 */
 	public function rollback( Revision $revision, Title $title = null ) {
-		$this->api->postAction( 'rollback', $this->getRollbackParams( $revision, $title ) );
+		$this->api->postRequest( new SimpleRequest( 'rollback', $this->getRollbackParams( $revision, $title ) ) );
 		return true;
 	}
 
@@ -62,11 +63,11 @@ class RevisionRollbacker {
 	 * @returns string
 	 */
 	private function getTokenForRevision( Revision $revision ) {
-		$result = $this->api->postAction( 'query', array(
+		$result = $this->api->postRequest( new SimpleRequest( 'query', array(
 			'prop' => 'revisions',
 			'revids' => $revision->getId(),
 			'rvtoken' => 'rollback',
-		) );
+		) ) );
 		$result = array_shift( $result['query']['pages'] );
 		return $result['revisions'][0]['rollbacktoken'];
 	}

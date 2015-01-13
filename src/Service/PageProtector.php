@@ -5,6 +5,7 @@ namespace Mediawiki\Api\Service;
 use InvalidArgumentException;
 use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\Options\ProtectOptions;
+use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\Page;
 
 /**
@@ -64,7 +65,7 @@ class PageProtector {
 			$params['watchlist'] = $options->getWatchlist();
 		}
 
-		$this->api->postAction( 'protect', $params );
+		$this->api->postRequest( new SimpleRequest( 'protect', $params ) );
 		return true;
 	}
 

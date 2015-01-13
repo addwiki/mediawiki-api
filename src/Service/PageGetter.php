@@ -4,6 +4,7 @@ namespace Mediawiki\Api\Service;
 
 use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\Options\QueryOptions;
+use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\Content;
 use Mediawiki\DataModel\EditInfo;
 use Mediawiki\DataModel\Page;
@@ -42,7 +43,7 @@ class PageGetter {
 		if( is_null( $options ) ) {
 			$options = new QueryOptions();
 		}
-		$result = $this->api->getAction( 'query', $this->getQuery( array( 'revids' => $id ), $options ) );
+		$result = $this->api->getRequest( new SimpleRequest( 'query', $this->getQuery( array( 'revids' => $id ), $options ) ) );
 		return $this->newPageFromResult( array_shift( $result['query']['pages'] ) );
 	}
 
@@ -61,7 +62,7 @@ class PageGetter {
 		if( $title instanceof Title ) {
 			$title = $title->getTitle();
 		}
-		$result = $this->api->getAction( 'query', $this->getQuery( array( 'titles' => $title ), $options ) );
+		$result = $this->api->getRequest( new SimpleRequest( 'query', $this->getQuery( array( 'titles' => $title ), $options ) ) );
 		return $this->newPageFromResult( array_shift( $result['query']['pages'] ) );
 	}
 
@@ -77,7 +78,7 @@ class PageGetter {
 		if( is_null( $options ) ) {
 			$options = new QueryOptions();
 		}
-		$result = $this->api->getAction( 'query', $this->getQuery( array( 'pageids' => $id ), $options ) );
+		$result = $this->api->getRequest( new SimpleRequest( 'query', $this->getQuery( array( 'pageids' => $id ), $options ) ) );
 		return $this->newPageFromResult( array_shift( $result['query']['pages'] ) );
 	}
 
@@ -113,7 +114,7 @@ class PageGetter {
 		if( is_null( $options ) ) {
 			$options = new QueryOptions();
 		}
-		$result = $this->api->getAction( 'query', $this->getQuery( array( 'pageids' => $page->getId() ), $options ) );
+		$result = $this->api->getRequest( new SimpleRequest( 'query', $this->getQuery( array( 'pageids' => $page->getId() ), $options ) ) );
 		$revisions = $this->getRevisionsFromResult( array_shift( $result['query']['pages'] ) );
 		$revisions->addRevisions( $page->getRevisions() );
 		return new Page(
@@ -134,7 +135,7 @@ class PageGetter {
 		if( is_null( $options ) ) {
 			$options = new QueryOptions();
 		}
-		$result = $this->api->getAction( 'query', $this->getQuery( array( 'revids' => $revision->getId() ), $options ) );
+		$result = $this->api->getRequest( new SimpleRequest( 'query', $this->getQuery( array( 'revids' => $revision->getId() ), $options ) ) );
 		$revisions = $this->getRevisionsFromResult( array_shift( $result['query']['pages'] ) );
 		$revisions->addRevision( $revision );
 		return new Page(

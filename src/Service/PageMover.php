@@ -4,6 +4,7 @@ namespace Mediawiki\Api\Service;
 
 use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\Options\MoveOptions;
+use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\Page;
 use Mediawiki\DataModel\Title;
 
@@ -34,7 +35,7 @@ class PageMover {
 	 * @return bool
 	 */
 	public function move( Page $page, Title $target, MoveOptions $options = null ) {
-		$this->api->postAction( 'move', $this->getMoveParams( $page->getId(), $target, $options ) );
+		$this->api->postRequest( new SimpleRequest( 'move', $this->getMoveParams( $page->getId(), $target, $options ) ) );
 		return true;
 	}
 
@@ -48,7 +49,7 @@ class PageMover {
 	 * @return bool
 	 */
 	public function moveFromPageId( $pageid, Title $target, MoveOptions $options = null ) {
-		$this->api->postAction( 'move', $this->getMoveParams( $pageid, $target, $options ) );
+		$this->api->postRequest( new SimpleRequest( 'move', $this->getMoveParams( $pageid, $target, $options ) ) );
 		return true;
 	}
 

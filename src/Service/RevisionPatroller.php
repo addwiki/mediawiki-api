@@ -3,6 +3,7 @@
 namespace Mediawiki\Api\Service;
 
 use Mediawiki\Api\MediawikiApi;
+use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\Revision;
 
 /**
@@ -30,10 +31,11 @@ class RevisionPatroller {
 	 * @return bool success
 	 */
 	public function patrol( Revision $revision ) {
-		$this->api->postAction( 'patrol', array(
-			'revid' => $revision->getId(),
-			'token' => $this->getTokenForRevision( $revision ),
-		) );
+		$this->api->postRequest( new SimpleRequest(
+			'patrol', array(
+				'revid' => $revision->getId(),
+				'token' => $this->getTokenForRevision( $revision ),
+			) ) );
 		return true;
 	}
 
@@ -43,12 +45,12 @@ class RevisionPatroller {
 	 * @returns string
 	 */
 	private function getTokenForRevision( Revision $revision ) {
-		$result = $this->api->postAction( 'query', array(
+		$result = $this->api->postRequest( new SimpleRequest( 'query', array(
 			'list' => 'recentchanges',
 			'rcstart' => $revision->getTimestamp(),
 			'rcend' => $revision->getTimestamp(),
 			'rctoken' => 'patrol',
-		) );
+		) ) );
 		$result = array_shift( $result['query']['recentchanges'] );
 		return $result['patroltoken'];
 	}

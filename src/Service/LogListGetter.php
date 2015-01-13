@@ -4,6 +4,7 @@ namespace Mediawiki\Api\Service;
 
 use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\Options\ListLogEventsOptions;
+use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\Log;
 use Mediawiki\DataModel\LogList;
 use Mediawiki\DataModel\Page;
@@ -52,7 +53,7 @@ class LogListGetter {
 				$params['lelimit'] = $limit;
 			}
 
-			$result = $this->api->getAction( 'query', $params );
+			$result = $this->api->getRequest( new SimpleRequest( 'query', $params ) );
 			$limit = $limit - count( $result[ 'query' ]['logevents'] );
 
 			foreach ( $result[ 'query' ]['logevents'] as $logevent ) {

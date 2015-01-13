@@ -4,6 +4,7 @@ namespace Mediawiki\Api\Service;
 
 use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\Options\DeleteOptions;
+use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\Page;
 use Mediawiki\DataModel\Revision;
 
@@ -33,7 +34,7 @@ class PageDeleter {
 	 * @return bool
 	 */
 	public function delete( Page $page, DeleteOptions $options = null ) {
-		$this->api->postAction( 'delete', $this->getDeleteParams( $page->getId(), $options ) );
+		$this->api->postRequest( new SimpleRequest( 'delete', $this->getDeleteParams( $page->getId(), $options ) ) );
 		return true;
 	}
 
@@ -46,7 +47,7 @@ class PageDeleter {
 	 * @return bool
 	 */
 	public function deleteFromRevision( Revision $revision, DeleteOptions $options = null ) {
-		$this->api->postAction( 'delete', $this->getDeleteParams( $revision->getPageId(), $options ) );
+		$this->api->postRequest( new SimpleRequest( 'delete', $this->getDeleteParams( $revision->getPageIdentifier()->getId(), $options ) ) );
 		return true;
 	}
 
@@ -59,7 +60,7 @@ class PageDeleter {
 	 * @return bool
 	 */
 	public function deleteFromPageId( $pageid, DeleteOptions $options = null ) {
-		$this->api->postAction( 'delete', $this->getDeleteParams( $pageid, $options ) );
+		$this->api->postRequest( new SimpleRequest( 'delete', $this->getDeleteParams( $pageid, $options ) ) );
 		return true;
 	}
 

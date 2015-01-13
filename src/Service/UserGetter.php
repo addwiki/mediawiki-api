@@ -3,6 +3,7 @@
 namespace Mediawiki\Api\Service;
 
 use Mediawiki\Api\MediawikiApi;
+use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\User;
 
 /**
@@ -28,12 +29,12 @@ class UserGetter {
 	 * @returns User
 	 */
 	public function getFromUsername( $username ) {
-		$result = $this->api->getAction(
-			'query', array(
+		$result = $this->api->getRequest(
+			new SimpleRequest( 'query', array(
 				'list' => 'users',
 				'ususers' => $username,
 				'usprop' => 'gender|emailable|registration|editcount|rights|implicitgroups|groups|blockinfo',
-				 )
+			) )
 		);
 		return $this->newUserFromListUsersResult( array_shift( $result['query']['users'] ) );
 	}

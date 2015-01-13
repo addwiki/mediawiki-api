@@ -6,6 +6,7 @@ use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\Options\ListCategoryMembersOptions;
 use Mediawiki\Api\Options\ListEmbededInOptions;
 use Mediawiki\Api\Options\ListRandomOptions;
+use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\Page;
 use Mediawiki\DataModel\PageIdentifier;
 use Mediawiki\DataModel\Pages;
@@ -65,7 +66,7 @@ class PageListGetter {
 				$params['cmlimit'] = $limit;
 			}
 
-			$result = $this->api->getAction( 'query', $params );
+			$result = $this->api->getRequest( new SimpleRequest( 'query', $params ) );
 			$limit = $limit - count( $result[ 'query' ]['categorymembers'] );
 
 			foreach ( $result['query']['categorymembers'] as $member ) {
@@ -122,7 +123,7 @@ class PageListGetter {
 			} else {
 				$params['eilimit'] = $limit;
 			}
-			$result = $this->api->getAction( 'query', $params );
+			$result = $this->api->getRequest( new SimpleRequest( 'query', $params ) );
 			$limit = $limit - count( $result[ 'query' ]['embeddedin'] );
 
 			foreach ( $result['query']['embeddedin'] as $member ) {
@@ -176,7 +177,7 @@ class PageListGetter {
 			} else {
 				$params['rnlimit'] = $limit;
 			}
-			$result = $this->api->getAction( 'query', $params );
+			$result = $this->api->getRequest( new SimpleRequest( 'query', $params ) );
 			$limit = $limit - count( $result['query']['random'] );
 
 			foreach ( $result['query']['random'] as $member ) {

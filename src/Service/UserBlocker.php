@@ -5,6 +5,7 @@ namespace Mediawiki\Api\Service;
 use InvalidArgumentException;
 use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\Options\BlockOptions;
+use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\User;
 
 /**
@@ -78,7 +79,7 @@ class UserBlocker {
 			$params['allowusertalk'] = '';
 		}
 
-		$this->api->postAction( 'block', $params );
+		$this->api->postRequest( new SimpleRequest( 'block', $params ) );
 		return true;
 	}
 

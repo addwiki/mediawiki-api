@@ -3,6 +3,7 @@
 namespace Mediawiki\Api\Service;
 
 use Mediawiki\Api\MediawikiApi;
+use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\Page;
 
 /**
@@ -31,7 +32,7 @@ class PagePurger {
 	 * @return bool
 	 */
 	public function purge( Page $page ) {
-		$this->api->postAction( 'purge', array( 'pageids' => $page->getId() ) );
+		$this->api->postRequest( new SimpleRequest( 'purge', array( 'pageids' => $page->getId() ) ) );
 		return true;
 	}
 
