@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit bootstrap="./bootstrap.php" colors="true">
+<!-- convertWarningsToExceptions is false as real API calls can return un expected warnings -->
+<phpunit
+        bootstrap="./bootstrap.php"
+        colors="true"
+        convertWarningsToExceptions="false"
+        >
 	<testsuites>
 		<testsuite name="addwiki/mediawiki-api/integration">
 			<directory suffix="Test.php">.</directory>
