@@ -6,6 +6,7 @@ use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\Options\DeleteOptions;
 use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\Page;
+use Mediawiki\DataModel\PageIdentifier;
 use Mediawiki\DataModel\Revision;
 
 /**
@@ -34,7 +35,10 @@ class PageDeleter {
 	 * @return bool
 	 */
 	public function delete( Page $page, DeleteOptions $options = null ) {
-		$this->api->postRequest( new SimpleRequest( 'delete', $this->getDeleteParams( $page->getId(), $options ) ) );
+		$this->api->postRequest( new SimpleRequest(
+			'delete',
+			$this->getDeleteParams( $page->getPageIdentifier(), $options )
+		) );
 		return true;
 	}
 
@@ -47,7 +51,10 @@ class PageDeleter {
 	 * @return bool
 	 */
 	public function deleteFromRevision( Revision $revision, DeleteOptions $options = null ) {
-		$this->api->postRequest( new SimpleRequest( 'delete', $this->getDeleteParams( $revision->getPageIdentifier()->getId(), $options ) ) );
+		$this->api->postRequest( new SimpleRequest(
+			'delete',
+			$this->getDeleteParams( $revision->getPageIdentifier(), $options )
+		) );
 		return true;
 	}
 
@@ -60,24 +67,35 @@ class PageDeleter {
 	 * @return bool
 	 */
 	public function deleteFromPageId( $pageid, DeleteOptions $options = null ) {
-		$this->api->postRequest( new SimpleRequest( 'delete', $this->getDeleteParams( $pageid, $options ) ) );
+		$this->api->postRequest( new SimpleRequest(
+			'delete',
+			$this->getDeleteParams( new PageIdentifier( null, $pageid ), $options )
+		) );
 		return true;
 	}
 
 	/**
-	 * @param int $pageid
+	 * @param PageIdentifier $identifier
 	 * @param DeleteOptions|null $options
 	 *
 	 * @return array
 	 */
-	private function getDeleteParams( $pageid, $options ) {
+	private function getDeleteParams( PageIdentifier $identifier, $options ) {
 		$params = array();
 
-		$reason = $options->getReason();
-		if( !empty( $reason ) ) {
-			$params['reason'] = $reason;
+		if( !is_null( $options ) ) {
+			$reason = $options->getReason();
+			if( !empty( $reason ) ) {
+				$params['reason'] = $reason;
+			}
 		}
-		$params['pageid'] = $pageid;
+
+		if( !is_null( $identifier->getId() ) ) {
+			$params['pageid'] = $identifier->getId();
+		} else {
+			$params['title'] = $identifier->getTitle()->getTitle();
+		}
+
 		$params['token'] = $this->api->getToken( 'delete' );
 
 		return $params;
