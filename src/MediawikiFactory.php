@@ -17,6 +17,7 @@ use Mediawiki\Api\Service\RevisionRollbacker;
 use Mediawiki\Api\Service\RevisionSaver;
 use Mediawiki\Api\Service\RevisionUndoer;
 use Mediawiki\Api\Service\UserBlocker;
+use Mediawiki\Api\Service\UserCreator;
 use Mediawiki\Api\Service\UserGetter;
 use Mediawiki\Api\Service\UserRightsChanger;
 
@@ -163,6 +164,14 @@ class MediawikiFactory {
 	 */
 	public function newUserRightsChanger() {
 		return new UserRightsChanger( $this->api );
+	}
+
+	/**
+	 * @since 0.5
+	 * @return UserCreator
+	 */
+	public function newUserCreator() {
+		return new UserCreator( $this->api );
 	}
 
 	/**

@@ -35,6 +35,7 @@ class MediawikiFactoryTest extends \PHPUnit_Framework_TestCase {
 			array( 'Mediawiki\Api\Service\RevisionRestorer', 'newRevisionRestorer' ),
 			array( 'Mediawiki\Api\Service\UserBlocker', 'newUserBlocker' ),
 			array( 'Mediawiki\Api\Service\UserRightsChanger', 'newUserRightsChanger' ),
+			array( 'Mediawiki\Api\Service\UserCreator', 'newUserCreator' ),
 			array( 'Mediawiki\Api\Service\LogListGetter', 'newLogListGetter' ),
 		);
 	}
