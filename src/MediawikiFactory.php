@@ -15,6 +15,7 @@ use Mediawiki\Api\Service\RevisionPatroller;
 use Mediawiki\Api\Service\RevisionRestorer;
 use Mediawiki\Api\Service\RevisionRollbacker;
 use Mediawiki\Api\Service\RevisionSaver;
+use Mediawiki\Api\Service\RevisionUndoer;
 use Mediawiki\Api\Service\UserBlocker;
 use Mediawiki\Api\Service\UserGetter;
 use Mediawiki\Api\Service\UserRightsChanger;
@@ -42,6 +43,14 @@ class MediawikiFactory {
 	 */
 	public function newRevisionSaver() {
 		return new RevisionSaver( $this->api );
+	}
+
+	/**
+	 * @since 0.5
+	 * @return RevisionUndoer
+	 */
+	public function newRevisionUndoer() {
+		return new RevisionUndoer( $this->api );
 	}
 
 	/**

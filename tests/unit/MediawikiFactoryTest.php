@@ -32,4 +32,9 @@ class ServiceFactoryTest extends \PHPUnit_Framework_TestCase {
 		$this->assertInstanceOf( 'Mediawiki\Api\Service\RevisionSaver', $factory->newRevisionSaver() );
 	}
 
+	public function testNewRevisionUndoer() {
+		$factory = new MediawikiFactory( $this->getMockMediawikiApi() );
+		$this->assertInstanceOf( 'Mediawiki\Api\Service\RevisionUndoer', $factory->newRevisionUndoer() );
+	}
+
 } 
