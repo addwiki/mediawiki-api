@@ -2,6 +2,7 @@
 
 namespace Mediawiki\Api;
 
+use Mediawiki\Api\Service\FileUploader;
 use Mediawiki\Api\Service\LogListGetter;
 use Mediawiki\Api\Service\PageDeleter;
 use Mediawiki\Api\Service\PageListGetter;
@@ -189,5 +190,13 @@ class MediawikiFactory {
 	 */
 	public function newLogListGetter() {
 		return new LogListGetter( $this->api );
+	}
+
+	/**
+	 * @since 0.5
+	 * @return FileUploader
+	 */
+	public function newFileUploader() {
+		return new FileUploader( $this->api );
 	}
 } 

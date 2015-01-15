@@ -4,7 +4,9 @@ These are the release notes for the [mediawiki-api](README.md).
 
 * Introduces RevisionUndoer service
 * Introduces UserCreator service
-
+* Introduces FileUploader service
+* Using mediawiki-api-base 0.6
+* Using mediawiki-datamodel 0.3
 
 ## Version 0.4 (13 January 2015)
 

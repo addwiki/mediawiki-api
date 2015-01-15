@@ -10,8 +10,8 @@
 		}
 	],
 	"require": {
-		"addwiki/mediawiki-api-base": "~0.2.0",
-		"addwiki/mediawiki-datamodel": "~0.5.0"
+		"addwiki/mediawiki-api-base": "dev-master as 0.3",
+		"addwiki/mediawiki-datamodel": "dev-master as 0.6"
 	},
 	"autoload": {
 		"psr-4": {
