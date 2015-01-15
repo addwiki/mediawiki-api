@@ -181,7 +181,7 @@ class PageGetter {
 			$revisions->addRevision(
 				new Revision(
 					$this->getContent( $array['contentmodel'], $revision['*'] ),
-					new PageIdentifier( null, $pageid ),
+					new PageIdentifier( new Title( $array['title'], $array['ns'] ), $pageid ),
 					$revision['revid'],
 					new EditInfo(
 						$revision['comment'],
