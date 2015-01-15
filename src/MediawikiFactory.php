@@ -10,6 +10,7 @@ use Mediawiki\Api\Service\PageProtector;
 use Mediawiki\Api\Service\PagePurger;
 use Mediawiki\Api\Service\PageGetter;
 use Mediawiki\Api\Service\PageRestorer;
+use Mediawiki\Api\Service\PageWatcher;
 use Mediawiki\Api\Service\RevisionDeleter;
 use Mediawiki\Api\Service\RevisionPatroller;
 use Mediawiki\Api\Service\RevisionRestorer;
@@ -132,6 +133,14 @@ class MediawikiFactory {
 	 */
 	public function newPageProtector() {
 		return new PageProtector( $this->api );
+	}
+
+	/**
+	 * @since 0.5
+	 * @return PageWatcher
+	 */
+	public function newPageWatcher() {
+		return new PageWatcher( $this->api );
 	}
 
 	/**
