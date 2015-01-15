@@ -3,6 +3,7 @@
 namespace Mediawiki\Api;
 
 use Mediawiki\Api\Service\FileUploader;
+use Mediawiki\Api\Service\ImageRotator;
 use Mediawiki\Api\Service\LogListGetter;
 use Mediawiki\Api\Service\PageDeleter;
 use Mediawiki\Api\Service\PageListGetter;
@@ -198,5 +199,13 @@ class MediawikiFactory {
 	 */
 	public function newFileUploader() {
 		return new FileUploader( $this->api );
+	}
+
+	/**
+	 * @since 0.5
+	 * @return ImageRotator
+	 */
+	public function newImageRotator() {
+		return new ImageRotator( $this->api );
 	}
 } 
