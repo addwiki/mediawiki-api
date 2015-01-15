@@ -8,6 +8,7 @@ use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\Page;
 use Mediawiki\DataModel\PageIdentifier;
 use Mediawiki\DataModel\Revision;
+use Mediawiki\DataModel\Title;
 
 /**
  * @author Adam Shorland
@@ -70,6 +71,25 @@ class PageDeleter {
 		$this->api->postRequest( new SimpleRequest(
 			'delete',
 			$this->getDeleteParams( new PageIdentifier( null, $pageid ), $options )
+		) );
+		return true;
+	}
+
+	/**
+	 * @since 0.5
+	 *
+	 * @param Title|string $title
+	 * @param DeleteOptions|null $options
+	 *
+	 * @return bool
+	 */
+	public function deleteFromPageTitle( $title, DeleteOptions $options = null ) {
+		if( is_string( $title ) ) {
+			$title = new Title( $title );
+		}
+		$this->api->postRequest( new SimpleRequest(
+			'delete',
+			$this->getDeleteParams( new PageIdentifier( $title ), $options )
 		) );
 		return true;
 	}
