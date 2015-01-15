@@ -9,7 +9,7 @@ use Mediawiki\Api\MediawikiFactory;
  *
  * @author Adam Shorland
  */
-class ServiceFactoryTest extends \PHPUnit_Framework_TestCase {
+class MediawikiFactoryTest extends \PHPUnit_Framework_TestCase {
 
 	public function getMockMediawikiApi() {
 		return $this->getMockBuilder( 'Mediawiki\Api\MediawikiApi' )
@@ -17,24 +17,34 @@ class ServiceFactoryTest extends \PHPUnit_Framework_TestCase {
 			->getMock();
 	}
 
-	public function testNewPageGetter() {
-		$factory = new MediawikiFactory( $this->getMockMediawikiApi() );
-		$this->assertInstanceOf( 'Mediawiki\Api\Service\PageGetter', $factory->newPageGetter() );
+	public function provideFactoryMethodsTest() {
+		return array(
+			array( 'Mediawiki\Api\Service\RevisionSaver', 'newRevisionSaver' ),
+			array( 'Mediawiki\Api\Service\RevisionUndoer', 'newRevisionUndoer' ),
+			array( 'Mediawiki\Api\Service\PageGetter', 'newPageGetter' ),
+			array( 'Mediawiki\Api\Service\UserGetter', 'newUserGetter' ),
+			array( 'Mediawiki\Api\Service\PageDeleter', 'newPageDeleter' ),
+			array( 'Mediawiki\Api\Service\PageMover', 'newPageMover' ),
+			array( 'Mediawiki\Api\Service\PageListGetter', 'newPageListGetter' ),
+			array( 'Mediawiki\Api\Service\PageRestorer', 'newPageRestorer' ),
+			array( 'Mediawiki\Api\Service\PagePurger', 'newPagePurger' ),
+			array( 'Mediawiki\Api\Service\RevisionRollbacker', 'newRevisionRollbacker' ),
+			array( 'Mediawiki\Api\Service\RevisionPatroller', 'newRevisionPatroller' ),
+			array( 'Mediawiki\Api\Service\PageProtector', 'newPageProtector' ),
+			array( 'Mediawiki\Api\Service\RevisionDeleter', 'newRevisionDeleter' ),
+			array( 'Mediawiki\Api\Service\RevisionRestorer', 'newRevisionRestorer' ),
+			array( 'Mediawiki\Api\Service\UserBlocker', 'newUserBlocker' ),
+			array( 'Mediawiki\Api\Service\UserRightsChanger', 'newUserRightsChanger' ),
+			array( 'Mediawiki\Api\Service\LogListGetter', 'newLogListGetter' ),
+		);
 	}
 
-	public function testNewUserGetter() {
+	/**
+	 * @dataProvider provideFactoryMethodsTest
+	 */
+	public function testFactoryMethod( $class, $method ) {
 		$factory = new MediawikiFactory( $this->getMockMediawikiApi() );
-		$this->assertInstanceOf( 'Mediawiki\Api\Service\UserGetter', $factory->newUserGetter() );
-	}
-
-	public function testNewRevisionSaver() {
-		$factory = new MediawikiFactory( $this->getMockMediawikiApi() );
-		$this->assertInstanceOf( 'Mediawiki\Api\Service\RevisionSaver', $factory->newRevisionSaver() );
-	}
-
-	public function testNewRevisionUndoer() {
-		$factory = new MediawikiFactory( $this->getMockMediawikiApi() );
-		$this->assertInstanceOf( 'Mediawiki\Api\Service\RevisionUndoer', $factory->newRevisionUndoer() );
+		$this->assertInstanceOf( $class, $factory->$method() );
 	}
 
 } 
