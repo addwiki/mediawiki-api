@@ -67,6 +67,9 @@ class PageListGetter {
 			}
 
 			$result = $this->api->getRequest( new SimpleRequest( 'query', $params ) );
+			if( !array_key_exists( 'query', $result ) ) {
+				return $pages;
+			}
 			$limit = $limit - count( $result[ 'query' ]['categorymembers'] );
 
 			foreach ( $result['query']['categorymembers'] as $member ) {
@@ -124,6 +127,9 @@ class PageListGetter {
 				$params['eilimit'] = $limit;
 			}
 			$result = $this->api->getRequest( new SimpleRequest( 'query', $params ) );
+			if( !array_key_exists( 'query', $result ) ) {
+				return $pages;
+			}
 			$limit = $limit - count( $result[ 'query' ]['embeddedin'] );
 
 			foreach ( $result['query']['embeddedin'] as $member ) {
@@ -144,6 +150,54 @@ class PageListGetter {
 				return $pages;
 			} else {
 				$continue = $result['query-continue']['embeddedin']['eicontinue'];
+			}
+		}
+	}
+
+	/**
+	 * @since 0.5
+	 * @param string $pageName
+	 * @returns Pages
+	 */
+	public function getFromWhatLinksHere( $pageName ) {
+		$continue = '';
+		$limit = 500;
+		$pages = new Pages();
+
+		while ( true ) {
+			$params = array(
+				'prop' => 'info',
+				'generator' => 'linkshere',
+				'titles' => $pageName
+			);
+			if( !empty( $continue ) ) {
+				$params['lhcontinue'] = $continue;
+			}
+			$params['glhlimit'] = $limit;
+			$result = $this->api->getRequest( new SimpleRequest( 'query', $params ) );
+			if( !array_key_exists( 'query', $result ) ) {
+				return $pages;
+			}
+			$limit = $limit - count( $result[ 'query' ]['pages'] );
+
+			foreach ( $result['query']['pages'] as $member ) {
+				$pages->addPage( new Page(
+						new PageIdentifier(
+							new Title( $member['title'], $member['ns'] ),
+							$member['pageid']
+						),
+						new Revisions()
+					)
+				);
+			}
+
+			if( $limit !== null && $limit <= 0 ) {
+				return $pages;
+			}
+			if ( empty( $result['query-continue']['linkshere']['glhcontinue'] ) ) {
+				return $pages;
+			} else {
+				$continue = $result['query-continue']['linkshere']['glhcontinue'];
 			}
 		}
 	}
