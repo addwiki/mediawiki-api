@@ -43,6 +43,6 @@ $services->newPageMover()->move(
 // Delete a page
 $services->newPageDeleter()->delete(
 	$services->newPageGetter()->getFromTitle( 'DeleteMe!' ),
-	'Reason for Deletion')
+	'Reason for Deletion'
 );
 ```
