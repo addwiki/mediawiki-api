@@ -41,8 +41,10 @@ $services->newPageMover()->move(
 );
 
 // Delete a page
+$deleteOptions = new DeleteOptions();
+$deleteOptions->setReason( Reason for Deletion' );
 $services->newPageDeleter()->delete(
 	$services->newPageGetter()->getFromTitle( 'DeleteMe!' ),
-	'Reason for Deletion')
+	$deleteOptions
 );
 ```
