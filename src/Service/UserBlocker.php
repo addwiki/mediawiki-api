@@ -34,7 +34,7 @@ class UserBlocker {
 	 * @throws InvalidArgumentException
 	 * @return bool
 	 */
-	public function block( $user, BlockOptions $options = null ) {
+	public function block( $user, BlockOptions $options ) {
 		if( !$user instanceof User && !is_string( $user ) ) {
 			throw new InvalidArgumentException( '$user must be either a string or User object' );
 		}
