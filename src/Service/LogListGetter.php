@@ -114,8 +114,11 @@ class LogListGetter {
 	 * @return array
 	 */
 	private function getParamsFromOptions( $options ) {
-		$params = array( 'list' => 'logevents' );
-		$params['leprop'] = 'title|ids|type|user|timestamp|comment|details';
+		$params = array(
+			'list' => 'logevents',
+			'rawcontinue' => '',
+			'leprop' => 'title|ids|type|user|timestamp|comment|details'
+		);
 		if( $options->getType() !== '' ) {
 			$params['letype'] = $options->getType();
 		}

@@ -56,6 +56,7 @@ class PageListGetter {
 			$params = array(
 				'list' => 'categorymembers',
 				'cmtitle' => $name,
+				'rawcontinue' => '',
 			);
 			if( !empty( $continue ) ) {
 				$params['cmcontinue'] = $continue;
@@ -116,7 +117,8 @@ class PageListGetter {
 			$params = array(
 				'list' => 'embeddedin',
 				'eititle' => $pageName,
-				'einamespace' => implode( '|', $options->getNamespaces() )
+				'einamespace' => implode( '|', $options->getNamespaces() ),
+				'rawcontinue' => '',
 			);
 			if( !empty( $continue ) ) {
 				$params['eicontinue'] = $continue;
@@ -168,7 +170,8 @@ class PageListGetter {
 			$params = array(
 				'prop' => 'info',
 				'generator' => 'linkshere',
-				'titles' => $pageName
+				'titles' => $pageName,
+				'rawcontinue' => '',
 			);
 			if( !empty( $continue ) ) {
 				$params['lhcontinue'] = $continue;
@@ -218,7 +221,8 @@ class PageListGetter {
 			$params = array(
 				'list' => 'random',
 				'rnlimit' => $options->getLimit(),
-				'rnnamespace' => implode( '|', $options->getNamespaces() )
+				'rnnamespace' => implode( '|', $options->getNamespaces() ),
+				'rawcontinue' => '',
 			);
 			if( $options->getRedirectsOnly() === true ) {
 				$params['rnredirect'] = 1;
