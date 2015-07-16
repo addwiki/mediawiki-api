@@ -54,7 +54,6 @@ class LogListGetter {
 			}
 
 			$result = $this->api->getRequest( new SimpleRequest( 'query', $params ) );
-			$limit = $limit - count( $result[ 'query' ]['logevents'] );
 
 			foreach ( $result[ 'query' ]['logevents'] as $logevent ) {
 				$logList->addLog(
@@ -77,9 +76,6 @@ class LogListGetter {
 				);
 			}
 
-			if( $limit !== null && $limit <= 0 ) {
-				return $logList;
-			}
 			if ( empty( $result['query-continue']['logevents']['lecontinue'] ) ) {
 				return $logList;
 			} else {
@@ -114,8 +110,11 @@ class LogListGetter {
 	 * @return array
 	 */
 	private function getParamsFromOptions( $options ) {
-		$params = array( 'list' => 'logevents' );
-		$params['leprop'] = 'title|ids|type|user|timestamp|comment|details';
+		$params = array(
+			'list' => 'logevents',
+			'rawcontinue' => '',
+			'leprop' => 'title|ids|type|user|timestamp|comment|details'
+		);
 		if( $options->getType() !== '' ) {
 			$params['letype'] = $options->getType();
 		}

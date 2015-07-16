@@ -56,6 +56,7 @@ class PageListGetter {
 			$params = array(
 				'list' => 'categorymembers',
 				'cmtitle' => $name,
+				'rawcontinue' => '',
 			);
 			if( !empty( $continue ) ) {
 				$params['cmcontinue'] = $continue;
@@ -70,7 +71,6 @@ class PageListGetter {
 			if( !array_key_exists( 'query', $result ) ) {
 				return $pages;
 			}
-			$limit = $limit - count( $result[ 'query' ]['categorymembers'] );
 
 			foreach ( $result['query']['categorymembers'] as $member ) {
 				$pages->addPage( new Page(
@@ -83,9 +83,6 @@ class PageListGetter {
 				);
 			}
 
-			if( $limit !== null && $limit <= 0 ) {
-				return $pages;
-			}
 			if ( empty( $result['query-continue']['categorymembers']['cmcontinue'] ) ) {
 				if ( $recursive ) {
 					//TODO implement recursive behaviour
@@ -116,7 +113,8 @@ class PageListGetter {
 			$params = array(
 				'list' => 'embeddedin',
 				'eititle' => $pageName,
-				'einamespace' => implode( '|', $options->getNamespaces() )
+				'einamespace' => implode( '|', $options->getNamespaces() ),
+				'rawcontinue' => '',
 			);
 			if( !empty( $continue ) ) {
 				$params['eicontinue'] = $continue;
@@ -130,7 +128,6 @@ class PageListGetter {
 			if( !array_key_exists( 'query', $result ) ) {
 				return $pages;
 			}
-			$limit = $limit - count( $result[ 'query' ]['embeddedin'] );
 
 			foreach ( $result['query']['embeddedin'] as $member ) {
 				$pages->addPage( new Page(
@@ -143,9 +140,6 @@ class PageListGetter {
 				);
 			}
 
-			if( $limit !== null && $limit <= 0 ) {
-				return $pages;
-			}
 			if ( empty( $result['query-continue']['embeddedin']['eicontinue'] ) ) {
 				return $pages;
 			} else {
@@ -168,7 +162,8 @@ class PageListGetter {
 			$params = array(
 				'prop' => 'info',
 				'generator' => 'linkshere',
-				'titles' => $pageName
+				'titles' => $pageName,
+				'rawcontinue' => '',
 			);
 			if( !empty( $continue ) ) {
 				$params['lhcontinue'] = $continue;
@@ -178,7 +173,6 @@ class PageListGetter {
 			if( !array_key_exists( 'query', $result ) ) {
 				return $pages;
 			}
-			$limit = $limit - count( $result[ 'query' ]['pages'] );
 
 			foreach ( $result['query']['pages'] as $member ) {
 				$pages->addPage( new Page(
@@ -191,9 +185,6 @@ class PageListGetter {
 				);
 			}
 
-			if( $limit !== null && $limit <= 0 ) {
-				return $pages;
-			}
 			if ( empty( $result['query-continue']['linkshere']['glhcontinue'] ) ) {
 				return $pages;
 			} else {
@@ -218,7 +209,8 @@ class PageListGetter {
 			$params = array(
 				'list' => 'random',
 				'rnlimit' => $options->getLimit(),
-				'rnnamespace' => implode( '|', $options->getNamespaces() )
+				'rnnamespace' => implode( '|', $options->getNamespaces() ),
+				'rawcontinue' => '',
 			);
 			if( $options->getRedirectsOnly() === true ) {
 				$params['rnredirect'] = 1;
@@ -232,7 +224,6 @@ class PageListGetter {
 				$params['rnlimit'] = $limit;
 			}
 			$result = $this->api->getRequest( new SimpleRequest( 'query', $params ) );
-			$limit = $limit - count( $result['query']['random'] );
 
 			foreach ( $result['query']['random'] as $member ) {
 				$pages->addPage( new Page(
@@ -245,9 +236,6 @@ class PageListGetter {
 				);
 			}
 
-			if( $limit !== null && $limit <= 0 ) {
-				return $pages;
-			}
 			if ( empty( $result['query-continue']['random']['rncontinue'] ) ) {
 				return $pages;
 			} else {
