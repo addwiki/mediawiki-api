@@ -2,12 +2,22 @@ These are the release notes for the [mediawiki-api](README.md).
 
 ## Version 0.5 (development)
 
+####Additions
+
 * Introduces RevisionUndoer service
 * Introduces UserCreator service
 * Introduces FileUploader service
 * Introduces ImageRotator service
+
+####Breaks
+
+* LogListGetter now requires mediawiki verison 1.25 or above
+* PageListGetter now requires mediawiki verison 1.25 or above
+
+####Libs
+
 * Using mediawiki-api-base 0.6
-* Using mediawiki-datamodel 0.3
+* Using mediawiki-datamodel 0.6
 
 ## Version 0.4 (13 January 2015)
 
