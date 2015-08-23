@@ -95,6 +95,7 @@ class RevisionSaver {
 	 */
 	private function getEditInfoParams( $editInfo ) {
 		$params = array();
+		$assertions = array();
 		if( !is_null( $editInfo ) ) {
 			$params['summary'] = $editInfo->getSummary();
 			if( $editInfo->getMinor() ) {
