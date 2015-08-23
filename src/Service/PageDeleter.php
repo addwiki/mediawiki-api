@@ -3,7 +3,6 @@
 namespace Mediawiki\Api\Service;
 
 use Mediawiki\Api\MediawikiApi;
-use Mediawiki\Api\Options\DeleteOptions;
 use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\Page;
 use Mediawiki\DataModel\PageIdentifier;
@@ -31,14 +30,14 @@ class PageDeleter {
 	 * @since 0.2
 	 *
 	 * @param Page $page
-	 * @param DeleteOptions|null $options
+	 * @param array $extraParams
 	 *
 	 * @return bool
 	 */
-	public function delete( Page $page, DeleteOptions $options = null ) {
+	public function delete( Page $page, array $extraParams = array() ) {
 		$this->api->postRequest( new SimpleRequest(
 			'delete',
-			$this->getDeleteParams( $page->getPageIdentifier(), $options )
+			$this->getDeleteParams( $page->getPageIdentifier(), $extraParams )
 		) );
 		return true;
 	}
@@ -47,14 +46,14 @@ class PageDeleter {
 	 * @since 0.2
 	 *
 	 * @param Revision $revision
-	 * @param DeleteOptions|null $options
+	 * @param array $extraParams
 	 *
 	 * @return bool
 	 */
-	public function deleteFromRevision( Revision $revision, DeleteOptions $options = null ) {
+	public function deleteFromRevision( Revision $revision, array $extraParams = array() ) {
 		$this->api->postRequest( new SimpleRequest(
 			'delete',
-			$this->getDeleteParams( $revision->getPageIdentifier(), $options )
+			$this->getDeleteParams( $revision->getPageIdentifier(), $extraParams )
 		) );
 		return true;
 	}
@@ -63,14 +62,14 @@ class PageDeleter {
 	 * @since 0.2
 	 *
 	 * @param int $pageid
-	 * @param DeleteOptions|null $options
+	 * @param array $extraParams
 	 *
 	 * @return bool
 	 */
-	public function deleteFromPageId( $pageid, DeleteOptions $options = null ) {
+	public function deleteFromPageId( $pageid, array $extraParams = array() ) {
 		$this->api->postRequest( new SimpleRequest(
 			'delete',
-			$this->getDeleteParams( new PageIdentifier( null, $pageid ), $options )
+			$this->getDeleteParams( new PageIdentifier( null, $pageid ), $extraParams )
 		) );
 		return true;
 	}
@@ -79,36 +78,29 @@ class PageDeleter {
 	 * @since 0.5
 	 *
 	 * @param Title|string $title
-	 * @param DeleteOptions|null $options
+	 * @param array $extraParams
 	 *
 	 * @return bool
 	 */
-	public function deleteFromPageTitle( $title, DeleteOptions $options = null ) {
+	public function deleteFromPageTitle( $title, array $extraParams = array() ) {
 		if( is_string( $title ) ) {
 			$title = new Title( $title );
 		}
 		$this->api->postRequest( new SimpleRequest(
 			'delete',
-			$this->getDeleteParams( new PageIdentifier( $title ), $options )
+			$this->getDeleteParams( new PageIdentifier( $title ), $extraParams )
 		) );
 		return true;
 	}
 
 	/**
 	 * @param PageIdentifier $identifier
-	 * @param DeleteOptions|null $options
+	 * @param array $extraParams
 	 *
 	 * @return array
 	 */
-	private function getDeleteParams( PageIdentifier $identifier, $options ) {
+	private function getDeleteParams( PageIdentifier $identifier, $extraParams ) {
 		$params = array();
-
-		if( !is_null( $options ) ) {
-			$reason = $options->getReason();
-			if( !empty( $reason ) ) {
-				$params['reason'] = $reason;
-			}
-		}
 
 		if( !is_null( $identifier->getId() ) ) {
 			$params['pageid'] = $identifier->getId();
@@ -118,7 +110,7 @@ class PageDeleter {
 
 		$params['token'] = $this->api->getToken( 'delete' );
 
-		return $params;
+		return array_merge( $extraParams, $params );
 	}
 
 } 

@@ -3,7 +3,6 @@
 namespace Mediawiki\Api\Service;
 
 use Mediawiki\Api\MediawikiApi;
-use Mediawiki\Api\Options\ListLogEventsOptions;
 use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\Log;
 use Mediawiki\DataModel\LogList;
@@ -29,31 +28,21 @@ class LogListGetter {
 	}
 
 	/**
-	 * @param ListLogEventsOptions $options
+	 * @param array $extraParams
 	 *
 	 * @return LogList
 	 */
-	public function getLogList ( ListLogEventsOptions $options = null ) {
-		if ($options == null ) {
-			$options = new ListLogEventsOptions();
-		}
-
+	public function getLogList ( array $extraParams = array() ) {
 		$logList = new LogList();
-		$continue = '';
-		$limit = $options->getLimit();
 
 		while ( true ) {
-			$params = $this->getParamsFromOptions( $options );
-			if( !empty( $continue ) ) {
-				$params['lecontinue'] = $continue;
-			}
-			if( $limit === null ) {
-				$params['lelimit'] = 5000;
-			} else {
-				$params['lelimit'] = $limit;
-			}
+			$params = array(
+				'list' => 'logevents',
+				'rawcontinue' => '',
+				'leprop' => 'title|ids|type|user|timestamp|comment|details'
+			);
 
-			$result = $this->api->getRequest( new SimpleRequest( 'query', $params ) );
+			$result = $this->api->getRequest( new SimpleRequest( 'query', array_merge( $extraParams, $params ) ) );
 
 			foreach ( $result[ 'query' ]['logevents'] as $logevent ) {
 				$logList->addLog(
@@ -76,11 +65,7 @@ class LogListGetter {
 				);
 			}
 
-			if ( empty( $result['query-continue']['logevents']['lecontinue'] ) ) {
-				return $logList;
-			} else {
-				$continue = $result['query-continue']['logevents']['lecontinue'];
-			}
+			return $logList;
 		}
 	}
 
@@ -103,40 +88,6 @@ class LogListGetter {
 			'timestamp',
 			'comment' ) );
 		return array_diff_key( $event, $ignoreKeys );
-	}
-
-	/**
-	 * @param ListLogEventsOptions $options
-	 * @return array
-	 */
-	private function getParamsFromOptions( $options ) {
-		$params = array(
-			'list' => 'logevents',
-			'rawcontinue' => '',
-			'leprop' => 'title|ids|type|user|timestamp|comment|details'
-		);
-		if( $options->getType() !== '' ) {
-			$params['letype'] = $options->getType();
-		}
-		if( $options->getAction() !== '' ) {
-			$params['leaction'] = $options->getAction();
-		}
-		if( $options->getStart() !== '' ) {
-			$params['lestart'] = $options->getStart();
-		}
-		if( $options->getEnd() !== '' ) {
-			$params['leend'] = $options->getEnd();
-		}
-		if( $options->getTitle() !== '' ) {
-			$params['letitle'] = $options->getTitle();
-		}
-		if( $options->getUser() !== '' ) {
-			$params['leuser'] = $options->getUser();
-		}
-		if( $options->getNamespace() !== null ) {
-			$params['lenamespace'] = $options->getNamespace();
-		}
-		return $params;
 	}
 
 } 

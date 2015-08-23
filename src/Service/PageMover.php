@@ -3,7 +3,6 @@
 namespace Mediawiki\Api\Service;
 
 use Mediawiki\Api\MediawikiApi;
-use Mediawiki\Api\Options\MoveOptions;
 use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\Page;
 use Mediawiki\DataModel\Title;
@@ -30,12 +29,12 @@ class PageMover {
 	 *
 	 * @param Page $page
 	 * @param Title $target
-	 * @param MoveOptions|null $options
+	 * @param array $extraParams
 	 *
 	 * @return bool
 	 */
-	public function move( Page $page, Title $target, MoveOptions $options = null ) {
-		$this->api->postRequest( new SimpleRequest( 'move', $this->getMoveParams( $page->getId(), $target, $options ) ) );
+	public function move( Page $page, Title $target, array $extraParams = array() ) {
+		$this->api->postRequest( new SimpleRequest( 'move', $this->getMoveParams( $page->getId(), $target, $extraParams ) ) );
 		return true;
 	}
 
@@ -44,33 +43,28 @@ class PageMover {
 	 *
 	 * @param int $pageid
 	 * @param Title $target
-	 * @param MoveOptions|null $options
+	 * @param array $extraParams
 	 *
 	 * @return bool
 	 */
-	public function moveFromPageId( $pageid, Title $target, MoveOptions $options = null ) {
-		$this->api->postRequest( new SimpleRequest( 'move', $this->getMoveParams( $pageid, $target, $options ) ) );
+	public function moveFromPageId( $pageid, Title $target, array $extraParams = array() ) {
+		$this->api->postRequest( new SimpleRequest( 'move', $this->getMoveParams( $pageid, $target, $extraParams ) ) );
 		return true;
 	}
 
 	/**
 	 * @param int $pageid
 	 * @param Title $target
-	 * @param MoveOptions|null $options
+	 * @param array $extraParams
 	 *
 	 * @return array
 	 */
-	private function getMoveParams( $pageid, $target, $options ) {
+	private function getMoveParams( $pageid, $target, $extraParams ) {
 		$params = array();
 		$params['fromid'] = $pageid;
 		$params['to'] = $target->getTitle();
-
-		$reason = $options->getReason();
-		if( !empty( $reason ) ) {
-			$params['reason'] = $reason;
-		}
 		$params['token'] = $this->api->getToken( 'move' );
-		return $params;
+		return array_merge( $extraParams, $params );
 	}
 
 } 

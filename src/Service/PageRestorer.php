@@ -3,7 +3,6 @@
 namespace Mediawiki\Api\Service;
 
 use Mediawiki\Api\MediawikiApi;
-use Mediawiki\Api\Options\UndeleteOptions;
 use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\Page;
 use Mediawiki\DataModel\Title;
@@ -30,32 +29,28 @@ class PageRestorer {
 	 * @since 0.3
 	 *
 	 * @param Page $page
-	 * @param UndeleteOptions|null $options
+	 * @param array $extraParams
 	 *
 	 * @return bool
 	 */
-	public function restore( Page $page, UndeleteOptions $options = null ) {
-		$this->api->postRequest( new SimpleRequest( 'undelete', $this->getUndeleteParams( $page->getTitle(), $options ) ) );
+	public function restore( Page $page, array $extraParams = array() ) {
+		$this->api->postRequest( new SimpleRequest( 'undelete', $this->getUndeleteParams( $page->getTitle(), $extraParams ) ) );
 		return true;
 	}
 
 	/**
 	 * @param Title $title
-	 * @param UndeleteOptions|null $options
+	 * @param array $extraParams
 	 *
 	 * @return array
 	 */
-	private function getUndeleteParams( Title $title, $options ) {
+	private function getUndeleteParams( Title $title, $extraParams ) {
 		$params = array();
 
-		$reason = $options->getReason();
-		if( !empty( $reason ) ) {
-			$params['reason'] = $reason;
-		}
 		$params['title'] = $title->getTitle();
 		$params['token'] = $this->getUndeleteToken( $title );
 
-		return $params;
+		return array_merge( $extraParams, $params );
 	}
 
 	/**

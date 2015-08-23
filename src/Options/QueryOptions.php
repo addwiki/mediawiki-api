@@ -4,6 +4,8 @@ namespace Mediawiki\Api\Options;
 
 /**
  * @since 0.4
+ *
+ * @deprecated this should be removed
  */
 class QueryOptions {
 

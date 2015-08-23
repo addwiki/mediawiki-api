@@ -4,7 +4,6 @@ namespace Mediawiki\Api\Service;
 
 use InvalidArgumentException;
 use Mediawiki\Api\MediawikiApi;
-use Mediawiki\Api\Options\ProtectOptions;
 use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\Page;
 
@@ -30,12 +29,12 @@ class PageProtector {
 	 *
 	 * @param Page $page
 	 * @param string[] $protections where the 'key' is the action and the 'value' is the group
-	 * @param ProtectOptions $options
+	 * @param array $extraParams
 	 *
 	 * @return bool
 	 * @throws InvalidArgumentException
 	 */
-	public function protect( Page $page, $protections, ProtectOptions $options = null ) {
+	public function protect( Page $page, $protections, array $extraParams = array() ) {
 		if( !is_array( $protections) || empty( $protections ) ) {
 			throw new InvalidArgumentException( '$protections must be an array with keys and values' );
 		}
@@ -52,20 +51,8 @@ class PageProtector {
 			$protectionsString = $action . '=' . $value . '|';
 		}
 		$params['protections'] = rtrim( $protectionsString, '|' );
-		if( $options->getExpiry() !== 'infinite' ) {
-			$params['expiry'] = $options->getExpiry();
-		}
-		if( $options->getReason() !== '' ) {
-			$params['reason'] = $options->getReason();
-		}
-		if( $options->getCascade() ) {
-			$params['cascade'] = '';
-		}
-		if( $options->getWatchlist() !== 'preferences' ) {
-			$params['watchlist'] = $options->getWatchlist();
-		}
 
-		$this->api->postRequest( new SimpleRequest( 'protect', $params ) );
+		$this->api->postRequest( new SimpleRequest( 'protect', array_merge( $extraParams, $params ) ) );
 		return true;
 	}
 

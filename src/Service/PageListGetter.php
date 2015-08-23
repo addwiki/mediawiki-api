@@ -3,9 +3,6 @@
 namespace Mediawiki\Api\Service;
 
 use Mediawiki\Api\MediawikiApi;
-use Mediawiki\Api\Options\ListCategoryMembersOptions;
-use Mediawiki\Api\Options\ListEmbededInOptions;
-use Mediawiki\Api\Options\ListRandomOptions;
 use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\Page;
 use Mediawiki\DataModel\PageIdentifier;
@@ -33,119 +30,78 @@ class PageListGetter {
 	/**
 	 * @since 0.3
 	 *
+	 * @todo deal with continuing somehow?
+	 *
 	 * @param string $name
-	 * @param ListCategoryMembersOptions $options
+	 * @param array $extraParams
+	 *
 	 * @returns Pages
 	 */
-	public function getPageListFromCategoryName( $name, ListCategoryMembersOptions $options = null ) {
-		if( is_null( $options ) ) {
-			$options = new ListCategoryMembersOptions();
-		}
+	public function getPageListFromCategoryName( $name, array $extraParams = array() ) {
+		//TODO implement recursive behaviour
 
-		$recursive = $options->getRecursive();
-		if( $recursive ) {
-			//TODO implement recursive behaviour
-			throw new \BadMethodCallException( 'Not yet implemented' );
-		}
-
-		$continue = '';
-		$limit = $options->getLimit();
 		$pages = new Pages();
 
-		while ( true ) {
-			$params = array(
-				'list' => 'categorymembers',
-				'cmtitle' => $name,
-				'rawcontinue' => '',
-			);
-			if( !empty( $continue ) ) {
-				$params['cmcontinue'] = $continue;
-			}
-			if( $limit === null ) {
-				$params['cmlimit'] = 5000;
-			} else {
-				$params['cmlimit'] = $limit;
-			}
+		$params = array(
+			'list' => 'categorymembers',
+			'cmtitle' => $name,
+			'rawcontinue' => '',
+		);
 
-			$result = $this->api->getRequest( new SimpleRequest( 'query', $params ) );
-			if( !array_key_exists( 'query', $result ) ) {
-				return $pages;
-			}
-
-			foreach ( $result['query']['categorymembers'] as $member ) {
-				$pages->addPage( new Page(
-						new PageIdentifier(
-							new Title( $member['title'], $member['ns'] ),
-							$member['pageid']
-						),
-						new Revisions()
-					)
-				);
-			}
-
-			if ( empty( $result['query-continue']['categorymembers']['cmcontinue'] ) ) {
-				if ( $recursive ) {
-					//TODO implement recursive behaviour
-				}
-				return $pages;
-			} else {
-				$continue = $result['query-continue']['categorymembers']['cmcontinue'];
-			}
+		$result = $this->api->getRequest( new SimpleRequest( 'query', array_merge( $extraParams, $params ) ) );
+		if( !array_key_exists( 'query', $result ) ) {
+			return $pages;
 		}
+
+		foreach ( $result['query']['categorymembers'] as $member ) {
+			$pages->addPage( new Page(
+					new PageIdentifier(
+						new Title( $member['title'], $member['ns'] ),
+						$member['pageid']
+					),
+					new Revisions()
+				)
+			);
+		}
+
+		return $pages;
 	}
 
 	/**
+	 * @todo deal with continuing somehow?
+	 *
 	 * @param string $pageName
-	 * @param ListEmbededInOptions $options
+	 * @param array $extraParams
 	 *
 	 * @return Pages
 	 */
-	public function getPageListFromPageTransclusions( $pageName, ListEmbededInOptions $options = null ) {
-		if( is_null( $options ) ) {
-			$options = new ListEmbededInOptions();
-		}
+	public function getPageListFromPageTransclusions( $pageName, array $extraParams = array() ) {
+		$params = array(
+			'list' => 'embeddedin',
+			'eititle' => $pageName,
+			'rawcontinue' => '',
+		);
 
-		$continue = '';
-		$limit = $options->getLimit();
+		$result = $this->api->getRequest( new SimpleRequest( 'query', array_merge( $extraParams, $params ) ) );
+
 		$pages = new Pages();
 
-		while ( true ) {
-			$params = array(
-				'list' => 'embeddedin',
-				'eititle' => $pageName,
-				'einamespace' => implode( '|', $options->getNamespaces() ),
-				'rawcontinue' => '',
-			);
-			if( !empty( $continue ) ) {
-				$params['eicontinue'] = $continue;
-			}
-			if( $limit === null ) {
-				$params['eilimit'] = 5000;
-			} else {
-				$params['eilimit'] = $limit;
-			}
-			$result = $this->api->getRequest( new SimpleRequest( 'query', $params ) );
-			if( !array_key_exists( 'query', $result ) ) {
-				return $pages;
-			}
-
-			foreach ( $result['query']['embeddedin'] as $member ) {
-				$pages->addPage( new Page(
-						new PageIdentifier(
-							new Title( $member['title'], $member['ns'] ),
-							$member['pageid']
-						),
-						new Revisions()
-					)
-				);
-			}
-
-			if ( empty( $result['query-continue']['embeddedin']['eicontinue'] ) ) {
-				return $pages;
-			} else {
-				$continue = $result['query-continue']['embeddedin']['eicontinue'];
-			}
+		if( !array_key_exists( 'query', $result ) ) {
+			return $pages;
 		}
+
+		foreach ( $result['query']['embeddedin'] as $member ) {
+			$pages->addPage( new Page(
+					new PageIdentifier(
+						new Title( $member['title'], $member['ns'] ),
+						$member['pageid']
+					),
+					new Revisions()
+				)
+			);
+		}
+
+		return $pages;
 	}
 
 	/**
@@ -194,53 +150,30 @@ class PageListGetter {
 	}
 
 	/**
-	 * @param ListRandomOptions $options
+	 * @param array $extraParams
+	 *
+	 * @todo deal with continuing
+	 *
+	 * @return Pages
 	 */
-	public function getRandom( ListRandomOptions $options = null ) {
-		if( is_null( $options ) ) {
-			$options = new ListRandomOptions();
-		}
+	public function getRandom( array $extraParams = array() ) {
+		$params = array(
+			'list' => 'random',
+			'rawcontinue' => '',
+		);
+		$result = $this->api->getRequest( new SimpleRequest( 'query', array_merge( $extraParams, $params ) ) );
 
-		$continue = '';
-		$limit = $options->getLimit();
 		$pages = new Pages();
 
-		while ( true ) {
-			$params = array(
-				'list' => 'random',
-				'rnlimit' => $options->getLimit(),
-				'rnnamespace' => implode( '|', $options->getNamespaces() ),
-				'rawcontinue' => '',
+		foreach ( $result['query']['random'] as $member ) {
+			$pages->addPage( new Page(
+					new PageIdentifier(
+						new Title( $member['title'], $member['ns'] ),
+						$member['pageid']
+					),
+					new Revisions()
+				)
 			);
-			if( $options->getRedirectsOnly() === true ) {
-				$params['rnredirect'] = 1;
-			}
-			if( !empty( $continue ) ) {
-				$params['rncontinue'] = $continue;
-			}
-			if( $limit === null ) {
-				$params['rnlimit'] = 5000;
-			} else {
-				$params['rnlimit'] = $limit;
-			}
-			$result = $this->api->getRequest( new SimpleRequest( 'query', $params ) );
-
-			foreach ( $result['query']['random'] as $member ) {
-				$pages->addPage( new Page(
-						new PageIdentifier(
-							new Title( $member['title'], $member['ns'] ),
-							$member['pageid']
-						),
-						new Revisions()
-					)
-				);
-			}
-
-			if ( empty( $result['query-continue']['random']['rncontinue'] ) ) {
-				return $pages;
-			} else {
-				$continue = $result['query-continue']['random']['rncontinue'];
-			}
 		}
 	}
 

@@ -3,7 +3,6 @@
 namespace Mediawiki\Api\Service;
 
 use Mediawiki\Api\MediawikiApi;
-use Mediawiki\Api\Options\UserRightsOptions;
 use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\User;
 
@@ -30,11 +29,11 @@ class UserRightsChanger {
 	 * @param User $user
 	 * @param string[] $add
 	 * @param string[] $remove
-	 * @param UserRightsOptions|null $options
+	 * @param array $extraParams
 	 *
 	 * @return bool
 	 */
-	public function change( User $user, $add = array(), $remove = array(), UserRightsOptions $options = null ) {
+	public function change( User $user, $add = array(), $remove = array(), array $extraParams = array() ) {
 		$result = $this->api->postRequest( new SimpleRequest( 'query', array(
 			'list' => 'users',
 			'ustoken' => 'userrights',
@@ -45,10 +44,6 @@ class UserRightsChanger {
 			'user' => $user->getName(),
 			'token' => $result['query']['users'][0]['userrightstoken'],
 		);
-		$reason = $options->getReason();
-		if( !empty( $reason ) ) {
-			$params['reason'] = $reason;
-		}
 		if( !empty( $add ) ) {
 			$params['add'] = implode( '|', $add );
 		}
@@ -56,7 +51,7 @@ class UserRightsChanger {
 			$params['remove'] = implode( '|', $remove );
 		}
 
-		$this->api->postRequest( new SimpleRequest( 'userrights', $params ) );
+		$this->api->postRequest( new SimpleRequest( 'userrights', array_merge( $extraParams, $params ) ) );
 		return true;
 	}
 
