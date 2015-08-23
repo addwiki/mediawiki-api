@@ -13,6 +13,7 @@ These are the release notes for the [mediawiki-api](README.md).
 
 * LogListGetter now requires mediawiki verison 1.25 or above
 * PageListGetter now requires mediawiki verison 1.25 or above
+* Removed or deprecated ALL Options objects
 
 ####Libs
 
