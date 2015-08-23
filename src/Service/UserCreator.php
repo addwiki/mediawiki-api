@@ -31,13 +31,13 @@ class UserCreator {
 	 * @return bool
 	 */
 	public function create( $username, $password, $email = null ) {
-		if( !is_string( $username ) ) {
+		if ( !is_string( $username ) ) {
 			throw new InvalidArgumentException( '$username should be a string' );
 		}
-		if( !is_string( $password ) ) {
+		if ( !is_string( $password ) ) {
 			throw new InvalidArgumentException( '$password should be a string' );
 		}
-		if( !is_string( $email ) && !is_null( $email ) ) {
+		if ( !is_string( $email ) && !is_null( $email ) ) {
 			throw new InvalidArgumentException( '$email should be a string or null' );
 		}
 
@@ -46,20 +46,23 @@ class UserCreator {
 			'password' => $password,
 		);
 
-		if( !is_null( $email ) ) {
+		if ( !is_null( $email ) ) {
 			$params['email'] = $email;
 		}
 
 		$result = $this->api->postRequest( new SimpleRequest( 'createaccount', $params ) );
 		if ( $result['createaccount']['result'] == 'NeedToken' ) {
-			$result = $this->api->postRequest( new SimpleRequest(
-				'createaccount',
-				array_merge( array( 'token' => $result['createaccount']['token'] ), $params )
-			) );
+			$result = $this->api->postRequest(
+				new SimpleRequest(
+					'createaccount',
+					array_merge( array( 'token' => $result['createaccount']['token'] ), $params )
+				)
+			);
 		}
 		if ( $result['createaccount']['result'] === 'Success' ) {
 			return true;
 		}
+
 		return false;
 	}
 

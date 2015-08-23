@@ -34,10 +34,14 @@ class RevisionSaver {
 	 * @returns bool success
 	 */
 	public function save( Revision $revision, EditInfo $editInfo = null ) {
-		$result = $this->api->postRequest( new SimpleRequest( 'edit', $this->getEditParams( $revision, $editInfo ) ) );
-		if( $result['edit']['result'] == 'Success' ) {
+		$result =
+			$this->api->postRequest(
+				new SimpleRequest( 'edit', $this->getEditParams( $revision, $editInfo ) )
+			);
+		if ( $result['edit']['result'] == 'Success' ) {
 			return true;
 		}
+
 		return false;
 	}
 
@@ -49,7 +53,7 @@ class RevisionSaver {
 	 * @returns array
 	 */
 	private function getEditParams( Revision $revision, EditInfo $editInfo = null ) {
-		if( !$revision->getPageIdentifier()->identifiesPage() ) {
+		if ( !$revision->getPageIdentifier()->identifiesPage() ) {
 			throw new RuntimeException( '$revision PageIdentifier does not identify a page' );
 		}
 
@@ -58,18 +62,18 @@ class RevisionSaver {
 
 		$content = $revision->getContent();
 		$data = $content->getData();
-		if( !is_string( $data ) ) {
+		if ( !is_string( $data ) ) {
 			throw new RuntimeException( 'Dont know how to save content of this model.' );
 		}
 		$params['text'] = $content->getData();
 		$params['md5'] = md5( $content->getData() );
 
 		$timestamp = $revision->getTimestamp();
-		if( !is_null( $timestamp ) ) {
+		if ( !is_null( $timestamp ) ) {
 			$params['basetimestamp'] = $timestamp;
 		}
 
-		if( !is_null( $revision->getPageIdentifier()->getId() ) ) {
+		if ( !is_null( $revision->getPageIdentifier()->getId() ) ) {
 			$params['pageid'] = $revision->getPageIdentifier()->getId();
 		} else {
 			$params['title'] = $revision->getPageIdentifier()->getTitle()->getTitle();
@@ -79,12 +83,13 @@ class RevisionSaver {
 
 		$params = array_merge( $params, $this->getEditInfoParams( $editInfo ) );
 
-		if( $this->api->isLoggedin() ) {
+		if ( $this->api->isLoggedin() ) {
 			$assertions[] = 'user';
 		}
-		if( !empty( $assertions ) ) {
+		if ( !empty( $assertions ) ) {
 			$params['assert'] = implode( '|', $assertions );
 		}
+
 		return $params;
 	}
 
@@ -95,16 +100,17 @@ class RevisionSaver {
 	 */
 	private function getEditInfoParams( $editInfo ) {
 		$params = array();
-		if( !is_null( $editInfo ) ) {
+		if ( !is_null( $editInfo ) ) {
 			$params['summary'] = $editInfo->getSummary();
-			if( $editInfo->getMinor() ) {
+			if ( $editInfo->getMinor() ) {
 				$params['minor'] = true;
 			}
-			if( $editInfo->getBot() ) {
+			if ( $editInfo->getBot() ) {
 				$params['bot'] = true;
 				$assertions[] = 'bot';
 			}
 		}
+
 		return $params;
 	}
 

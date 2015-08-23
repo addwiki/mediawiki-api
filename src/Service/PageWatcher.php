@@ -29,7 +29,7 @@ class PageWatcher {
 		$params = array(
 			'token' => $this->api->getToken( 'watch' ),
 		);
-		if( !is_null( $page->getPageIdentifier()->getId() ) ) {
+		if ( !is_null( $page->getPageIdentifier()->getId() ) ) {
 			$params['pageids'] = $page->getPageIdentifier()->getId();
 		} elseif ( !is_null( $page->getPageIdentifier()->getTitle() ) ) {
 			$params['titles'] = $page->getPageIdentifier()->getTitle()->getTitle();
@@ -38,6 +38,7 @@ class PageWatcher {
 		}
 
 		$this->api->postRequest( new SimpleRequest( 'watch', $params ) );
+
 		return true;
 	}
 

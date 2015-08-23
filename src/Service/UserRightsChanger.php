@@ -33,25 +33,37 @@ class UserRightsChanger {
 	 *
 	 * @return bool
 	 */
-	public function change( User $user, $add = array(), $remove = array(), array $extraParams = array() ) {
-		$result = $this->api->postRequest( new SimpleRequest( 'query', array(
-			'list' => 'users',
-			'ustoken' => 'userrights',
-			'ususers' => $user->getName(),
-		) ) );
+	public function change(
+		User $user,
+		$add = array(),
+		$remove = array(),
+		array $extraParams = array()
+	) {
+		$result = $this->api->postRequest(
+			new SimpleRequest(
+				'query', array(
+				'list' => 'users',
+				'ustoken' => 'userrights',
+				'ususers' => $user->getName(),
+			)
+			)
+		);
 
 		$params = array(
 			'user' => $user->getName(),
 			'token' => $result['query']['users'][0]['userrightstoken'],
 		);
-		if( !empty( $add ) ) {
+		if ( !empty( $add ) ) {
 			$params['add'] = implode( '|', $add );
 		}
-		if( !empty( $remove ) ) {
+		if ( !empty( $remove ) ) {
 			$params['remove'] = implode( '|', $remove );
 		}
 
-		$this->api->postRequest( new SimpleRequest( 'userrights', array_merge( $extraParams, $params ) ) );
+		$this->api->postRequest(
+			new SimpleRequest( 'userrights', array_merge( $extraParams, $params ) )
+		);
+
 		return true;
 	}
 

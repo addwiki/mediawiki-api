@@ -48,13 +48,17 @@ class PageListGetter {
 			'rawcontinue' => '',
 		);
 
-		$result = $this->api->getRequest( new SimpleRequest( 'query', array_merge( $extraParams, $params ) ) );
-		if( !array_key_exists( 'query', $result ) ) {
+		$result =
+			$this->api->getRequest(
+				new SimpleRequest( 'query', array_merge( $extraParams, $params ) )
+			);
+		if ( !array_key_exists( 'query', $result ) ) {
 			return $pages;
 		}
 
 		foreach ( $result['query']['categorymembers'] as $member ) {
-			$pages->addPage( new Page(
+			$pages->addPage(
+				new Page(
 					new PageIdentifier(
 						new Title( $member['title'], $member['ns'] ),
 						$member['pageid']
@@ -82,16 +86,20 @@ class PageListGetter {
 			'rawcontinue' => '',
 		);
 
-		$result = $this->api->getRequest( new SimpleRequest( 'query', array_merge( $extraParams, $params ) ) );
+		$result =
+			$this->api->getRequest(
+				new SimpleRequest( 'query', array_merge( $extraParams, $params ) )
+			);
 
 		$pages = new Pages();
 
-		if( !array_key_exists( 'query', $result ) ) {
+		if ( !array_key_exists( 'query', $result ) ) {
 			return $pages;
 		}
 
 		foreach ( $result['query']['embeddedin'] as $member ) {
-			$pages->addPage( new Page(
+			$pages->addPage(
+				new Page(
 					new PageIdentifier(
 						new Title( $member['title'], $member['ns'] ),
 						$member['pageid']
@@ -106,7 +114,9 @@ class PageListGetter {
 
 	/**
 	 * @since 0.5
+	 *
 	 * @param string $pageName
+	 *
 	 * @returns Pages
 	 */
 	public function getFromWhatLinksHere( $pageName ) {
@@ -121,17 +131,18 @@ class PageListGetter {
 				'titles' => $pageName,
 				'rawcontinue' => '',
 			);
-			if( !empty( $continue ) ) {
+			if ( !empty( $continue ) ) {
 				$params['lhcontinue'] = $continue;
 			}
 			$params['glhlimit'] = $limit;
 			$result = $this->api->getRequest( new SimpleRequest( 'query', $params ) );
-			if( !array_key_exists( 'query', $result ) ) {
+			if ( !array_key_exists( 'query', $result ) ) {
 				return $pages;
 			}
 
 			foreach ( $result['query']['pages'] as $member ) {
-				$pages->addPage( new Page(
+				$pages->addPage(
+					new Page(
 						new PageIdentifier(
 							new Title( $member['title'], $member['ns'] ),
 							$member['pageid']
@@ -161,12 +172,16 @@ class PageListGetter {
 			'list' => 'random',
 			'rawcontinue' => '',
 		);
-		$result = $this->api->getRequest( new SimpleRequest( 'query', array_merge( $extraParams, $params ) ) );
+		$result =
+			$this->api->getRequest(
+				new SimpleRequest( 'query', array_merge( $extraParams, $params ) )
+			);
 
 		$pages = new Pages();
 
 		foreach ( $result['query']['random'] as $member ) {
-			$pages->addPage( new Page(
+			$pages->addPage(
+				new Page(
 					new PageIdentifier(
 						new Title( $member['title'], $member['ns'] ),
 						$member['pageid']

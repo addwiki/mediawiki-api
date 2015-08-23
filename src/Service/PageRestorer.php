@@ -34,7 +34,13 @@ class PageRestorer {
 	 * @return bool
 	 */
 	public function restore( Page $page, array $extraParams = array() ) {
-		$this->api->postRequest( new SimpleRequest( 'undelete', $this->getUndeleteParams( $page->getTitle(), $extraParams ) ) );
+		$this->api->postRequest(
+			new SimpleRequest(
+				'undelete',
+				$this->getUndeleteParams( $page->getTitle(), $extraParams )
+			)
+		);
+
 		return true;
 	}
 
@@ -60,15 +66,21 @@ class PageRestorer {
 	 * @returns string
 	 */
 	private function getUndeleteToken( Title $title ) {
-		$response = $this->api->postRequest( new SimpleRequest( 'query', array(
-			'list' => 'deletedrevs',
-			'titles' => $title->getTitle(),
-			'drprop' => 'token'
-		) ) );
-		if( array_key_exists( 'token', $response['query']['deletedrevs'][0] ) ) {
+		$response = $this->api->postRequest(
+			new SimpleRequest(
+				'query', array(
+				'list' => 'deletedrevs',
+				'titles' => $title->getTitle(),
+				'drprop' => 'token',
+			)
+			)
+		);
+		if ( array_key_exists( 'token', $response['query']['deletedrevs'][0] ) ) {
 			return $response['query']['deletedrevs'][0]['token'];
 		} else {
-			throw new OutOfBoundsException( 'Could not get page undelete token from list=deletedrevs query' );
+			throw new OutOfBoundsException(
+				'Could not get page undelete token from list=deletedrevs query'
+			);
 		}
 	}
 

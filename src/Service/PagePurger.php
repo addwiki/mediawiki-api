@@ -32,7 +32,10 @@ class PagePurger {
 	 * @return bool
 	 */
 	public function purge( Page $page ) {
-		$this->api->postRequest( new SimpleRequest( 'purge', array( 'pageids' => $page->getId() ) ) );
+		$this->api->postRequest(
+			new SimpleRequest( 'purge', array( 'pageids' => $page->getId() ) )
+		);
+
 		return true;
 	}
 

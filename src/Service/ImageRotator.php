@@ -39,7 +39,7 @@ class ImageRotator {
 			'token' => $this->api->getToken(),
 		);
 
-		if( !is_null( $file->getPageIdentifier()->getTitle() ) ) {
+		if ( !is_null( $file->getPageIdentifier()->getTitle() ) ) {
 			$params['titles'] = $file->getPageIdentifier()->getTitle()->getText();
 		} else {
 			$params['pageids'] = $file->getPageIdentifier()->getId();
@@ -48,10 +48,16 @@ class ImageRotator {
 		$result = $this->api->postRequest( new SimpleRequest( 'imagerotate', $params ) );
 
 		// This module sometimes gives odd errors so deal with them..
-		if( array_key_exists( 'imagerotate', $result ) ) {
+		if ( array_key_exists( 'imagerotate', $result ) ) {
 			$imageRotate = array_pop( $result['imagerotate'] );
-			if( array_key_exists( 'result', $imageRotate ) && $imageRotate['result'] == 'Failure' ) {
-				throw new UsageException( 'imagerotate-Failure', $imageRotate['errormessage'], $result );
+			if ( array_key_exists( 'result', $imageRotate ) &&
+				$imageRotate['result'] == 'Failure'
+			) {
+				throw new UsageException(
+					'imagerotate-Failure',
+					$imageRotate['errormessage'],
+					$result
+				);
 			}
 		}
 

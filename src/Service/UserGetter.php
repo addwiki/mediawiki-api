@@ -30,12 +30,15 @@ class UserGetter {
 	 */
 	public function getFromUsername( $username ) {
 		$result = $this->api->getRequest(
-			new SimpleRequest( 'query', array(
+			new SimpleRequest(
+				'query', array(
 				'list' => 'users',
 				'ususers' => $username,
 				'usprop' => 'gender|emailable|registration|editcount|rights|implicitgroups|groups|blockinfo',
-			) )
+			)
+			)
 		);
+
 		return $this->newUserFromListUsersResult( array_shift( $result['query']['users'] ) );
 	}
 
@@ -45,7 +48,7 @@ class UserGetter {
 	 * @return User
 	 */
 	private function newUserFromListUsersResult( $array ) {
-		if( array_key_exists( 'userid', $array ) ) {
+		if ( array_key_exists( 'userid', $array ) ) {
 			return new User(
 				$array['name'],
 				$array['userid'],

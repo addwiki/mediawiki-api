@@ -35,8 +35,10 @@ class PageProtector {
 	 * @throws InvalidArgumentException
 	 */
 	public function protect( Page $page, $protections, array $extraParams = array() ) {
-		if( !is_array( $protections) || empty( $protections ) ) {
-			throw new InvalidArgumentException( '$protections must be an array with keys and values' );
+		if ( !is_array( $protections ) || empty( $protections ) ) {
+			throw new InvalidArgumentException(
+				'$protections must be an array with keys and values'
+			);
 		}
 
 		$params = array(
@@ -44,15 +46,20 @@ class PageProtector {
 			'token' => $this->api->getToken( 'protect' ),
 		);
 		$protectionsString = '';
-		foreach( $protections as $action => $value ) {
-			if( !is_string( $action ) || !is_string( $value ) ) {
-				throw new InvalidArgumentException( 'All keys and elements of $protections must be strings' );
+		foreach ( $protections as $action => $value ) {
+			if ( !is_string( $action ) || !is_string( $value ) ) {
+				throw new InvalidArgumentException(
+					'All keys and elements of $protections must be strings'
+				);
 			}
 			$protectionsString = $action . '=' . $value . '|';
 		}
 		$params['protections'] = rtrim( $protectionsString, '|' );
 
-		$this->api->postRequest( new SimpleRequest( 'protect', array_merge( $extraParams, $params ) ) );
+		$this->api->postRequest(
+			new SimpleRequest( 'protect', array_merge( $extraParams, $params ) )
+		);
+
 		return true;
 	}
 

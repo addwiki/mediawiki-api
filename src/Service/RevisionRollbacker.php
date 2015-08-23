@@ -33,7 +33,10 @@ class RevisionRollbacker {
 	 * @return bool
 	 */
 	public function rollback( Revision $revision, Title $title = null ) {
-		$this->api->postRequest( new SimpleRequest( 'rollback', $this->getRollbackParams( $revision, $title ) ) );
+		$this->api->postRequest(
+			new SimpleRequest( 'rollback', $this->getRollbackParams( $revision, $title ) )
+		);
+
 		return true;
 	}
 
@@ -45,7 +48,7 @@ class RevisionRollbacker {
 	 */
 	private function getRollbackParams( Revision $revision, $title ) {
 		$params = array();
-		if( !is_null( $title ) ) {
+		if ( !is_null( $title ) ) {
 			//This is needed prior to https://gerrit.wikimedia.org/r/#/c/133063/
 			$params['title'] = $title->getTitle();
 		} else {
@@ -54,6 +57,7 @@ class RevisionRollbacker {
 		}
 		$params['user'] = $revision->getUser();
 		$params['token'] = $this->getTokenForRevision( $revision );
+
 		return $params;
 	}
 
@@ -63,12 +67,17 @@ class RevisionRollbacker {
 	 * @returns string
 	 */
 	private function getTokenForRevision( Revision $revision ) {
-		$result = $this->api->postRequest( new SimpleRequest( 'query', array(
-			'prop' => 'revisions',
-			'revids' => $revision->getId(),
-			'rvtoken' => 'rollback',
-		) ) );
+		$result = $this->api->postRequest(
+			new SimpleRequest(
+				'query', array(
+				'prop' => 'revisions',
+				'revids' => $revision->getId(),
+				'rvtoken' => 'rollback',
+			)
+			)
+		);
 		$result = array_shift( $result['query']['pages'] );
+
 		return $result['revisions'][0]['rollbacktoken'];
 	}
 
