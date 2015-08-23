@@ -16,7 +16,7 @@ These are the release notes for the [mediawiki-api](README.md).
 
 ####Libs
 
-* Using mediawiki-api-base 0.6
+* Using mediawiki-api-base 1.0
 * Using mediawiki-datamodel 0.6
 
 ## Version 0.4 (13 January 2015)
