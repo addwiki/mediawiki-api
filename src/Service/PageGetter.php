@@ -3,7 +3,6 @@
 namespace Mediawiki\Api\Service;
 
 use Mediawiki\Api\MediawikiApi;
-use Mediawiki\Api\Options\QueryOptions;
 use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\Content;
 use Mediawiki\DataModel\EditInfo;
@@ -35,15 +34,12 @@ class PageGetter {
 	 * @since 0.2
 	 *
 	 * @param int $id
-	 * @param QueryOptions|null $options
+	 * @param array $extraParams
 	 *
 	 * @returns Page
 	 */
-	public function getFromRevisionId( $id, QueryOptions $options = null ) {
-		if( is_null( $options ) ) {
-			$options = new QueryOptions();
-		}
-		$result = $this->api->getRequest( new SimpleRequest( 'query', $this->getQuery( array( 'revids' => $id ), $options ) ) );
+	public function getFromRevisionId( $id, array $extraParams = array() ) {
+		$result = $this->api->getRequest( new SimpleRequest( 'query', $this->getQuery( array( 'revids' => $id ), $extraParams ) ) );
 		return $this->newPageFromResult( array_shift( $result['query']['pages'] ) );
 	}
 
@@ -51,18 +47,15 @@ class PageGetter {
 	 * @since 0.2
 	 *
 	 * @param string|Title $title
-	 * @param QueryOptions|null $options
+	 * @param array $extraParams
 	 *
 	 * @returns Page
 	 */
-	public function getFromTitle( $title, QueryOptions $options = null ) {
-		if( is_null( $options ) ) {
-			$options = new QueryOptions();
-		}
+	public function getFromTitle( $title, array $extraParams = array() ) {
 		if( $title instanceof Title ) {
 			$title = $title->getTitle();
 		}
-		$result = $this->api->getRequest( new SimpleRequest( 'query', $this->getQuery( array( 'titles' => $title ), $options ) ) );
+		$result = $this->api->getRequest( new SimpleRequest( 'query', $this->getQuery( array( 'titles' => $title ), $extraParams ) ) );
 		return $this->newPageFromResult( array_shift( $result['query']['pages'] ) );
 	}
 
@@ -70,15 +63,12 @@ class PageGetter {
 	 * @since 0.2
 	 *
 	 * @param int $id
-	 * @param QueryOptions|null $options
+	 * @param array $extraParams
 	 *
 	 * @returns Page
 	 */
-	public function getFromPageId( $id, QueryOptions $options = null ) {
-		if( is_null( $options ) ) {
-			$options = new QueryOptions();
-		}
-		$result = $this->api->getRequest( new SimpleRequest( 'query', $this->getQuery( array( 'pageids' => $id ), $options ) ) );
+	public function getFromPageId( $id, array $extraParams = array() ) {
+		$result = $this->api->getRequest( new SimpleRequest( 'query', $this->getQuery( array( 'pageids' => $id ), $extraParams ) ) );
 		return $this->newPageFromResult( array_shift( $result['query']['pages'] ) );
 	}
 
@@ -86,19 +76,19 @@ class PageGetter {
 	 * @since 0.4
 	 *
 	 * @param PageIdentifier $pageIdentifier
-	 * @param QueryOptions|null $options
+	 * @param array $extraParams
 	 *
 	 * @throws RuntimeException
 	 * @returns Page
 	 */
-	public function getFromPageIdentifier( PageIdentifier $pageIdentifier, QueryOptions $options = null ) {
+	public function getFromPageIdentifier( PageIdentifier $pageIdentifier, array $extraParams = array() ) {
 		if( !$pageIdentifier->identifiesPage() ) {
 			throw new RuntimeException( '$pageIdentifier does not identify a page' );
 		}
 		if( !is_null( $pageIdentifier->getId() ) ) {
-			return $this->getFromPageId( $pageIdentifier->getId(), $options );
+			return $this->getFromPageId( $pageIdentifier->getId(), $extraParams );
 		} else {
-			return $this->getFromTitle( $pageIdentifier->getTitle(), $options );
+			return $this->getFromTitle( $pageIdentifier->getTitle(), $extraParams );
 		}
 	}
 
@@ -106,15 +96,12 @@ class PageGetter {
 	 * @since 0.2
 	 *
 	 * @param Page $page
-	 * @param QueryOptions|null $options
+	 * @param array $extraParams
 	 *
 	 * @return Page
 	 */
-	public function getFromPage( Page $page, QueryOptions $options = null ) {
-		if( is_null( $options ) ) {
-			$options = new QueryOptions();
-		}
-		$result = $this->api->getRequest( new SimpleRequest( 'query', $this->getQuery( array( 'pageids' => $page->getId() ), $options ) ) );
+	public function getFromPage( Page $page, array $extraParams = array() ) {
+		$result = $this->api->getRequest( new SimpleRequest( 'query', $this->getQuery( array( 'pageids' => $page->getId() ), $extraParams ) ) );
 		$revisions = $this->getRevisionsFromResult( array_shift( $result['query']['pages'] ) );
 		$revisions->addRevisions( $page->getRevisions() );
 		return new Page(
@@ -127,15 +114,12 @@ class PageGetter {
 	 * @since 0.2
 	 *
 	 * @param Revision $revision
-	 * @param QueryOptions|null $options
+	 * @param array $extraParams
 	 *
 	 * @return Page
 	 */
-	public function getFromRevision( Revision $revision, QueryOptions $options = null ) {
-		if( is_null( $options ) ) {
-			$options = new QueryOptions();
-		}
-		$result = $this->api->getRequest( new SimpleRequest( 'query', $this->getQuery( array( 'revids' => $revision->getId() ), $options ) ) );
+	public function getFromRevision( Revision $revision, array $extraParams = array() ) {
+		$result = $this->api->getRequest( new SimpleRequest( 'query', $this->getQuery( array( 'revids' => $revision->getId() ), $extraParams ) ) );
 		$revisions = $this->getRevisionsFromResult( array_shift( $result['query']['pages'] ) );
 		$revisions->addRevision( $revision );
 		return new Page(
@@ -153,20 +137,17 @@ class PageGetter {
 	/**
 	 * @param array $additionalParams
 	 *
-	 * @param QueryOptions $options
+	 * @param array $extraParams
 	 *
 	 * @return array
 	 */
-	private function getQuery( $additionalParams, QueryOptions $options ) {
+	private function getQuery( $additionalParams, array $extraParams = array() ) {
 		$base = array(
 			'prop' => 'revisions|info|pageprops',
 			'rvprop' => 'ids|flags|timestamp|user|size|sha1|comment|content|tags',
 			'inprop' => 'protection',
 		);
-		if( $options->getFollowRedirects() ) {
-			$base['redirects'] = '';
-		}
-		return array_merge( $base, $additionalParams );
+		return array_merge( $extraParams, $base, $additionalParams );
 	}
 
 	/**
