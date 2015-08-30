@@ -11,11 +11,16 @@
 	],
 	"require": {
 		"addwiki/mediawiki-api-base": "~1.0",
-		"addwiki/mediawiki-datamodel": "dev-master as 0.6"
+		"addwiki/mediawiki-datamodel": "~0.6@dev"
 	},
 	"autoload": {
 		"psr-4": {
 			"Mediawiki\\Api\\": "src/"
+		}
+	},
+	"extra": {
+		"branch-alias": {
+			"dev-master": "0.5.x-dev"
 		}
 	}
 }
