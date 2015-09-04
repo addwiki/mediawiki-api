@@ -1,6 +1,12 @@
 These are the release notes for the [mediawiki-api](README.md).
 
-## Version 0.5 (development)
+## Version 0.5 (4 September 2015)
+
+####Breaks
+
+* LogListGetter now requires mediawiki verison 1.25 or above
+* PageListGetter now requires mediawiki verison 1.25 or above
+* Removed ALL Options objects
 
 ####Additions
 
@@ -8,12 +14,6 @@ These are the release notes for the [mediawiki-api](README.md).
 * Introduces UserCreator service
 * Introduces FileUploader service
 * Introduces ImageRotator service
-
-####Breaks
-
-* LogListGetter now requires mediawiki verison 1.25 or above
-* PageListGetter now requires mediawiki verison 1.25 or above
-* Removed or deprecated ALL Options objects
 
 ####Libs
 
