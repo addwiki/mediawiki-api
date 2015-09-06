@@ -13,7 +13,6 @@ class FluidGeneratorTest extends \PHPUnit_Framework_TestCase {
 		$generator = new FluidGenerator( 'name' );
 		$generator->set( 'foo', 'bar' );
 
-		$this->assertEquals( 'name', $generator->getName() );
 		$this->assertEquals(
 			array(
 				'generator' => 'name',
@@ -27,7 +26,6 @@ class FluidGeneratorTest extends \PHPUnit_Framework_TestCase {
 		$generator = new FluidGenerator( 'name' );
 		$generator->set( 'gfoo', 'bar' );
 
-		$this->assertEquals( 'name', $generator->getName() );
 		$this->assertEquals(
 			array(
 				'generator' => 'name',
@@ -42,7 +40,6 @@ class FluidGeneratorTest extends \PHPUnit_Framework_TestCase {
 			->set( 'foo', 'bar' )
 			->set( 'gcat', 'meow' );
 
-		$this->assertEquals( 'name', $generator->getName() );
 		$this->assertEquals(
 			array(
 				'generator' => 'name',

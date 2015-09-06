@@ -28,10 +28,6 @@ class FluidGenerator implements Generator {
 		return new self( $name );
 	}
 
-	public function getName() {
-		return $this->name;
-	}
-
 	public function getParams() {
 		$params = $this->params;
 		$params['generator'] = $this->name;

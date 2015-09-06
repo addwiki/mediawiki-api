@@ -26,10 +26,6 @@ class AnonymousGenerator implements Generator {
 		$this->params = $params;
 	}
 
-	public function getName() {
-		return $this->name;
-	}
-
 	public function getParams() {
 		$params = $this->params;
 		$params['generator'] = $this->name;

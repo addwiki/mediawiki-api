@@ -12,7 +12,6 @@ class AnonymousGeneratorTest extends \PHPUnit_Framework_TestCase {
 	public function testConstruction() {
 		$generator = new AnonymousGenerator( 'name', array( 'gfoo' => 'bar' ) );
 
-		$this->assertEquals( 'name', $generator->getName() );
 		$this->assertEquals(
 			array(
 				'generator' => 'name',
