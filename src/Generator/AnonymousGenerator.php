@@ -3,7 +3,7 @@
 namespace Mediawiki\Api\Generator;
 
 /**
- * @since 0.6
+ * @since 0.5.1
  */
 class AnonymousGenerator implements Generator {
 
