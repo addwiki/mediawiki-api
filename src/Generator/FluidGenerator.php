@@ -33,7 +33,9 @@ class FluidGenerator implements Generator {
 	}
 
 	public function getParams() {
-		return $this->params;
+		$params = $this->params;
+		$params['generator'] = $this->name;
+		return $params;
 	}
 
 	/**
