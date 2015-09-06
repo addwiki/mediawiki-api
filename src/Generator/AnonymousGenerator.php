@@ -5,7 +5,7 @@ namespace Mediawiki\Api\Generator;
 /**
  * @since 0.5.1
  */
-class AnonymousGenerator implements Generator {
+class AnonymousGenerator implements ApiGenerator {
 
 	/**
 	 * @var string

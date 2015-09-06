@@ -2,7 +2,7 @@
 
 namespace Mediawiki\Api\Service;
 
-use Mediawiki\Api\Generator\Generator;
+use Mediawiki\Api\Generator\ApiGenerator;
 use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\Page;
@@ -43,11 +43,11 @@ class PagePurger {
 	/**
 	 * @since 0.6
 	 *
-	 * @param Generator $generator
+	 * @param ApiGenerator $generator
 	 *
 	 * @return bool
 	 */
-	public function purgeGenerator( Generator $generator ) {
+	public function purgeGenerator( ApiGenerator $generator ) {
 		$this->api->postRequest(
 			new SimpleRequest( 'purge', $generator->getParams() )
 		);

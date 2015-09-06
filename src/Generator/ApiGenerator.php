@@ -8,7 +8,7 @@ namespace Mediawiki\Api\Generator;
  *
  * @since 0.5.1
  */
-interface Generator {
+interface ApiGenerator {
 
 	/**
 	 * @since 0.5.1

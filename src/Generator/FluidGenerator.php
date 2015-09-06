@@ -5,7 +5,7 @@ namespace Mediawiki\Api\Generator;
 /**
  * @since 0.5.1
  */
-class FluidGenerator implements Generator {
+class FluidGenerator implements ApiGenerator {
 
 	private $name;
 	private $params;
@@ -22,7 +22,7 @@ class FluidGenerator implements Generator {
 	 *
 	 * @param string $name
 	 *
-	 * @return self
+	 * @return FluidApiGenerator
 	 */
 	public static function factory( $name ) {
 		return new self( $name );
