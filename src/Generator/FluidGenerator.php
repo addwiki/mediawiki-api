@@ -17,6 +17,17 @@ class FluidGenerator implements Generator {
 		$this->name = $name;
 	}
 
+	/**
+	 * Convenience method for using this fluidly
+	 *
+	 * @param string $name
+	 *
+	 * @return self
+	 */
+	public static function factory( $name ) {
+		return new self( $name );
+	}
+
 	public function getName() {
 		return $this->name;
 	}
@@ -26,14 +37,27 @@ class FluidGenerator implements Generator {
 	}
 
 	/**
-	 * @param string $key including 'g' prefix
+	 * @param string $key optionally with the 'g' prefix
 	 * @param string $value
 	 *
 	 * @return $this
 	 */
 	public function set( $key, $value ) {
+		$key = $this->addKeyprefixIfNeeded( $key );
 		$this->params[$key] = $value;
 		return $this;
+	}
+
+	/**
+	 * @param string $key
+	 *
+	 * @return string
+	 */
+	private function addKeyPrefixIfNeeded( $key ) {
+		if( strtolower( substr( $key, 0, 1 ) ) === 'g' ) {
+			return $key;
+		}
+		return 'g' . $key;
 	}
 
 }
