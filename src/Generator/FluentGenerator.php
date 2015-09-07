@@ -5,7 +5,7 @@ namespace Mediawiki\Api\Generator;
 /**
  * @since 0.5.1
  */
-class FluidGenerator implements ApiGenerator {
+class FluentGenerator implements ApiGenerator {
 
 	private $name;
 	private $params;

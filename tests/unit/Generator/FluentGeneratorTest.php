@@ -2,15 +2,15 @@
 
 namespace Mediawiki\Api\Test\Generator;
 
-use Mediawiki\Api\Generator\FluidGenerator;
+use Mediawiki\Api\Generator\FluentGenerator;
 
 /**
- * @covers \Mediawiki\Api\Generator\FluidGenerator
+ * @covers \Mediawiki\Api\Generator\FluentGenerator
  */
-class FluidGeneratorTest extends \PHPUnit_Framework_TestCase {
+class FluentGeneratorTest extends \PHPUnit_Framework_TestCase {
 
 	public function testConstructionWithNoGPrefix() {
-		$generator = new FluidGenerator( 'name' );
+		$generator = new FluentGenerator( 'name' );
 		$generator->set( 'foo', 'bar' );
 
 		$this->assertEquals(
@@ -23,7 +23,7 @@ class FluidGeneratorTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testConstructionWithGPrefix() {
-		$generator = new FluidGenerator( 'name' );
+		$generator = new FluentGenerator( 'name' );
 		$generator->set( 'gfoo', 'bar' );
 
 		$this->assertEquals(
@@ -36,7 +36,7 @@ class FluidGeneratorTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testFluidity() {
-		$generator = FluidGenerator::factory( 'name' )
+		$generator = FluentGenerator::factory( 'name' )
 			->set( 'foo', 'bar' )
 			->set( 'gcat', 'meow' );
 
