@@ -1,6 +1,6 @@
 These are the release notes for the [mediawiki-api](README.md).
 
-## Version 0.5.1 (in development)
+## Version 0.5.1 (7 September 2015)
 
 * Adds ApiGenerator interface
 * Adds AnonymousGenerator implementation of Generator
