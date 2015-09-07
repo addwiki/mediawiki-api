@@ -9,6 +9,8 @@ On Packagist:
 [![Latest Stable Version](https://poser.pugx.org/addwiki/mediawiki-api/version.png)](https://packagist.org/packages/addwiki/mediawiki-api)
 [![Download count](https://poser.pugx.org/addwiki/mediawiki-api/d/total.png)](https://packagist.org/packages/addwiki/mediawiki-api)
 
+Issue tracker: https://phabricator.wikimedia.org/project/profile/1490/
+
 ## Installation
 
 Use composer to install the library and all its dependencies:
