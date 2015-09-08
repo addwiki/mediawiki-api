@@ -81,7 +81,7 @@ class RevisionSaver {
 
 		$params['token'] = $this->api->getToken();
 
-		$params = array_merge( $params, $this->getEditInfoParams( $editInfo ) );
+		$this->addEditInfoParams( $editInfo, $params, $assertions );
 
 		if ( $this->api->isLoggedin() ) {
 			$assertions[] = 'user';
@@ -95,11 +95,10 @@ class RevisionSaver {
 
 	/**
 	 * @param null|EditInfo $editInfo
-	 *
-	 * @return array
+	 * @param array &$params
+	 * @param array &$assertions
 	 */
-	private function getEditInfoParams( $editInfo ) {
-		$params = array();
+	private function addEditInfoParams( $editInfo, &$params, &$assertions ) {
 		if ( !is_null( $editInfo ) ) {
 			$params['summary'] = $editInfo->getSummary();
 			if ( $editInfo->getMinor() ) {
@@ -110,8 +109,6 @@ class RevisionSaver {
 				$assertions[] = 'bot';
 			}
 		}
-
-		return $params;
 	}
 
 }
