@@ -11,6 +11,8 @@ use Mediawiki\DataModel\Revisions;
 use Mediawiki\DataModel\Title;
 
 /**
+ * @access private
+ *
  * @author Adam Shorland
  */
 class PageListGetter {

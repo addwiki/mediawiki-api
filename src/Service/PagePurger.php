@@ -8,6 +8,8 @@ use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\Page;
 
 /**
+ * @access private
+ *
  * @author Adam Shorland
  * @author Thomas Arrow
  */

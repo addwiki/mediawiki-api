@@ -8,6 +8,8 @@ use Mediawiki\Api\UsageException;
 use Mediawiki\DataModel\File;
 
 /**
+ * @access private
+ *
  * @author Adam Shorland
  */
 class ImageRotator {

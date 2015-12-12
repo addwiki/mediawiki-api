@@ -9,6 +9,8 @@ use Mediawiki\DataModel\Title;
 use OutOfBoundsException;
 
 /**
+ * @access private
+ *
  * @author Adam Shorland
  */
 class PageRestorer {

@@ -9,6 +9,8 @@ use Mediawiki\DataModel\Revision;
 use RuntimeException;
 
 /**
+ * @access private
+ *
  * @author Adam Shorland
  */
 class RevisionSaver {

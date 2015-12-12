@@ -3,6 +3,8 @@
 namespace Mediawiki\Api\Generator;
 
 /**
+ * @access public
+ *
  * @since 0.5.1
  */
 class FluentGenerator implements ApiGenerator {

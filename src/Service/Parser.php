@@ -6,6 +6,11 @@ use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\PageIdentifier;
 
+/**
+ * @access private
+ *
+ * @author Adam Shorland
+ */
 class Parser {
 
 	/**

@@ -8,6 +8,8 @@ use Mediawiki\DataModel\Page;
 use Mediawiki\DataModel\Title;
 
 /**
+ * @access private
+ *
  * @author Adam Shorland
  */
 class PageMover {

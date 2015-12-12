@@ -26,6 +26,8 @@ use Mediawiki\Api\Service\UserGetter;
 use Mediawiki\Api\Service\UserRightsChanger;
 
 /**
+ * @access public
+ *
  * @author Adam Shorland
  */
 class MediawikiFactory {

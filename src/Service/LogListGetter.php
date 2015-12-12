@@ -12,6 +12,8 @@ use Mediawiki\DataModel\Revisions;
 use Mediawiki\DataModel\Title;
 
 /**
+ * @access private
+ *
  * @author Thomas Arrow
  */
 class LogListGetter {

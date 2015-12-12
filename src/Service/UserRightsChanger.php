@@ -7,6 +7,8 @@ use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\User;
 
 /**
+ * @access private
+ *
  * @author Adam Shorland
  */
 class UserRightsChanger {

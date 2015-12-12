@@ -6,6 +6,8 @@ namespace Mediawiki\Api\Generator;
  * Interface relating to Mediawiki generators
  * @see https://www.mediawiki.org/wiki/API:Query#Generators
  *
+ * @access public
+ *
  * @since 0.5.1
  */
 interface ApiGenerator {

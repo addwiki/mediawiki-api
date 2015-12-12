@@ -7,6 +7,8 @@ use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\Revision;
 
 /**
+ * @access private
+ *
  * @author Adam Shorland
  */
 class RevisionDeleter {

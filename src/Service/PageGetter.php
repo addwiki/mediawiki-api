@@ -14,6 +14,8 @@ use Mediawiki\DataModel\Title;
 use RuntimeException;
 
 /**
+ * @access private
+ *
  * @author Adam Shorland
  */
 class PageGetter {

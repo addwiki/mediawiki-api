@@ -8,6 +8,8 @@ use Mediawiki\DataModel\Revision;
 use Mediawiki\DataModel\Title;
 
 /**
+ * @access private
+ *
  * @author Adam Shorland
  */
 class RevisionRollbacker {
