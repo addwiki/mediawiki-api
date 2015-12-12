@@ -13,6 +13,7 @@ use Mediawiki\Api\Service\PagePurger;
 use Mediawiki\Api\Service\PageGetter;
 use Mediawiki\Api\Service\PageRestorer;
 use Mediawiki\Api\Service\PageWatcher;
+use Mediawiki\Api\Service\Parser;
 use Mediawiki\Api\Service\RevisionDeleter;
 use Mediawiki\Api\Service\RevisionPatroller;
 use Mediawiki\Api\Service\RevisionRestorer;
@@ -207,5 +208,13 @@ class MediawikiFactory {
 	 */
 	public function newImageRotator() {
 		return new ImageRotator( $this->api );
+	}
+
+	/**
+	 * @since 0.6
+	 * @return Parser
+	 */
+	public function newParser() {
+		return new Parser( $this->api );
 	}
 } 

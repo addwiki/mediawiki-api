@@ -1,5 +1,9 @@
 These are the release notes for the [mediawiki-api](README.md).
 
+## Version 0.6
+
+* Adds getParser method to factory
+
 ## Version 0.5.1 (7 September 2015)
 
 * Adds ApiGenerator interface
