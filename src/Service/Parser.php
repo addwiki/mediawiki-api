@@ -40,7 +40,7 @@ class Parser {
 			throw new \RuntimeException( 'No way to identify page' );
 		}
 
-		$result = $this->api->postRequest( new SimpleRequest( 'purge', $params ) );
+		$result = $this->api->getRequest( new SimpleRequest( 'parse', $params ) );
 
 		return $result['parse'];
 	}
