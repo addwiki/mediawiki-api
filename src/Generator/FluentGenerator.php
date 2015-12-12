@@ -24,7 +24,7 @@ class FluentGenerator implements ApiGenerator {
 	 *
 	 * @param string $name
 	 *
-	 * @return FluidApiGenerator
+	 * @return FluentGenerator
 	 */
 	public static function factory( $name ) {
 		return new self( $name );
