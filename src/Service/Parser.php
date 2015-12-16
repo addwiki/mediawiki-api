@@ -2,6 +2,7 @@
 
 namespace Mediawiki\Api\Service;
 
+use GuzzleHttp\Promise\PromiseInterface;
 use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\PageIdentifier;
@@ -31,6 +32,15 @@ class Parser {
 	 * @return array the parse result (raw from the api)
 	 */
 	public function parsePage( PageIdentifier $pageIdentifier ) {
+		return $this->parsePageAsync( $pageIdentifier )->wait();
+	}
+
+	/**
+	 * @param PageIdentifier $pageIdentifier
+	 *
+	 * @return PromiseInterface of array the parse result (raw from the api)
+	 */
+	public function parsePageAsync( PageIdentifier $pageIdentifier ) {
 		$params = array();
 		if( $pageIdentifier->getId() !== null ) {
 			$params['pageid'] = $pageIdentifier->getId();
@@ -40,9 +50,11 @@ class Parser {
 			throw new \RuntimeException( 'No way to identify page' );
 		}
 
-		$result = $this->api->getRequest( new SimpleRequest( 'parse', $params ) );
+		$promise = $this->api->getRequestAsync( new SimpleRequest( 'parse', $params ) );
 
-		return $result['parse'];
+		return $promise->then( function( $result ) {
+			return $result['parse'];
+		} );
 	}
 
 }
