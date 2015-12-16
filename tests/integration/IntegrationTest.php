@@ -2,12 +2,15 @@
 
 namespace Mediawiki\Api\Test;
 
+use Mediawiki\Api\MediawikiApi;
+use Mediawiki\Api\MediawikiFactory;
 use Mediawiki\DataModel\Content;
 use Mediawiki\DataModel\PageIdentifier;
 use Mediawiki\DataModel\Revision;
 use Mediawiki\DataModel\Title;
+use PHPUnit_Framework_TestCase;
 
-class IntegrationTest extends IntegrationTestBase {
+class IntegrationTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 * @var PageIdentifier
@@ -20,8 +23,9 @@ class IntegrationTest extends IntegrationTestBase {
 	}
 
 	public function testCreatePage() {
+		$factory = new MediawikiFactory( new MediawikiApi( 'http://localhost/w/api.php' ) );
 		$this->assertTrue(
-			$this->factory->newRevisionSaver()->save(
+			$factory->newRevisionSaver()->save(
 				new Revision(
 					new Content( 'testCreatePage_content' ),
 					self::$localPageIdentifier
@@ -36,7 +40,8 @@ class IntegrationTest extends IntegrationTestBase {
 	 * @depends testCreatePage
 	 */
 	public function testGetPageUsingTitle() {
-		$page = $this->factory->newPageGetter()->getFromPageIdentifier( self::$localPageIdentifier );
+		$factory = new MediawikiFactory( new MediawikiApi( 'http://localhost/w/api.php' ) );
+		$page = $factory->newPageGetter()->getFromPageIdentifier( self::$localPageIdentifier );
 		$this->assertTrue( is_int( $page->getPageIdentifier()->getId() ) );
 		$this->assertEquals( self::$localPageIdentifier->getTitle(), $page->getPageIdentifier()->getTitle() );
 		$this->assertEquals( 'testCreatePage_content', $page->getRevisions()->getLatest()->getContent()->getData() );
@@ -47,7 +52,8 @@ class IntegrationTest extends IntegrationTestBase {
 	 * @depends testGetPageUsingTitle
 	 */
 	public function testGetPageUsingId() {
-		$page = $this->factory->newPageGetter()->getFromPageId( self::$localPageIdentifier->getId() );
+		$factory = new MediawikiFactory( new MediawikiApi( 'http://localhost/w/api.php' ) );
+		$page = $factory->newPageGetter()->getFromPageId( self::$localPageIdentifier->getId() );
 		$this->assertEquals( self::$localPageIdentifier->getId(), $page->getPageIdentifier()->getId() );
 		$this->assertEquals( self::$localPageIdentifier->getTitle(), $page->getPageIdentifier()->getTitle() );
 	}
