@@ -10,7 +10,7 @@
 		}
 	],
 	"require": {
-		"addwiki/mediawiki-api-base": "~1.0",
+		"addwiki/mediawiki-api-base": "dev-master as 2.0.0",
 		"addwiki/mediawiki-datamodel": "~0.6.0"
 	},
 	"autoload": {
