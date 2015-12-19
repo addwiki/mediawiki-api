@@ -10,7 +10,7 @@ use Mediawiki\DataModel\PageIdentifier;
 /**
  * @access private
  *
- * @author Adam Shorland
+ * @author Addshore
  */
 class Parser {
 

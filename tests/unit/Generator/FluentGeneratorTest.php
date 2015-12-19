@@ -5,6 +5,8 @@ namespace Mediawiki\Api\Test\Generator;
 use Mediawiki\Api\Generator\FluentGenerator;
 
 /**
+ * @author Addshore
+ *
  * @covers \Mediawiki\Api\Generator\FluentGenerator
  */
 class FluentGeneratorTest extends \PHPUnit_Framework_TestCase {

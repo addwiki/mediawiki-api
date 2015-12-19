@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @author Addshore
+ */
+
 if ( php_sapi_name() !== 'cli' ) {
 	die( 'Not an entry point' );
 }

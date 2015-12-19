@@ -7,6 +7,8 @@ use Mediawiki\Api\SimpleRequest;
 
 /**
  * @access private
+ *
+ * @author Addshore
  */
 class FileUploader {
 

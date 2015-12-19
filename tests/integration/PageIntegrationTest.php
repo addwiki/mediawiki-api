@@ -8,6 +8,9 @@ use Mediawiki\DataModel\Revision;
 use Mediawiki\DataModel\Title;
 use PHPUnit_Framework_TestCase;
 
+/**
+ * @author Addshore
+ */
 class PageIntegrationTest extends PHPUnit_Framework_TestCase {
 
 	/**

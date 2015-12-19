@@ -7,7 +7,7 @@ use Mediawiki\Api\MediawikiFactory;
 /**
  * @covers Mediawiki\Api\MediawikiFactory
  *
- * @author Adam Shorland
+ * @author Addshore
  */
 class MediawikiFactoryTest extends \PHPUnit_Framework_TestCase {
 

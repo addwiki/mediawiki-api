@@ -9,7 +9,7 @@ use Mediawiki\DataModel\Revision;
 /**
  * @access private
  *
- * @author Adam Shorland
+ * @author Addshore
  */
 class RevisionRestorer {
 

@@ -9,7 +9,7 @@ use Mediawiki\Api\SimpleRequest;
 /**
  * @access private
  *
- * @author Adam Shorland
+ * @author Addshore
  */
 class UserCreator {
 

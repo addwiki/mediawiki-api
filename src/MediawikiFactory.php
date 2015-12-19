@@ -28,7 +28,7 @@ use Mediawiki\Api\Service\UserRightsChanger;
 /**
  * @access public
  *
- * @author Adam Shorland
+ * @author Addshore
  */
 class MediawikiFactory {
 

@@ -11,7 +11,7 @@ use RuntimeException;
 /**
  * @access private
  *
- * @author Adam Shorland
+ * @author Addshore
  */
 class RevisionSaver {
 

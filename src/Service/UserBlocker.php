@@ -10,7 +10,7 @@ use Mediawiki\DataModel\User;
 /**
  * @access private
  *
- * @author Adam Shorland
+ * @author Addshore
  */
 class UserBlocker {
 

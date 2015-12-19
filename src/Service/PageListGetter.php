@@ -13,7 +13,7 @@ use Mediawiki\DataModel\Title;
 /**
  * @access private
  *
- * @author Adam Shorland
+ * @author Addshore
  */
 class PageListGetter {
 

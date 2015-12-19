@@ -2,19 +2,22 @@
 
 namespace Mediawiki\Api\Test\Service;
 
+use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\Service\PagePurger;
 use Mediawiki\DataModel\Page;
 use Mediawiki\DataModel\PageIdentifier;
 use Mediawiki\DataModel\Revisions;
 use Mediawiki\DataModel\Title;
+use PHPUnit_Framework_MockObject_MockObject;
 
 /**
- * @author Adam Shorland
+ * @author Addshore
  * @covers Mediawiki\Api\Service\PagePurger
  */
 class PagePurgerTest extends \PHPUnit_Framework_TestCase {
 
 	private function getMockApi() {
+		/** @var MediawikiApi|PHPUnit_Framework_MockObject_MockObject $mock */
 		$mock = $this->getMockBuilder( '\Mediawiki\Api\MediawikiApi' )
 			->disableOriginalConstructor()
 			->getMock();

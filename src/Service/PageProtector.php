@@ -10,7 +10,7 @@ use Mediawiki\DataModel\Page;
 /**
  * @access private
  *
- * @author Adam Shorland
+ * @author Addshore
  */
 class PageProtector {
 

@@ -11,7 +11,7 @@ use OutOfBoundsException;
 /**
  * @access private
  *
- * @author Adam Shorland
+ * @author Addshore
  */
 class PageRestorer {
 
