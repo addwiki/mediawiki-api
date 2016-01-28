@@ -40,7 +40,6 @@ class LogListGetter {
 		while ( true ) {
 			$params = array(
 				'list' => 'logevents',
-				'rawcontinue' => '',
 				'leprop' => 'title|ids|type|user|timestamp|comment|details'
 			);
 
