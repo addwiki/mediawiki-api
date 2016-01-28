@@ -47,7 +47,6 @@ class PageListGetter {
 		$params = array(
 			'list' => 'categorymembers',
 			'cmtitle' => $name,
-			'rawcontinue' => '',
 		);
 
 		$result =
@@ -85,7 +84,6 @@ class PageListGetter {
 		$params = array(
 			'list' => 'embeddedin',
 			'eititle' => $pageName,
-			'rawcontinue' => '',
 		);
 
 		$result =
@@ -122,7 +120,7 @@ class PageListGetter {
 	 * @returns Pages
 	 */
 	public function getFromWhatLinksHere( $pageName ) {
-		$continue = '';
+		$continue = array();
 		$limit = 500;
 		$pages = new Pages();
 
@@ -131,10 +129,9 @@ class PageListGetter {
 				'prop' => 'info',
 				'generator' => 'linkshere',
 				'titles' => $pageName,
-				'rawcontinue' => '',
 			);
 			if ( !empty( $continue ) ) {
-				$params['lhcontinue'] = $continue;
+				$params = array_merge( $params, $continue );
 			}
 			$params['glhlimit'] = $limit;
 			$result = $this->api->getRequest( new SimpleRequest( 'query', $params ) );
@@ -154,10 +151,10 @@ class PageListGetter {
 				);
 			}
 
-			if ( empty( $result['query-continue']['linkshere']['glhcontinue'] ) ) {
+			if ( empty( $result['continue'] ) ) {
 				return $pages;
 			} else {
-				$continue = $result['query-continue']['linkshere']['glhcontinue'];
+				$continue = $result['continue'];
 			}
 		}
 	}
@@ -172,7 +169,6 @@ class PageListGetter {
 	public function getRandom( array $extraParams = array() ) {
 		$params = array(
 			'list' => 'random',
-			'rawcontinue' => '',
 		);
 		$result =
 			$this->api->getRequest(
