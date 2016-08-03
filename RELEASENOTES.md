@@ -1,6 +1,6 @@
 These are the release notes for the [mediawiki-api](README.md).
 
-## Version 0.6
+## Version 0.6 (3 August 2016)
 
 * Adds newParser method to factory
 * Use the new API continuation mode
