@@ -3,6 +3,8 @@ These are the release notes for the [mediawiki-api](README.md).
 ## Version 0.6
 
 * Adds newParser method to factory
+* Use the new API continuation mode
+* Fix ignored bot assertion in EditInfo
 
 ## Version 0.5.1 (7 September 2015)
 
