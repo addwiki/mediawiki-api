@@ -49,10 +49,7 @@ class PageListGetterTest extends PHPUnit_Framework_TestCase {
 		$this->pageListGetter = $factory->newPageListGetter();
 	}
 
-	/**
-	 * @test
-	 */
-	public function getPageListFromCategoryName() {
+	public function testGetPageListFromCategoryName() {
 		// The empty category.
 		$emptyCategory = $this->pageListGetter->getPageListFromCategoryName($this->emptyCatName);
 		$this->assertCount(0, $emptyCategory->toArray());
@@ -62,18 +59,12 @@ class PageListGetterTest extends PHPUnit_Framework_TestCase {
 		$this->assertCount(15, $testCategory->toArray());
 	}
 
-	/**
-	 * @test
-	 */
-	public function getPageListFromPageTransclusions() {
+	public function testGetPageListFromPageTransclusions() {
 		$linksHere = $this->pageListGetter->getPageListFromPageTransclusions('Template:Test');
 		$this->assertCount(8, $linksHere->toArray());
 	}
 
-	/**
-	 * @test
-	 */
-	public function getFromWhatLinksHere() {
+	public function testGetFromWhatLinksHere() {
 		// Every even-numbered test page links to Main Page.
 		$mainPageLinks = $this->pageListGetter->getFromWhatLinksHere('Main Page');
 		$this->assertCount(7, $mainPageLinks->toArray());
@@ -84,10 +75,7 @@ class PageListGetterTest extends PHPUnit_Framework_TestCase {
 		
 	}
 
-	/**
-	 * @test
-	 */
-	public function getRandom() {
+	public function testGetRandom() {
 		// Default is 1.
 		$randomPages1 = $this->pageListGetter->getRandom();
 		$this->assertCount(1, $randomPages1->toArray());
