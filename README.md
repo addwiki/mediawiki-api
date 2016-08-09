@@ -47,4 +47,7 @@ $services->newPageDeleter()->delete(
 	$services->newPageGetter()->getFromTitle( 'DeleteMe!' ),
 	array( 'reason' => 'Reason for Deletion' )
 );
+
+// List all pages in a category
+$pages = $services->newPageListGetter()->getPageListFromCategoryName( 'Category:Cat name' );
 ```
