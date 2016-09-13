@@ -34,14 +34,14 @@ class LogListGetter {
 	 *
 	 * @return LogList
 	 */
-	public function getLogList ( array $extraParams = array() ) {
+	public function getLogList( array $extraParams = [] ) {
 		$logList = new LogList();
 
 		while ( true ) {
-			$params = array(
+			$params = [
 				'list' => 'logevents',
 				'leprop' => 'title|ids|type|user|timestamp|comment|details'
-			);
+			];
 
 			$result = $this->api->getRequest( new SimpleRequest( 'query', array_merge( $extraParams, $params ) ) );
 
@@ -76,7 +76,7 @@ class LogListGetter {
 	 * @return array
 	 */
 	private function getLogDetailsFromEvent( $event ) {
-		$ignoreKeys = array_flip( array(
+		$ignoreKeys = array_flip( [
 			'logid',
 			'ns',
 			'title',
@@ -87,8 +87,8 @@ class LogListGetter {
 			'user',
 			'type',
 			'timestamp',
-			'comment' ) );
+			'comment' ] );
 		return array_diff_key( $event, $ignoreKeys );
 	}
 
-} 
+}

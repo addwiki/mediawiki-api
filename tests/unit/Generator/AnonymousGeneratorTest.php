@@ -12,13 +12,13 @@ use Mediawiki\Api\Generator\AnonymousGenerator;
 class AnonymousGeneratorTest extends \PHPUnit_Framework_TestCase {
 
 	public function testConstruction() {
-		$generator = new AnonymousGenerator( 'name', array( 'gfoo' => 'bar' ) );
+		$generator = new AnonymousGenerator( 'name', [ 'gfoo' => 'bar' ] );
 
 		$this->assertEquals(
-			array(
+			[
 				'generator' => 'name',
 				'gfoo' => 'bar',
-			),
+			],
 			$generator->getParams()
 		);
 	}

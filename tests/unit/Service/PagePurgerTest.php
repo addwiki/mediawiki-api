@@ -45,10 +45,10 @@ class PagePurgerTest extends \PHPUnit_Framework_TestCase {
 				new Title( 'Foo', 0 ),
 				123
 			),
-			new Revisions( array() )
+			new Revisions( [] )
 		);
 
 		$this->assertTrue( $service->purge( $page ) );
 	}
 
-} 
+}

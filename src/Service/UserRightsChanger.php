@@ -37,24 +37,24 @@ class UserRightsChanger {
 	 */
 	public function change(
 		User $user,
-		$add = array(),
-		$remove = array(),
-		array $extraParams = array()
+		$add = [],
+		$remove = [],
+		array $extraParams = []
 	) {
 		$result = $this->api->postRequest(
 			new SimpleRequest(
-				'query', array(
+				'query', [
 				'list' => 'users',
 				'ustoken' => 'userrights',
 				'ususers' => $user->getName(),
-			)
+			]
 			)
 		);
 
-		$params = array(
+		$params = [
 			'user' => $user->getName(),
 			'token' => $result['query']['users'][0]['userrightstoken'],
-		);
+		];
 		if ( !empty( $add ) ) {
 			$params['add'] = implode( '|', $add );
 		}
@@ -69,4 +69,4 @@ class UserRightsChanger {
 		return true;
 	}
 
-} 
+}

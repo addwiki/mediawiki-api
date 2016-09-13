@@ -35,7 +35,7 @@ class PageRestorer {
 	 *
 	 * @return bool
 	 */
-	public function restore( Page $page, array $extraParams = array() ) {
+	public function restore( Page $page, array $extraParams = [] ) {
 		$this->api->postRequest(
 			new SimpleRequest(
 				'undelete',
@@ -53,7 +53,7 @@ class PageRestorer {
 	 * @return array
 	 */
 	private function getUndeleteParams( Title $title, $extraParams ) {
-		$params = array();
+		$params = [];
 
 		$params['title'] = $title->getTitle();
 		$params['token'] = $this->getUndeleteToken( $title );
@@ -70,11 +70,11 @@ class PageRestorer {
 	private function getUndeleteToken( Title $title ) {
 		$response = $this->api->postRequest(
 			new SimpleRequest(
-				'query', array(
+				'query', [
 				'list' => 'deletedrevs',
 				'titles' => $title->getTitle(),
 				'drprop' => 'token',
-			)
+			]
 			)
 		);
 		if ( array_key_exists( 'token', $response['query']['deletedrevs'][0] ) ) {
@@ -86,4 +86,4 @@ class PageRestorer {
 		}
 	}
 
-} 
+}

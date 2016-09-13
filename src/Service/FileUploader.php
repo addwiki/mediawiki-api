@@ -31,11 +31,11 @@ class FileUploader {
 	 * @return bool
 	 */
 	public function upload( $targetName, $location ) {
-		$params = array(
+		$params = [
 			'filename' => $targetName,
 			'token' => $this->api->getToken( 'edit' ),
-		);
-		$headers = array();
+		];
+		$headers = [];
 
 		if ( is_file( $location ) ) {
 			$params['file'] = fopen( $location, 'r' );

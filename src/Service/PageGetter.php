@@ -40,12 +40,12 @@ class PageGetter {
 	 *
 	 * @returns Page
 	 */
-	public function getFromRevisionId( $id, array $extraParams = array() ) {
+	public function getFromRevisionId( $id, array $extraParams = [] ) {
 		$result =
 			$this->api->getRequest(
 				new SimpleRequest(
 					'query',
-					$this->getQuery( array( 'revids' => $id ), $extraParams )
+					$this->getQuery( [ 'revids' => $id ], $extraParams )
 				)
 			);
 
@@ -60,7 +60,7 @@ class PageGetter {
 	 *
 	 * @returns Page
 	 */
-	public function getFromTitle( $title, array $extraParams = array() ) {
+	public function getFromTitle( $title, array $extraParams = [] ) {
 		if ( $title instanceof Title ) {
 			$title = $title->getTitle();
 		}
@@ -68,7 +68,7 @@ class PageGetter {
 			$this->api->getRequest(
 				new SimpleRequest(
 					'query',
-					$this->getQuery( array( 'titles' => $title ), $extraParams )
+					$this->getQuery( [ 'titles' => $title ], $extraParams )
 				)
 			);
 
@@ -83,12 +83,12 @@ class PageGetter {
 	 *
 	 * @returns Page
 	 */
-	public function getFromPageId( $id, array $extraParams = array() ) {
+	public function getFromPageId( $id, array $extraParams = [] ) {
 		$result =
 			$this->api->getRequest(
 				new SimpleRequest(
 					'query',
-					$this->getQuery( array( 'pageids' => $id ), $extraParams )
+					$this->getQuery( [ 'pageids' => $id ], $extraParams )
 				)
 			);
 
@@ -106,7 +106,7 @@ class PageGetter {
 	 */
 	public function getFromPageIdentifier(
 		PageIdentifier $pageIdentifier,
-		array $extraParams = array()
+		array $extraParams = []
 	) {
 		if ( !$pageIdentifier->identifiesPage() ) {
 			throw new RuntimeException( '$pageIdentifier does not identify a page' );
@@ -126,12 +126,12 @@ class PageGetter {
 	 *
 	 * @return Page
 	 */
-	public function getFromPage( Page $page, array $extraParams = array() ) {
+	public function getFromPage( Page $page, array $extraParams = [] ) {
 		$result =
 			$this->api->getRequest(
 				new SimpleRequest(
 					'query',
-					$this->getQuery( array( 'pageids' => $page->getId() ), $extraParams )
+					$this->getQuery( [ 'pageids' => $page->getId() ], $extraParams )
 				)
 			);
 		$revisions = $this->getRevisionsFromResult( array_shift( $result['query']['pages'] ) );
@@ -151,12 +151,12 @@ class PageGetter {
 	 *
 	 * @return Page
 	 */
-	public function getFromRevision( Revision $revision, array $extraParams = array() ) {
+	public function getFromRevision( Revision $revision, array $extraParams = [] ) {
 		$result =
 			$this->api->getRequest(
 				new SimpleRequest(
 					'query',
-					$this->getQuery( array( 'revids' => $revision->getId() ), $extraParams )
+					$this->getQuery( [ 'revids' => $revision->getId() ], $extraParams )
 				)
 			);
 		$revisions = $this->getRevisionsFromResult( array_shift( $result['query']['pages'] ) );
@@ -181,12 +181,12 @@ class PageGetter {
 	 *
 	 * @return array
 	 */
-	private function getQuery( $additionalParams, array $extraParams = array() ) {
-		$base = array(
+	private function getQuery( $additionalParams, array $extraParams = [] ) {
+		$base = [
 			'prop' => 'revisions|info|pageprops',
 			'rvprop' => 'ids|flags|timestamp|user|size|sha1|comment|content|tags',
 			'inprop' => 'protection',
-		);
+		];
 
 		return array_merge( $extraParams, $base, $additionalParams );
 	}

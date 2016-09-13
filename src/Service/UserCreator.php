@@ -43,10 +43,10 @@ class UserCreator {
 			throw new InvalidArgumentException( '$email should be a string or null' );
 		}
 
-		$params = array(
+		$params = [
 			'name' => $username,
 			'password' => $password,
-		);
+		];
 
 		if ( !is_null( $email ) ) {
 			$params['email'] = $email;
@@ -57,7 +57,7 @@ class UserCreator {
 			$result = $this->api->postRequest(
 				new SimpleRequest(
 					'createaccount',
-					array_merge( array( 'token' => $result['createaccount']['token'] ), $params )
+					array_merge( [ 'token' => $result['createaccount']['token'] ], $params )
 				)
 			);
 		}
@@ -68,4 +68,4 @@ class UserCreator {
 		return false;
 	}
 
-} 
+}

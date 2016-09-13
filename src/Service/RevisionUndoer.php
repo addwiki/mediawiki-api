@@ -44,12 +44,12 @@ class RevisionUndoer {
 	 * @return array
 	 */
 	private function getParamsFromRevision( Revision $revision ) {
-		$params = array(
+		$params = [
 			'undo' => $revision->getId(),
 			'token' => $this->api->getToken(),
-		);
+		];
 
-		if( !is_null( $revision->getPageIdentifier()->getId() ) ) {
+		if ( !is_null( $revision->getPageIdentifier()->getId() ) ) {
 			$params['pageid'] = $revision->getPageIdentifier()->getId();
 		} else {
 			$params['title'] = $revision->getPageIdentifier()->getTitle()->getTitle();
@@ -58,4 +58,4 @@ class RevisionUndoer {
 		return $params;
 	}
 
-} 
+}

@@ -59,7 +59,7 @@ class RevisionSaver {
 			throw new RuntimeException( '$revision PageIdentifier does not identify a page' );
 		}
 
-		$params = array();
+		$params = [];
 
 		$content = $revision->getContent();
 		$data = $content->getData();

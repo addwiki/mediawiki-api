@@ -25,12 +25,12 @@ class TestEnvironment {
 	 * @throws \Exception If the MEDIAWIKI_API_URL environment variable is set but does not end in 'api.php'
 	 */
 	public function __construct() {
-		$apiUrl = getenv('MEDIAWIKI_API_URL');
-		if (empty($apiUrl)) {
+		$apiUrl = getenv( 'MEDIAWIKI_API_URL' );
+		if ( empty( $apiUrl ) ) {
 			$apiUrl = 'http://localhost/w/api.php';
-		} elseif (substr($apiUrl, -7) !== 'api.php') {
+		} elseif ( substr( $apiUrl, -7 ) !== 'api.php' ) {
 			$msg = "URL incorrect: $apiUrl (the MEDIAWIKI_API_URL environment variable should end in 'api.php')";
-			throw new \Exception($msg);
+			throw new \Exception( $msg );
 		}
 		$this->factory = new MediawikiFactory( new MediawikiApi( $apiUrl ) );
 	}
