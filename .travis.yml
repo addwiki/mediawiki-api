@@ -11,7 +11,7 @@ before_script:
 
 script:
   - cd tests/unit && phpunit --coverage-clover=coverage.clover && cd ../../
-  - phpcs --standard=phpcs.xml
+  - $TRAVIS_BUILD_DIR/vendor/bin/phpcs --standard=phpcs.xml
 
 after_script:
   - wget https://scrutinizer-ci.com/ocular.phar
