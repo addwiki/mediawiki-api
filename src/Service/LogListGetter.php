@@ -43,7 +43,8 @@ class LogListGetter {
 				'leprop' => 'title|ids|type|user|timestamp|comment|details'
 			];
 
-			$result = $this->api->getRequest( new SimpleRequest( 'query', array_merge( $extraParams, $params ) ) );
+			$newParams = array_merge( $extraParams, $params );
+			$result = $this->api->getRequest( new SimpleRequest( 'query', $newParams ) );
 
 			foreach ( $result[ 'query' ]['logevents'] as $logevent ) {
 				$logList->addLog(

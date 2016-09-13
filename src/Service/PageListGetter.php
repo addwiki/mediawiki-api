@@ -108,19 +108,19 @@ class PageListGetter {
 	 * Run a query to completion.
 	 *
 	 * @param string[] $params Query parameters
-	 * @param string $continueName Result subelement name for continue details
-	 * @param string $resultName Result element name for main results array
+	 * @param string $contName Result subelement name for continue details
+	 * @param string $resName Result element name for main results array
 	 * @param string $pageIdName Result element name for page ID
-	 * @param boolean $continue Whether to continue the query, using multiple requests
+	 * @param boolean $cont Whether to continue the query, using multiple requests
 	 * @return Pages
 	 */
-	protected function runQuery( $params, $continueName, $resultName, $pageIdName = 'pageid', $continue = true ) {
+	protected function runQuery( $params, $contName, $resName, $pageIdName = 'pageid', $cont = true ) {
 		$pages = new Pages();
 
 		do {
 			// Set up continue parameter if it's been set already.
-			if ( isset( $result['continue'][$continueName] ) ) {
-				$params[$continueName] = $result['continue'][$continueName];
+			if ( isset( $result['continue'][$contName] ) ) {
+				$params[$contName] = $result['continue'][$contName];
 			}
 
 			// Run the actual query.
@@ -130,13 +130,13 @@ class PageListGetter {
 			}
 
 			// Add the results to the output page list.
-			foreach ( $result['query'][$resultName] as $member ) {
+			foreach ( $result['query'][$resName] as $member ) {
 				$pageTitle = new Title( $member['title'], $member['ns'] );
 				$page = new Page( new PageIdentifier( $pageTitle, $member[$pageIdName] ) );
 				$pages->addPage( $page );
 			}
 
-		} while ( $continue && isset( $result['continue'] ) );
+		} while ( $cont && isset( $result['continue'] ) );
 
 		return $pages;
 	}
