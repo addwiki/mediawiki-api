@@ -2,6 +2,9 @@
 
 namespace Mediawiki\Api\Service;
 
+use Mediawiki\Api\MediawikiApi;
+use Mediawiki\Api\SimpleRequest;
+
 /**
  * Category traverser.
  *

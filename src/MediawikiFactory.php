@@ -2,6 +2,7 @@
 
 namespace Mediawiki\Api;
 
+use Mediawiki\Api\Service\CategoryTraverser;
 use Mediawiki\Api\Service\FileUploader;
 use Mediawiki\Api\Service\ImageRotator;
 use Mediawiki\Api\Service\LogListGetter;
@@ -42,6 +43,14 @@ class MediawikiFactory {
 	 */
 	public function __construct( MediawikiApi $api ) {
 		$this->api = $api;
+	}
+
+	/**
+	 * Get a new CategoryTraverser object for this API.
+	 * @return \Mediawiki\Api\Service\CategoryTraverser
+	 */
+	public function newCategoryTraverser() {
+		return new CategoryTraverser( $this->api );
 	}
 
 	/**
