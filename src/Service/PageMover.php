@@ -35,7 +35,7 @@ class PageMover {
 	 *
 	 * @return bool
 	 */
-	public function move( Page $page, Title $target, array $extraParams = array() ) {
+	public function move( Page $page, Title $target, array $extraParams = [] ) {
 		$this->api->postRequest(
 			new SimpleRequest(
 				'move', $this->getMoveParams( $page->getId(), $target, $extraParams )
@@ -54,7 +54,7 @@ class PageMover {
 	 *
 	 * @return bool
 	 */
-	public function moveFromPageId( $pageid, Title $target, array $extraParams = array() ) {
+	public function moveFromPageId( $pageid, Title $target, array $extraParams = [] ) {
 		$this->api->postRequest(
 			new SimpleRequest( 'move', $this->getMoveParams( $pageid, $target, $extraParams ) )
 		);
@@ -70,7 +70,7 @@ class PageMover {
 	 * @return array
 	 */
 	private function getMoveParams( $pageid, $target, $extraParams ) {
-		$params = array();
+		$params = [];
 		$params['fromid'] = $pageid;
 		$params['to'] = $target->getTitle();
 		$params['token'] = $this->api->getToken( 'move' );
@@ -78,4 +78,4 @@ class PageMover {
 		return array_merge( $extraParams, $params );
 	}
 
-} 
+}

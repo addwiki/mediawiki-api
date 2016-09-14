@@ -41,10 +41,10 @@ class Parser {
 	 * @return PromiseInterface of array the parse result (raw from the api)
 	 */
 	public function parsePageAsync( PageIdentifier $pageIdentifier ) {
-		$params = array();
-		if( $pageIdentifier->getId() !== null ) {
+		$params = [];
+		if ( $pageIdentifier->getId() !== null ) {
 			$params['pageid'] = $pageIdentifier->getId();
-		} elseif( $pageIdentifier->getTitle() !== null ) {
+		} elseif ( $pageIdentifier->getTitle() !== null ) {
 			$params['page'] = $pageIdentifier->getTitle()->getText();
 		} else {
 			throw new \RuntimeException( 'No way to identify page' );

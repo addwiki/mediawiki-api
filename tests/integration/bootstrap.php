@@ -4,7 +4,7 @@
  * @author Addshore
  */
 
-if ( php_sapi_name() !== 'cli' ) {
+if ( PHP_SAPI !== 'cli' ) {
 	die( 'Not an entry point' );
 }
 
@@ -17,6 +17,6 @@ chdir( __DIR__ . '/../../' );
 passthru( 'composer dump-autoload' );
 chdir( $pwd );
 
-$autoloader = require_once( __DIR__ . '/../../vendor/autoload.php' );
+$autoloader = require_once ( __DIR__ . '/../../vendor/autoload.php' );
 
 $autoloader->addPsr4( 'Mediawiki\\Api\\Test\\', __DIR__ );

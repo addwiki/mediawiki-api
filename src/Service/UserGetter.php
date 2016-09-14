@@ -33,11 +33,11 @@ class UserGetter {
 	public function getFromUsername( $username ) {
 		$result = $this->api->getRequest(
 			new SimpleRequest(
-				'query', array(
+				'query', [
 				'list' => 'users',
 				'ususers' => $username,
 				'usprop' => 'gender|emailable|registration|editcount|rights|implicitgroups|groups|blockinfo',
-			)
+			]
 			)
 		);
 
@@ -56,7 +56,7 @@ class UserGetter {
 				$array['userid'],
 				$array['editcount'],
 				$array['registration'],
-				array( 'groups' => $array['groups'], 'implicitgroups' => $array['implicitgroups'] ),
+				[ 'groups' => $array['groups'], 'implicitgroups' => $array['implicitgroups'] ],
 				$array['rights'],
 				$array['gender']
 			);
@@ -66,8 +66,8 @@ class UserGetter {
 				0,
 				0,
 				'',
-				array( 'groups' => array(), 'implicitgroups' => array() ),
-				array(),
+				[ 'groups' => [], 'implicitgroups' => [] ],
+				[],
 				''
 			);
 		}

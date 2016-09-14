@@ -42,12 +42,12 @@ class PageListGetter {
 	 *
 	 * @returns Pages
 	 */
-	public function getPageListFromCategoryName( $name, array $extraParams = array() ) {
-		$params = array_merge($extraParams, array(
+	public function getPageListFromCategoryName( $name, array $extraParams = [] ) {
+		$params = array_merge( $extraParams, [
 			'list' => 'categorymembers',
 			'cmtitle' => $name,
-		));
-		return $this->runQuery($params, 'cmcontinue', 'categorymembers');
+		] );
+		return $this->runQuery( $params, 'cmcontinue', 'categorymembers' );
 	}
 
 	/**
@@ -61,12 +61,12 @@ class PageListGetter {
 	 *
 	 * @return Pages
 	 */
-	public function getPageListFromPageTransclusions( $pageName, array $extraParams = array() ) {
-		$params = array_merge($extraParams, array(
+	public function getPageListFromPageTransclusions( $pageName, array $extraParams = [] ) {
+		$params = array_merge( $extraParams, [
 			'list' => 'embeddedin',
 			'eititle' => $pageName,
-		));
-		return $this->runQuery($params, 'eicontinue', 'embeddedin');
+		] );
+		return $this->runQuery( $params, 'eicontinue', 'embeddedin' );
 	}
 
 	/**
@@ -81,12 +81,12 @@ class PageListGetter {
 	 * @returns Pages
 	 */
 	public function getFromWhatLinksHere( $pageName ) {
-		$params = array(
+		$params = [
 			'prop' => 'info',
 			'generator' => 'linkshere',
 			'titles' => $pageName,
-		);
-		return $this->runQuery($params, 'lhcontinue', 'pages');
+		];
+		return $this->runQuery( $params, 'lhcontinue', 'pages' );
 	}
 
 	/**
@@ -99,44 +99,44 @@ class PageListGetter {
 	 *
 	 * @return Pages
 	 */
-	public function getRandom( array $extraParams = array() ) {
-		$params = array_merge($extraParams, array('list' => 'random'));
-		return $this->runQuery($params, null, 'random', 'id', false);
+	public function getRandom( array $extraParams = [] ) {
+		$params = array_merge( $extraParams, [ 'list' => 'random' ] );
+		return $this->runQuery( $params, null, 'random', 'id', false );
 	}
 
 	/**
 	 * Run a query to completion.
 	 *
 	 * @param string[] $params Query parameters
-	 * @param string $continueName Result subelement name for continue details
-	 * @param string $resultName Result element name for main results array
+	 * @param string $contName Result subelement name for continue details
+	 * @param string $resName Result element name for main results array
 	 * @param string $pageIdName Result element name for page ID
-	 * @param boolean $continue Whether to continue the query, using multiple requests
+	 * @param boolean $cont Whether to continue the query, using multiple requests
 	 * @return Pages
 	 */
-	protected function runQuery($params, $continueName, $resultName, $pageIdName = 'pageid', $continue = true) {
+	protected function runQuery( $params, $contName, $resName, $pageIdName = 'pageid', $cont = true ) {
 		$pages = new Pages();
 
 		do {
 			// Set up continue parameter if it's been set already.
-			if (isset($result['continue'][$continueName])) {
-				$params[$continueName] = $result['continue'][$continueName];
+			if ( isset( $result['continue'][$contName] ) ) {
+				$params[$contName] = $result['continue'][$contName];
 			}
 
 			// Run the actual query.
-			$result = $this->api->getRequest(new SimpleRequest('query', $params));
-			if (!array_key_exists('query', $result)) {
+			$result = $this->api->getRequest( new SimpleRequest( 'query', $params ) );
+			if ( !array_key_exists( 'query', $result ) ) {
 				return $pages;
 			}
 
 			// Add the results to the output page list.
-			foreach ($result['query'][$resultName] as $member) {
-				$pageTitle = new Title($member['title'], $member['ns']);
-				$page = new Page(new PageIdentifier($pageTitle, $member[$pageIdName]));
-				$pages->addPage($page);
+			foreach ( $result['query'][$resName] as $member ) {
+				$pageTitle = new Title( $member['title'], $member['ns'] );
+				$page = new Page( new PageIdentifier( $pageTitle, $member[$pageIdName] ) );
+				$pages->addPage( $page );
 			}
 
-		} while ($continue && isset($result['continue']));
+		} while ( $cont && isset( $result['continue'] ) );
 
 		return $pages;
 	}

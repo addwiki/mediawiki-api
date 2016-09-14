@@ -36,7 +36,7 @@ class PagePurger {
 	 */
 	public function purge( Page $page ) {
 		$this->api->postRequest(
-			new SimpleRequest( 'purge', array( 'pageids' => $page->getId() ) )
+			new SimpleRequest( 'purge', [ 'pageids' => $page->getId() ] )
 		);
 
 		return true;

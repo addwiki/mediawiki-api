@@ -36,7 +36,7 @@ class PageDeleter {
 	 *
 	 * @return bool
 	 */
-	public function delete( Page $page, array $extraParams = array() ) {
+	public function delete( Page $page, array $extraParams = [] ) {
 		$this->api->postRequest( new SimpleRequest(
 			'delete',
 			$this->getDeleteParams( $page->getPageIdentifier(), $extraParams )
@@ -52,7 +52,7 @@ class PageDeleter {
 	 *
 	 * @return bool
 	 */
-	public function deleteFromRevision( Revision $revision, array $extraParams = array() ) {
+	public function deleteFromRevision( Revision $revision, array $extraParams = [] ) {
 		$this->api->postRequest( new SimpleRequest(
 			'delete',
 			$this->getDeleteParams( $revision->getPageIdentifier(), $extraParams )
@@ -68,7 +68,7 @@ class PageDeleter {
 	 *
 	 * @return bool
 	 */
-	public function deleteFromPageId( $pageid, array $extraParams = array() ) {
+	public function deleteFromPageId( $pageid, array $extraParams = [] ) {
 		$this->api->postRequest( new SimpleRequest(
 			'delete',
 			$this->getDeleteParams( new PageIdentifier( null, $pageid ), $extraParams )
@@ -84,8 +84,8 @@ class PageDeleter {
 	 *
 	 * @return bool
 	 */
-	public function deleteFromPageTitle( $title, array $extraParams = array() ) {
-		if( is_string( $title ) ) {
+	public function deleteFromPageTitle( $title, array $extraParams = [] ) {
+		if ( is_string( $title ) ) {
 			$title = new Title( $title );
 		}
 		$this->api->postRequest( new SimpleRequest(
@@ -102,9 +102,9 @@ class PageDeleter {
 	 * @return array
 	 */
 	private function getDeleteParams( PageIdentifier $identifier, $extraParams ) {
-		$params = array();
+		$params = [];
 
-		if( !is_null( $identifier->getId() ) ) {
+		if ( !is_null( $identifier->getId() ) ) {
 			$params['pageid'] = $identifier->getId();
 		} else {
 			$params['title'] = $identifier->getTitle()->getTitle();
@@ -115,4 +115,4 @@ class PageDeleter {
 		return array_merge( $extraParams, $params );
 	}
 
-} 
+}

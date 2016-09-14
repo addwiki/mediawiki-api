@@ -49,12 +49,12 @@ class RevisionRollbacker {
 	 * @return array
 	 */
 	private function getRollbackParams( Revision $revision, $title ) {
-		$params = array();
+		$params = [];
 		if ( !is_null( $title ) ) {
-			//This is needed prior to https://gerrit.wikimedia.org/r/#/c/133063/
+			// This is needed prior to https://gerrit.wikimedia.org/r/#/c/133063/
 			$params['title'] = $title->getTitle();
 		} else {
-			//This will work after https://gerrit.wikimedia.org/r/#/c/133063/
+			// This will work after https://gerrit.wikimedia.org/r/#/c/133063/
 			$params['pageid'] = $revision->getPageId();
 		}
 		$params['user'] = $revision->getUser();
@@ -71,11 +71,11 @@ class RevisionRollbacker {
 	private function getTokenForRevision( Revision $revision ) {
 		$result = $this->api->postRequest(
 			new SimpleRequest(
-				'query', array(
+				'query', [
 				'prop' => 'revisions',
 				'revids' => $revision->getId(),
 				'rvtoken' => 'rollback',
-			)
+			]
 			)
 		);
 		$result = array_shift( $result['query']['pages'] );
@@ -83,4 +83,4 @@ class RevisionRollbacker {
 		return $result['revisions'][0]['rollbacktoken'];
 	}
 
-} 
+}
