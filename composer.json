@@ -29,10 +29,10 @@
 		}
 	},
 	"scripts": {
-		"csfix": "phpcbf --standard=phpcs.xml",
-		"cs": [
+		"fix": "phpcbf",
+		"test": [
 			"parallel-lint . --exclude vendor",
-			"phpcs -p --standard=phpcs.xml"
+			"phpcs -ps"
 		]
 	}
 }
