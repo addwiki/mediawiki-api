@@ -34,13 +34,13 @@ class RevisionDeleter {
 	 */
 	public function delete( Revision $revision ) {
 
-		$params = array(
+		$params = [
 			'type' => 'revision',
 			'hide' => 'content',
-			//Note: pre 1.24 this is a delete token, post it is csrf
+			// Note: pre 1.24 this is a delete token, post it is csrf
 			'token' => $this->api->getToken( 'delete' ),
 			'ids' => $revision->getId(),
-		);
+		];
 
 		$this->api->postRequest( new SimpleRequest(
 			'revisiondelete',
@@ -51,4 +51,4 @@ class RevisionDeleter {
 
 	}
 
-} 
+}

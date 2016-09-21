@@ -228,4 +228,4 @@ class MediawikiFactory {
 	public function newParser() {
 		return new Parser( $this->api );
 	}
-} 
+}

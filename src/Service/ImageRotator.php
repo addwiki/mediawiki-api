@@ -36,10 +36,10 @@ class ImageRotator {
 	 * @return bool
 	 */
 	public function rotate( File $file, $rotation ) {
-		$params = array(
+		$params = [
 			'rotation' => $rotation,
 			'token' => $this->api->getToken(),
-		);
+		];
 
 		if ( !is_null( $file->getPageIdentifier()->getTitle() ) ) {
 			$params['titles'] = $file->getPageIdentifier()->getTitle()->getText();
@@ -66,4 +66,4 @@ class ImageRotator {
 		return true;
 	}
 
-} 
+}

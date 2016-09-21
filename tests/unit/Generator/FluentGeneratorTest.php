@@ -16,10 +16,10 @@ class FluentGeneratorTest extends \PHPUnit_Framework_TestCase {
 		$generator->set( 'foo', 'bar' );
 
 		$this->assertEquals(
-			array(
+			[
 				'generator' => 'name',
 				'gfoo' => 'bar',
-			),
+			],
 			$generator->getParams()
 		);
 	}
@@ -29,10 +29,10 @@ class FluentGeneratorTest extends \PHPUnit_Framework_TestCase {
 		$generator->set( 'gfoo', 'bar' );
 
 		$this->assertEquals(
-			array(
+			[
 				'generator' => 'name',
 				'gfoo' => 'bar',
-			),
+			],
 			$generator->getParams()
 		);
 	}
@@ -43,11 +43,11 @@ class FluentGeneratorTest extends \PHPUnit_Framework_TestCase {
 			->set( 'gcat', 'meow' );
 
 		$this->assertEquals(
-			array(
+			[
 				'generator' => 'name',
 				'gfoo' => 'bar',
 				'gcat' => 'meow',
-			),
+			],
 			$generator->getParams()
 		);
 	}

@@ -31,9 +31,9 @@ class PageWatcher {
 	 * @returns bool
 	 */
 	public function watch( Page $page ) {
-		$params = array(
+		$params = [
 			'token' => $this->api->getToken( 'watch' ),
-		);
+		];
 		if ( !is_null( $page->getPageIdentifier()->getId() ) ) {
 			$params['pageids'] = $page->getPageIdentifier()->getId();
 		} elseif ( !is_null( $page->getPageIdentifier()->getTitle() ) ) {
@@ -47,4 +47,4 @@ class PageWatcher {
 		return true;
 	}
 
-} 
+}

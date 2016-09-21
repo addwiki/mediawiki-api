@@ -36,17 +36,17 @@ class PageProtector {
 	 * @return bool
 	 * @throws InvalidArgumentException
 	 */
-	public function protect( Page $page, $protections, array $extraParams = array() ) {
+	public function protect( Page $page, $protections, array $extraParams = [] ) {
 		if ( !is_array( $protections ) || empty( $protections ) ) {
 			throw new InvalidArgumentException(
 				'$protections must be an array with keys and values'
 			);
 		}
 
-		$params = array(
+		$params = [
 			'pageid' => $page->getId(),
 			'token' => $this->api->getToken( 'protect' ),
-		);
+		];
 		$protectionsString = '';
 		foreach ( $protections as $action => $value ) {
 			if ( !is_string( $action ) || !is_string( $value ) ) {
@@ -65,4 +65,4 @@ class PageProtector {
 		return true;
 	}
 
-} 
+}

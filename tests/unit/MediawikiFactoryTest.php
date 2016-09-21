@@ -18,29 +18,29 @@ class MediawikiFactoryTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function provideFactoryMethodsTest() {
-		return array(
-			array( 'Mediawiki\Api\Service\RevisionSaver', 'newRevisionSaver' ),
-			array( 'Mediawiki\Api\Service\RevisionUndoer', 'newRevisionUndoer' ),
-			array( 'Mediawiki\Api\Service\PageGetter', 'newPageGetter' ),
-			array( 'Mediawiki\Api\Service\UserGetter', 'newUserGetter' ),
-			array( 'Mediawiki\Api\Service\PageDeleter', 'newPageDeleter' ),
-			array( 'Mediawiki\Api\Service\PageMover', 'newPageMover' ),
-			array( 'Mediawiki\Api\Service\PageListGetter', 'newPageListGetter' ),
-			array( 'Mediawiki\Api\Service\PageRestorer', 'newPageRestorer' ),
-			array( 'Mediawiki\Api\Service\PagePurger', 'newPagePurger' ),
-			array( 'Mediawiki\Api\Service\RevisionRollbacker', 'newRevisionRollbacker' ),
-			array( 'Mediawiki\Api\Service\RevisionPatroller', 'newRevisionPatroller' ),
-			array( 'Mediawiki\Api\Service\PageProtector', 'newPageProtector' ),
-			array( 'Mediawiki\Api\Service\PageWatcher', 'newPageWatcher' ),
-			array( 'Mediawiki\Api\Service\RevisionDeleter', 'newRevisionDeleter' ),
-			array( 'Mediawiki\Api\Service\RevisionRestorer', 'newRevisionRestorer' ),
-			array( 'Mediawiki\Api\Service\UserBlocker', 'newUserBlocker' ),
-			array( 'Mediawiki\Api\Service\UserRightsChanger', 'newUserRightsChanger' ),
-			array( 'Mediawiki\Api\Service\UserCreator', 'newUserCreator' ),
-			array( 'Mediawiki\Api\Service\LogListGetter', 'newLogListGetter' ),
-			array( 'Mediawiki\Api\Service\FileUploader', 'newFileUploader' ),
-			array( 'Mediawiki\Api\Service\ImageRotator', 'newImageRotator' ),
-		);
+		return [
+			[ 'Mediawiki\Api\Service\RevisionSaver', 'newRevisionSaver' ],
+			[ 'Mediawiki\Api\Service\RevisionUndoer', 'newRevisionUndoer' ],
+			[ 'Mediawiki\Api\Service\PageGetter', 'newPageGetter' ],
+			[ 'Mediawiki\Api\Service\UserGetter', 'newUserGetter' ],
+			[ 'Mediawiki\Api\Service\PageDeleter', 'newPageDeleter' ],
+			[ 'Mediawiki\Api\Service\PageMover', 'newPageMover' ],
+			[ 'Mediawiki\Api\Service\PageListGetter', 'newPageListGetter' ],
+			[ 'Mediawiki\Api\Service\PageRestorer', 'newPageRestorer' ],
+			[ 'Mediawiki\Api\Service\PagePurger', 'newPagePurger' ],
+			[ 'Mediawiki\Api\Service\RevisionRollbacker', 'newRevisionRollbacker' ],
+			[ 'Mediawiki\Api\Service\RevisionPatroller', 'newRevisionPatroller' ],
+			[ 'Mediawiki\Api\Service\PageProtector', 'newPageProtector' ],
+			[ 'Mediawiki\Api\Service\PageWatcher', 'newPageWatcher' ],
+			[ 'Mediawiki\Api\Service\RevisionDeleter', 'newRevisionDeleter' ],
+			[ 'Mediawiki\Api\Service\RevisionRestorer', 'newRevisionRestorer' ],
+			[ 'Mediawiki\Api\Service\UserBlocker', 'newUserBlocker' ],
+			[ 'Mediawiki\Api\Service\UserRightsChanger', 'newUserRightsChanger' ],
+			[ 'Mediawiki\Api\Service\UserCreator', 'newUserCreator' ],
+			[ 'Mediawiki\Api\Service\LogListGetter', 'newLogListGetter' ],
+			[ 'Mediawiki\Api\Service\FileUploader', 'newFileUploader' ],
+			[ 'Mediawiki\Api\Service\ImageRotator', 'newImageRotator' ],
+		];
 	}
 
 	/**
@@ -51,4 +51,4 @@ class MediawikiFactoryTest extends \PHPUnit_Framework_TestCase {
 		$this->assertInstanceOf( $class, $factory->$method() );
 	}
 
-} 
+}
