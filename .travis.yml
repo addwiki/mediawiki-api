@@ -10,12 +10,12 @@ before_script:
   - composer install
 
 script:
-  - cd tests/unit && phpunit --coverage-clover=coverage.clover && cd ../../
+  - $TRAVIS_BUILD_DIR/vendor/bin/phpunit --coverage-clover=$TRAVIS_BUILD_DIR/coverage.clover $TRAVIS_BUILD_DIR/tests/unit
   - $TRAVIS_BUILD_DIR/vendor/bin/phpcs
 
 after_script:
   - wget https://scrutinizer-ci.com/ocular.phar
-  - php ocular.phar code-coverage:upload --format=php-clover ./tests/unit/coverage.clover
+  - php ocular.phar code-coverage:upload --format=php-clover $TRAVIS_BUILD_DIR/coverage.clover
 
 notifications:
   irc:
