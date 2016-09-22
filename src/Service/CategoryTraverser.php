@@ -4,13 +4,15 @@ namespace Mediawiki\Api\Service;
 
 use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\SimpleRequest;
+use Mediawiki\DataModel\PageIdentifier;
+use Mediawiki\DataModel\Pages;
 
 /**
  * Category traverser.
  *
- * Note on spelling 'descendant':
+ * Note on spelling 'descendant' (from Wiktionary):
  * The adjective, "descending from a biological ancestor", may be spelt either
- * with an a or with an 'e' in the final syllable. However the noun descendant,
+ * with an 'a' or with an 'e' in the final syllable. However the noun descendant,
  * "one who is the progeny of someone", may be spelt only with an 'a'.
  */
 class CategoryTraverser {
@@ -18,20 +20,42 @@ class CategoryTraverser {
 	const CALLBACK_CATEGORY = 10;
 	const CALLBACK_PAGE = 20;
 
-	/** @var \Mediawiki\Api\MediawikiApi */
+	/**
+	 * @var \Mediawiki\Api\MediawikiApi
+	 */
 	protected $api;
 
-	/** @var string[] */
+	/**
+	 * @var string[]
+	 */
 	protected $namespaces;
 
-	/** @var callable[] */
+	/**
+	 * @var callable[]
+	 */
 	protected $callbacks;
+
+	/**
+	 * Used to remember the previously-visited categories when traversing.
+	 * @var string[]
+	 */
+	protected $alreadyVisited;
 
 	public function __construct( MediawikiApi $api ) {
 		$this->api = $api;
 		$this->callbacks = [];
+	}
 
-		// Find the site's namespace IDs.
+	/**
+	 * Query the remote site for the list of namespaces in use, so that later we can tell what's a
+	 * category and what's not. This populates $this->namespaces, and will not re-request on
+	 * repeated invocations.
+	 * @return void
+	 */
+	protected function retrieveNamespaces() {
+		if ( is_array( $this->namespaces ) ) {
+			return;
+		}
 		$params = [ 'meta' => 'siteinfo', 'siprop' => 'namespaces' ];
 		$namespaces = $this->api->getRequest( new SimpleRequest( 'query', $params ) );
 		if ( isset( $namespaces['query']['namespaces'] ) ) {
@@ -39,8 +63,13 @@ class CategoryTraverser {
 		}
 	}
 
+	/**
+	 * Register a callback that will be called for each page or category visited during the
+	 * traversal.
+	 * @param integer $type One of the 'CALLBACK_' constants of this class.
+	 * @param callable $callback The callable that takes two parameters.
+	 */
 	public function addCallback( $type, $callback ) {
-		echo "adding callback $type\n";
 		if ( !isset( $this->callbacks[$type] ) ) {
 			$this->callbacks[$type] = [];
 		}
@@ -50,48 +79,64 @@ class CategoryTraverser {
 	/**
 	 * Visit every descendant page of $rootCategoryName (which will be a Category
 	 * page, because there are no desecendants of any other pages).
-	 *
-	 * @return string[] Each element is an array of ['pageid','ns','title'].
+	 * @param PageIdentifier $rootCat The full name of the page to start at.
+	 * @return Pages All descendants of the given category.
 	 */
-	public function descendants( $rootCategoryName ) {
-		$descendants = [];
-		do {
-			$continue = ( isset( $result['continue'] ) ) ? $result['continue']['cmcontinue'] : '';
-			$params = [
-				'list' => 'categorymembers',
-				'cmtitle' => $rootCategoryName,
-				'cmcontinue' => $continue,
-			];
-			$result = $this->api->getRequest( new SimpleRequest( 'query', $params ) );
-			echo " -- $rootCategoryName -- ";
-			print_r( $result );
-			if ( !array_key_exists( 'query', $result ) ) {
-				return true;
-			}
+	public function descend( PageIdentifier $rootCat, $recursing = false ) {
+		// Make sure we know namespace IDs.
+		$this->retrieveNamespaces();
 
-			foreach ( $result['query']['categorymembers'] as $member ) {
-				$isCat = isset( $this->namespaces[$member['ns']] ) && isset( $this->namespaces[$member['ns']]['canonical'] ) && $this->namespaces[$member['ns']]['canonical'] === 'Category';
+		$rootCatName = $rootCat->getTitle()->getText();
+		if ( $recursing === false ) {
+		    $this->alreadyVisited = [];
+		}
+		$this->alreadyVisited[] = $rootCatName;
+
+		// Start a list of child pages.
+		$descendants = new Pages();
+		do {
+		    $pageListGetter = new PageListGetter( $this->api );
+			$members = $pageListGetter->getPageListFromCategoryName( $rootCatName );
+			foreach ( $members->toArray() as $member ) {
+			    /** @var Title */
+			    $memberIdent = $member->getPageIdentifier();
+				$memberTitle = $memberIdent->getTitle();
+
+				// See if this page is a Category page.
+				$isCat = false;
+				if ( isset( $this->namespaces[ $memberTitle->getNs() ] ) ) {
+					$ns = $this->namespaces[ $memberTitle->getNs() ];
+					$isCat = ( isset( $ns['canonical'] ) && $ns['canonical'] === 'Category' );
+				}
 				if ( $isCat ) {
-					echo "\nattempting to callback for cat $rootCategoryName \n";
-					$this->call( self::CALLBACK_CATEGORY, [ $member, $rootCategoryName ] );
-					$newDescendants = $this->descendants( $member['title'] );
-					$descendants = array_merge( $descendants, $newDescendants );
+				    // If it's a category, descend into it (if we haven't already).
+					if ( in_array( $memberTitle->getText(), $this->alreadyVisited ) ) {
+						continue;
+					}
+					$this->call( self::CALLBACK_CATEGORY, [ $member, $rootCat ] );
+					$newDescendants = $this->descend( $memberIdent, true );
+					$descendants->addPages( $newDescendants );
 				} else {
-					$descendants[$member['pageid']] = $member;
-					$this->call( self::CALLBACK_PAGE, [ $member, $rootCategoryName ] );
+				    // If it's a page, add it to the list and carry on.
+					$descendants->addPage( $member );
+					$this->call( self::CALLBACK_PAGE, [ $member, $rootCat ] );
 				}
 			}
 		} while ( isset( $result['continue'] ) );
 		return $descendants;
 	}
 
+	/**
+	 * Call all the registered callbacks of a particular type.
+	 * @param integer $type The callback type; should match one of the 'CALLBACK_' constants.
+	 * @param mixed[] $params The parameters to pass to the callback function.
+	 */
 	protected function call( $type, $params ) {
 		if ( !isset( $this->callbacks[$type] ) ) {
 			return;
 		}
 		foreach ( $this->callbacks[$type] as $callback ) {
 			if ( is_callable( $callback ) ) {
-				echo "calling callback $type\n";
 				call_user_func_array( $callback, $params );
 			}
 		}
