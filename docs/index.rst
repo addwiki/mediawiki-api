@@ -11,7 +11,7 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-
+   category_traverser.rst
 
 Indices and tables
 ==================

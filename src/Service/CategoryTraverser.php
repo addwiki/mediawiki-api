@@ -2,8 +2,10 @@
 
 namespace Mediawiki\Api\Service;
 
+use Mediawiki\Api\CategoryLoopException;
 use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\SimpleRequest;
+use Mediawiki\DataModel\Page;
 use Mediawiki\DataModel\PageIdentifier;
 use Mediawiki\DataModel\Pages;
 
@@ -67,7 +69,7 @@ class CategoryTraverser {
 	 * Register a callback that will be called for each page or category visited during the
 	 * traversal.
 	 * @param integer $type One of the 'CALLBACK_' constants of this class.
-	 * @param callable $callback The callable that takes two parameters.
+	 * @param callable $callback A callable that takes two \Mediawiki\DataModel\Page parameters.
 	 */
 	public function addCallback( $type, $callback ) {
 		if ( !isset( $this->callbacks[$type] ) ) {
@@ -79,18 +81,23 @@ class CategoryTraverser {
 	/**
 	 * Visit every descendant page of $rootCategoryName (which will be a Category
 	 * page, because there are no desecendants of any other pages).
-	 * @param PageIdentifier $rootCat The full name of the page to start at.
+	 * @param Page $rootCat The full name of the page to start at.
+	 * @param Page[] $currentPath Used only when recursing into this method, to track each path
+	 * through the category hierarchy in case of loops.
 	 * @return Pages All descendants of the given category.
+	 * @throws CategoryLoopException If a category loop is detected.
 	 */
-	public function descend( PageIdentifier $rootCat, $recursing = false ) {
-		// Make sure we know namespace IDs.
+	public function descend( Page $rootCat, $currentPath = null ) {
+		// Make sure we know the namespace IDs.
 		$this->retrieveNamespaces();
 
-		$rootCatName = $rootCat->getTitle()->getText();
-		if ( $recursing === false ) {
-		    $this->alreadyVisited = [];
+		$rootCatName = $rootCat->getPageIdentifier()->getTitle()->getText();
+		if ( is_null( $currentPath ) ) {
+			$this->alreadyVisited = [];
+			$currentPath = new Pages();
 		}
 		$this->alreadyVisited[] = $rootCatName;
+		$currentPath->addPage( $rootCat );
 
 		// Start a list of child pages.
 		$descendants = new Pages();
@@ -98,9 +105,8 @@ class CategoryTraverser {
 		    $pageListGetter = new PageListGetter( $this->api );
 			$members = $pageListGetter->getPageListFromCategoryName( $rootCatName );
 			foreach ( $members->toArray() as $member ) {
-			    /** @var Title */
-			    $memberIdent = $member->getPageIdentifier();
-				$memberTitle = $memberIdent->getTitle();
+				/** @var Title */
+				$memberTitle = $member->getPageIdentifier()->getTitle();
 
 				// See if this page is a Category page.
 				$isCat = false;
@@ -108,14 +114,26 @@ class CategoryTraverser {
 					$ns = $this->namespaces[ $memberTitle->getNs() ];
 					$isCat = ( isset( $ns['canonical'] ) && $ns['canonical'] === 'Category' );
 				}
+				// If it's a category, descend into it.
 				if ( $isCat ) {
-				    // If it's a category, descend into it (if we haven't already).
+					// If this member has already been visited on this branch of the traversal,
+					// throw an Exception with information about which categories form the loop.
+					if ( $currentPath->hasPage( $member ) ) {
+						$currentPath->addPage( $member );
+						$loop = new CategoryLoopException();
+						$loop->setCategoryPath( $currentPath );
+						throw $loop;
+					}
+					// Don't go any further if we've already visited this member
+					// (does not indicate a loop, however; we've already caught that above).
 					if ( in_array( $memberTitle->getText(), $this->alreadyVisited ) ) {
 						continue;
 					}
+					// Call any registered callbacked, and carry on to the next branch.
 					$this->call( self::CALLBACK_CATEGORY, [ $member, $rootCat ] );
-					$newDescendants = $this->descend( $memberIdent, true );
+					$newDescendants = $this->descend( $member, $currentPath );
 					$descendants->addPages( $newDescendants );
+					$currentPath = new Pages(); // Re-set the path.
 				} else {
 				    // If it's a page, add it to the list and carry on.
 					$descendants->addPage( $member );
