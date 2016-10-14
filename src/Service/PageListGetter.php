@@ -40,7 +40,7 @@ class PageListGetter {
 	 * @param string $name
 	 * @param array $extraParams
 	 *
-	 * @returns Pages
+	 * @return Pages
 	 */
 	public function getPageListFromCategoryName( $name, array $extraParams = [] ) {
 		$params = array_merge( $extraParams, [
@@ -78,7 +78,7 @@ class PageListGetter {
 	 *
 	 * @param string $pageName The page name
 	 *
-	 * @returns Pages
+	 * @return Pages
 	 */
 	public function getFromWhatLinksHere( $pageName ) {
 		$params = [
@@ -87,6 +87,23 @@ class PageListGetter {
 			'titles' => $pageName,
 		];
 		return $this->runQuery( $params, 'lhcontinue', 'pages' );
+	}
+
+	/**
+	 * Get all pages that have the given prefix.
+	 *
+	 * @link https://www.mediawiki.org/wiki/API:Allpages
+	 *
+	 * @param string $prefix The page title prefix.
+	 *
+	 * @return Pages
+	 */
+	public function getFromPrefix( $prefix ) {
+		$params = [
+			'list' => 'allpages',
+		    'apprefix' => $prefix,
+		];
+		return $this->runQuery( $params, 'apcontinue', 'allpages' );
 	}
 
 	/**

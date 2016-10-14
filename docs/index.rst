@@ -1,22 +1,22 @@
-.. mediawiki-api documentation master file, created by
-   sphinx-quickstart on Sat Oct  1 18:13:53 2016.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+Documentation for addwiki/mediawiki-api
+=======================================
 
-Welcome to mediawiki-api's documentation!
-=========================================
+Welcome to the documentation for the ``addwiki/mediawiki-api`` package!
+This is part of the Addwiki_ family of PHP packages.
 
-Contents:
+.. _Addwiki: http://addwiki.readthedocs.io/
+
+Quick links:
+
+* This documentation: http://addwiki.readthedocs.io/projects/mediawiki-api/
+* Source code: https://github.com/addwiki/mediawiki-api/
+* Issue tracker: https://phabricator.wikimedia.org/project/profile/1490/
+
+Contents
+--------
 
 .. toctree::
    :maxdepth: 2
 
+   page_list_getter.rst
    category_traverser.rst
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
