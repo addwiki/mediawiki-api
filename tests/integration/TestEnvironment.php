@@ -61,12 +61,13 @@ class TestEnvironment {
 	 * @return void
 	 */
 	public function runJobs() {
-		$siteInfoRequest = new SimpleRequest( 'query',[ 'meta'=>'siteinfo', 'siprop'=>'general' ] );
+		$reqestProps = [ 'meta'=>'siteinfo', 'siprop'=>'general' ];
+		$siteInfoRequest = new SimpleRequest( 'query', $reqestProps );
 		$out = $this->getApi()->getRequest( $siteInfoRequest );
 		$mainPageUrl = $out['query']['general']['base'];
-		while ($this->getJobQueueLength($this->getApi()) > 0) {
+		while ( $this->getJobQueueLength( $this->getApi() ) > 0 ) {
 			$cf = new ClientFactory();
-			$cf->getClient()->get($mainPageUrl);
+			$cf->getClient()->get( $mainPageUrl );
 		}
 	}
 
@@ -82,7 +83,7 @@ class TestEnvironment {
 				'siprop'=>'statistics',
 			]
 		);
-		$out = $api->getRequest($req);
+		$out = $api->getRequest( $req );
 		return (int) $out['query']['statistics']['jobs'];
 	}
 
