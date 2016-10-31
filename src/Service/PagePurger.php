@@ -5,6 +5,7 @@ namespace Mediawiki\Api\Service;
 use Mediawiki\Api\Generator\ApiGenerator;
 use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\SimpleRequest;
+use Mediawiki\DataModel\Pages;
 use Mediawiki\DataModel\Page;
 
 /**
@@ -38,6 +39,24 @@ class PagePurger {
 		$this->api->postRequest(
 			new SimpleRequest( 'purge', [ 'pageids' => $page->getId() ] )
 		);
+
+		return true;
+	}
+
+	/**
+		* @since 0.x
+		*
+		* @param Pages $pages
+		*
+		* @return bool
+		*
+		*/
+	public function purgePages( Pages $pages ) {
+		$pagesArray = $pages->toArray();
+
+		foreach ( $pagesArray as $page ) {
+			$this->purge( $page );
+		}
 
 		return true;
 	}
