@@ -44,13 +44,13 @@ class PagePurger {
 	}
 
 	/**
-		* @since 0.x
-		*
-		* @param Pages $pages
-		*
-		* @return bool
-		*
-		*/
+	 * @since 0.x
+	 *
+	 * @param Pages $pages
+	 *
+	 * @return bool
+	 *
+	 */
 	public function purgePages( Pages $pages ) {
 		$pagesArray = $pages->toArray();
 
