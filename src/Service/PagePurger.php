@@ -31,7 +31,14 @@ class PagePurger {
 	/**
 	 * @since 0.3
 	 *
-	 * @param Page $page
+	 * @brief Purge a single page
+	 *
+	 * Purges a single page by submitting a
+	 * 'purge' action to the wikipedia api
+	 * with the parameter 'pageids' set to
+	 * the singe page id
+	 *
+	 * @param Page $page the page that is going to be purged
 	 *
 	 * @return bool
 	 */
@@ -44,19 +51,36 @@ class PagePurger {
 	}
 
 	/**
-	 * @since 0.x
+	 * @since 0.7
 	 *
-	 * @param Pages $pages
+	 * @brief Purge multiple pages
+	 *
+	 * Purges all the pages of the Pages object
+	 * by submitting a 'purge' action to the wikipedia
+	 * api with the parameter 'pageids' set to be the
+	 * pages ids in multiple-value seperation.
+	 *
+	 * @param Pages $pages the pages that are going to be purged
 	 *
 	 * @return bool
-	 *
 	 */
 	public function purgePages( Pages $pages ) {
 		$pagesArray = $pages->toArray();
+		$pagesIds = [];
 
 		foreach ( $pagesArray as $page ) {
-			$this->purge( $page );
+			array_push( $pagesIds, $page->getId() );
 		}
+
+		// convert an array to multiple-value format
+		// because the wikipedia api require multiple
+		// values to be seperated like the example
+		// ex: [111, 222, 333] => "111|222|333"
+		$pageIdsMultiple = implode( "|", $pagesIds );
+
+		$this->api->postRequest(
+			new SimpleRequest( 'purge', [ 'pageids' => $pageIdsMultiple ] )
+		);
 
 		return true;
 	}
