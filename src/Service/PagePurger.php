@@ -34,7 +34,7 @@ class PagePurger {
 	 * @brief Purge a single page
 	 *
 	 * Purges a single page by submitting a
-	 * 'purge' action to the wikipedia api
+	 * 'purge' action to the mediawiki api
 	 * with the parameter 'pageids' set to
 	 * the singe page id
 	 *
@@ -56,7 +56,7 @@ class PagePurger {
 	 * @brief Purge multiple pages
 	 *
 	 * Purges all the pages of the Pages object
-	 * by submitting a 'purge' action to the wikipedia
+	 * by submitting a 'purge' action to the mediawiki
 	 * api with the parameter 'pageids' set to be the
 	 * pages ids in multiple-value seperation.
 	 *
@@ -73,7 +73,7 @@ class PagePurger {
 		}
 
 		// convert an array to multiple-value format
-		// because the wikipedia api require multiple
+		// because the mediawiki api require multiple
 		// values to be seperated like the example
 		// ex: [111, 222, 333] => "111|222|333"
 		$pageIdsMultiple = implode( "|", $pagesIds );
