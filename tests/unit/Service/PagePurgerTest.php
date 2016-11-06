@@ -5,6 +5,7 @@ namespace Mediawiki\Api\Test\Service;
 use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\Service\PagePurger;
 use Mediawiki\DataModel\Page;
+use Mediawiki\DataModel\Pages;
 use Mediawiki\DataModel\PageIdentifier;
 use Mediawiki\DataModel\Revisions;
 use Mediawiki\DataModel\Title;
@@ -36,7 +37,7 @@ class PagePurgerTest extends \PHPUnit_Framework_TestCase {
 			->with(
 				$this->isInstanceOf( '\Mediawiki\Api\SimpleRequest' )
 			)
-			->will( $this->returnValue( 'SOME no error RESULT' ) );
+			->will( $this->returnValue( [ "batchcomplete" => "", "purge" => [ [ "ns" => 0, "title" => "Foo", "purged" => "" ] ] ] ) );
 
 		$service = new PagePurger( $api );
 
@@ -49,6 +50,51 @@ class PagePurgerTest extends \PHPUnit_Framework_TestCase {
 		);
 
 		$this->assertTrue( $service->purge( $page ) );
+	}
+
+	public function testPurgePages() {
+		$api = $this->getMockApi();
+		$api->expects( $this->once() )
+			->method( 'postRequest' )
+			->with(
+				$this->isInstanceOf( '\Mediawiki\Api\SimpleRequest' )
+			)
+			->will( $this->returnValue(
+				[
+	    		"batchcomplete" => "",
+	    		"purge" => [
+	        	[
+	          	"ns" => 0,
+	            "title" => "Foo",
+	            "purged" => ""
+	        	],
+	        	[
+	            "ns" => 0,
+	            "title" => "Bar",
+	            "purged" => ""
+	        	]
+	    		]
+	    	]
+			) );
+
+			$service = new PagePurger( $api );
+
+			$pages = new Pages( [
+				new Page(
+				new PageIdentifier(
+					new Title( 'Foo', 0 ),
+					123
+				),
+				new Revisions( [] )
+			), new Page(
+				new PageIdentifier(
+					new Title( 'Bar', 1 ),
+					123
+				),
+				new Revisions( [] )
+			) ] );
+			
+			$this->assertEquals( $service->purgePages( $pages ) , $pages);
 	}
 
 }
