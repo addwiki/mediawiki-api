@@ -49,8 +49,7 @@ class PagePurgerTest extends \PHPUnit_Framework_TestCase {
 			new PageIdentifier(
 				new Title( 'Foo', 0 ),
 				123
-			),
-			new Revisions( [] )
+			)
 		);
 
 		$this->assertTrue( $service->purge( $page ) );
@@ -81,24 +80,80 @@ class PagePurgerTest extends \PHPUnit_Framework_TestCase {
 	    	]
 			) );
 
-			$service = new PagePurger( $api );
+		$service = new PagePurger( $api );
 
-			$pages = new Pages( [
-				new Page(
+		$pages = new Pages( [
+			new Page(
 				new PageIdentifier(
 					new Title( 'Foo', 0 ),
-					123
-				),
-				new Revisions( [] )
+					100
+				)
 			), new Page(
 				new PageIdentifier(
 					new Title( 'Bar', 1 ),
-					123
-				),
-				new Revisions( [] )
+					101
+				)
 			) ] );
 
 			$this->assertEquals( $service->purgePages( $pages ), $pages );
+	}
+
+	function testIncorrectPurgePages() {
+		$api = $this->getMockApi();
+		$api->expects( $this->once() )
+			->method( 'postRequest' )
+			->with(
+				$this->isInstanceOf( '\Mediawiki\Api\SimpleRequest' )
+			)
+			->will( $this->returnValue(
+				[
+	    		"batchcomplete" => "",
+	    		"purge" => [
+	        	[
+	          	"ns" => 0,
+	            "title" => "Foo",
+	            "purged" => ""
+	        	],
+	        	[
+	            "ns" => 0,
+	            "title" => "Bar",
+	            "purged" => ""
+	        	],
+						[
+	            "ns" => 0,
+	            "title" => "This page really does not exist",
+	            "missing" => ""
+	        	]
+	    		]
+	    	]
+			) );
+
+		$service = new PagePurger( $api );
+
+		$pages = new Pages( [
+			new Page(
+				new PageIdentifier(
+					new Title( 'Foo', 0 ),
+					100
+				)
+			), new Page(
+				new PageIdentifier(
+					new Title( 'Bar', 1 ),
+					101
+				)
+			), new Page(
+				new PageIdentifier(
+					new Title( 'MissingPage', 1 ),
+					103
+				)
+			) ] );
+
+		// MissingPage is not in the pages that are returned by purgePages
+		$pagesArray = $pages->toArray();
+		array_pop( $pagesArray );
+		$result = new Pages( $pagesArray );
+
+		$this->assertEquals( $service->purgePages( $pages ), $result );
 	}
 
 }
