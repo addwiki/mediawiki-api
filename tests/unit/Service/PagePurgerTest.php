@@ -55,6 +55,35 @@ class PagePurgerTest extends \PHPUnit_Framework_TestCase {
 		$this->assertTrue( $service->purge( $page ) );
 	}
 
+	function testIncorrectPurgePage() {
+		$api = $this->getMockApi();
+		$api->expects( $this->once() )
+			->method( 'postRequest' )
+			->with(
+				$this->isInstanceOf( '\Mediawiki\Api\SimpleRequest' )
+			)
+			->will( $this->returnValue( [
+				"batchcomplete" => "",
+				"purge" =>
+					[ [
+						"ns" => 0,
+						"title" => "This page really does not exist",
+						"missing" => ""
+					] ]
+			] ) );
+
+		$service = new PagePurger( $api );
+
+		$page = new Page(
+			new PageIdentifier(
+				new Title( 'Foo', 0 ),
+				123
+			)
+		);
+
+		$this->assertFalse( $service->purge( $page ) );
+	}
+
 	public function testPurgePages() {
 		$api = $this->getMockApi();
 		$api->expects( $this->once() )
