@@ -50,7 +50,7 @@ class PagePurger {
 		// the purge response for the page
 		$purgeResponse = $responseArray['purge'][0];
 
-		return array_key_exists( 'purged' , $purgeResponse );
+		return array_key_exists( 'purged', $purgeResponse );
 	}
 
 	/**
@@ -92,7 +92,7 @@ class PagePurger {
 		foreach ( $responseArray['purge'] as $purgeResponse ) {
 
 			// if the purge for the page was successful
-			if ( array_key_exists( 'purged' , $purgeResponse ) ) {
+			if ( array_key_exists( 'purged', $purgeResponse ) ) {
 
 				// we iterate all the input pages
 				foreach ( $pagesArray as $page ) {

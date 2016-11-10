@@ -37,7 +37,11 @@ class PagePurgerTest extends \PHPUnit_Framework_TestCase {
 			->with(
 				$this->isInstanceOf( '\Mediawiki\Api\SimpleRequest' )
 			)
-			->will( $this->returnValue( [ "batchcomplete" => "", "purge" => [ [ "ns" => 0, "title" => "Foo", "purged" => "" ] ] ] ) );
+			->will( $this->returnValue(
+			[
+				"batchcomplete" => "",
+				"purge" => [ [ "ns" => 0, "title" => "Foo", "purged" => "" ] ]
+			] ) );
 
 		$service = new PagePurger( $api );
 
@@ -93,8 +97,8 @@ class PagePurgerTest extends \PHPUnit_Framework_TestCase {
 				),
 				new Revisions( [] )
 			) ] );
-			
-			$this->assertEquals( $service->purgePages( $pages ) , $pages);
+
+			$this->assertEquals( $service->purgePages( $pages ), $pages );
 	}
 
 }
