@@ -48,6 +48,13 @@ $services->newPageDeleter()->delete(
 	array( 'reason' => 'Reason for Deletion' )
 );
 
+// Create a new page
+$newContent = new \Mediawiki\DataModel\Content( 'Hello World' );
+$title = new \Mediawiki\DataModel\Title( 'New Page' );
+$identifier = new \Mediawiki\DataModel\PageIdentifier( $title );
+$revision = new \Mediawiki\DataModel\Revision( $newContent, $identifier );
+$services->newRevisionSaver()->save( $revision );
+
 // List all pages in a category
 $pages = $services->newPageListGetter()->getPageListFromCategoryName( 'Category:Cat name' );
 ```
