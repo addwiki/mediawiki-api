@@ -32,8 +32,8 @@ $services = new \Mediawiki\Api\MediawikiFactory( $api );
 $page = $services->newPageGetter()->getFromTitle( 'Foo' );
 
 // Edit a page
-$revision = $page->getRevisions()->getLatest();
-$revision->getContent()->setText( 'NewText' );
+$content = new \Mediawiki\DataModel\Content( 'New Text' );
+$revision = new \Mediawiki\DataModel\Revision( $content, $page->getPageIdentifier() );
 $services->newRevisionSaver()->save( $revision );
 
 // Move a page
