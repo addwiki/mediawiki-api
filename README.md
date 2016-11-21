@@ -32,8 +32,8 @@ $services = new \Mediawiki\Api\MediawikiFactory( $api );
 $page = $services->newPageGetter()->getFromTitle( 'Foo' );
 
 // Edit a page
-$revision = $page->getRevisions()->getLatest();
-$revision->getContent()->setText( 'NewText' );
+$content = new \Mediawiki\DataModel\Content( 'New Text' );
+$revision = new \Mediawiki\DataModel\Revision( $content, $page->getPageIdentifier() );
 $services->newRevisionSaver()->save( $revision );
 
 // Move a page
@@ -47,6 +47,13 @@ $services->newPageDeleter()->delete(
 	$services->newPageGetter()->getFromTitle( 'DeleteMe!' ),
 	array( 'reason' => 'Reason for Deletion' )
 );
+
+// Create a new page
+$newContent = new \Mediawiki\DataModel\Content( 'Hello World' );
+$title = new \Mediawiki\DataModel\Title( 'New Page' );
+$identifier = new \Mediawiki\DataModel\PageIdentifier( $title );
+$revision = new \Mediawiki\DataModel\Revision( $newContent, $identifier );
+$services->newRevisionSaver()->save( $revision );
 
 // List all pages in a category
 $pages = $services->newPageListGetter()->getPageListFromCategoryName( 'Category:Cat name' );
