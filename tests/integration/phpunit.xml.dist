@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- convertWarningsToExceptions is false as real API calls can return un expected warnings -->
 <phpunit
-        bootstrap="../vendor/autoload.php"
+        bootstrap="../../vendor/autoload.php"
         colors="true"
         convertWarningsToExceptions="false"
         >
