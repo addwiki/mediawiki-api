@@ -6,6 +6,7 @@ use Mediawiki\Api\Service\CategoryTraverser;
 use Mediawiki\Api\Service\FileUploader;
 use Mediawiki\Api\Service\ImageRotator;
 use Mediawiki\Api\Service\LogListGetter;
+use Mediawiki\Api\Service\NamespaceGetter;
 use Mediawiki\Api\Service\PageDeleter;
 use Mediawiki\Api\Service\PageListGetter;
 use Mediawiki\Api\Service\PageMover;
@@ -227,5 +228,13 @@ class MediawikiFactory {
 	 */
 	public function newParser() {
 		return new Parser( $this->api );
+	}
+
+	/**
+	 * @since 0.7
+	 * @return NamespaceGetter
+	 */
+	public function newNamespaceGetter() {
+		return new NamespaceGetter( $this->api );
 	}
 }

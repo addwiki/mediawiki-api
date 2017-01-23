@@ -1,5 +1,10 @@
 These are the release notes for the [mediawiki-api](README.md).
 
+## Version 0.7 (TBD)
+
+* Introduce NamespaceGetter service
+* Adds newNamespaceGetter to factory
+
 ## Version 0.6 (3 August 2016)
 
 * Adds newParser method to factory
