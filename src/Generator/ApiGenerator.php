@@ -10,12 +10,12 @@ namespace Mediawiki\Api\Generator;
  *
  * @author Addshore
  *
- * @since 0.5.1
+ * @since 0.5
  */
 interface ApiGenerator {
 
 	/**
-	 * @since 0.5.1
+	 * @since 0.5
 	 *
 	 * Associative array of parameters including the 'generator' parameter.
 	 * All generator param keys must have their 'g' prefixes

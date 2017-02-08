@@ -30,7 +30,6 @@ class CategoryTraverserTest extends \PHPUnit_Framework_TestCase
 	 * @param string[] $titles The titles to delete.
 	 */
 	public function deletePages( $titles ) {
-		$deleter = $this->factory->newPageDeleter();
 		foreach ( $titles as $t ) {
 			// @todo Properly delete?
 			// $deleter->deleteFromPageTitle( new Title( $t ) );

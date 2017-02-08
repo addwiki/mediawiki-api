@@ -7,6 +7,8 @@ use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\NamespaceInfo;
 
 /**
+ * @access private
+ *
  * @author gbirke
  */
 class NamespaceGetter
@@ -19,6 +21,8 @@ class NamespaceGetter
 	}
 
 	/**
+	 * @since 0.7
+	 *
 	 * @param string $canonicalName
 	 * @return NamespaceInfo|null
 	 */
@@ -32,6 +36,8 @@ class NamespaceGetter
 	}
 
 	/**
+	 * @since 0.7
+	 *
 	 * @param string $name
 	 * @return NamespaceInfo|null
 	 */
@@ -46,6 +52,8 @@ class NamespaceGetter
 	}
 
 	/**
+	 * @since 0.7
+	 *
 	 * @return NamespaceInfo[]
 	 */
 	public function getNamespaces() {

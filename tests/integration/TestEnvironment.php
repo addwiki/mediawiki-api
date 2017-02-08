@@ -2,6 +2,7 @@
 
 namespace Mediawiki\Api\Test;
 
+use Exception;
 use Mediawiki\Api\Guzzle\ClientFactory;
 use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\MediawikiFactory;
@@ -16,7 +17,7 @@ class TestEnvironment {
 		return new self();
 	}
 
-	/** @var \Mediawiki\Api\MediawikiFactory */
+	/** @var MediawikiFactory */
 	private $factory;
 
 	/**
@@ -31,16 +32,16 @@ class TestEnvironment {
 	/**
 	 * Get the MediawikiApi to test against, based on the MEDIAWIKI_API_URL environment variable.
 	 * @return MediawikiApi
-	 * @throws \Exception If the MEDIAWIKI_API_URL environment variable does not end in 'api.php'
+	 * @throws Exception If the MEDIAWIKI_API_URL environment variable does not end in 'api.php'
 	 */
 	public function getApi() {
 		$apiUrl = getenv( 'MEDIAWIKI_API_URL' );
 		if ( empty( $apiUrl ) ) {
-			$apiUrl = 'http://localhost/w/api.php';
+			$apiUrl = 'https://deployment.wikimedia.beta.wmflabs.org/w/api.php';
 		} elseif ( substr( $apiUrl, -7 ) !== 'api.php' ) {
 			$msg = "URL incorrect: $apiUrl"
 				." (the MEDIAWIKI_API_URL environment variable should end in 'api.php')";
-			throw new \Exception( $msg );
+			throw new Exception( $msg );
 		}
 		return new MediawikiApi( $apiUrl );
 	}
@@ -48,7 +49,7 @@ class TestEnvironment {
 	/**
 	 * Get the MediaWiki factory.
 	 *
-	 * @return \Mediawiki\Api\MediawikiFactory The factory instance.
+	 * @return MediawikiFactory The factory instance.
 	 */
 	public function getFactory() {
 		return $this->factory;
@@ -60,15 +61,25 @@ class TestEnvironment {
 	 * @todo This and TestEnvironment::getJobQueueLength() should probably not live here.
 	 * @return void
 	 */
-	public function runJobs() {
+	public function runJobs( $maxJobs = 10 ) {
 		$reqestProps = [ 'meta'=>'siteinfo', 'siprop'=>'general' ];
 		$siteInfoRequest = new SimpleRequest( 'query', $reqestProps );
 		$out = $this->getApi()->getRequest( $siteInfoRequest );
 		$mainPageUrl = $out['query']['general']['base'];
-		while ( $this->getJobQueueLength( $this->getApi() ) > 0 ) {
+
+		$jobsRun = 0;
+		$initialLength = $this->getJobQueueLength( $this->getApi() );
+		do {
+			$jobsRun++;
 			$cf = new ClientFactory();
 			$cf->getClient()->get( $mainPageUrl );
-		}
+
+			$currentLength = $this->getJobQueueLength( $this->getApi() );
+		} while (
+			$currentLength > 0 &&
+			$jobsRun < $maxJobs &&
+			$currentLength < $initialLength - $maxJobs
+		);
 	}
 
 	/**

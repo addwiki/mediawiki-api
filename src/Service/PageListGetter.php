@@ -7,7 +7,6 @@ use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\Page;
 use Mediawiki\DataModel\PageIdentifier;
 use Mediawiki\DataModel\Pages;
-use Mediawiki\DataModel\Revisions;
 use Mediawiki\DataModel\Title;
 
 /**
@@ -92,6 +91,8 @@ class PageListGetter {
 	/**
 	 * Get all pages that have the given prefix.
 	 *
+	 * @since 0.7
+	 *
 	 * @link https://www.mediawiki.org/wiki/API:Allpages
 	 *
 	 * @param string $prefix The page title prefix.
@@ -131,7 +132,13 @@ class PageListGetter {
 	 * @param boolean $cont Whether to continue the query, using multiple requests
 	 * @return Pages
 	 */
-	protected function runQuery( $params, $contName, $resName, $pageIdName = 'pageid', $cont = true ) {
+	private function runQuery(
+		$params,
+		$contName,
+		$resName,
+		$pageIdName = 'pageid',
+		$cont = true
+	) {
 		$pages = new Pages();
 
 		do {
@@ -157,4 +164,5 @@ class PageListGetter {
 
 		return $pages;
 	}
+
 }

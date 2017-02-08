@@ -54,12 +54,9 @@ class LogListGetter {
 						$logevent['action'],
 						$logevent['timestamp'],
 						$logevent['user'],
-						new Page(
-							new PageIdentifier(
-								new Title( $logevent['title'], $logevent['ns'] ),
-								$logevent['pageid']
-							),
-							new Revisions()
+						new PageIdentifier(
+							new Title( $logevent['title'], $logevent['ns'] ),
+							$logevent['pageid']
 						),
 						$logevent['comment'],
 						$this->getLogDetailsFromEvent( $logevent )

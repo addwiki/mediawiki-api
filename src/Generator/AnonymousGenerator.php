@@ -7,7 +7,7 @@ namespace Mediawiki\Api\Generator;
  *
  * @author Addshore
  *
- * @since 0.5.1
+ * @since 0.5
  */
 class AnonymousGenerator implements ApiGenerator {
 

@@ -6,11 +6,13 @@ use Mediawiki\Api\CategoryLoopException;
 use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\Page;
-use Mediawiki\DataModel\PageIdentifier;
 use Mediawiki\DataModel\Pages;
+use Mediawiki\DataModel\Title;
 
 /**
  * Category traverser.
+ *
+ * @access private
  *
  * Note on spelling 'descendant' (from Wiktionary):
  * The adjective, "descending from a biological ancestor", may be spelt either
@@ -23,25 +25,25 @@ class CategoryTraverser {
 	const CALLBACK_PAGE = 20;
 
 	/**
-	 * @var \Mediawiki\Api\MediawikiApi
+	 * @var MediawikiApi
 	 */
-	protected $api;
+	private $api;
 
 	/**
 	 * @var string[]
 	 */
-	protected $namespaces;
+	private $namespaces;
 
 	/**
 	 * @var callable[]
 	 */
-	protected $callbacks;
+	private $callbacks;
 
 	/**
 	 * Used to remember the previously-visited categories when traversing.
 	 * @var string[]
 	 */
-	protected $alreadyVisited;
+	private $alreadyVisited;
 
 	public function __construct( MediawikiApi $api ) {
 		$this->api = $api;
@@ -52,9 +54,12 @@ class CategoryTraverser {
 	 * Query the remote site for the list of namespaces in use, so that later we can tell what's a
 	 * category and what's not. This populates $this->namespaces, and will not re-request on
 	 * repeated invocations.
+	 * 
+	 * @todo this should use a service dedicated to fetching the namespaces
+	 *
 	 * @return void
 	 */
-	protected function retrieveNamespaces() {
+	private function retrieveNamespaces() {
 		if ( is_array( $this->namespaces ) ) {
 			return;
 		}
@@ -68,6 +73,9 @@ class CategoryTraverser {
 	/**
 	 * Register a callback that will be called for each page or category visited during the
 	 * traversal.
+	 *
+	 * @since 0.7
+	 *
 	 * @param integer $type One of the 'CALLBACK_' constants of this class.
 	 * @param callable $callback A callable that takes two \Mediawiki\DataModel\Page parameters.
 	 */
@@ -81,9 +89,13 @@ class CategoryTraverser {
 	/**
 	 * Visit every descendant page of $rootCategoryName (which will be a Category
 	 * page, because there are no desecendants of any other pages).
+	 *
+	 * @since 0.7
+	 *
 	 * @param Page $rootCat The full name of the page to start at.
 	 * @param Page[] $currentPath Used only when recursing into this method, to track each path
 	 * through the category hierarchy in case of loops.
+	 *
 	 * @return Pages All descendants of the given category.
 	 * @throws CategoryLoopException If a category loop is detected.
 	 */
@@ -146,10 +158,11 @@ class CategoryTraverser {
 
 	/**
 	 * Call all the registered callbacks of a particular type.
+	 *
 	 * @param integer $type The callback type; should match one of the 'CALLBACK_' constants.
 	 * @param mixed[] $params The parameters to pass to the callback function.
 	 */
-	protected function call( $type, $params ) {
+	private function call( $type, $params ) {
 		if ( !isset( $this->callbacks[$type] ) ) {
 			return;
 		}

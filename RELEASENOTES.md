@@ -2,8 +2,10 @@ These are the release notes for the [mediawiki-api](README.md).
 
 ## Version 0.7 (TBD)
 
-* Introduce NamespaceGetter service
-* Adds newNamespaceGetter to factory
+* Introduce NamespaceGetter service and add newNamespaceGetter to factory
+* Introduce CategoryTraverser service and add newCategoryTraverser to factory
+* Add PageListGetter::getFromPrefix
+* Add PagePurger::purgePages
 
 ## Version 0.6 (3 August 2016)
 

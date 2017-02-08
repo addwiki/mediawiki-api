@@ -7,46 +7,63 @@ namespace Mediawiki\Api\Generator;
  *
  * @author Addshore
  *
- * @since 0.5.1
+ * @since 0.5
  */
-class FluentGenerator implements ApiGenerator {
+class FluentGenerator
+	implements ApiGenerator {
 
 	private $name;
+
 	private $params;
 
 	/**
 	 * @param string $name
 	 */
 	public function __construct( $name ) {
+
 		$this->name = $name;
 	}
 
 	/**
 	 * Convenience method for using this fluidly
 	 *
+	 * @since 0.5
+	 *
 	 * @param string $name
 	 *
 	 * @return FluentGenerator
 	 */
 	public static function factory( $name ) {
+
 		return new self( $name );
 	}
 
+	/**
+	 * @since 0.5
+	 *
+	 * @return mixed
+	 */
 	public function getParams() {
+
 		$params = $this->params;
 		$params['generator'] = $this->name;
+
 		return $params;
 	}
 
 	/**
+	 * @since 0.5
+	 *
 	 * @param string $key optionally with the 'g' prefix
 	 * @param string $value
 	 *
 	 * @return $this
 	 */
 	public function set( $key, $value ) {
-		$key = $this->addKeyprefixIfNeeded( $key );
+
+		$key = $this->addKeyPrefixIfNeeded( $key );
 		$this->params[$key] = $value;
+
 		return $this;
 	}
 
@@ -56,9 +73,11 @@ class FluentGenerator implements ApiGenerator {
 	 * @return string
 	 */
 	private function addKeyPrefixIfNeeded( $key ) {
+
 		if ( strtolower( substr( $key, 0, 1 ) ) === 'g' ) {
 			return $key;
 		}
+
 		return 'g' . $key;
 	}
 
