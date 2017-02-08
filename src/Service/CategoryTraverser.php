@@ -54,7 +54,7 @@ class CategoryTraverser {
 	 * Query the remote site for the list of namespaces in use, so that later we can tell what's a
 	 * category and what's not. This populates $this->namespaces, and will not re-request on
 	 * repeated invocations.
-	 * 
+	 *
 	 * @todo this should use a service dedicated to fetching the namespaces
 	 *
 	 * @return void
