@@ -12,6 +12,7 @@ use RuntimeException;
  * @access private
  *
  * @author Addshore
+ * @author DFelten (EditInfo fix)
  */
 class RevisionSaver {
 
@@ -36,6 +37,14 @@ class RevisionSaver {
 	 * @returns bool success
 	 */
 	public function save( Revision $revision, EditInfo $editInfo = null ) {
+		if( is_null( $editInfo ) ) {
+			if( is_null( $revision->getEditInfo() )) {
+				$editInfo = new EditInfo();
+			} else {
+				$editInfo = $revision->getEditInfo();
+			}
+		}
+
 		$result =
 			$this->api->postRequest(
 				new SimpleRequest( 'edit', $this->getEditParams( $revision, $editInfo ) )
