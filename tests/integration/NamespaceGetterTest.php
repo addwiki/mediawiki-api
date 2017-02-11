@@ -29,8 +29,17 @@ class NamespaceGetterTest extends \PHPUnit_Framework_TestCase
 
 	public function testGetNamespaceByNameTriesAliases() {
 		$nsGetter = new NamespaceGetter( $this->getApi() );
-		$expectedNamespace = new NamespaceInfo( 3, 'User talk', 'Benutzer Diskussion', 'first-letter' );
-		$this->assertEquals( $expectedNamespace, $nsGetter->getNamespaceByName( 'Benutzerin Diskussion' ) );
+		$expectedNamespace = new NamespaceInfo(
+			3,
+			'User talk',
+			'Benutzer Diskussion',
+			'first-letter',
+			null,
+			[ 'BD', 'Benutzerin Diskussion' ]
+		);
+		$this->assertEquals( $expectedNamespace, $nsGetter->getNamespaceByName(
+			'Benutzerin Diskussion'
+		) );
 		$this->assertEquals( $expectedNamespace, $nsGetter->getNamespaceByName( 'BD' ) );
 	}
 
