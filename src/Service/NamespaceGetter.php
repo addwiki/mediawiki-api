@@ -19,6 +19,8 @@ class NamespaceGetter
 	}
 
 	/**
+	 * Find a namespace by its canonical name
+	 *
 	 * @param string $canonicalName
 	 * @return NamespaceInfo|null
 	 */
@@ -32,14 +34,22 @@ class NamespaceGetter
 	}
 
 	/**
+	 * Find a namespace by its canonical name, local name or namespace alias
+	 *
 	 * @param string $name
 	 * @return NamespaceInfo|null
 	 */
 	public function getNamespaceByName( $name ) {
-		foreach ( $this->getNamespaceResult()['query']['namespaces'] as $nsInfo ) {
+		$result = $this->getNamespaceResult()['query'];
+		foreach ( $result['namespaces'] as $nsInfo ) {
 			if ( ( !empty( $nsInfo['canonical'] ) && $nsInfo['canonical'] === $name ) ||
 				$nsInfo['*'] === $name ) {
 				return $this->createNamespaceFromQuery( $nsInfo );
+			}
+		}
+		foreach ( $result['namespacealiases'] as $alias ) {
+			if ( $alias['*'] === $name && !empty( $result['namespaces'][$alias['id']] ) ) {
+				return $this->createNamespaceFromQuery( $result['namespaces'][$alias['id']] );
 			}
 		}
 		return null;
