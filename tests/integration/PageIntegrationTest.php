@@ -20,7 +20,9 @@ class PageIntegrationTest extends PHPUnit_Framework_TestCase {
 
 	public static function setUpBeforeClass() {
 		parent::setUpBeforeClass();
-		$title = new Title( 'TestPage - ' . strval( time() ) );
+		$title = new Title(
+			'Addwiki PageIntegrationTest - ' . strval( time() ) . '.' . rand( 0, 1000 )
+		);
 		self::$localPageIdentifier = new PageIdentifier( $title );
 	}
 
