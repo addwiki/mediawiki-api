@@ -24,15 +24,11 @@
 		"phpunit": "phpunit",
 		"phpunit-unit": "phpunit --testsuite unit",
 		"phpunit-integration": "phpunit --testsuite integration",
+		"phpunit-coverage": "phpunit --coverage-clover=coverage.clover",
 		"test": [
 			"@lint",
 			"@sniff",
 			"@phpunit"
-		],
-		"ci": [
-			"@lint",
-			"@sniff",
-			"phpunit --coverage-clover=coverage.clover"
 		]
 	},
 	"autoload": {

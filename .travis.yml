@@ -11,7 +11,9 @@ before_script:
   - composer install
 
 script:
-  - composer ci
+  - composer lint
+  - composer sniff
+  - composer phpunit-coverage
 
 after_script:
   - wget https://scrutinizer-ci.com/ocular.phar
