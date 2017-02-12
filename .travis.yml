@@ -7,12 +7,20 @@ php:
   - 7.0
   - 7.1
 
+addons:
+  mariadb: '10.0'
+
 before_script:
+  # Install mediawiki
+  - bash ./build/travis/install-mediawiki.sh
+  # Install this lib
   - composer install
 
 script:
   - composer lint
   - composer sniff
+  - nohup php -S 0.0.0.0:8080 -t ./../web > /dev/null 2>&1 &
+  - until curl -s localhost:8080; do true; done > /dev/null
   - composer phpunit-coverage
 
 after_script:

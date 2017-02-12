@@ -37,7 +37,7 @@ class TestEnvironment {
 	public function getApi() {
 		$apiUrl = getenv( 'MEDIAWIKI_API_URL' );
 		if ( empty( $apiUrl ) ) {
-			$apiUrl = 'https://deployment.wikimedia.beta.wmflabs.org/w/api.php';
+			$apiUrl = 'http://localhost:8080/w/api.php';
 		} elseif ( substr( $apiUrl, -7 ) !== 'api.php' ) {
 			$msg = "URL incorrect: $apiUrl"
 				." (the MEDIAWIKI_API_URL environment variable should end in 'api.php')";
