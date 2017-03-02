@@ -7,6 +7,8 @@ use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\NamespaceInfo;
 
 /**
+ * @access private
+ *
  * @author gbirke
  */
 class NamespaceGetter
@@ -14,7 +16,6 @@ class NamespaceGetter
 	private $api;
 
 	public function __construct( MediawikiApi $api ) {
-
 		$this->api = $api;
 	}
 
