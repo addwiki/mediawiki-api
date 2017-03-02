@@ -3,7 +3,7 @@ Release Notes
 
 These are the release notes for [mediawiki-api](http://addwiki.readthedocs.io/projects/mediawiki-api/).
 
-## Version 1.0.0 (March 2017)
+## Version 0.7 (March 2017)
 
 * Documentation! This package now has a
   [dedicated documentation website](https://addwiki.readthedocs.io/projects/mediawiki-api/).
