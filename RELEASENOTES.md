@@ -6,7 +6,7 @@ These are the release notes for [mediawiki-api](http://addwiki.readthedocs.io/pr
 ## Version 1.0.0 (March 2017)
 
 * Documentation! This package now has a
-  [dedicated documentation website](http://addwiki.readthedocs.io/projects/mediawiki-api/en/latest/).
+  [dedicated documentation website](https://addwiki.readthedocs.io/projects/mediawiki-api/).
 * A new NamespaceGetter service with which you can get all namespaces,
   or a single namespace by localised name, alias, or canonical name
   ([#39](https://github.com/addwiki/mediawiki-api/pull/39), [#41](https://github.com/addwiki/mediawiki-api/pull/41)).
