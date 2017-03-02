@@ -20,3 +20,4 @@ Contents
 
    page_list_getter.rst
    category_traverser.rst
+   namespace_getter.rst

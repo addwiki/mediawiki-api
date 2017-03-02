@@ -19,27 +19,41 @@ class NamespaceGetter
 	}
 
 	/**
+	 * Find a namespace by its canonical name
+	 *
 	 * @param string $canonicalName
 	 * @return NamespaceInfo|null
 	 */
 	public function getNamespaceByCanonicalName( $canonicalName ) {
-		foreach ( $this->getNamespaceResult()['query']['namespaces'] as $nsInfo ) {
+		$result = $this->getNamespaceResult()['query'];
+		foreach ( $result['namespaces'] as $nsInfo ) {
 			if ( !empty( $nsInfo['canonical'] ) && $nsInfo['canonical'] === $canonicalName ) {
-				return $this->createNamespaceFromQuery( $nsInfo );
+				return $this->createNamespaceFromQuery( $nsInfo, $result['namespacealiases'] );
 			}
 		}
 		return null;
 	}
 
 	/**
+	 * Find a namespace by its canonical name, local name or namespace alias
+	 *
 	 * @param string $name
 	 * @return NamespaceInfo|null
 	 */
 	public function getNamespaceByName( $name ) {
-		foreach ( $this->getNamespaceResult()['query']['namespaces'] as $nsInfo ) {
+		$result = $this->getNamespaceResult()['query'];
+		foreach ( $result['namespaces'] as $nsInfo ) {
 			if ( ( !empty( $nsInfo['canonical'] ) && $nsInfo['canonical'] === $name ) ||
 				$nsInfo['*'] === $name ) {
-				return $this->createNamespaceFromQuery( $nsInfo );
+				return $this->createNamespaceFromQuery( $nsInfo, $result['namespacealiases'] );
+			}
+		}
+		foreach ( $result['namespacealiases'] as $alias ) {
+			if ( $alias['*'] === $name && !empty( $result['namespaces'][$alias['id']] ) ) {
+				return $this->createNamespaceFromQuery(
+					$result['namespaces'][$alias['id']],
+					$result['namespacealiases']
+				);
 			}
 		}
 		return null;
@@ -50,20 +64,39 @@ class NamespaceGetter
 	 */
 	public function getNamespaces() {
 		$namespaces = [];
-		foreach ( $this->getNamespaceResult()['query']['namespaces'] as $nsInfo ) {
-			$namespaces[$nsInfo['id']] = $this->createNamespaceFromQuery( $nsInfo );
+		$result =  $this->getNamespaceResult()['query'];
+		foreach ( $result['namespaces'] as $nsInfo ) {
+			$namespaces[$nsInfo['id']] = $this->createNamespaceFromQuery(
+				$nsInfo, $result['namespacealiases']
+			);
 		}
 		return $namespaces;
 	}
 
-	private function createNamespaceFromQuery( $nsInfo ) {
+	private function createNamespaceFromQuery( $nsInfo, $namespaceAliases ) {
 		return new NamespaceInfo(
 			$nsInfo['id'],
 			empty( $nsInfo['canonical'] ) ? '' : $nsInfo['canonical'],
 			$nsInfo['*'],
 			$nsInfo['case'],
-			empty( $nsInfo['defaultcontentmodel'] ) ? null : $nsInfo['defaultcontentmodel']
+			empty( $nsInfo['defaultcontentmodel'] ) ? null : $nsInfo['defaultcontentmodel'],
+			$this->getAliases( $nsInfo['id'], $namespaceAliases )
 		);
+	}
+
+	/**
+	 * @param int $id
+	 * @param array $namespaceAliases Alias list, as returned by the API
+	 * @return string[]
+	 */
+	private function getAliases( $id, $namespaceAliases ) {
+		$aliases = [];
+		foreach ( $namespaceAliases as $alias ) {
+			if ( $alias['id'] === $id ) {
+				$aliases[] = $alias['*'];
+			}
+		}
+		return $aliases;
 	}
 
 	/**
