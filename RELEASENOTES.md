@@ -1,9 +1,24 @@
-These are the release notes for the [mediawiki-api](README.md).
+Release Notes
+=============
 
-## Version 0.7 (TBD)
+These are the release notes for [mediawiki-api](http://addwiki.readthedocs.io/projects/mediawiki-api/).
 
-* Introduce NamespaceGetter service
-* Adds newNamespaceGetter to factory
+## Version 0.7 (March 2017)
+
+* Documentation! This package now has a
+  [dedicated documentation website](https://addwiki.readthedocs.io/projects/mediawiki-api/).
+* A new NamespaceGetter service with which you can get all namespaces,
+  or a single namespace by localised name, alias, or canonical name
+  ([#39](https://github.com/addwiki/mediawiki-api/pull/39), [#41](https://github.com/addwiki/mediawiki-api/pull/41)).
+* A new CategoryTraverser service for descending (all levels of) category trees
+  and either retrieving all pages or performing some action on each page.
+* A new method to PagePurger for purging multiple pages at once ([#36](https://github.com/addwiki/mediawiki-api/pull/36)). 
+* All methods of the PageListGetter now continue their queries where the first request doesn't retrieve the whole result set
+  ([#31](https://github.com/addwiki/mediawiki-api/pull/31)).
+* Bug [#40](https://github.com/addwiki/mediawiki-api/pull/40) fixed with `RevisionSaver::save()` overwriting EditInfo if null.
+* Integration tests: more documentation about how to run integration tests locally,
+  and the tests are running on Travis CI.
+* Lots of fixes to coding-standards and in-code documentation.
 
 ## Version 0.6 (3 August 2016)
 
