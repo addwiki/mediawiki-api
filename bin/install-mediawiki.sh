@@ -46,6 +46,7 @@ php maintenance/install.php --dbtype mysql --dbuser "root" --dbpass "$DBPASS" --
 
 # Add some extra configuration to LocalSettings.php
 cat << 'EOF' >> "$INSTALLDIR/LocalSettings.php"
+$wgEnableUploads = true;
 $wgShowExceptionDetails = true;
 $wgCacheDirectory = __DIR__."/images/tmp";
 $wgServer = "http://127.0.0.1:8081";
