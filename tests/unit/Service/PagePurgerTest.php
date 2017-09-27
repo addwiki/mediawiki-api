@@ -7,7 +7,6 @@ use Mediawiki\Api\Service\PagePurger;
 use Mediawiki\DataModel\Page;
 use Mediawiki\DataModel\Pages;
 use Mediawiki\DataModel\PageIdentifier;
-use Mediawiki\DataModel\Revisions;
 use Mediawiki\DataModel\Title;
 use PHPUnit_Framework_MockObject_MockObject;
 
@@ -93,20 +92,20 @@ class PagePurgerTest extends \PHPUnit_Framework_TestCase {
 			)
 			->will( $this->returnValue(
 				[
-	    		"batchcomplete" => "",
-	    		"purge" => [
-	        	[
-	          	"ns" => 0,
-	            "title" => "Foo",
-	            "purged" => ""
-	        	],
-	        	[
-	            "ns" => 0,
-	            "title" => "Bar",
-	            "purged" => ""
-	        	]
-	    		]
-	    	]
+					"batchcomplete" => "",
+					"purge" => [
+						[
+							"ns" => 0,
+							"title" => "Foo",
+							"purged" => ""
+						],
+						[
+							"ns" => 0,
+							"title" => "Bar",
+							"purged" => ""
+						],
+				]
+			]
 			) );
 
 		$service = new PagePurger( $api );
@@ -136,25 +135,25 @@ class PagePurgerTest extends \PHPUnit_Framework_TestCase {
 			)
 			->will( $this->returnValue(
 				[
-	    		"batchcomplete" => "",
-	    		"purge" => [
-	        	[
-	          	"ns" => 0,
-	            "title" => "Foo",
-	            "purged" => ""
-	        	],
-	        	[
-	            "ns" => 0,
-	            "title" => "Bar",
-	            "purged" => ""
-	        	],
-						[
-	            "ns" => 0,
-	            "title" => "This page really does not exist",
-	            "missing" => ""
-	        	]
-	    		]
-	    	]
+				"batchcomplete" => "",
+				"purge" => [
+					[
+						"ns" => 0,
+						"title" => "Foo",
+						"purged" => ""
+					],
+					[
+						"ns" => 0,
+						"title" => "Bar",
+						"purged" => ""
+					],
+					[
+						"ns" => 0,
+						"title" => "This page really does not exist",
+						"missing" => ""
+					],
+				]
+			]
 			) );
 
 		$service = new PagePurger( $api );

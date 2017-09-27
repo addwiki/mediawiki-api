@@ -38,7 +38,7 @@ class PageGetter {
 	 * @param int $id
 	 * @param array $extraParams
 	 *
-	 * @returns Page
+	 * @return Page
 	 */
 	public function getFromRevisionId( $id, array $extraParams = [] ) {
 		$result =
@@ -58,7 +58,7 @@ class PageGetter {
 	 * @param string|Title $title
 	 * @param array $extraParams
 	 *
-	 * @returns Page
+	 * @return Page
 	 */
 	public function getFromTitle( $title, array $extraParams = [] ) {
 		if ( $title instanceof Title ) {
@@ -81,7 +81,7 @@ class PageGetter {
 	 * @param int $id
 	 * @param array $extraParams
 	 *
-	 * @returns Page
+	 * @return Page
 	 */
 	public function getFromPageId( $id, array $extraParams = [] ) {
 		$result =
@@ -102,7 +102,7 @@ class PageGetter {
 	 * @param array $extraParams
 	 *
 	 * @throws RuntimeException
-	 * @returns Page
+	 * @return Page
 	 */
 	public function getFromPageIdentifier(
 		PageIdentifier $pageIdentifier,

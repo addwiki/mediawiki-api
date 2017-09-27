@@ -33,7 +33,6 @@ class RevisionDeleter {
 	 * @return bool
 	 */
 	public function delete( Revision $revision ) {
-
 		$params = [
 			'type' => 'revision',
 			'hide' => 'content',
@@ -48,7 +47,6 @@ class RevisionDeleter {
 		) );
 
 		return true;
-
 	}
 
 }

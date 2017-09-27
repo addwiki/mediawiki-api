@@ -30,6 +30,9 @@ class AnonymousGenerator implements ApiGenerator {
 		$this->params = $params;
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getParams() {
 		$params = $this->params;
 		$params['generator'] = $this->name;

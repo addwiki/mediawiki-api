@@ -7,8 +7,7 @@ use Mediawiki\Api\Service\NamespaceGetter;
 use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\NamespaceInfo;
 
-class NamespaceGetterTest extends \PHPUnit_Framework_TestCase
-{
+class NamespaceGetterTest extends \PHPUnit_Framework_TestCase {
 	public function testGetNamespaceByCanonicalNameReturnsNullIfNamespaceWasNotFound() {
 		$nsGetter = new NamespaceGetter( $this->getApi() );
 		$this->assertNull( $nsGetter->getNamespaceByCanonicalName( 'Dummy' ) );
@@ -74,7 +73,6 @@ class NamespaceGetterTest extends \PHPUnit_Framework_TestCase
 	}
 
 	private function getRequest() {
-
 		return new SimpleRequest(
 			'query', [
 			'meta' => 'siteinfo',
@@ -83,7 +81,6 @@ class NamespaceGetterTest extends \PHPUnit_Framework_TestCase
 	}
 
 	private function getNamespaceFixture() {
-
 		return json_decode( file_get_contents( __DIR__ . '/../fixtures/namespaces.json' ), true );
 	}
 }

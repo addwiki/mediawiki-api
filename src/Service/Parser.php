@@ -52,7 +52,7 @@ class Parser {
 
 		$promise = $this->api->getRequestAsync( new SimpleRequest( 'parse', $params ) );
 
-		return $promise->then( function( $result ) {
+		return $promise->then( function ( $result ) {
 			return $result['parse'];
 		} );
 	}

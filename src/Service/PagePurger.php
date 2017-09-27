@@ -90,16 +90,12 @@ class PagePurger {
 
 		// for every purge result
 		foreach ( $responseArray['purge'] as $purgeResponse ) {
-
 			// if the purge for the page was successful
 			if ( array_key_exists( 'purged', $purgeResponse ) ) {
-
 				// we iterate all the input pages
 				foreach ( $pagesArray as $page ) {
-
 					// and if the page from the input was successfully purged
 					if ( $purgeResponse['title'] === $page->getTitle()->getText() ) {
-
 						// add it in the purgedPages object
 						$purgedPages->addPage( $page );
 

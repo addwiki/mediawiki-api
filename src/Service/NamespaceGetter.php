@@ -11,10 +11,12 @@ use Mediawiki\DataModel\NamespaceInfo;
  *
  * @author gbirke
  */
-class NamespaceGetter
-{
+class NamespaceGetter {
 	private $api;
 
+	/**
+	 * @param MediawikiApi $api The API to connect to.
+	 */
 	public function __construct( MediawikiApi $api ) {
 		$this->api = $api;
 	}
@@ -65,7 +67,7 @@ class NamespaceGetter
 	 */
 	public function getNamespaces() {
 		$namespaces = [];
-		$result =  $this->getNamespaceResult()['query'];
+		$result = $this->getNamespaceResult()['query'];
 		foreach ( $result['namespaces'] as $nsInfo ) {
 			$namespaces[$nsInfo['id']] = $this->createNamespaceFromQuery(
 				$nsInfo, $result['namespacealiases']
