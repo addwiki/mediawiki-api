@@ -17,6 +17,9 @@ class TestEnvironment {
 	/** @var \Mediawiki\Api\MediawikiFactory */
 	private $factory;
 
+	/** @var MediawikiApi */
+	protected $api;
+
 	/**
 	 * Get a new default test environment.
 	 * @return TestEnvironment
@@ -40,12 +43,15 @@ class TestEnvironment {
 	 * @throws \Exception If the MEDIAWIKI_API_URL environment variable does not end in 'api.php'
 	 */
 	public function getApi() {
+		if ( $this->api instanceof MediawikiApi ) {
+			return $this->api;
+		}
 		$apiUrl = getenv( 'MEDIAWIKI_API_URL' );
 		if ( empty( $apiUrl ) ) {
 			$apiUrl = 'http://localhost/w/api.php';
 		} elseif ( substr( $apiUrl, -7 ) !== 'api.php' ) {
 			$msg = "URL incorrect: $apiUrl"
-				." (the MEDIAWIKI_API_URL environment variable should end in 'api.php')";
+				. " (the MEDIAWIKI_API_URL environment variable should end in 'api.php')";
 			throw new \Exception( $msg );
 		}
 
@@ -55,9 +61,9 @@ class TestEnvironment {
 		$logger->pushHandler( new StreamHandler( $logFile, Logger::DEBUG ) );
 
 		// Create and return the API object.
-		$api = new MediawikiApi( $apiUrl );
-		$api->setLogger( $logger );
-		return $api;
+		$this->api = new MediawikiApi( $apiUrl );
+		$this->api->setLogger( $logger );
+		return $this->api;
 	}
 
 	/**
