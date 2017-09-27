@@ -1,17 +1,43 @@
 language: php
 
 php:
-  - hhvm
   - 5.5
   - 5.6
   - 7.0
-  - 7.1
 
-before_script:
+env:
+  matrix:
+    - TEST_SUITE=unit
+    # All the currently-supported versions from https://www.mediawiki.org/wiki/Version_lifecycle
+    - TEST_SUITE=integration MEDIAWIKI_VERSION=1.26.4
+    - TEST_SUITE=integration MEDIAWIKI_VERSION=1.27.3
+    - TEST_SUITE=integration MEDIAWIKI_VERSION=1.28.2
+    - TEST_SUITE=integration MEDIAWIKI_VERSION=1.29.1
+  global:
+    - MEDIAWIKI_API_URL='http://127.0.0.1:8081/api.php'
+
+matrix:
+  include:
+  - php: hhvm
+    env: TEST_SUITE=unit
+    before_install:
+    install:
+      - composer install
+  - php: 7.1
+    env: TEST_SUITE=unit
+    before_install:
+    install:
+      - composer install
+
+before_install:
+  - bin/install-mediawiki.sh
+
+install:
+  - php -S 127.0.0.1:8081 -t build/mediawiki >/dev/null 2>&1 &
   - composer install
 
 script:
-  - $TRAVIS_BUILD_DIR/vendor/bin/phpunit --coverage-clover=$TRAVIS_BUILD_DIR/coverage.clover $TRAVIS_BUILD_DIR/tests/unit
+  - $TRAVIS_BUILD_DIR/vendor/bin/phpunit --coverage-clover=$TRAVIS_BUILD_DIR/coverage.clover $TRAVIS_BUILD_DIR/tests/$TEST_SUITE
   - $TRAVIS_BUILD_DIR/vendor/bin/phpcs
 
 after_script:

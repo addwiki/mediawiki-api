@@ -12,6 +12,9 @@ use Mediawiki\DataModel\Content;
 
 class CategoryTraverserTest extends \PHPUnit_Framework_TestCase {
 
+	/** @var TestEnvironment */
+	protected $testEnvironment;
+
 	/** @var \Mediawiki\Api\MediawikiFactory */
 	protected $factory;
 
@@ -20,7 +23,8 @@ class CategoryTraverserTest extends \PHPUnit_Framework_TestCase {
 
 	public function setUp() {
 		parent::setUp();
-		$this->factory = TestEnvironment::newDefault()->getFactory();
+		$this->testEnvironment = TestEnvironment::newDefault();
+		$this->factory = $this->testEnvironment->getFactory();
 		$this->traverser = $this->factory->newCategoryTraverser();
 	}
 
@@ -61,6 +65,7 @@ class CategoryTraverserTest extends \PHPUnit_Framework_TestCase {
 		$this->savePage( 'Test page B1', 'Testing. [[Category:Sub category B]]' );
 		$this->savePage( 'Test page B2', 'Testing. [[Category:Sub category B]]' );
 		$this->savePage( 'Test page C1', 'Testing. [[Category:Sub category C]]' );
+		$this->testEnvironment->runJobs();
 
 		$callback = function ( Page $pageInfo, Page $parentCat ) {
 			$parentCatName = $parentCat->getPageIdentifier()->getTitle()->getText();
@@ -98,6 +103,7 @@ class CategoryTraverserTest extends \PHPUnit_Framework_TestCase {
 		$this->savePage( 'Child 1', '[[Category:Parent 1]]' );
 		$this->savePage( 'Child 2', '[[Category:Parent 1]]' );
 		$this->savePage( 'Child 3', '[[Category:Parent 2]]' );
+		$this->testEnvironment->runJobs();
 		$decendants = $this->traverser->descend( $grandparent );
 		$this->assertCount( 4, $decendants->toArray() );
 		$this->deletePages( [
@@ -130,6 +136,7 @@ class CategoryTraverserTest extends \PHPUnit_Framework_TestCase {
 		$this->savePage( 'Category:B cat', 'Testing. [[Category:A cat]]' );
 		$this->savePage( 'Category:C cat', 'Testing. [[Category:A cat]][[Category:B cat]]' );
 		$this->savePage( 'Category:D cat', 'Testing. [[Category:C cat]]' );
+		$this->testEnvironment->runJobs();
 		$callback = function ( Page $pageInfo, Page $parentCat ) {
 			global $wgVisitedCats;
 			$wgVisitedCats[] = $parentCat->getPageIdentifier()->getTitle()->getText();
@@ -164,6 +171,7 @@ class CategoryTraverserTest extends \PHPUnit_Framework_TestCase {
 		$catC = $this->savePage( 'Category:G cat', '[[Category:E cat]]' );
 		$catD = $this->savePage( 'Category:H cat', '[[Category:F cat]]' );
 		$catE = $this->savePage( 'Category:I cat', '[[Category:F cat]]' );
+		$this->testEnvironment->runJobs();
 		$haveCaught = false;
 		try {
 			$this->traverser->descend( $catA );
