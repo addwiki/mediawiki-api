@@ -6,5 +6,6 @@
 	<file>.</file>
 	<arg name="extensions" value="php,php5,inc"/>
 	<arg name="encoding" value="utf8"/>
+	<exclude-pattern>build/</exclude-pattern>
 	<exclude-pattern>vendor/</exclude-pattern>
 </ruleset>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- convertWarningsToExceptions is false as real API calls can return un expected warnings -->
+<phpunit
+	bootstrap="./vendor/autoload.php"
+	colors="true"
+	convertWarningsToExceptions="false"
+>
+	<testsuites>
+		<testsuite>
+			<directory suffix="Test.php">./tests/integration</directory>
+		</testsuite>
+		<testsuite>
+			<directory suffix="Test.php">./tests/unit</directory>
+		</testsuite>
+	</testsuites>
+	<filter>
+		<whitelist addUncoveredFilesFromWhitelist="true">
+			<directory suffix=".php">./src</directory>
+		</whitelist>
+	</filter>
+</phpunit>

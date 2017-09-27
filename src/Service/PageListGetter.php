@@ -76,16 +76,17 @@ class PageListGetter {
 	 * @uses PageListGetter::runQuery()
 	 *
 	 * @param string $pageName The page name
+	 * @param string[] Any extra parameters to use: lhprop, lhnamespace, lhshow, lhlimit
 	 *
 	 * @return Pages
 	 */
-	public function getFromWhatLinksHere( $pageName ) {
-		$params = [
+	public function getFromWhatLinksHere( $pageName, $extraParams = [] ) {
+		$params = array_merge( $extraParams, [
 			'prop' => 'info',
 			'generator' => 'linkshere',
 			'titles' => $pageName,
-		];
-		return $this->runQuery( $params, 'lhcontinue', 'pages' );
+		] );
+		return $this->runQuery( $params, 'glhcontinue', 'pages' );
 	}
 
 	/**

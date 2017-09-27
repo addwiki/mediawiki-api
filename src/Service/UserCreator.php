@@ -5,6 +5,7 @@ namespace Mediawiki\Api\Service;
 use InvalidArgumentException;
 use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\SimpleRequest;
+use Mediawiki\Api\UsageException;
 
 /**
  * @access private
@@ -44,28 +45,52 @@ class UserCreator {
 		}
 
 		$params = [
-			'name' => $username,
+			'createreturnurl' => $this->api->getApiUrl(),
+			'createtoken' => $this->api->getToken( 'createaccount' ),
+			'username' => $username,
 			'password' => $password,
+			'retype' => $password,
 		];
 
 		if ( !is_null( $email ) ) {
 			$params['email'] = $email;
 		}
 
-		$result = $this->api->postRequest( new SimpleRequest( 'createaccount', $params ) );
-		if ( $result['createaccount']['result'] == 'NeedToken' ) {
-			$result = $this->api->postRequest(
-				new SimpleRequest(
-					'createaccount',
-					array_merge( [ 'token' => $result['createaccount']['token'] ], $params )
-				)
-			);
+		try {
+			$result = $this->api->postRequest( new SimpleRequest( 'createaccount', $params ) );
+			return $result['createaccount']['status'] === 'PASS';
+		} catch ( UsageException $exception ) {
+			// If the above request failed, try again in the old way.
+			if ( $exception->getApiCode() === 'noname' ) {
+				return $this->createPreOneTwentySeven( $params );
+			}
+			throw $exception;
 		}
-		if ( $result['createaccount']['result'] === 'Success' ) {
-			return true;
-		}
+	}
 
-		return false;
+	/**
+	 * Create a user in the pre 1.27 manner.
+	 * @link https://www.mediawiki.org/wiki/API:Account_creation/pre-1.27
+	 * @return bool
+	 */
+	protected function createPreOneTwentySeven( $params ) {
+		$newParams = [
+			'name' => $params['username'],
+			'password' => $params['password'],
+		];
+		if ( array_key_exists( 'email', $params ) ) {
+			$newParams['email'] = $params['email'];
+		}
+		// First get the token.
+		$tokenRequest = new SimpleRequest( 'createaccount', $newParams );
+		$result = $this->api->postRequest( $tokenRequest );
+		if ( $result['createaccount']['result'] == 'NeedToken' ) {
+			// Then send the token to create the account.
+			$newParams['token'] = $result['createaccount']['token'];
+			$request = new SimpleRequest( 'createaccount', $newParams );
+			$result = $this->api->postRequest( $request );
+		}
+		return ( $result['createaccount']['result'] === 'Success' );
 	}
 
 }
