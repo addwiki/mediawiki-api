@@ -12,12 +12,16 @@ use Mediawiki\Api\SimpleRequest;
  */
 class TestEnvironment {
 
+	/** @var \Mediawiki\Api\MediawikiFactory */
+	private $factory;
+
+	/**
+	 * Get a new default test environment.
+	 * @return TestEnvironment
+	 */
 	public static function newDefault() {
 		return new self();
 	}
-
-	/** @var \Mediawiki\Api\MediawikiFactory */
-	private $factory;
 
 	/**
 	 * Set up the test environment by creating a new API object pointing to a
@@ -61,7 +65,7 @@ class TestEnvironment {
 	 * @return void
 	 */
 	public function runJobs() {
-		$reqestProps = [ 'meta'=>'siteinfo', 'siprop'=>'general' ];
+		$reqestProps = [ 'meta' => 'siteinfo', 'siprop' => 'general' ];
 		$siteInfoRequest = new SimpleRequest( 'query', $reqestProps );
 		$out = $this->getApi()->getRequest( $siteInfoRequest );
 		$mainPageUrl = $out['query']['general']['base'];
@@ -75,16 +79,16 @@ class TestEnvironment {
 	 * Get the number of jobs currently in the queue.
 	 * @todo This and TestEnvironment::runJobs() should probably not live here.
 	 * @param MediawikiApi $api
-	 * @return integer
+	 * @return int
 	 */
 	public function getJobQueueLength( MediawikiApi $api ) {
 		$req = new SimpleRequest( 'query', [
-				'meta'=>'siteinfo',
-				'siprop'=>'statistics',
+				'meta' => 'siteinfo',
+				'siprop' => 'statistics',
 			]
 		);
 		$out = $api->getRequest( $req );
-		return (int) $out['query']['statistics']['jobs'];
+		return (int)$out['query']['statistics']['jobs'];
 	}
 
 }

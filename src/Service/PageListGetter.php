@@ -7,7 +7,6 @@ use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\Page;
 use Mediawiki\DataModel\PageIdentifier;
 use Mediawiki\DataModel\Pages;
-use Mediawiki\DataModel\Revisions;
 use Mediawiki\DataModel\Title;
 
 /**
@@ -101,7 +100,7 @@ class PageListGetter {
 	public function getFromPrefix( $prefix ) {
 		$params = [
 			'list' => 'allpages',
-		    'apprefix' => $prefix,
+			'apprefix' => $prefix,
 		];
 		return $this->runQuery( $params, 'apcontinue', 'allpages' );
 	}
@@ -128,7 +127,7 @@ class PageListGetter {
 	 * @param string $contName Result subelement name for continue details
 	 * @param string $resName Result element name for main results array
 	 * @param string $pageIdName Result element name for page ID
-	 * @param boolean $cont Whether to continue the query, using multiple requests
+	 * @param bool $cont Whether to continue the query, using multiple requests
 	 * @return Pages
 	 */
 	protected function runQuery( $params, $contName, $resName, $pageIdName = 'pageid', $cont = true ) {

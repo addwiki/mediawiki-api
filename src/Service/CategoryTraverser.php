@@ -6,7 +6,6 @@ use Mediawiki\Api\CategoryLoopException;
 use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\Page;
-use Mediawiki\DataModel\PageIdentifier;
 use Mediawiki\DataModel\Pages;
 
 /**
@@ -43,6 +42,9 @@ class CategoryTraverser {
 	 */
 	protected $alreadyVisited;
 
+	/**
+	 * @param MediawikiApi $api The API to connect to.
+	 */
 	public function __construct( MediawikiApi $api ) {
 		$this->api = $api;
 		$this->callbacks = [];
@@ -68,7 +70,7 @@ class CategoryTraverser {
 	/**
 	 * Register a callback that will be called for each page or category visited during the
 	 * traversal.
-	 * @param integer $type One of the 'CALLBACK_' constants of this class.
+	 * @param int $type One of the 'CALLBACK_' constants of this class.
 	 * @param callable $callback A callable that takes two \Mediawiki\DataModel\Page parameters.
 	 */
 	public function addCallback( $type, $callback ) {
@@ -102,7 +104,7 @@ class CategoryTraverser {
 		// Start a list of child pages.
 		$descendants = new Pages();
 		do {
-		    $pageListGetter = new PageListGetter( $this->api );
+			$pageListGetter = new PageListGetter( $this->api );
 			$members = $pageListGetter->getPageListFromCategoryName( $rootCatName );
 			foreach ( $members->toArray() as $member ) {
 				/** @var Title */
@@ -133,9 +135,10 @@ class CategoryTraverser {
 					$this->call( self::CALLBACK_CATEGORY, [ $member, $rootCat ] );
 					$newDescendants = $this->descend( $member, $currentPath );
 					$descendants->addPages( $newDescendants );
-					$currentPath = new Pages(); // Re-set the path.
+					// Re-set the path.
+					$currentPath = new Pages();
 				} else {
-				    // If it's a page, add it to the list and carry on.
+					// If it's a page, add it to the list and carry on.
 					$descendants->addPage( $member );
 					$this->call( self::CALLBACK_PAGE, [ $member, $rootCat ] );
 				}
@@ -146,7 +149,7 @@ class CategoryTraverser {
 
 	/**
 	 * Call all the registered callbacks of a particular type.
-	 * @param integer $type The callback type; should match one of the 'CALLBACK_' constants.
+	 * @param int $type The callback type; should match one of the 'CALLBACK_' constants.
 	 * @param mixed[] $params The parameters to pass to the callback function.
 	 */
 	protected function call( $type, $params ) {

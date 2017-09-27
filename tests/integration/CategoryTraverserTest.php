@@ -10,8 +10,7 @@ use Mediawiki\DataModel\Title;
 use Mediawiki\DataModel\Revision;
 use Mediawiki\DataModel\Content;
 
-class CategoryTraverserTest extends \PHPUnit_Framework_TestCase
-{
+class CategoryTraverserTest extends \PHPUnit_Framework_TestCase {
 
 	/** @var \Mediawiki\Api\MediawikiFactory */
 	protected $factory;

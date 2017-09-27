@@ -32,6 +32,9 @@ class FluentGenerator implements ApiGenerator {
 		return new self( $name );
 	}
 
+	/**
+	 * @return string[]
+	 */
 	public function getParams() {
 		$params = $this->params;
 		$params['generator'] = $this->name;

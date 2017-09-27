@@ -28,7 +28,7 @@ class UserGetter {
 	/**
 	 * @param string $username
 	 *
-	 * @returns User
+	 * @return User
 	 */
 	public function getFromUsername( $username ) {
 		$result = $this->api->getRequest(
@@ -71,7 +71,6 @@ class UserGetter {
 				''
 			);
 		}
-
 	}
 
 }

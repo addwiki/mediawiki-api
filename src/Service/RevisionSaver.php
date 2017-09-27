@@ -34,7 +34,7 @@ class RevisionSaver {
 	 * @param Revision $revision
 	 * @param EditInfo $editInfo
 	 *
-	 * @returns bool success
+	 * @return bool success
 	 */
 	public function save( Revision $revision, EditInfo $editInfo = null ) {
 		$editInfo = $editInfo ? $editInfo : $revision->getEditInfo();
