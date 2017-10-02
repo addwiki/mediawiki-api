@@ -6,6 +6,8 @@ use Mediawiki\Api\Guzzle\ClientFactory;
 use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\MediawikiFactory;
 use Mediawiki\Api\SimpleRequest;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 
 /**
  * @author Addshore
@@ -46,7 +48,16 @@ class TestEnvironment {
 				." (the MEDIAWIKI_API_URL environment variable should end in 'api.php')";
 			throw new \Exception( $msg );
 		}
-		return new MediawikiApi( $apiUrl );
+
+		// Log to a local file.
+		$logger = new Logger( 'mediawiki-api' );
+		$logFile = __DIR__ . '/../../log/mediawiki-api.log';
+		$logger->pushHandler( new StreamHandler( $logFile, Logger::DEBUG ) );
+
+		// Create and return the API object.
+		$api = new MediawikiApi( $apiUrl );
+		$api->setLogger( $logger );
+		return $api;
 	}
 
 	/**
