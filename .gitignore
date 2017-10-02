@@ -5,4 +5,5 @@ test.php
 phpunit.xml
 nbproject
 docs/_build
+log
 
