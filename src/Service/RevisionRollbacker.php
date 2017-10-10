@@ -2,7 +2,6 @@
 
 namespace Mediawiki\Api\Service;
 
-use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\Revision;
 use Mediawiki\DataModel\Title;
@@ -12,19 +11,7 @@ use Mediawiki\DataModel\Title;
  *
  * @author Addshore
  */
-class RevisionRollbacker {
-
-	/**
-	 * @var MediawikiApi
-	 */
-	private $api;
-
-	/**
-	 * @param MediawikiApi $api
-	 */
-	public function __construct( MediawikiApi $api ) {
-		$this->api = $api;
-	}
+class RevisionRollbacker extends Service {
 
 	/**
 	 * @since 0.3

@@ -3,7 +3,6 @@
 namespace Mediawiki\Api\Service;
 
 use GuzzleHttp\Promise\PromiseInterface;
-use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\PageIdentifier;
 
@@ -12,19 +11,7 @@ use Mediawiki\DataModel\PageIdentifier;
  *
  * @author Addshore
  */
-class Parser {
-
-	/**
-	 * @var MediawikiApi
-	 */
-	private $api;
-
-	/**
-	 * @param MediawikiApi $api
-	 */
-	public function __construct( MediawikiApi $api ) {
-		$this->api = $api;
-	}
+class Parser extends Service {
 
 	/**
 	 * @param PageIdentifier $pageIdentifier

@@ -3,7 +3,6 @@
 namespace Mediawiki\Api\Service;
 
 use InvalidArgumentException;
-use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\SimpleRequest;
 use Mediawiki\Api\UsageException;
 
@@ -12,19 +11,7 @@ use Mediawiki\Api\UsageException;
  *
  * @author Addshore
  */
-class UserCreator {
-
-	/**
-	 * @var MediawikiApi
-	 */
-	private $api;
-
-	/**
-	 * @param MediawikiApi $api
-	 */
-	public function __construct( MediawikiApi $api ) {
-		$this->api = $api;
-	}
+class UserCreator extends Service {
 
 	/**
 	 * @param string $username
