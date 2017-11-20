@@ -3,6 +3,13 @@ Release Notes
 
 These are the release notes for [mediawiki-api](http://addwiki.readthedocs.io/projects/mediawiki-api/).
 
+## Version 0.7.2 (20th November 2017)
+
+* New parent class for all API service classes,
+  with protected access on `Service::$api` to make it easier to subclass any services.
+* File uploading improved, with the option of [chunked uploading](https://www.mediawiki.org/wiki/API:Upload#Chunked_uploading).
+* Various fixes and improvements to the testing set-up and coding standards.
+
 ## Version 0.7.1 (8th March 2017)
 
 * Fixed dependancy on addwiki/mediawiki-datamodel
