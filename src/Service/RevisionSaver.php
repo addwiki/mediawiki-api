@@ -2,7 +2,6 @@
 
 namespace Mediawiki\Api\Service;
 
-use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\EditInfo;
 use Mediawiki\DataModel\Revision;
@@ -14,19 +13,7 @@ use RuntimeException;
  * @author Addshore
  * @author DFelten (EditInfo fix)
  */
-class RevisionSaver {
-
-	/**
-	 * @var MediawikiApi
-	 */
-	private $api;
-
-	/**
-	 * @param MediawikiApi $api
-	 */
-	public function __construct( MediawikiApi $api ) {
-		$this->api = $api;
-	}
+class RevisionSaver extends Service {
 
 	/**
 	 * @since 0.2

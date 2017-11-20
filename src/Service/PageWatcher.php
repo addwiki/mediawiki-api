@@ -2,7 +2,6 @@
 
 namespace Mediawiki\Api\Service;
 
-use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\Page;
 
@@ -11,19 +10,7 @@ use Mediawiki\DataModel\Page;
  *
  * @author Addshore
  */
-class PageWatcher {
-
-	/**
-	 * @var MediawikiApi
-	 */
-	private $api;
-
-	/**
-	 * @param MediawikiApi $api
-	 */
-	public function __construct( MediawikiApi $api ) {
-		$this->api = $api;
-	}
+class PageWatcher extends Service {
 
 	/**
 	 * @param Page $page

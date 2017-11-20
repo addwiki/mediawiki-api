@@ -3,7 +3,6 @@
 namespace Mediawiki\Api\Service;
 
 use Exception;
-use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\MultipartRequest;
 use Mediawiki\Api\SimpleRequest;
 
@@ -12,22 +11,10 @@ use Mediawiki\Api\SimpleRequest;
  *
  * @author Addshore
  */
-class FileUploader {
-
-	/**
-	 * @var MediawikiApi
-	 */
-	private $api;
+class FileUploader extends Service {
 
 	/** @var int */
 	protected $chunkSize;
-
-	/**
-	 * @param MediawikiApi $api
-	 */
-	public function __construct( MediawikiApi $api ) {
-		$this->api = $api;
-	}
 
 	/**
 	 * Set the chunk size used for chunked uploading.

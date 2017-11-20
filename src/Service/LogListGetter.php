@@ -2,7 +2,6 @@
 
 namespace Mediawiki\Api\Service;
 
-use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\Log;
 use Mediawiki\DataModel\LogList;
@@ -16,18 +15,7 @@ use Mediawiki\DataModel\Title;
  *
  * @author Thomas Arrow
  */
-class LogListGetter {
-	/**
-	 * @var MediawikiApi
-	 */
-	private $api;
-
-	/**
-	 * @param MediawikiApi $api
-	 */
-	public function __construct( MediawikiApi $api ) {
-		$this->api = $api;
-	}
+class LogListGetter extends Service {
 
 	/**
 	 * @param array $extraParams

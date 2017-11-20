@@ -2,7 +2,6 @@
 
 namespace Mediawiki\Api\Service;
 
-use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\NamespaceInfo;
 
@@ -11,15 +10,7 @@ use Mediawiki\DataModel\NamespaceInfo;
  *
  * @author gbirke
  */
-class NamespaceGetter {
-	private $api;
-
-	/**
-	 * @param MediawikiApi $api The API to connect to.
-	 */
-	public function __construct( MediawikiApi $api ) {
-		$this->api = $api;
-	}
+class NamespaceGetter extends Service {
 
 	/**
 	 * Find a namespace by its canonical name

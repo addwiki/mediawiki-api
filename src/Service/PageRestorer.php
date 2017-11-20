@@ -2,7 +2,6 @@
 
 namespace Mediawiki\Api\Service;
 
-use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\Page;
 use Mediawiki\DataModel\Title;
@@ -13,19 +12,7 @@ use OutOfBoundsException;
  *
  * @author Addshore
  */
-class PageRestorer {
-
-	/**
-	 * @var MediawikiApi
-	 */
-	private $api;
-
-	/**
-	 * @param MediawikiApi $api
-	 */
-	public function __construct( MediawikiApi $api ) {
-		$this->api = $api;
-	}
+class PageRestorer extends Service {
 
 	/**
 	 * @since 0.3

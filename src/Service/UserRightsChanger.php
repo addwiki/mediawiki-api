@@ -2,7 +2,6 @@
 
 namespace Mediawiki\Api\Service;
 
-use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\User;
 
@@ -11,19 +10,7 @@ use Mediawiki\DataModel\User;
  *
  * @author Addshore
  */
-class UserRightsChanger {
-
-	/**
-	 * @var MediawikiApi
-	 */
-	private $api;
-
-	/**
-	 * @param MediawikiApi $api
-	 */
-	public function __construct( MediawikiApi $api ) {
-		$this->api = $api;
-	}
+class UserRightsChanger extends Service {
 
 	/**
 	 * @since 0.3

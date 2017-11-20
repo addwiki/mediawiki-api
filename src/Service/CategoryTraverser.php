@@ -16,15 +16,10 @@ use Mediawiki\DataModel\Pages;
  * with an 'a' or with an 'e' in the final syllable. However the noun descendant,
  * "one who is the progeny of someone", may be spelt only with an 'a'.
  */
-class CategoryTraverser {
+class CategoryTraverser extends Service {
 
 	const CALLBACK_CATEGORY = 10;
 	const CALLBACK_PAGE = 20;
-
-	/**
-	 * @var \Mediawiki\Api\MediawikiApi
-	 */
-	protected $api;
 
 	/**
 	 * @var string[]
@@ -46,7 +41,7 @@ class CategoryTraverser {
 	 * @param MediawikiApi $api The API to connect to.
 	 */
 	public function __construct( MediawikiApi $api ) {
-		$this->api = $api;
+		parent::__construct( $api );
 		$this->callbacks = [];
 	}
 

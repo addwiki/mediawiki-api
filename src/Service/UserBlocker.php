@@ -3,7 +3,6 @@
 namespace Mediawiki\Api\Service;
 
 use InvalidArgumentException;
-use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\User;
 
@@ -12,19 +11,7 @@ use Mediawiki\DataModel\User;
  *
  * @author Addshore
  */
-class UserBlocker {
-
-	/**
-	 * @var MediawikiApi
-	 */
-	private $api;
-
-	/**
-	 * @param MediawikiApi $api
-	 */
-	public function __construct( MediawikiApi $api ) {
-		$this->api = $api;
-	}
+class UserBlocker extends Service {
 
 	/**
 	 * @since 0.3

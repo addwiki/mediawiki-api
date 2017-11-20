@@ -2,7 +2,6 @@
 
 namespace Mediawiki\Api\Service;
 
-use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\Revision;
 
@@ -11,19 +10,7 @@ use Mediawiki\DataModel\Revision;
  *
  * @author Addshore
  */
-class RevisionDeleter {
-
-	/**
-	 * @var MediawikiApi
-	 */
-	private $api;
-
-	/**
-	 * @param MediawikiApi $api
-	 */
-	public function __construct( MediawikiApi $api ) {
-		$this->api = $api;
-	}
+class RevisionDeleter extends Service {
 
 	/**
 	 * @since 0.5

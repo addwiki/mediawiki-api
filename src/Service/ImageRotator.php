@@ -2,7 +2,6 @@
 
 namespace Mediawiki\Api\Service;
 
-use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\SimpleRequest;
 use Mediawiki\Api\UsageException;
 use Mediawiki\DataModel\File;
@@ -12,19 +11,7 @@ use Mediawiki\DataModel\File;
  *
  * @author Addshore
  */
-class ImageRotator {
-
-	/**
-	 * @var MediawikiApi
-	 */
-	private $api;
-
-	/**
-	 * @param MediawikiApi $api
-	 */
-	public function __construct( MediawikiApi $api ) {
-		$this->api = $api;
-	}
+class ImageRotator extends Service {
 
 	/**
 	 * NOTE: This service has not been fully tested

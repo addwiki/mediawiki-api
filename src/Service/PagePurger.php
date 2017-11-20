@@ -3,7 +3,6 @@
 namespace Mediawiki\Api\Service;
 
 use Mediawiki\Api\Generator\ApiGenerator;
-use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\Pages;
 use Mediawiki\DataModel\Page;
@@ -14,19 +13,7 @@ use Mediawiki\DataModel\Page;
  * @author Addshore
  * @author Thomas Arrow
  */
-class PagePurger {
-
-	/**
-	 * @var MediawikiApi
-	 */
-	private $api;
-
-	/**
-	 * @param MediawikiApi $api
-	 */
-	public function __construct( MediawikiApi $api ) {
-		$this->api = $api;
-	}
+class PagePurger extends Service {
 
 	/**
 	 * @since 0.3

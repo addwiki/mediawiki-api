@@ -2,7 +2,6 @@
 
 namespace Mediawiki\Api\Service;
 
-use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\Content;
 use Mediawiki\DataModel\EditInfo;
@@ -18,19 +17,7 @@ use RuntimeException;
  *
  * @author Addshore
  */
-class PageGetter {
-
-	/**
-	 * @var MediawikiApi
-	 */
-	private $api;
-
-	/**
-	 * @param MediawikiApi $api
-	 */
-	public function __construct( MediawikiApi $api ) {
-		$this->api = $api;
-	}
+class PageGetter extends Service {
 
 	/**
 	 * @since 0.2

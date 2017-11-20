@@ -2,7 +2,6 @@
 
 namespace Mediawiki\Api\Service;
 
-use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\Page;
 use Mediawiki\DataModel\PageIdentifier;
@@ -14,19 +13,7 @@ use Mediawiki\DataModel\Title;
  *
  * @author Addshore
  */
-class PageListGetter {
-
-	/**
-	 * @var MediawikiApi
-	 */
-	private $api;
-
-	/**
-	 * @param MediawikiApi $api
-	 */
-	public function __construct( MediawikiApi $api ) {
-		$this->api = $api;
-	}
+class PageListGetter extends Service {
 
 	/**
 	 * Get the set of pages in a given category. Extra parameters can include:
