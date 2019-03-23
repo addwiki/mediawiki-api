@@ -77,6 +77,26 @@ class PageListGetter extends Service {
 	}
 
 	/**
+	 * Get all pages that are linked to from the given page..
+	 *
+	 * @link https://www.mediawiki.org/wiki/API:Links
+	 * @uses PageListGetter::runQuery()
+	 *
+	 * @param string $pageName The page name
+	 * @param string[] Any extra parameters to use: pltitles, plnamespace, pldir, pllimit
+	 *
+	 * @return Pages
+	 */
+	public function getLinksFromHere( $pageName, $extraParams = [] ) {
+		$params = array_merge( $extraParams, [
+			'prop' => 'info',
+			'generator' => 'links',
+			'titles' => $pageName,
+		] );
+		return $this->runQuery( $params, 'gplcontinue', 'pages' );
+	}
+
+	/**
 	 * Get all pages that have the given prefix.
 	 *
 	 * @link https://www.mediawiki.org/wiki/API:Allpages
@@ -120,6 +140,7 @@ class PageListGetter extends Service {
 	 */
 	protected function runQuery( $params, $contName, $resName, $pageIdName = 'pageid', $cont = true ) {
 		$pages = new Pages();
+		$negativeId = -1;
 
 		do {
 			// Set up continue parameter if it's been set already.
@@ -135,6 +156,12 @@ class PageListGetter extends Service {
 
 			// Add the results to the output page list.
 			foreach ( $result['query'][$resName] as $member ) {
+				// Assign negative pageid if page is non-existent.
+				if ( array_key_exists( 'missing', $member ) ) {
+					$member['pageid'] = $negativeId;
+					$negativeId = $negativeId - 1;
+				}
+
 				$pageTitle = new Title( $member['title'], $member['ns'] );
 				$page = new Page( new PageIdentifier( $pageTitle, $member[$pageIdName] ) );
 				$pages->addPage( $page );
