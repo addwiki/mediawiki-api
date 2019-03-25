@@ -63,7 +63,7 @@ class PageListGetter extends Service {
 	 * @uses PageListGetter::runQuery()
 	 *
 	 * @param string $pageName The page name
-	 * @param string[] Any extra parameters to use: lhprop, lhnamespace, lhshow, lhlimit
+	 * @param string[] Any extra parameters to use: glhprop, glhnamespace, glhshow, glhlimit
 	 *
 	 * @return Pages
 	 */
@@ -77,13 +77,13 @@ class PageListGetter extends Service {
 	}
 
 	/**
-	 * Get all pages that are linked to from the given page..
+	 * Get all pages that are linked to from the given page.
 	 *
 	 * @link https://www.mediawiki.org/wiki/API:Links
 	 * @uses PageListGetter::runQuery()
 	 *
 	 * @param string $pageName The page name
-	 * @param string[] Any extra parameters to use: pltitles, plnamespace, pldir, pllimit
+	 * @param string[] Any extra parameters to use: gpltitles, gplnamespace, gpldir, gpllimit
 	 *
 	 * @return Pages
 	 */
@@ -157,8 +157,8 @@ class PageListGetter extends Service {
 			// Add the results to the output page list.
 			foreach ( $result['query'][$resName] as $member ) {
 				// Assign negative pageid if page is non-existent.
-				if ( array_key_exists( 'missing', $member ) ) {
-					$member['pageid'] = $negativeId;
+				if ( !array_key_exists( $pageIdName, $member ) ) {
+					$member[$pageIdName] = $negativeId;
 					$negativeId = $negativeId - 1;
 				}
 
