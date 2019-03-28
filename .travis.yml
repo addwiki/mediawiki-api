@@ -18,11 +18,12 @@ env:
 
 matrix:
   include:
-  - php: hhvm
-    env: TEST_SUITE=unit
-    before_install:
-    install:
-      - composer install
+#  March 2019 (Addshore) - hhvm test running broken in https://github.com/addwiki/mediawiki-api/pull/51
+#  - php: hhvm
+#    env: TEST_SUITE=unit
+#    before_install:
+#    install:
+#      - composer install
   - php: 7.1
     env: TEST_SUITE=unit
     before_install:
