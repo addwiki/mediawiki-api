@@ -23,3 +23,5 @@ Contents
    namespace_getter.rst
    file_uploader.rst
    contributing.rst
+   user_getter.rst
+   log_list_getter.rst
