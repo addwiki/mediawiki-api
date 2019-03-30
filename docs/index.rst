@@ -26,3 +26,4 @@ Contents
    user_getter.rst
    log_list_getter.rst
    page_purger.rst
+   revision_undoer.rst
