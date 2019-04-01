@@ -6,7 +6,7 @@ We welcome all contributions, be they code, documentation, or even just ideas ab
 The best way to get started is to browse the `#addwiki board on Phabricator`_
 and either work on one of the tasks already there or create a new one with details of what you want to work on.
 
-.. _Addwiki board on Phabricator: https://phabricator.wikimedia.org/tag/addwiki/
+.. _#addwiki board on Phabricator: https://phabricator.wikimedia.org/tag/addwiki/
 
 Get the code
 ------------

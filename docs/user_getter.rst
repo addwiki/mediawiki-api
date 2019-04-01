@@ -1,5 +1,5 @@
 User Getter
-==================
+===========
 
 The User Getter allows you to get information about a user in a wiki.
 
@@ -13,7 +13,7 @@ To use it, first get a new UserGetter object from the factory:
 
 
 Getting user information
------------------------
+------------------------
 
 .. code-block:: php
 
