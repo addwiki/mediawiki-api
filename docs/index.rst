@@ -30,3 +30,4 @@ Contents
    revision_restorer.rst
    revision_deleter.rst
    revision_patroller.rst
+   revision_rollbacker.rst
