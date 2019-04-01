@@ -28,3 +28,4 @@ Contents
    page_purger.rst
    revision_undoer.rst
    revision_restorer.rst
+   revision_deleter.rst
