@@ -25,3 +25,4 @@ Contents
    contributing.rst
    user_getter.rst
    log_list_getter.rst
+   page_purger.rst
