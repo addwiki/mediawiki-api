@@ -31,3 +31,4 @@ Contents
    revision_deleter.rst
    revision_patroller.rst
    revision_rollbacker.rst
+   revision_saver.rst
