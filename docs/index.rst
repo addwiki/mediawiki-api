@@ -29,3 +29,4 @@ Contents
    revision_undoer.rst
    revision_restorer.rst
    revision_deleter.rst
+   revision_patroller.rst
