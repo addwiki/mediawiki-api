@@ -17,9 +17,9 @@ Rollback a revision
 
 .. code-block:: php
 
-   $revision = new \Mediawiki\DataModel\Revision( ... );
-   $title = new \Mediawiki\DataModel\Title( ... );
-   $isRevisionRollbacked = $revisionRollbacker->rollback( revision, title );
+   $revision = new \Mediawiki\DataModel\Revision( /* ... */ );
+   $title = new \Mediawiki\DataModel\Title( /* ... */ );
+   $isRevisionRollbacked = $revisionRollbacker->rollback( $revision, $title );
 
 ``rollback`` accepts a ``Revision`` and a ``Title`` object; these classes are part of the `addwiki/mediawiki-datamodel`_ package. It returns a ``boolean`` that indicates if the rollback operation was successful.
 

@@ -3,7 +3,7 @@ Revision Undoer
 
 The Revision Undoer allows you to undo a certain revision in a wiki.
 
-To use it, first get a new RevisionUndoer object from the factory:
+To use it, first get a new ``RevisionUndoer`` object from the factory:
 
 .. code-block:: php
 
@@ -17,8 +17,8 @@ Undoing a revision
 
 .. code-block:: php
 
-   $revision = new \Mediawiki\DataModel\Revision( ... );
-   $isRevisionUndone = $revisionUndoer->undo( revision );
+   $revision = new \Mediawiki\DataModel\Revision( /* ... */ );
+   $isRevisionUndone = $revisionUndoer->undo( $revision );
 
 ``undo`` accepts a ``Revision`` object; this class is part of the `addwiki/mediawiki-datamodel`_ package. It returns a ``boolean`` that indicates if the undo operation was successful.
 

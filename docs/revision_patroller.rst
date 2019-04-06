@@ -17,8 +17,8 @@ Patrolling a revision
 
 .. code-block:: php
 
-   $revision = new \Mediawiki\DataModel\Revision( ... );
-   $isRevisionPatrolled = $revisionPatroller->patrol( revision );
+   $revision = new \Mediawiki\DataModel\Revision( /* ... */ );
+   $isRevisionPatrolled = $revisionPatroller->patrol( $revision );
 
 ``patrol`` accepts a ``Revision`` object; this class is part of the `addwiki/mediawiki-datamodel`_ package. It returns a ``boolean`` that indicates if the patrol operation was successful.
 

@@ -17,8 +17,8 @@ Restoring a revision
 
 .. code-block:: php
 
-   $revision = new \Mediawiki\DataModel\Revision( ... );
-   $isRevisionRestored = $revisionRestorer->restore( revision );
+   $revision = new \Mediawiki\DataModel\Revision( /* ... */ );
+   $isRevisionRestored = $revisionRestorer->restore( $revision );
 
 ``restore`` accepts a ``Revision`` object; this class is part of the `addwiki/mediawiki-datamodel`_ package. It returns a ``boolean`` that indicates if the restore operation was successful.
 

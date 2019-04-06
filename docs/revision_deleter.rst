@@ -17,8 +17,8 @@ Deleting a revision
 
 .. code-block:: php
 
-   $revision = new \Mediawiki\DataModel\Revision( ... );
-   $isRevisionDeleted = $revisionDeleter->delete( revision );
+   $revision = new \Mediawiki\DataModel\Revision( /* ... */ );
+   $isRevisionDeleted = $revisionDeleter->delete( $revision );
 
 ``delete`` accepts a ``Revision`` object; this class is part of the `addwiki/mediawiki-datamodel`_ package. It returns a ``boolean`` that indicates if the delete operation was successful.
 

@@ -17,9 +17,9 @@ Saving an edit
 
 .. code-block:: php
 
-   $revision = new \Mediawiki\DataModel\Revision( ... );
-   $editInfo = new \Mediawiki\DataModel\EditInfo( ... );
-   $isRevisionSaved = $revisionSaver->save( revision, editInfo );
+   $revision = new \Mediawiki\DataModel\Revision( /* ... */ );
+   $editInfo = new \Mediawiki\DataModel\EditInfo( /* ... */ );
+   $isRevisionSaved = $revisionSaver->save( $revision, $editInfo );
 
 ``save`` accepts a ``Revision`` and an ``EditInfo`` object; these classes are part of the `addwiki/mediawiki-datamodel`_ package. It returns a ``boolean`` that indicates if the save operation was successful.
 
