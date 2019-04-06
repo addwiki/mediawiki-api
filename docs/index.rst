@@ -32,3 +32,6 @@ Contents
    revision_patroller.rst
    revision_rollbacker.rst
    revision_saver.rst
+   user_blocker.rst
+   user_creator.rst
+   user_rights_changer.rst
