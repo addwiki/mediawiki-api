@@ -3,6 +3,10 @@ Release Notes
 
 These are the release notes for [mediawiki-api](http://addwiki.readthedocs.io/projects/mediawiki-api/).
 
+# Version 0.7.3 (14th January 2020)
+
+* Installable with addwiki/mediawiki-datamodel:0.8
+
 ## Version 0.7.2 (20th November 2017)
 
 * New parent class for all API service classes,
