@@ -187,7 +187,7 @@ class PageGetter extends Service {
 		$revisions = new Revisions();
 		$pageid = $array['pageid'];
 		foreach ( $array['revisions'] as $revision ) {
-            		$revision['comment'] = (isset($revision['comment'])) ? $revision['comment'] : '';
+			$revision['comment'] = (isset($revision['comment'])) ? $revision['comment'] : '';
 			$revisions->addRevision(
 				new Revision(
 					$this->getContent( $array['contentmodel'], $revision['*'] ),

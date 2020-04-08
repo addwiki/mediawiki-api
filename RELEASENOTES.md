@@ -6,6 +6,7 @@ These are the release notes for [mediawiki-api](http://addwiki.readthedocs.io/pr
 # Version 0.7.4 (development)
 
 * Fix PageGetter::getRevisionsFromResult undefined $revision['comment'] after an oversight/suppression of the edit summary.
+* Make `PagePurger::purge` purge `Page` objects that only have a title and no pageid
 
 # Version 0.7.3 (14th January 2020)
 

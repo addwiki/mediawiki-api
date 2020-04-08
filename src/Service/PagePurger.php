@@ -30,8 +30,14 @@ class PagePurger extends Service {
 	 * @return bool return true if the purge was successful
 	 */
 	public function purge( Page $page ) {
+		if( $page->getPageIdentifier()->getId() ) {
+			$params = [ 'pageids' => $page->getPageIdentifier()->getId() ];
+		} else {
+			$params = [ 'titles' => $page->getPageIdentifier()->getTitle()->getText() ];
+		}
+
 		$responseArray = $this->api->postRequest(
-			new SimpleRequest( 'purge', [ 'pageids' => $page->getId() ] )
+			new SimpleRequest( 'purge', $params )
 		);
 
 		// the purge response for the page
