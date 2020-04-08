@@ -3,6 +3,10 @@ Release Notes
 
 These are the release notes for [mediawiki-api](http://addwiki.readthedocs.io/projects/mediawiki-api/).
 
+# Version 0.7.4 (development)
+
+* Fix PageGetter::getRevisionsFromResult undefined $revision['comment'] after an oversight/suppression of the edit summary.
+
 # Version 0.7.3 (14th January 2020)
 
 * Installable with addwiki/mediawiki-datamodel:0.8
