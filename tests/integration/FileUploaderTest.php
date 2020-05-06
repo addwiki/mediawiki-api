@@ -33,7 +33,7 @@ class FileUploaderTest extends PHPUnit_Framework_TestCase {
 		$this->fileUploader = $this->factory->newFileUploader();
 
 		// Log in as the sysop user. These credentials are referenced in docs/contributing.rst.
-		$localApiUser = new ApiUser( 'admin', 'admin123' );
+		$localApiUser = new ApiUser( 'admin', 'admin123admin' );
 		$api = $testEnvironment->getApi();
 		$api->login( $localApiUser );
 	}
