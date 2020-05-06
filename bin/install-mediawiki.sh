@@ -42,7 +42,7 @@ mysql "$PASSARG" -uroot -e "CREATE DATABASE $WIKIDB"
 echo "Updating dependencies (Composer)"
 composer install
 echo "Installing TestWiki1 wiki"
-php maintenance/install.php --dbtype mysql --dbuser "root" --dbpass "$DBPASS" --dbname $WIKIDB --scriptpath "" --pass admin123 TestWiki1 admin
+php maintenance/install.php --dbtype mysql --dbuser "root" --dbpass "$DBPASS" --dbname $WIKIDB --scriptpath "" --pass admin123admin TestWiki1 admin
 
 # Add some extra configuration to LocalSettings.php
 cat << 'EOF' >> "$INSTALLDIR/LocalSettings.php"

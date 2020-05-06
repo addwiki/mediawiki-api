@@ -26,7 +26,7 @@ you should be able to run all **unit** tests with::
     ./vendor/bin/phpunit ./tests/unit
 
 To run the **integration** tests you need to set up a local MediaWiki installation
-(including with a ``admin`` administrator user with password ``admin123``)
+(including with a ``admin`` administrator user with password ``admin123admin``)
 and tell ``phpunit`` where to find it.
 
 1. Copy ``./phpunit.xml.dist`` to ``./phpunit.xml`` and add the following section::
