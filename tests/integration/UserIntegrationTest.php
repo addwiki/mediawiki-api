@@ -1,6 +1,6 @@
 <?php
 
-namespace Mediawiki\Api\Test;
+namespace Addwiki\MediaWikiApi\Test;
 
 use Mediawiki\Api\ApiUser;
 use PHPUnit_Framework_TestCase;

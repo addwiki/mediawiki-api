@@ -1,7 +1,8 @@
 <?php
 
-namespace Mediawiki\Api\Test;
+namespace Addwiki\MediaWikiApi\Test;
 
+use Addwiki\MediaWikiApi\Service\PageListGetter;
 use Mediawiki\DataModel\Content;
 use Mediawiki\DataModel\PageIdentifier;
 use Mediawiki\DataModel\Revision;
@@ -19,7 +20,7 @@ class PageListGetterTest extends PHPUnit_Framework_TestCase {
 	/** @var string */
 	private $nonemptyCatName = 'Category:Test category';
 
-	/** @var \Mediawiki\Api\Service\PageListGetter */
+	/** @var PageListGetter */
 	private $pageListGetter;
 
 	/**

@@ -24,12 +24,12 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"Mediawiki\\Api\\": "src/"
+			"Addwiki\\MediaWikiApi\\": "src/"
 		}
 	},
 	"autoload-dev": {
 		"psr-4": {
-			"Mediawiki\\Api\\Test\\": [
+			"Addwiki\\MediaWikiApi\\Test\\": [
 				"tests/integration",
 				"tests/unit"
 			]

@@ -12,8 +12,8 @@ To use it, first get a new PageListGetter object from the factory:
 
 .. code-block:: php
 
-   $api = new \Mediawiki\Api\MediawikiApi( 'http://localhost/w/api.php' );
-   $services = new \Mediawiki\Api\MediawikiFactory( $api );
+   $api = new \Mediawiki\Api\MediaWikiApi( 'http://localhost/w/api.php' );
+   $services = new \Addwiki\MediaWikiApi\MediawikiFactory( $api );
    $pageListGetter = $services->newPageListGetter();
 
 The examples below all use this ``$pageListGetter`` object.

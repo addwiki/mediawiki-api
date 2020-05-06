@@ -1,6 +1,6 @@
 <?php
 
-namespace Mediawiki\Api\Service;
+namespace Addwiki\MediaWikiApi\Service;
 
 use Exception;
 use Mediawiki\Api\MultipartRequest;

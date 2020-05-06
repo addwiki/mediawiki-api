@@ -9,7 +9,7 @@ To get started you need to create ``PagePurger`` object:
 .. code-block:: php
 
 $api = new \Mediawiki\Api\MediawikiApi( 'http://localhost/w/api.php' );
-$pagePurger = new \Mediawiki\Api\Service\PagePurger( $api );
+$pagePurger = new \Addwiki\MediaWikiApi\Service\PagePurger( $api );
 
 Purge
 -----

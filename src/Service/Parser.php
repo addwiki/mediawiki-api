@@ -1,6 +1,6 @@
 <?php
 
-namespace Mediawiki\Api\Service;
+namespace Addwiki\MediaWikiApi\Service;
 
 use GuzzleHttp\Promise\PromiseInterface;
 use Mediawiki\Api\SimpleRequest;

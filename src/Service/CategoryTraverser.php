@@ -1,12 +1,13 @@
 <?php
 
-namespace Mediawiki\Api\Service;
+namespace Addwiki\MediaWikiApi\Service;
 
-use Mediawiki\Api\CategoryLoopException;
+use Addwiki\MediaWikiApi\CategoryLoopException;
 use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\Page;
 use Mediawiki\DataModel\Pages;
+use Mediawiki\DataModel\Title;
 
 /**
  * Category traverser.

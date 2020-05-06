@@ -1,6 +1,6 @@
 <?php
 
-namespace Mediawiki\Api\Test;
+namespace Addwiki\MediaWikiApi\Test;
 
 use Mediawiki\DataModel\Content;
 use Mediawiki\DataModel\PageIdentifier;

@@ -17,7 +17,7 @@ To get all pages in a category or any of its subcategories.
 
    // Construct the API.
    $api = new \Mediawiki\Api\MediawikiApi( 'http://localhost/w/api.php' );
-   $services = new \Mediawiki\Api\MediawikiFactory( $api );
+   $services = new \Addwiki\MediaWikiApi\MediawikiFactory( $api );
    $categoryTraverser = $services->newCategoryTraverser();
 
    // Get the root category.

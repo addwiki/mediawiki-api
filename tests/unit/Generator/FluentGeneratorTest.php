@@ -1,13 +1,13 @@
 <?php
 
-namespace Mediawiki\Api\Test\Generator;
+namespace Addwiki\MediaWikiApi\Test\Generator;
 
-use Mediawiki\Api\Generator\FluentGenerator;
+use Addwiki\MediaWikiApi\Generator\FluentGenerator;
 
 /**
  * @author Addshore
  *
- * @covers \Mediawiki\Api\Generator\FluentGenerator
+ * @covers \Addwiki\MediaWikiApi\Generator\FluentGenerator
  */
 class FluentGeneratorTest extends \PHPUnit_Framework_TestCase {
 

@@ -1,13 +1,13 @@
 <?php
 
-namespace Mediawiki\Api\Test\Generator;
+namespace Addwiki\MediaWikiApi\Test\Generator;
 
-use Mediawiki\Api\Generator\AnonymousGenerator;
+use Addwiki\MediaWikiApi\Generator\AnonymousGenerator;
 
 /**
  * @author Addshore
  *
- * @covers \Mediawiki\Api\Generator\AnonymousGenerator
+ * @covers \Addwiki\MediaWikiApi\Generator\AnonymousGenerator
  */
 class AnonymousGeneratorTest extends \PHPUnit_Framework_TestCase {
 

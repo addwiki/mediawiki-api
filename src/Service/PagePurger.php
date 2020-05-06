@@ -1,8 +1,8 @@
 <?php
 
-namespace Mediawiki\Api\Service;
+namespace Addwiki\MediaWikiApi\Service;
 
-use Mediawiki\Api\Generator\ApiGenerator;
+use Addwiki\MediaWikiApi\Generator\ApiGenerator;
 use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\Pages;
 use Mediawiki\DataModel\Page;

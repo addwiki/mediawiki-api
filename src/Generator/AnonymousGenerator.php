@@ -1,6 +1,6 @@
 <?php
 
-namespace Mediawiki\Api\Generator;
+namespace Addwiki\MediaWikiApi\Generator;
 
 /**
  * @access public

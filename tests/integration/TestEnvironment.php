@@ -1,10 +1,10 @@
 <?php
 
-namespace Mediawiki\Api\Test;
+namespace Addwiki\MediaWikiApi\Test;
 
+use Addwiki\MediaWikiApi\MediaWikiFactory;
 use Mediawiki\Api\Guzzle\ClientFactory;
 use Mediawiki\Api\MediawikiApi;
-use Mediawiki\Api\MediawikiFactory;
 use Mediawiki\Api\SimpleRequest;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -14,7 +14,7 @@ use Monolog\Logger;
  */
 class TestEnvironment {
 
-	/** @var \Mediawiki\Api\MediawikiFactory */
+	/** @var MediaWikiFactory */
 	private $factory;
 
 	/** @var MediawikiApi */
@@ -34,7 +34,7 @@ class TestEnvironment {
 	 * MEDIAWIKI_API_URL environment variable).
 	 */
 	public function __construct() {
-		$this->factory = new MediawikiFactory( $this->getApi() );
+		$this->factory = new MediaWikiFactory( $this->getApi() );
 	}
 
 	/**
@@ -69,7 +69,7 @@ class TestEnvironment {
 	/**
 	 * Get the MediaWiki factory.
 	 *
-	 * @return \Mediawiki\Api\MediawikiFactory The factory instance.
+	 * @return MediaWikiFactory The factory instance.
 	 */
 	public function getFactory() {
 		return $this->factory;

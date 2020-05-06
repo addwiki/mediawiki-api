@@ -1,38 +1,39 @@
 <?php
 
-namespace Mediawiki\Api;
+namespace Addwiki\MediaWikiApi;
 
-use Mediawiki\Api\Service\CategoryTraverser;
-use Mediawiki\Api\Service\FileUploader;
-use Mediawiki\Api\Service\ImageRotator;
-use Mediawiki\Api\Service\LogListGetter;
-use Mediawiki\Api\Service\NamespaceGetter;
-use Mediawiki\Api\Service\PageDeleter;
-use Mediawiki\Api\Service\PageListGetter;
-use Mediawiki\Api\Service\PageMover;
-use Mediawiki\Api\Service\PageProtector;
-use Mediawiki\Api\Service\PagePurger;
-use Mediawiki\Api\Service\PageGetter;
-use Mediawiki\Api\Service\PageRestorer;
-use Mediawiki\Api\Service\PageWatcher;
-use Mediawiki\Api\Service\Parser;
-use Mediawiki\Api\Service\RevisionDeleter;
-use Mediawiki\Api\Service\RevisionPatroller;
-use Mediawiki\Api\Service\RevisionRestorer;
-use Mediawiki\Api\Service\RevisionRollbacker;
-use Mediawiki\Api\Service\RevisionSaver;
-use Mediawiki\Api\Service\RevisionUndoer;
-use Mediawiki\Api\Service\UserBlocker;
-use Mediawiki\Api\Service\UserCreator;
-use Mediawiki\Api\Service\UserGetter;
-use Mediawiki\Api\Service\UserRightsChanger;
+use Addwiki\MediaWikiApi\Service\CategoryTraverser;
+use Addwiki\MediaWikiApi\Service\FileUploader;
+use Addwiki\MediaWikiApi\Service\ImageRotator;
+use Addwiki\MediaWikiApi\Service\LogListGetter;
+use Addwiki\MediaWikiApi\Service\NamespaceGetter;
+use Addwiki\MediaWikiApi\Service\PageDeleter;
+use Addwiki\MediaWikiApi\Service\PageListGetter;
+use Addwiki\MediaWikiApi\Service\PageMover;
+use Addwiki\MediaWikiApi\Service\PageProtector;
+use Addwiki\MediaWikiApi\Service\PagePurger;
+use Addwiki\MediaWikiApi\Service\PageGetter;
+use Addwiki\MediaWikiApi\Service\PageRestorer;
+use Addwiki\MediaWikiApi\Service\PageWatcher;
+use Addwiki\MediaWikiApi\Service\Parser;
+use Addwiki\MediaWikiApi\Service\RevisionDeleter;
+use Addwiki\MediaWikiApi\Service\RevisionPatroller;
+use Addwiki\MediaWikiApi\Service\RevisionRestorer;
+use Addwiki\MediaWikiApi\Service\RevisionRollbacker;
+use Addwiki\MediaWikiApi\Service\RevisionSaver;
+use Addwiki\MediaWikiApi\Service\RevisionUndoer;
+use Addwiki\MediaWikiApi\Service\UserBlocker;
+use Addwiki\MediaWikiApi\Service\UserCreator;
+use Addwiki\MediaWikiApi\Service\UserGetter;
+use Addwiki\MediaWikiApi\Service\UserRightsChanger;
+use Mediawiki\Api\MediawikiApi;
 
 /**
  * @access public
  *
  * @author Addshore
  */
-class MediawikiFactory {
+class MediaWikiFactory {
 
 	/**
 	 * @var MediawikiApi
@@ -48,7 +49,7 @@ class MediawikiFactory {
 
 	/**
 	 * Get a new CategoryTraverser object for this API.
-	 * @return \Mediawiki\Api\Service\CategoryTraverser
+	 * @return CategoryTraverser
 	 */
 	public function newCategoryTraverser() {
 		return new CategoryTraverser( $this->api );

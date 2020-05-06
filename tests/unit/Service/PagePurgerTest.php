@@ -1,9 +1,9 @@
 <?php
 
-namespace Mediawiki\Api\Test\Service;
+namespace Addwiki\MediaWikiApi\Test\Service;
 
+use Addwiki\MediaWikiApi\Service\PagePurger;
 use Mediawiki\Api\MediawikiApi;
-use Mediawiki\Api\Service\PagePurger;
 use Mediawiki\DataModel\Page;
 use Mediawiki\DataModel\Pages;
 use Mediawiki\DataModel\PageIdentifier;
@@ -12,7 +12,7 @@ use PHPUnit_Framework_MockObject_MockObject;
 
 /**
  * @author Addshore
- * @covers Mediawiki\Api\Service\PagePurger
+ * @covers \Addwiki\MediaWikiApi\Service\PagePurger
  */
 class PagePurgerTest extends \PHPUnit_Framework_TestCase {
 

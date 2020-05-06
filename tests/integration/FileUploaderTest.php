@@ -1,12 +1,10 @@
 <?php
 
-namespace Mediawiki\Api\Test;
+namespace Addwiki\MediaWikiApi\Test;
 
+use Addwiki\MediaWikiApi\MediaWikiFactory;
+use Addwiki\MediaWikiApi\Service\FileUploader;
 use Mediawiki\Api\ApiUser;
-use Mediawiki\Api\MediawikiApi;
-use Mediawiki\Api\MediawikiFactory;
-use Mediawiki\Api\Service\FileUploader;
-use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\Page;
 use Mediawiki\DataModel\PageIdentifier;
 use Mediawiki\DataModel\Title;
@@ -17,7 +15,7 @@ use PHPUnit_Framework_TestCase;
  */
 class FileUploaderTest extends PHPUnit_Framework_TestCase {
 
-	/** @var MediawikiFactory */
+	/** @var MediaWikiFactory */
 	protected $factory;
 
 	/** @var FileUploader */

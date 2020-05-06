@@ -1,9 +1,9 @@
 <?php
 
-namespace Mediawiki\Api\Test;
+namespace Addwiki\MediaWikiApi\Test;
 
+use Addwiki\MediaWikiApi\Service\NamespaceGetter;
 use Mediawiki\Api\MediawikiApi;
-use Mediawiki\Api\Service\NamespaceGetter;
 use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\NamespaceInfo;
 

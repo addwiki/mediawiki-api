@@ -1,6 +1,6 @@
 <?php
 
-namespace Mediawiki\Api\Service;
+namespace Addwiki\MediaWikiApi\Service;
 
 use InvalidArgumentException;
 use Mediawiki\Api\SimpleRequest;

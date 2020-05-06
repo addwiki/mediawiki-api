@@ -1,9 +1,10 @@
 <?php
 
-namespace Mediawiki\Api\Test;
+namespace Addwiki\MediaWikiApi\Test;
 
-use Mediawiki\Api\CategoryLoopException;
-use Mediawiki\Api\Service\CategoryTraverser;
+use Addwiki\MediaWikiApi\CategoryLoopException;
+use Addwiki\MediaWikiApi\MediaWikiFactory;
+use Addwiki\MediaWikiApi\Service\CategoryTraverser;
 use Mediawiki\DataModel\Page;
 use Mediawiki\DataModel\PageIdentifier;
 use Mediawiki\DataModel\Title;
@@ -15,10 +16,10 @@ class CategoryTraverserTest extends \PHPUnit_Framework_TestCase {
 	/** @var TestEnvironment */
 	protected $testEnvironment;
 
-	/** @var \Mediawiki\Api\MediawikiFactory */
+	/** @var MediaWikiFactory */
 	protected $factory;
 
-	/** @var \Mediawiki\Api\Service\CategoryTraverser */
+	/** @var CategoryTraverser */
 	protected $traverser;
 
 	public function setUp() {

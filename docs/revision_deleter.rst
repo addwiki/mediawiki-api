@@ -8,7 +8,7 @@ To use it, first get a new ``RevisionDeleter`` object from the factory:
 .. code-block:: php
 
    $api = new \Mediawiki\Api\MediawikiApi( 'http://localhost/w/api.php' );
-   $services = new \Mediawiki\Api\MediawikiFactory( $api );
+   $services = new \Addwiki\MediaWikiApi\MediawikiFactory( $api );
    $revisionDeleter = $services->newRevisionDeleter();
 
 
