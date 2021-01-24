@@ -63,7 +63,8 @@ class PageListGetter extends Service {
 	 * @uses PageListGetter::runQuery()
 	 *
 	 * @param string $pageName The page name
-	 * @param string[] Any extra parameters to use: glhprop, glhnamespace, glhshow, glhlimit
+	 * @param string[] $extraParams Any extra parameters to use
+	 *                 glhprop, glhnamespace, glhshow, glhlimit
 	 *
 	 * @return Pages
 	 */
@@ -83,7 +84,8 @@ class PageListGetter extends Service {
 	 * @uses PageListGetter::runQuery()
 	 *
 	 * @param string $pageName The page name
-	 * @param string[] Any extra parameters to use: gpltitles, gplnamespace, gpldir, gpllimit
+	 * @param string[] $extraParams Any extra parameters to use
+	 *                 gpltitles, gplnamespace, gpldir, gpllimit
 	 *
 	 * @return Pages
 	 */

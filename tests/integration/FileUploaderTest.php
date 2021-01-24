@@ -3,12 +3,8 @@
 namespace Mediawiki\Api\Test;
 
 use Mediawiki\Api\ApiUser;
-use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\MediawikiFactory;
 use Mediawiki\Api\Service\FileUploader;
-use Mediawiki\Api\SimpleRequest;
-use Mediawiki\DataModel\Page;
-use Mediawiki\DataModel\PageIdentifier;
 use Mediawiki\DataModel\Title;
 use PHPUnit_Framework_TestCase;
 

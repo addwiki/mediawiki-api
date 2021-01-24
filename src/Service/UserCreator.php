@@ -58,6 +58,9 @@ class UserCreator extends Service {
 	/**
 	 * Create a user in the pre 1.27 manner.
 	 * @link https://www.mediawiki.org/wiki/API:Account_creation/pre-1.27
+	 *
+	 * @param array $params
+	 *
 	 * @return bool
 	 */
 	protected function createPreOneTwentySeven( $params ) {

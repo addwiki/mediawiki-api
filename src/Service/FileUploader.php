@@ -105,7 +105,6 @@ class FileUploader extends Service {
 		$chunksDone = 0;
 		$params['offset'] = 0;
 		while ( true ) {
-
 			// 1. Make the request.
 			$params['chunk'] = fread( $fileHandle, $this->chunkSize );
 			$contentDisposition = 'form-data; name="chunk"; filename="' . $params['filename'] . '"';

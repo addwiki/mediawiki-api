@@ -25,8 +25,7 @@ class UserIntegrationTest extends PHPUnit_Framework_TestCase {
 		$factory = TestEnvironment::newDefault()->getFactory();
 		$createResult = $factory->newUserCreator()->create(
 			self::$localApiUser->getUsername(),
-			
-			
+
 			self::$localApiUser->getPassword()
 		);
 		$this->assertTrue( $createResult );

@@ -91,7 +91,7 @@ class TestEnvironment {
 			$i++;
 			$cf = new ClientFactory();
 			$cf->getClient()->get( $mainPageUrl );
-			if ($i == 10) {
+			if ( $i == 10 ) {
 				// Give up if we've been looping too much. This is very arbitrary.
 				break;
 			}
