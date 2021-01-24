@@ -6,26 +6,25 @@ use Mediawiki\DataModel\Content;
 use Mediawiki\DataModel\PageIdentifier;
 use Mediawiki\DataModel\Revision;
 use Mediawiki\DataModel\Title;
-use PHPUnit_Framework_TestCase;
 
 /**
  * @author Addshore
  */
-class PageIntegrationTest extends PHPUnit_Framework_TestCase {
+class PageIntegrationTest extends \PHPUnit\Framework\TestCase {
 
 	/**
 	 * @var PageIdentifier
 	 */
 	private static $localPageIdentifier;
 
-	public static function setUpBeforeClass() {
+	public static function setUpBeforeClass(): void {
 		parent::setUpBeforeClass();
 		$title = new Title( 'TestPage - ' . strval( time() ) );
 		self::$localPageIdentifier = new PageIdentifier( $title );
 	}
 
 	public function testCreatePage() {
-		$factory = TestEnvironment::newDefault()->getFactory();
+		$factory = TestEnvironment::newInstance()->getFactory();
 		$this->assertTrue(
 			$factory->newRevisionSaver()->save(
 				new Revision(
@@ -42,7 +41,7 @@ class PageIntegrationTest extends PHPUnit_Framework_TestCase {
 	 * @depends testCreatePage
 	 */
 	public function testGetPageUsingTitle() {
-		$factory = TestEnvironment::newDefault()->getFactory();
+		$factory = TestEnvironment::newInstance()->getFactory();
 		$page = $factory->newPageGetter()->getFromPageIdentifier( self::$localPageIdentifier );
 		$this->assertTrue( is_int( $page->getPageIdentifier()->getId() ) );
 		$title = $page->getPageIdentifier()->getTitle();
@@ -56,7 +55,7 @@ class PageIntegrationTest extends PHPUnit_Framework_TestCase {
 	 * @depends testGetPageUsingTitle
 	 */
 	public function testGetPageUsingId() {
-		$factory = TestEnvironment::newDefault()->getFactory();
+		$factory = TestEnvironment::newInstance()->getFactory();
 		$page = $factory->newPageGetter()->getFromPageId( self::$localPageIdentifier->getId() );
 		$this->assertEquals( self::$localPageIdentifier->getId(), $page->getPageIdentifier()->getId() );
 		$title = $page->getPageIdentifier()->getTitle();

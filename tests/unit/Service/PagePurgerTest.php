@@ -14,7 +14,7 @@ use PHPUnit_Framework_MockObject_MockObject;
  * @author Addshore
  * @covers Mediawiki\Api\Service\PagePurger
  */
-class PagePurgerTest extends \PHPUnit_Framework_TestCase {
+class PagePurgerTest extends \PHPUnit\Framework\TestCase {
 
 	private function getMockApi() {
 		/** @var MediawikiApi|PHPUnit_Framework_MockObject_MockObject $mock */

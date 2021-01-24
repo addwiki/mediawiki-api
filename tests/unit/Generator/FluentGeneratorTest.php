@@ -9,7 +9,7 @@ use Mediawiki\Api\Generator\FluentGenerator;
  *
  * @covers \Mediawiki\Api\Generator\FluentGenerator
  */
-class FluentGeneratorTest extends \PHPUnit_Framework_TestCase {
+class FluentGeneratorTest extends \PHPUnit\Framework\TestCase {
 
 	public function testConstructionWithNoGPrefix() {
 		$generator = new FluentGenerator( 'name' );

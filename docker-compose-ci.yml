@@ -1,0 +1,33 @@
+# MediaWiki with MariaDB
+#
+# Access via "http://localhost:8877"
+#   (or "http://$(docker-machine ip):8877" if using docker-machine)
+version: '3'
+
+services:
+  mediawiki:
+    image: mediawiki:1.35.1
+    restart: always
+    entrypoint: /dc-scripts/docker-compose-ci-entrypoint.sh
+    environment:
+      MYSQL_SERVER: database
+      MYSQL_DATABASE: my_wiki
+      MYSQL_USER: wikiuser
+      MYSQL_PASSWORD: example
+    ports:
+      - 8877:80
+    links:
+      - database
+    volumes:
+      - /var/www/html/images
+      - ./build:/dc-scripts
+
+  database:
+    image: mariadb
+    restart: always
+    environment:
+      # @see https://phabricator.wikimedia.org/source/mediawiki/browse/master/includes/DefaultSettings.php
+      MYSQL_DATABASE: my_wiki
+      MYSQL_USER: wikiuser
+      MYSQL_PASSWORD: example
+      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'

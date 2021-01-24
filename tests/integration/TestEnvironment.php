@@ -6,8 +6,6 @@ use Mediawiki\Api\Guzzle\ClientFactory;
 use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\MediawikiFactory;
 use Mediawiki\Api\SimpleRequest;
-use Monolog\Handler\StreamHandler;
-use Monolog\Logger;
 
 /**
  * @author Addshore
@@ -21,48 +19,47 @@ class TestEnvironment {
 	protected $api;
 
 	/**
-	 * Get a new default test environment.
+	 * Get a new TestEnvironment.
+	 * This is identical to calling self::__construct() but is useful for fluent construction.
+	 *
 	 * @return TestEnvironment
 	 */
-	public static function newDefault() {
+	public static function newInstance() {
 		return new self();
 	}
 
 	/**
 	 * Set up the test environment by creating a new API object pointing to a
 	 * MediaWiki installation on localhost (or elsewhere as specified by the
-	 * MEDIAWIKI_API_URL environment variable).
+	 * ADDWIKI_MW_API environment variable).
+	 *
+	 * @throws Exception If the ADDWIKI_MW_API environment variable does not end in 'api.php'
 	 */
 	public function __construct() {
-		$this->factory = new MediawikiFactory( $this->getApi() );
+		$apiUrl = getenv( 'ADDWIKI_MW_API' );
+
+		if ( !$apiUrl ) {
+			$apiUrl = "http://localhost:8877/api.php";
+		}
+
+		if ( substr( $apiUrl, -7 ) !== 'api.php' ) {
+			$msg = "URL incorrect: $apiUrl"
+				." (Set the ADDWIKI_MW_API environment variable correctly)";
+			throw new Exception( $msg );
+		}
+
+		$this->apiUrl = $apiUrl;
+		$this->pageUrl = str_replace( 'api.php', 'index.php?title=Special:SpecialPages', $apiUrl );
+		$this->api = MediawikiApi::newFromApiEndpoint( $this->apiUrl );
+
+		$this->factory = new MediawikiFactory( $this->api );
 	}
 
 	/**
-	 * Get the MediawikiApi to test against, based on the MEDIAWIKI_API_URL environment variable.
+	 * Get the MediawikiApi to test against
 	 * @return MediawikiApi
-	 * @throws \Exception If the MEDIAWIKI_API_URL environment variable does not end in 'api.php'
 	 */
 	public function getApi() {
-		if ( $this->api instanceof MediawikiApi ) {
-			return $this->api;
-		}
-		$apiUrl = getenv( 'MEDIAWIKI_API_URL' );
-		if ( empty( $apiUrl ) ) {
-			$apiUrl = 'http://localhost/w/api.php';
-		} elseif ( substr( $apiUrl, -7 ) !== 'api.php' ) {
-			$msg = "URL incorrect: $apiUrl"
-				. " (the MEDIAWIKI_API_URL environment variable should end in 'api.php')";
-			throw new \Exception( $msg );
-		}
-
-		// Log to a local file.
-		$logger = new Logger( 'mediawiki-api' );
-		$logFile = __DIR__ . '/../../log/mediawiki-api.log';
-		$logger->pushHandler( new StreamHandler( $logFile, Logger::DEBUG ) );
-
-		// Create and return the API object.
-		$this->api = new MediawikiApi( $apiUrl );
-		$this->api->setLogger( $logger );
 		return $this->api;
 	}
 

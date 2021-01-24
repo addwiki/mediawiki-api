@@ -7,7 +7,7 @@ use Mediawiki\Api\Service\NamespaceGetter;
 use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\NamespaceInfo;
 
-class NamespaceGetterTest extends \PHPUnit_Framework_TestCase {
+class NamespaceGetterTest extends \PHPUnit\Framework\TestCase {
 	public function testGetNamespaceByCanonicalNameReturnsNullIfNamespaceWasNotFound() {
 		$nsGetter = new NamespaceGetter( $this->getApi() );
 		$this->assertNull( $nsGetter->getNamespaceByCanonicalName( 'Dummy' ) );

@@ -9,7 +9,7 @@ use Mediawiki\Api\MediawikiFactory;
  *
  * @author Addshore
  */
-class MediawikiFactoryTest extends \PHPUnit_Framework_TestCase {
+class MediawikiFactoryTest extends \PHPUnit\Framework\TestCase {
 
 	public function getMockMediawikiApi() {
 		return $this->getMockBuilder( 'Mediawiki\Api\MediawikiApi' )

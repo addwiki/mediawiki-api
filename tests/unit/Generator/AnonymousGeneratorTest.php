@@ -9,7 +9,7 @@ use Mediawiki\Api\Generator\AnonymousGenerator;
  *
  * @covers \Mediawiki\Api\Generator\AnonymousGenerator
  */
-class AnonymousGeneratorTest extends \PHPUnit_Framework_TestCase {
+class AnonymousGeneratorTest extends \PHPUnit\Framework\TestCase {
 
 	public function testConstruction() {
 		$generator = new AnonymousGenerator( 'name', [ 'gfoo' => 'bar' ] );

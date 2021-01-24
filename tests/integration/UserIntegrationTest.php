@@ -3,26 +3,25 @@
 namespace Mediawiki\Api\Test;
 
 use Mediawiki\Api\ApiUser;
-use PHPUnit_Framework_TestCase;
 
 /**
  * @author Addshore
  */
-class UserIntegrationTest extends PHPUnit_Framework_TestCase {
+class UserIntegrationTest extends \PHPUnit\Framework\TestCase {
 
 	/**
 	 * @var ApiUser
 	 */
 	private static $localApiUser;
 
-	public static function setUpBeforeClass() {
+	public static function setUpBeforeClass(): void {
 		parent::setUpBeforeClass();
 		$strTime = strval( time() );
 		self::$localApiUser = new ApiUser( 'TestUser - ' . strval( time() ), $strTime . '-pass' );
 	}
 
 	public function testCreateUser() {
-		$factory = TestEnvironment::newDefault()->getFactory();
+		$factory = TestEnvironment::newInstance()->getFactory();
 		$createResult = $factory->newUserCreator()->create(
 			self::$localApiUser->getUsername(),
 

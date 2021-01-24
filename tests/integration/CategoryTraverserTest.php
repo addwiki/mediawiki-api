@@ -10,7 +10,7 @@ use Mediawiki\DataModel\Title;
 use Mediawiki\DataModel\Revision;
 use Mediawiki\DataModel\Content;
 
-class CategoryTraverserTest extends \PHPUnit_Framework_TestCase {
+class CategoryTraverserTest extends \PHPUnit\Framework\TestCase {
 
 	/** @var TestEnvironment */
 	protected $testEnvironment;
@@ -21,9 +21,9 @@ class CategoryTraverserTest extends \PHPUnit_Framework_TestCase {
 	/** @var \Mediawiki\Api\Service\CategoryTraverser */
 	protected $traverser;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
-		$this->testEnvironment = TestEnvironment::newDefault();
+		$this->testEnvironment = TestEnvironment::newInstance();
 		$this->factory = $this->testEnvironment->getFactory();
 		$this->traverser = $this->factory->newCategoryTraverser();
 	}

@@ -6,12 +6,11 @@ use Mediawiki\Api\ApiUser;
 use Mediawiki\Api\MediawikiFactory;
 use Mediawiki\Api\Service\FileUploader;
 use Mediawiki\DataModel\Title;
-use PHPUnit_Framework_TestCase;
 
 /**
  * Test the \Mediawiki\Api\Service\FileUploader class.
  */
-class FileUploaderTest extends PHPUnit_Framework_TestCase {
+class FileUploaderTest extends \PHPUnit\Framework\TestCase {
 
 	/** @var MediawikiFactory */
 	protected $factory;
@@ -22,14 +21,14 @@ class FileUploaderTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * Create a FileUploader to use in all these tests.
 	 */
-	public function setup() {
+	public function setup(): void {
 		parent::setup();
-		$testEnvironment = TestEnvironment::newDefault();
+		$testEnvironment = TestEnvironment::newInstance();
 		$this->factory = $testEnvironment->getFactory();
 		$this->fileUploader = $this->factory->newFileUploader();
 
-		// Log in as the sysop user. These credentials are referenced in docs/contributing.rst.
-		$localApiUser = new ApiUser( 'admin', 'admin123admin' );
+		// Log in as the sysop user (created as part of the docker-compose stuff)
+		$localApiUser = new ApiUser( 'CIUser', 'LongCIPass123' );
 		$api = $testEnvironment->getApi();
 		$api->login( $localApiUser );
 	}

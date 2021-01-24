@@ -6,12 +6,11 @@ use Mediawiki\DataModel\Content;
 use Mediawiki\DataModel\PageIdentifier;
 use Mediawiki\DataModel\Revision;
 use Mediawiki\DataModel\Title;
-use PHPUnit_Framework_TestCase;
 
 /**
  * Test the \Mediawiki\Api\Service\PageListGetter class.
  */
-class PageListGetterTest extends PHPUnit_Framework_TestCase {
+class PageListGetterTest extends \PHPUnit\Framework\TestCase {
 
 	/** @var string */
 	private $emptyCatName = 'Category:Empty category';
@@ -25,8 +24,8 @@ class PageListGetterTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * Set up some test categories and pages.
 	 */
-	public function setUp() {
-		$testEnvironment = TestEnvironment::newDefault();
+	public function setUp(): void {
+		$testEnvironment = TestEnvironment::newInstance();
 		$factory = $testEnvironment->getFactory();
 
 		// An empty category.

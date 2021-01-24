@@ -34,9 +34,16 @@
     },
     "scripts": {
         "fix": "phpcbf",
+        "lint": "parallel-lint . --exclude vendor",
+        "phpcs": "phpcs -ps",
+        "phpunit": "phpunit",
+        "phpunit-coverage": "phpunit --coverage-clover=coverage.clover",
+        "phpunit-integration": "phpunit --testsuite integration",
+        "phpunit-unit": "phpunit --testsuite unit",
         "test": [
-            "parallel-lint . --exclude vendor",
-            "phpcs -ps"
+            "@lint",
+            "@phpcs",
+            "@phpunit"
         ]
     },
     "extra": {
