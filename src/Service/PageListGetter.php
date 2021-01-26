@@ -60,7 +60,6 @@ class PageListGetter extends Service {
 	 *
 	 * @link https://www.mediawiki.org/wiki/API:Linkshere
 	 * @since 0.5
-	 * @uses PageListGetter::runQuery()
 	 *
 	 * @param string $pageName The page name
 	 * @param string[] $extraParams Any extra parameters to use
@@ -81,7 +80,6 @@ class PageListGetter extends Service {
 	 * Get all pages that are linked to from the given page.
 	 *
 	 * @link https://www.mediawiki.org/wiki/API:Links
-	 * @uses PageListGetter::runQuery()
 	 *
 	 * @param string $pageName The page name
 	 * @param string[] $extraParams Any extra parameters to use
@@ -119,7 +117,6 @@ class PageListGetter extends Service {
 	 * Get up to 10 random pages.
 	 *
 	 * @link https://www.mediawiki.org/wiki/API:Random
-	 * @uses PageListGetter::runQuery()
 	 *
 	 * @param array $extraParams
 	 *

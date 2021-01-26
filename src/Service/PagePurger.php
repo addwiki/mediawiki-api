@@ -18,7 +18,7 @@ class PagePurger extends Service {
 	/**
 	 * @since 0.3
 	 *
-	 * @brief Purge a single page
+	 * Purge a single page
 	 *
 	 * Purges a single page by submitting a
 	 * 'purge' action to the mediawiki api
@@ -49,7 +49,7 @@ class PagePurger extends Service {
 	/**
 	 * @since 0.7
 	 *
-	 * @brief Purge multiple pages
+	 * Purge multiple pages
 	 *
 	 * Purges all the pages of the Pages object
 	 * by submitting a 'purge' action to the mediawiki

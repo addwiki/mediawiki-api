@@ -18,8 +18,8 @@ use Mediawiki\DataModel\Pages;
  */
 class CategoryTraverser extends Service {
 
-	const CALLBACK_CATEGORY = 10;
-	const CALLBACK_PAGE = 20;
+	public const CALLBACK_CATEGORY = 10;
+	public const CALLBACK_PAGE = 20;
 
 	/**
 	 * @var string[]

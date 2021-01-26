@@ -54,7 +54,7 @@ class PagePurgerTest extends \PHPUnit\Framework\TestCase {
 		$this->assertTrue( $service->purge( $page ) );
 	}
 
-	function testIncorrectPurgePage() {
+	public function testIncorrectPurgePage() {
 		$api = $this->getMockApi();
 		$api->expects( $this->once() )
 			->method( 'postRequest' )
@@ -126,7 +126,7 @@ class PagePurgerTest extends \PHPUnit\Framework\TestCase {
 			$this->assertEquals( $service->purgePages( $pages ), $pages );
 	}
 
-	function testIncorrectPurgePages() {
+	public function testIncorrectPurgePages() {
 		$api = $this->getMockApi();
 		$api->expects( $this->once() )
 			->method( 'postRequest' )
