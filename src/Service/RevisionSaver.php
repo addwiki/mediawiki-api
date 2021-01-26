@@ -19,7 +19,7 @@ class RevisionSaver extends Service {
 	 * @since 0.2
 	 *
 	 * @param Revision $revision
-	 * @param EditInfo $editInfo
+	 * @param EditInfo|null $editInfo
 	 *
 	 * @return bool success
 	 */

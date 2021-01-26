@@ -17,7 +17,7 @@ class RevisionRollbacker extends Service {
 	 * @since 0.3
 	 *
 	 * @param Revision $revision
-	 * @param Title $title if using MW 1.24 of lower (https://gerrit.wikimedia.org/r/#/c/133063/)
+	 * @param Title|null $title if using MW 1.24 of lower (https://gerrit.wikimedia.org/r/#/c/133063/)
 	 *
 	 * @return bool
 	 */

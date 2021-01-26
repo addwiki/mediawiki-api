@@ -79,7 +79,7 @@ class CategoryTraverser extends Service {
 	 * Visit every descendant page of $rootCategoryName (which will be a Category
 	 * page, because there are no desecendants of any other pages).
 	 * @param Page $rootCat The full name of the page to start at.
-	 * @param Page[] $currentPath Used only when recursing into this method, to track each path
+	 * @param Page[]|null $currentPath Used only when recursing into this method, to track each path
 	 * through the category hierarchy in case of loops.
 	 * @return Pages All descendants of the given category.
 	 * @throws CategoryLoopException If a category loop is detected.

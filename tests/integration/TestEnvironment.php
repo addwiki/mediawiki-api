@@ -44,7 +44,7 @@ class TestEnvironment {
 
 		if ( substr( $apiUrl, -7 ) !== 'api.php' ) {
 			$msg = "URL incorrect: $apiUrl"
-				." (Set the ADDWIKI_MW_API environment variable correctly)";
+				. " (Set the ADDWIKI_MW_API environment variable correctly)";
 			throw new Exception( $msg );
 		}
 

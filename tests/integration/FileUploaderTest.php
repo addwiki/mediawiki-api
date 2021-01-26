@@ -35,7 +35,7 @@ class FileUploaderTest extends \PHPUnit\Framework\TestCase {
 
 	public function testUpload() {
 		$testPagename = uniqid( 'file-uploader-test-' ) . '.png';
-		$testTitle = new Title( 'File:'.$testPagename );
+		$testTitle = new Title( 'File:' . $testPagename );
 
 		// Check that the file doesn't exist yet.
 		$testFile = $this->factory->newPageGetter()->getFromTitle( $testTitle );
@@ -54,7 +54,7 @@ class FileUploaderTest extends \PHPUnit\Framework\TestCase {
 
 	public function testUploadByChunks() {
 		$testPagename = uniqid( 'file-uploader-test-' ) . '.png';
-		$testTitle = new Title( 'File:'.$testPagename );
+		$testTitle = new Title( 'File:' . $testPagename );
 
 		// Upload a 83725 byte file in 10k chunks.
 		$testFilename = dirname( __DIR__ ) . '/fixtures/blue ℳ𝒲♥𝓊𝓃𝒾𝒸ℴ𝒹ℯ.png';
