@@ -89,7 +89,7 @@ class CategoryTraverser extends Service {
 		$this->retrieveNamespaces();
 
 		$rootCatName = $rootCat->getPageIdentifier()->getTitle()->getText();
-		if ( is_null( $currentPath ) ) {
+		if ( $currentPath === null ) {
 			$this->alreadyVisited = [];
 			$currentPath = new Pages();
 		}

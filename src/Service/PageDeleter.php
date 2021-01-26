@@ -91,7 +91,7 @@ class PageDeleter extends Service {
 	private function getDeleteParams( PageIdentifier $identifier, $extraParams ) {
 		$params = [];
 
-		if ( !is_null( $identifier->getId() ) ) {
+		if ( $identifier->getId() !== null ) {
 			$params['pageid'] = $identifier->getId();
 		} else {
 			$params['title'] = $identifier->getTitle()->getTitle();

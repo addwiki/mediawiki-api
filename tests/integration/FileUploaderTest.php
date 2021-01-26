@@ -39,7 +39,7 @@ class FileUploaderTest extends \PHPUnit\Framework\TestCase {
 
 		// Check that the file doesn't exist yet.
 		$testFile = $this->factory->newPageGetter()->getFromTitle( $testTitle );
-		$this->assertEquals( 0, $testFile->getPageIdentifier()->getId() );
+		$this->assertSame( 0, $testFile->getPageIdentifier()->getId() );
 
 		// Upload a file.
 		$testFilename = dirname( __DIR__ ) . '/fixtures/blue ℳ𝒲♥𝓊𝓃𝒾𝒸ℴ𝒹ℯ.png';

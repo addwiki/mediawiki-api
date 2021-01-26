@@ -36,7 +36,7 @@ class RevisionUndoer extends Service {
 			'token' => $this->api->getToken(),
 		];
 
-		if ( !is_null( $revision->getPageIdentifier()->getId() ) ) {
+		if ( $revision->getPageIdentifier()->getId() !== null ) {
 			$params['pageid'] = $revision->getPageIdentifier()->getId();
 		} else {
 			$params['title'] = $revision->getPageIdentifier()->getTitle()->getTitle();

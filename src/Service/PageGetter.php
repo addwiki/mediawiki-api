@@ -98,7 +98,7 @@ class PageGetter extends Service {
 		if ( !$pageIdentifier->identifiesPage() ) {
 			throw new RuntimeException( '$pageIdentifier does not identify a page' );
 		}
-		if ( !is_null( $pageIdentifier->getId() ) ) {
+		if ( $pageIdentifier->getId() !== null ) {
 			return $this->getFromPageId( $pageIdentifier->getId(), $extraParams );
 		} else {
 			return $this->getFromTitle( $pageIdentifier->getTitle(), $extraParams );

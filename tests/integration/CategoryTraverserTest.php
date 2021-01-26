@@ -4,11 +4,11 @@ namespace Mediawiki\Api\Test;
 
 use Mediawiki\Api\CategoryLoopException;
 use Mediawiki\Api\Service\CategoryTraverser;
+use Mediawiki\DataModel\Content;
 use Mediawiki\DataModel\Page;
 use Mediawiki\DataModel\PageIdentifier;
-use Mediawiki\DataModel\Title;
 use Mediawiki\DataModel\Revision;
-use Mediawiki\DataModel\Content;
+use Mediawiki\DataModel\Title;
 
 class CategoryTraverserTest extends \PHPUnit\Framework\TestCase {
 

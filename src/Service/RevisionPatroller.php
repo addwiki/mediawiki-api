@@ -31,7 +31,7 @@ class RevisionPatroller extends Service {
 	/**
 	 * @param Revision $revision
 	 *
-	 * @returns string
+	 * @return string
 	 */
 	private function getTokenForRevision( Revision $revision ) {
 		$result = $this->api->postRequest( new SimpleRequest( 'query', [

@@ -21,11 +21,11 @@ class PageWatcher extends Service {
 		$params = [
 			'token' => $this->api->getToken( 'watch' ),
 		];
-		if ( !is_null( $page->getPageIdentifier()->getId() ) ) {
+		if ( $page->getPageIdentifier()->getId() !== null ) {
 			$params['pageids'] = $page->getPageIdentifier()->getId();
-		} elseif ( !is_null( $page->getPageIdentifier()->getTitle() ) ) {
+		} elseif ( $page->getPageIdentifier()->getTitle() !== null ) {
 			$params['titles'] = $page->getPageIdentifier()->getTitle()->getTitle();
-		} elseif ( !is_null( $page->getRevisions()->getLatest() ) ) {
+		} elseif ( $page->getRevisions()->getLatest() !== null ) {
 			$params['revids'] = $page->getRevisions()->getLatest()->getId();
 		}
 

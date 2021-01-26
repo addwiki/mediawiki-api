@@ -34,10 +34,10 @@ class RevisionSaver extends Service {
 
 	/**
 	 * @param Revision $revision
-	 * @param EditInfo $editInfo
+	 * @param EditInfo|null $editInfo
 	 *
 	 * @throws RuntimeException
-	 * @returns array
+	 * @return array
 	 */
 	private function getEditParams( Revision $revision, EditInfo $editInfo = null ) {
 		if ( !$revision->getPageIdentifier()->identifiesPage() ) {
@@ -55,11 +55,11 @@ class RevisionSaver extends Service {
 		$params['md5'] = md5( $content->getData() );
 
 		$timestamp = $revision->getTimestamp();
-		if ( !is_null( $timestamp ) ) {
+		if ( $timestamp !== null ) {
 			$params['basetimestamp'] = $timestamp;
 		}
 
-		if ( !is_null( $revision->getPageIdentifier()->getId() ) ) {
+		if ( $revision->getPageIdentifier()->getId() !== null ) {
 			$params['pageid'] = $revision->getPageIdentifier()->getId();
 		} else {
 			$params['title'] = $revision->getPageIdentifier()->getTitle()->getTitle();
@@ -81,7 +81,7 @@ class RevisionSaver extends Service {
 	 * @param array &$params
 	 */
 	private function addEditInfoParams( $editInfo, &$params ) {
-		if ( !is_null( $editInfo ) ) {
+		if ( $editInfo !== null ) {
 			$params['summary'] = $editInfo->getSummary();
 			if ( $editInfo->getMinor() ) {
 				$params['minor'] = true;

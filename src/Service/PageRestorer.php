@@ -52,7 +52,7 @@ class PageRestorer extends Service {
 	 * @param Title $title
 	 *
 	 * @throws OutOfBoundsException
-	 * @returns string
+	 * @return string
 	 */
 	private function getUndeleteToken( Title $title ) {
 		$response = $this->api->postRequest(

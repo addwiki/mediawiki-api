@@ -4,8 +4,8 @@ namespace Mediawiki\Api\Service;
 
 use Mediawiki\Api\Generator\ApiGenerator;
 use Mediawiki\Api\SimpleRequest;
-use Mediawiki\DataModel\Pages;
 use Mediawiki\DataModel\Page;
+use Mediawiki\DataModel\Pages;
 
 /**
  * @access private

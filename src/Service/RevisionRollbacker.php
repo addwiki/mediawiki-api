@@ -37,7 +37,7 @@ class RevisionRollbacker extends Service {
 	 */
 	private function getRollbackParams( Revision $revision, $title ) {
 		$params = [];
-		if ( !is_null( $title ) ) {
+		if ( $title !== null ) {
 			// This is needed prior to https://gerrit.wikimedia.org/r/#/c/133063/
 			$params['title'] = $title->getTitle();
 		} else {
@@ -53,7 +53,7 @@ class RevisionRollbacker extends Service {
 	/**
 	 * @param Revision $revision
 	 *
-	 * @returns string
+	 * @return string
 	 */
 	private function getTokenForRevision( Revision $revision ) {
 		$result = $this->api->postRequest(

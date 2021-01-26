@@ -27,7 +27,7 @@ class UserCreator extends Service {
 		if ( !is_string( $password ) ) {
 			throw new InvalidArgumentException( '$password should be a string' );
 		}
-		if ( !is_string( $email ) && !is_null( $email ) ) {
+		if ( !is_string( $email ) && $email !== null ) {
 			throw new InvalidArgumentException( '$email should be a string or null' );
 		}
 
@@ -39,7 +39,7 @@ class UserCreator extends Service {
 			'retype' => $password,
 		];
 
-		if ( !is_null( $email ) ) {
+		if ( $email !== null ) {
 			$params['email'] = $email;
 		}
 

@@ -28,7 +28,7 @@ class ImageRotator extends Service {
 			'token' => $this->api->getToken(),
 		];
 
-		if ( !is_null( $file->getPageIdentifier()->getTitle() ) ) {
+		if ( $file->getPageIdentifier()->getTitle() !== null ) {
 			$params['titles'] = $file->getPageIdentifier()->getTitle()->getText();
 		} else {
 			$params['pageids'] = $file->getPageIdentifier()->getId();
