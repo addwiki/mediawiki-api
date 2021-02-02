@@ -1,7 +1,9 @@
 # Release Notes
 
-## Version 2.6 (WIP)
+## Version 2.6 (2 February 2021)
 
+- Initial release from new development monorepo
+- All addwiki libraries now have aligned version numbers
 - Require PHP 7.2+
 - Fix PageGetter::getRevisionsFromResult undefined $revision['comment'] after an oversight/suppression of the edit summary. ([commit](https://github.com/addwiki/mediawiki-api/commit/5281c8f6c73d8e522a630e9c51cb4052d84eac67))
 - Make `PagePurger::purge` purge `Page` objects that only have a title and no pageid ([commit](https://github.com/addwiki/mediawiki-api/commit/487c8e162cde8eeee66185a00fc86b5a4526fd27))
