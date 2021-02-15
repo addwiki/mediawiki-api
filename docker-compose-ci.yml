@@ -6,7 +6,9 @@ version: '3'
 
 services:
   mediawiki:
-    image: mediawiki:1.35.1
+    build:
+      context: .
+      dockerfile: Dockerfile-ci
     restart: always
     entrypoint: /dc-scripts/docker-compose-ci-entrypoint.sh
     environment:

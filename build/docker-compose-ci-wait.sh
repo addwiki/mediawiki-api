@@ -2,9 +2,6 @@
 
 repo_path=$(dirname $(dirname $(realpath $0)))
 
-# Wait for the port to appear open
-$repo_path/build/wait-for-it.sh localhost:8877 -t 300
-
 # Wait for apache to actually be running
 for i in {1..30}
 do
