@@ -23,8 +23,8 @@
         ]
     },
     "require": {
-        "addwiki/mediawiki-api-base": "^2.7",
-        "addwiki/mediawiki-datamodel": "^2.7"
+        "addwiki/mediawiki-api-base": "^2.8",
+        "addwiki/mediawiki-datamodel": "^2.8"
     },
     "require-dev": {
         "phpunit/phpunit": "~9",
