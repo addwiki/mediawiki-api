@@ -141,6 +141,7 @@ class PageListGetter extends Service {
 		$pages = new Pages();
 		$negativeId = -1;
 
+		$result = [];
 		do {
 			// Set up continue parameter if it's been set already.
 			if ( isset( $result['continue'][$contName] ) ) {

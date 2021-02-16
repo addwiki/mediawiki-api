@@ -7,6 +7,7 @@ use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\Page;
 use Mediawiki\DataModel\Pages;
+use Mediawiki\DataModel\Title;
 
 /**
  * Category traverser.
