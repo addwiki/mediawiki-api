@@ -158,7 +158,7 @@ class PageListGetter extends Service {
 				// Assign negative pageid if page is non-existent.
 				if ( !array_key_exists( $pageIdName, $member ) ) {
 					$member[$pageIdName] = $negativeId;
-					$negativeId = $negativeId - 1;
+					--$negativeId;
 				}
 
 				$pageTitle = new Title( $member['title'], $member['ns'] );

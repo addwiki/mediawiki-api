@@ -2,44 +2,67 @@
 
 namespace Mediawiki\Api\Test;
 
+use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\MediawikiFactory;
+use Mediawiki\Api\Service\FileUploader;
+use Mediawiki\Api\Service\ImageRotator;
+use Mediawiki\Api\Service\LogListGetter;
+use Mediawiki\Api\Service\PageDeleter;
+use Mediawiki\Api\Service\PageGetter;
+use Mediawiki\Api\Service\PageListGetter;
+use Mediawiki\Api\Service\PageMover;
+use Mediawiki\Api\Service\PageProtector;
+use Mediawiki\Api\Service\PagePurger;
+use Mediawiki\Api\Service\PageRestorer;
+use Mediawiki\Api\Service\PageWatcher;
+use Mediawiki\Api\Service\RevisionDeleter;
+use Mediawiki\Api\Service\RevisionPatroller;
+use Mediawiki\Api\Service\RevisionRestorer;
+use Mediawiki\Api\Service\RevisionRollbacker;
+use Mediawiki\Api\Service\RevisionSaver;
+use Mediawiki\Api\Service\RevisionUndoer;
+use Mediawiki\Api\Service\UserBlocker;
+use Mediawiki\Api\Service\UserCreator;
+use Mediawiki\Api\Service\UserGetter;
+use Mediawiki\Api\Service\UserRightsChanger;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers Mediawiki\Api\MediawikiFactory
  *
  * @author Addshore
  */
-class MediawikiFactoryTest extends \PHPUnit\Framework\TestCase {
+class MediawikiFactoryTest extends TestCase {
 
 	public function getMockMediawikiApi() {
-		return $this->getMockBuilder( 'Mediawiki\Api\MediawikiApi' )
+		return $this->getMockBuilder( MediawikiApi::class )
 			->disableOriginalConstructor()
 			->getMock();
 	}
 
 	public function provideFactoryMethodsTest() {
 		return [
-			[ 'Mediawiki\Api\Service\RevisionSaver', 'newRevisionSaver' ],
-			[ 'Mediawiki\Api\Service\RevisionUndoer', 'newRevisionUndoer' ],
-			[ 'Mediawiki\Api\Service\PageGetter', 'newPageGetter' ],
-			[ 'Mediawiki\Api\Service\UserGetter', 'newUserGetter' ],
-			[ 'Mediawiki\Api\Service\PageDeleter', 'newPageDeleter' ],
-			[ 'Mediawiki\Api\Service\PageMover', 'newPageMover' ],
-			[ 'Mediawiki\Api\Service\PageListGetter', 'newPageListGetter' ],
-			[ 'Mediawiki\Api\Service\PageRestorer', 'newPageRestorer' ],
-			[ 'Mediawiki\Api\Service\PagePurger', 'newPagePurger' ],
-			[ 'Mediawiki\Api\Service\RevisionRollbacker', 'newRevisionRollbacker' ],
-			[ 'Mediawiki\Api\Service\RevisionPatroller', 'newRevisionPatroller' ],
-			[ 'Mediawiki\Api\Service\PageProtector', 'newPageProtector' ],
-			[ 'Mediawiki\Api\Service\PageWatcher', 'newPageWatcher' ],
-			[ 'Mediawiki\Api\Service\RevisionDeleter', 'newRevisionDeleter' ],
-			[ 'Mediawiki\Api\Service\RevisionRestorer', 'newRevisionRestorer' ],
-			[ 'Mediawiki\Api\Service\UserBlocker', 'newUserBlocker' ],
-			[ 'Mediawiki\Api\Service\UserRightsChanger', 'newUserRightsChanger' ],
-			[ 'Mediawiki\Api\Service\UserCreator', 'newUserCreator' ],
-			[ 'Mediawiki\Api\Service\LogListGetter', 'newLogListGetter' ],
-			[ 'Mediawiki\Api\Service\FileUploader', 'newFileUploader' ],
-			[ 'Mediawiki\Api\Service\ImageRotator', 'newImageRotator' ],
+			[ RevisionSaver::class, 'newRevisionSaver' ],
+			[ RevisionUndoer::class, 'newRevisionUndoer' ],
+			[ PageGetter::class, 'newPageGetter' ],
+			[ UserGetter::class, 'newUserGetter' ],
+			[ PageDeleter::class, 'newPageDeleter' ],
+			[ PageMover::class, 'newPageMover' ],
+			[ PageListGetter::class, 'newPageListGetter' ],
+			[ PageRestorer::class, 'newPageRestorer' ],
+			[ PagePurger::class, 'newPagePurger' ],
+			[ RevisionRollbacker::class, 'newRevisionRollbacker' ],
+			[ RevisionPatroller::class, 'newRevisionPatroller' ],
+			[ PageProtector::class, 'newPageProtector' ],
+			[ PageWatcher::class, 'newPageWatcher' ],
+			[ RevisionDeleter::class, 'newRevisionDeleter' ],
+			[ RevisionRestorer::class, 'newRevisionRestorer' ],
+			[ UserBlocker::class, 'newUserBlocker' ],
+			[ UserRightsChanger::class, 'newUserRightsChanger' ],
+			[ UserCreator::class, 'newUserCreator' ],
+			[ LogListGetter::class, 'newLogListGetter' ],
+			[ FileUploader::class, 'newFileUploader' ],
+			[ ImageRotator::class, 'newImageRotator' ],
 		];
 	}
 

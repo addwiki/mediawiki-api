@@ -2,6 +2,7 @@
 
 namespace Mediawiki\Api\Test;
 
+use Exception;
 use Mediawiki\Api\Guzzle\ClientFactory;
 use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\MediawikiFactory;
@@ -12,7 +13,15 @@ use Mediawiki\Api\SimpleRequest;
  */
 class TestEnvironment {
 
-	/** @var \Mediawiki\Api\MediawikiFactory */
+	/**
+	 * @var string
+	 */
+	public $apiUrl;
+	/**
+	 * @var string
+	 */
+	public $pageUrl;
+	/** @var MediawikiFactory */
 	private $factory;
 
 	/** @var MediawikiApi */
@@ -43,7 +52,7 @@ class TestEnvironment {
 		}
 
 		if ( substr( $apiUrl, -7 ) !== 'api.php' ) {
-			$msg = "URL incorrect: $apiUrl"
+			$msg = sprintf( 'URL incorrect: %s', $apiUrl )
 				. " (Set the ADDWIKI_MW_API environment variable correctly)";
 			throw new Exception( $msg );
 		}
@@ -66,7 +75,7 @@ class TestEnvironment {
 	/**
 	 * Get the MediaWiki factory.
 	 *
-	 * @return \Mediawiki\Api\MediawikiFactory The factory instance.
+	 * @return MediawikiFactory The factory instance.
 	 */
 	public function getFactory() {
 		return $this->factory;
@@ -85,7 +94,7 @@ class TestEnvironment {
 		$mainPageUrl = $out['query']['general']['base'];
 		$i = 0;
 		while ( $this->getJobQueueLength( $this->getApi() ) > 0 ) {
-			$i++;
+			++$i;
 			$cf = new ClientFactory();
 			$cf->getClient()->get( $mainPageUrl );
 			if ( $i == 10 ) {

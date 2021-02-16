@@ -2,13 +2,14 @@
 
 namespace Mediawiki\Api;
 
+use Exception;
 use Mediawiki\DataModel\Pages;
 
 /**
  * Class CategoryLoopException
  * @package Mediawiki\Api
  */
-class CategoryLoopException extends \Exception {
+class CategoryLoopException extends Exception {
 
 	/** @var Pages */
 	protected $categoryPath;

@@ -3,25 +3,27 @@
 namespace Mediawiki\Api\Test;
 
 use Mediawiki\Api\CategoryLoopException;
+use Mediawiki\Api\MediawikiFactory;
 use Mediawiki\Api\Service\CategoryTraverser;
 use Mediawiki\DataModel\Content;
 use Mediawiki\DataModel\Page;
 use Mediawiki\DataModel\PageIdentifier;
 use Mediawiki\DataModel\Revision;
 use Mediawiki\DataModel\Title;
+use PHPUnit\Framework\TestCase;
 
-class CategoryTraverserTest extends \PHPUnit\Framework\TestCase {
+class CategoryTraverserTest extends TestCase {
 
 	/** @var TestEnvironment */
 	protected $testEnvironment;
 
-	/** @var \Mediawiki\Api\MediawikiFactory */
+	/** @var MediawikiFactory */
 	protected $factory;
 
-	/** @var \Mediawiki\Api\Service\CategoryTraverser */
+	/** @var CategoryTraverser */
 	protected $traverser;
 
-	public function setUp(): void {
+	protected function setUp(): void {
 		parent::setUp();
 		$this->testEnvironment = TestEnvironment::newInstance();
 		$this->factory = $this->testEnvironment->getFactory();
@@ -175,7 +177,7 @@ class CategoryTraverserTest extends \PHPUnit\Framework\TestCase {
 		$haveCaught = false;
 		try {
 			$this->traverser->descend( $catA );
-		} catch ( CategoryLoopException $ex ) {
+		} catch ( CategoryLoopException $categoryLoopException ) {
 			$haveCaught = true;
 			$expectedCatLoop = [
 				'Category:E cat',
@@ -185,7 +187,7 @@ class CategoryTraverserTest extends \PHPUnit\Framework\TestCase {
 			// Build a simplified representation of the thrown loop pages, to get around different
 			// revision IDs.
 			$actualCatLoop = [];
-			foreach ( $ex->getCategoryPath()->toArray() as $p ) {
+			foreach ( $categoryLoopException->getCategoryPath()->toArray() as $p ) {
 				$actualCatLoop[] = $p->getPageIdentifier()->getTitle()->getText();
 			}
 			$this->assertEquals( $expectedCatLoop, $actualCatLoop );

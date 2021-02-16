@@ -117,7 +117,7 @@ class FileUploader extends Service {
 			$response = $this->api->postRequest( $request );
 
 			// 2. Deal with the response.
-			$chunksDone++;
+			++$chunksDone;
 			$params['offset'] = ( $chunksDone * $this->chunkSize );
 			if ( !isset( $response['upload']['filekey'] ) ) {
 				// This should never happen. Even the last response still has the filekey.

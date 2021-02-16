@@ -18,24 +18,30 @@ use Mediawiki\DataModel\Pages;
  */
 class CategoryTraverser extends Service {
 
+	/**
+	 * @var int
+	 */
 	public const CALLBACK_CATEGORY = 10;
+	/**
+	 * @var int
+	 */
 	public const CALLBACK_PAGE = 20;
 
 	/**
-	 * @var string[]
+	 * @var string[]|null
 	 */
 	protected $namespaces;
 
 	/**
 	 * @var callable[]
 	 */
-	protected $callbacks;
+	protected $callbacks = [];
 
 	/**
 	 * Used to remember the previously-visited categories when traversing.
 	 * @var string[]
 	 */
-	protected $alreadyVisited;
+	protected $alreadyVisited = [];
 
 	/**
 	 * @param MediawikiApi $api The API to connect to.

@@ -4,21 +4,23 @@ namespace Mediawiki\Api\Test\Service;
 
 use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\Service\PagePurger;
+use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\Page;
 use Mediawiki\DataModel\PageIdentifier;
 use Mediawiki\DataModel\Pages;
 use Mediawiki\DataModel\Title;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject;
 
 /**
  * @author Addshore
  * @covers Mediawiki\Api\Service\PagePurger
  */
-class PagePurgerTest extends \PHPUnit\Framework\TestCase {
+class PagePurgerTest extends TestCase {
 
 	private function getMockApi() {
 		/** @var MediawikiApi|PHPUnit_Framework_MockObject_MockObject $mock */
-		$mock = $this->getMockBuilder( '\Mediawiki\Api\MediawikiApi' )
+		$mock = $this->getMockBuilder( MediawikiApi::class )
 			->disableOriginalConstructor()
 			->getMock();
 		return $mock;
@@ -34,7 +36,7 @@ class PagePurgerTest extends \PHPUnit\Framework\TestCase {
 		$api->expects( $this->once() )
 			->method( 'postRequest' )
 			->with(
-				$this->isInstanceOf( '\Mediawiki\Api\SimpleRequest' )
+				$this->isInstanceOf( SimpleRequest::class )
 			)
 			->will( $this->returnValue(
 			[
@@ -59,7 +61,7 @@ class PagePurgerTest extends \PHPUnit\Framework\TestCase {
 		$api->expects( $this->once() )
 			->method( 'postRequest' )
 			->with(
-				$this->isInstanceOf( '\Mediawiki\Api\SimpleRequest' )
+				$this->isInstanceOf( SimpleRequest::class )
 			)
 			->will( $this->returnValue( [
 				"batchcomplete" => "",
@@ -88,7 +90,7 @@ class PagePurgerTest extends \PHPUnit\Framework\TestCase {
 		$api->expects( $this->once() )
 			->method( 'postRequest' )
 			->with(
-				$this->isInstanceOf( '\Mediawiki\Api\SimpleRequest' )
+				$this->isInstanceOf( SimpleRequest::class )
 			)
 			->will( $this->returnValue(
 				[
@@ -131,7 +133,7 @@ class PagePurgerTest extends \PHPUnit\Framework\TestCase {
 		$api->expects( $this->once() )
 			->method( 'postRequest' )
 			->with(
-				$this->isInstanceOf( '\Mediawiki\Api\SimpleRequest' )
+				$this->isInstanceOf( SimpleRequest::class )
 			)
 			->will( $this->returnValue(
 				[

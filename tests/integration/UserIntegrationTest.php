@@ -3,11 +3,12 @@
 namespace Mediawiki\Api\Test;
 
 use Mediawiki\Api\ApiUser;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Addshore
  */
-class UserIntegrationTest extends \PHPUnit\Framework\TestCase {
+class UserIntegrationTest extends TestCase {
 
 	/**
 	 * @var ApiUser

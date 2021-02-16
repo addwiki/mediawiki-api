@@ -6,11 +6,12 @@ use Mediawiki\DataModel\Content;
 use Mediawiki\DataModel\PageIdentifier;
 use Mediawiki\DataModel\Revision;
 use Mediawiki\DataModel\Title;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Addshore
  */
-class PageIntegrationTest extends \PHPUnit\Framework\TestCase {
+class PageIntegrationTest extends TestCase {
 
 	/**
 	 * @var PageIdentifier

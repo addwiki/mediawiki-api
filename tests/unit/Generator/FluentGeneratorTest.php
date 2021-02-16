@@ -3,13 +3,14 @@
 namespace Mediawiki\Api\Test\Generator;
 
 use Mediawiki\Api\Generator\FluentGenerator;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Addshore
  *
  * @covers \Mediawiki\Api\Generator\FluentGenerator
  */
-class FluentGeneratorTest extends \PHPUnit\Framework\TestCase {
+class FluentGeneratorTest extends TestCase {
 
 	public function testConstructionWithNoGPrefix() {
 		$generator = new FluentGenerator( 'name' );

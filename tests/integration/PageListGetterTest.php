@@ -2,15 +2,17 @@
 
 namespace Mediawiki\Api\Test;
 
+use Mediawiki\Api\Service\PageListGetter;
 use Mediawiki\DataModel\Content;
 use Mediawiki\DataModel\PageIdentifier;
 use Mediawiki\DataModel\Revision;
 use Mediawiki\DataModel\Title;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Test the \Mediawiki\Api\Service\PageListGetter class.
  */
-class PageListGetterTest extends \PHPUnit\Framework\TestCase {
+class PageListGetterTest extends TestCase {
 
 	/** @var string */
 	private $emptyCatName = 'Category:Empty category';
@@ -18,13 +20,13 @@ class PageListGetterTest extends \PHPUnit\Framework\TestCase {
 	/** @var string */
 	private $nonemptyCatName = 'Category:Test category';
 
-	/** @var \Mediawiki\Api\Service\PageListGetter */
+	/** @var PageListGetter */
 	private $pageListGetter;
 
 	/**
 	 * Set up some test categories and pages.
 	 */
-	public function setUp(): void {
+	protected function setUp(): void {
 		$testEnvironment = TestEnvironment::newInstance();
 		$factory = $testEnvironment->getFactory();
 
@@ -39,11 +41,11 @@ class PageListGetterTest extends \PHPUnit\Framework\TestCase {
 		// Some pages in the latter.
 		// (Count must exceed the default categorymember result set size of 10.)
 		$revisionSaver = $factory->newRevisionSaver();
-		for ( $i = 1; $i <= 35; $i++ ) {
-			$testCat = new PageIdentifier( new Title( "Test page $i" ) );
+		for ( $i = 1; $i <= 35; ++$i ) {
+			$testCat = new PageIdentifier( new Title( sprintf( 'Test page %s', $i ) ) );
 			// Even pages link to Main Page, odd pages transclude {{test}}.
 			$mainPageLink = ( ( $i % 2 ) == 0 ) ? 'Go to [[Main Page]].' : 'This is a {{test}}.';
-			$content = new Content( "$mainPageLink\n\n[[$this->nonemptyCatName]]" );
+			$content = new Content( "{$mainPageLink}\n\n[[$this->nonemptyCatName]]" );
 			$revisionSaver->save( new Revision( $content, $testCat ) );
 		}
 

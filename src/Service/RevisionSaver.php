@@ -24,7 +24,7 @@ class RevisionSaver extends Service {
 	 * @return bool success
 	 */
 	public function save( Revision $revision, EditInfo $editInfo = null ) {
-		$editInfo = $editInfo ? $editInfo : $revision->getEditInfo();
+		$editInfo = $editInfo ?? $revision->getEditInfo();
 
 		$result = $this->api->postRequest(
 			new SimpleRequest( 'edit', $this->getEditParams( $revision, $editInfo ) )

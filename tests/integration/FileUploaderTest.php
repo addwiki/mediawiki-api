@@ -6,11 +6,12 @@ use Mediawiki\Api\ApiUser;
 use Mediawiki\Api\MediawikiFactory;
 use Mediawiki\Api\Service\FileUploader;
 use Mediawiki\DataModel\Title;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Test the \Mediawiki\Api\Service\FileUploader class.
  */
-class FileUploaderTest extends \PHPUnit\Framework\TestCase {
+class FileUploaderTest extends TestCase {
 
 	/** @var MediawikiFactory */
 	protected $factory;
@@ -21,7 +22,7 @@ class FileUploaderTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * Create a FileUploader to use in all these tests.
 	 */
-	public function setup(): void {
+	protected function setup(): void {
 		parent::setup();
 		$testEnvironment = TestEnvironment::newInstance();
 		$this->factory = $testEnvironment->getFactory();

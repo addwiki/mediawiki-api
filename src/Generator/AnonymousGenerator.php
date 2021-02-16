@@ -19,13 +19,13 @@ class AnonymousGenerator implements ApiGenerator {
 	/**
 	 * @var array
 	 */
-	private $params;
+	private $params = [];
 
 	/**
 	 * @param string $name
 	 * @param array $params including 'g' prefix keys
 	 */
-	public function __construct( $name, array $params ) {
+	public function __construct( $name, array $params = [] ) {
 		$this->name = $name;
 		$this->params = $params;
 	}
@@ -34,8 +34,7 @@ class AnonymousGenerator implements ApiGenerator {
 	 * @return array
 	 */
 	public function getParams() {
-		$params = $this->params;
-		$params['generator'] = $this->name;
-		return $params;
+		$this->params['generator'] = $this->name;
+		return $this->params;
 	}
 }

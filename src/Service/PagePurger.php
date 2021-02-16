@@ -65,7 +65,7 @@ class PagePurger extends Service {
 		$pagesIds = [];
 
 		foreach ( $pagesArray as $page ) {
-			array_push( $pagesIds, $page->getId() );
+			$pagesIds[] = $page->getId();
 		}
 
 		// convert an array to multiple-value format

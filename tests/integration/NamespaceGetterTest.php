@@ -6,8 +6,9 @@ use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\Service\NamespaceGetter;
 use Mediawiki\Api\SimpleRequest;
 use Mediawiki\DataModel\NamespaceInfo;
+use PHPUnit\Framework\TestCase;
 
-class NamespaceGetterTest extends \PHPUnit\Framework\TestCase {
+class NamespaceGetterTest extends TestCase {
 	public function testGetNamespaceByCanonicalNameReturnsNullIfNamespaceWasNotFound() {
 		$nsGetter = new NamespaceGetter( $this->getApi() );
 		$this->assertNull( $nsGetter->getNamespaceByCanonicalName( 'Dummy' ) );
@@ -65,7 +66,7 @@ class NamespaceGetterTest extends \PHPUnit\Framework\TestCase {
 	 */
 	private function getApi() {
 		$api = $this->getMockBuilder( MediawikiApi::class )->disableOriginalConstructor()->getMock();
-		$api->expects( $this->any() )
+		$api
 			->method( 'getRequest' )
 			->with( $this->getRequest() )
 			->willReturn( $this->getNamespaceFixture() );

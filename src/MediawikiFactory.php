@@ -48,7 +48,7 @@ class MediawikiFactory {
 
 	/**
 	 * Get a new CategoryTraverser object for this API.
-	 * @return \Mediawiki\Api\Service\CategoryTraverser
+	 * @return CategoryTraverser
 	 */
 	public function newCategoryTraverser() {
 		return new CategoryTraverser( $this->api );
