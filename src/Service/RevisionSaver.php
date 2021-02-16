@@ -90,6 +90,9 @@ class RevisionSaver extends Service {
 				$params['bot'] = true;
 				$params['assert'] = 'bot';
 			}
+			if ( $editInfo->getMaxlag() ) {
+				$params['maxlag'] = $editInfo->getMaxlag();
+			}
 		}
 	}
 
