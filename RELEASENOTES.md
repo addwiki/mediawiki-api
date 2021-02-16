@@ -1,9 +1,12 @@
 # Release Notes
 
+## Version 2.8 (16 February 2021)
+
+- Installable with 7.3+ (including PHP8)
+
 ## Version 2.7 (15 February 2021)
 
 - No notable changes
-
 
 ## Version 2.6 (2 February 2021)
 
