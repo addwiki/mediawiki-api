@@ -6,8 +6,6 @@ use Addwiki\Mediawiki\Api\Generator\FluentGenerator;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @author Addshore
- *
  * @covers \Addwiki\Mediawiki\Api\Generator\FluentGenerator
  */
 class FluentGeneratorTest extends TestCase {

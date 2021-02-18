@@ -8,14 +8,10 @@ use InvalidArgumentException;
 
 /**
  * @access private
- *
- * @author Addshore
  */
 class PageProtector extends Service {
 
 	/**
-	 * @since 0.3
-	 *
 	 * @param string[] $protections where the 'key' is the action and the 'value' is the group
 	 *
 	 * @throws InvalidArgumentException

@@ -9,8 +9,6 @@ use RuntimeException;
 
 /**
  * @access private
- *
- * @author Addshore
  */
 class Parser extends Service {
 

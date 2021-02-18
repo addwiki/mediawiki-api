@@ -7,17 +7,12 @@ use Addwiki\Mediawiki\DataModel\User;
 
 /**
  * @access private
- *
- * @author Addshore
  */
 class UserRightsChanger extends Service {
 
 	/**
-	 * @since 0.3
-	 *
 	 * @param string[] $add
 	 * @param string[] $remove
-	 *
 	 */
 	public function change(
 		User $user,

@@ -9,15 +9,10 @@ use RuntimeException;
 
 /**
  * @access private
- *
- * @author Addshore
- * @author DFelten (EditInfo fix)
  */
 class RevisionSaver extends Service {
 
 	/**
-	 * @since 0.2
-	 *
 	 * @param Revision $revision
 	 * @param EditInfo|null $editInfo
 	 *
@@ -76,10 +71,7 @@ class RevisionSaver extends Service {
 		return $params;
 	}
 
-	/**
-	 * @param array $params
-	 */
-	private function addEditInfoParams( ?EditInfo $editInfo, &$params ): void {
+	private function addEditInfoParams( ?EditInfo $editInfo, array &$params ): void {
 		if ( $editInfo !== null ) {
 			$params['summary'] = $editInfo->getSummary();
 			if ( $editInfo->getMinor() ) {

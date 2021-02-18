@@ -6,9 +6,6 @@ use Addwiki\Mediawiki\Api\Client\ApiUser;
 use Addwiki\Mediawiki\Api\Tests\Integration\TestEnvironment;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @author Addshore
- */
 class UserIntegrationTest extends TestCase {
 
 	private static ?ApiUser $localApiUser = null;

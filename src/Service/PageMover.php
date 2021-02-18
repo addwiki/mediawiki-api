@@ -8,14 +8,10 @@ use Addwiki\Mediawiki\DataModel\Title;
 
 /**
  * @access private
- *
- * @author Addshore
  */
 class PageMover extends Service {
 
 	/**
-	 * @since 0.2
-	 *
 	 * @param Page $page
 	 * @param Title $target
 	 * @param array $extraParams
@@ -30,11 +26,6 @@ class PageMover extends Service {
 		return true;
 	}
 
-	/**
-	 * @since 0.2
-	 *
-	 *
-	 */
 	public function moveFromPageId( int $pageid, Title $target, array $extraParams = [] ): bool {
 		$this->api->postRequest(
 			new SimpleRequest( 'move', $this->getMoveParams( $pageid, $target, $extraParams ) )
@@ -44,7 +35,6 @@ class PageMover extends Service {
 	}
 
 	/**
-	 *
 	 * @return mixed[]
 	 */
 	private function getMoveParams( int $pageid, \Addwiki\Mediawiki\DataModel\Title $target, array $extraParams ): array {

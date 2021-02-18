@@ -7,16 +7,9 @@ use Addwiki\Mediawiki\DataModel\Revision;
 
 /**
  * @access private
- *
- * @author Addshore
  */
 class RevisionDeleter extends Service {
 
-	/**
-	 * @since 0.5
-	 *
-	 * @param Revision $revision
-	 */
 	public function delete( Revision $revision ): bool {
 		$params = [
 			'type' => 'revision',

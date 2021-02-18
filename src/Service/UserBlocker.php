@@ -8,14 +8,10 @@ use InvalidArgumentException;
 
 /**
  * @access private
- *
- * @author Addshore
  */
 class UserBlocker extends Service {
 
 	/**
-	 * @since 0.3
-	 *
 	 * @param User|string $user
 	 * @param array $extraParams
 	 *

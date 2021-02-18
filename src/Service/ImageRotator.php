@@ -8,8 +8,6 @@ use Addwiki\Mediawiki\DataModel\File;
 
 /**
  * @access private
- *
- * @author Addshore
  */
 class ImageRotator extends Service {
 

@@ -6,8 +6,6 @@ use Addwiki\Mediawiki\Api\Generator\AnonymousGenerator;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @author Addshore
- *
  * @covers \Addwiki\Mediawiki\Api\Generator\AnonymousGenerator
  */
 class AnonymousGeneratorTest extends TestCase {

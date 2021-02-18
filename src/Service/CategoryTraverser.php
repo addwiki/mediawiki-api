@@ -44,9 +44,6 @@ class CategoryTraverser extends Service {
 	 */
 	protected array $alreadyVisited = [];
 
-	/**
-	 * @param MediawikiApi $api The API to connect to.
-	 */
 	public function __construct( MediawikiApi $api ) {
 		parent::__construct( $api );
 		$this->callbacks = [];

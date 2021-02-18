@@ -6,7 +6,6 @@ use Addwiki\Mediawiki\Api\Client\MediawikiApi;
 
 /**
  * The base service functions that all services inherit.
- * @since 0.7.2
  */
 abstract class Service {
 

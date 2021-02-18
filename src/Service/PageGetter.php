@@ -14,14 +14,9 @@ use RuntimeException;
 
 /**
  * @access private
- *
- * @author Addshore
  */
 class PageGetter extends Service {
 
-	/**
-	 * @since 0.2
-	 */
 	public function getFromRevisionId( int $id, array $extraParams = [] ): Page {
 		$result =
 			$this->api->getRequest(
@@ -35,8 +30,6 @@ class PageGetter extends Service {
 	}
 
 	/**
-	 * @since 0.2
-	 *
 	 * @param string|Title $title
 	 * @param array $extraParams
 	 */
@@ -55,9 +48,6 @@ class PageGetter extends Service {
 		return $this->newPageFromResult( array_shift( $result['query']['pages'] ) );
 	}
 
-	/**
-	 * @since 0.2
-	 */
 	public function getFromPageId( int $id, array $extraParams = [] ): Page {
 		$result =
 			$this->api->getRequest(
@@ -71,8 +61,6 @@ class PageGetter extends Service {
 	}
 
 	/**
-	 * @since 0.4
-	 *
 	 * @param PageIdentifier $pageIdentifier
 	 * @param array $extraParams
 	 *
@@ -94,8 +82,6 @@ class PageGetter extends Service {
 	}
 
 	/**
-	 * @since 0.2
-	 *
 	 * @param Page $page
 	 * @param array $extraParams
 	 */
@@ -117,8 +103,6 @@ class PageGetter extends Service {
 	}
 
 	/**
-	 * @since 0.2
-	 *
 	 * @param Revision $revision
 	 * @param array $extraParams
 	 */
@@ -146,8 +130,6 @@ class PageGetter extends Service {
 	}
 
 	/**
-	 *
-	 *
 	 * @return mixed[]
 	 */
 	private function getQuery( array $additionalParams, array $extraParams = [] ): array {

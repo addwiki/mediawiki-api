@@ -7,18 +7,9 @@ use Addwiki\Mediawiki\DataModel\Revision;
 
 /**
  * @access private
- *
- * @author Addshore
  */
 class RevisionPatroller extends Service {
 
-	/**
-	 * @since 0.3
-	 *
-	 * @param Revision $revision
-	 *
-	 * @return bool success
-	 */
 	public function patrol( Revision $revision ): bool {
 		$this->api->postRequest( new SimpleRequest(
 			'patrol', [
@@ -28,9 +19,6 @@ class RevisionPatroller extends Service {
 		return true;
 	}
 
-	/**
-	 * @param Revision $revision
-	 */
 	private function getTokenForRevision( Revision $revision ): string {
 		$result = $this->api->postRequest( new SimpleRequest( 'query', [
 			'list' => 'recentchanges',

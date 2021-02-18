@@ -9,9 +9,6 @@ use Addwiki\Mediawiki\DataModel\Revision;
 use Addwiki\Mediawiki\DataModel\Title;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @author Addshore
- */
 class PageIntegrationTest extends TestCase {
 
 	private static ?PageIdentifier $localPageIdentifier = null;

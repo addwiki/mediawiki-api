@@ -9,15 +9,10 @@ use Addwiki\Mediawiki\DataModel\Pages;
 
 /**
  * @access private
- *
- * @author Addshore
- * @author Thomas Arrow
  */
 class PagePurger extends Service {
 
 	/**
-	 * @since 0.3
-	 *
 	 * Purge a single page
 	 *
 	 * Purges a single page by submitting a
@@ -47,8 +42,6 @@ class PagePurger extends Service {
 	}
 
 	/**
-	 * @since 0.7
-	 *
 	 * Purge multiple pages
 	 *
 	 * Purges all the pages of the Pages object
@@ -105,8 +98,6 @@ class PagePurger extends Service {
 	}
 
 	/**
-	 * @since 0.6
-	 *
 	 * @param ApiGenerator $generator
 	 */
 	public function purgeGenerator( ApiGenerator $generator ): bool {

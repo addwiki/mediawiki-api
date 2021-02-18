@@ -10,17 +10,9 @@ use Addwiki\Mediawiki\DataModel\Title;
 
 /**
  * @access private
- *
- * @author Addshore
  */
 class PageDeleter extends Service {
 
-	/**
-	 * @since 0.2
-	 *
-	 * @param Page $page
-	 * @param array $extraParams
-	 */
 	public function delete( Page $page, array $extraParams = [] ): bool {
 		$this->api->postRequest( new SimpleRequest(
 			'delete',
@@ -29,12 +21,6 @@ class PageDeleter extends Service {
 		return true;
 	}
 
-	/**
-	 * @since 0.2
-	 *
-	 * @param Revision $revision
-	 * @param array $extraParams
-	 */
 	public function deleteFromRevision( Revision $revision, array $extraParams = [] ): bool {
 		$this->api->postRequest( new SimpleRequest(
 			'delete',
@@ -43,11 +29,6 @@ class PageDeleter extends Service {
 		return true;
 	}
 
-	/**
-	 * @since 0.2
-	 *
-	 *
-	 */
 	public function deleteFromPageId( int $pageid, array $extraParams = [] ): bool {
 		$this->api->postRequest( new SimpleRequest(
 			'delete',
@@ -57,8 +38,6 @@ class PageDeleter extends Service {
 	}
 
 	/**
-	 * @since 0.5
-	 *
 	 * @param Title|string $title
 	 * @param array $extraParams
 	 */
@@ -74,7 +53,6 @@ class PageDeleter extends Service {
 	}
 
 	/**
-	 *
 	 * @return mixed[]
 	 */
 	private function getDeleteParams( PageIdentifier $identifier, array $extraParams ): array {

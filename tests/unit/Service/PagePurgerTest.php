@@ -13,7 +13,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @author Addshore
  * @covers Mediawiki\Api\Service\PagePurger
  */
 class PagePurgerTest extends TestCase {

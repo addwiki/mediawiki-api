@@ -8,8 +8,6 @@ use Exception;
 
 /**
  * @access private
- *
- * @author Addshore
  */
 class FileUploader extends Service {
 

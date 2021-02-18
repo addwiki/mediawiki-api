@@ -30,8 +30,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @covers Mediawiki\Api\MediawikiFactory
- *
- * @author Addshore
  */
 class MediawikiFactoryTest extends TestCase {
 

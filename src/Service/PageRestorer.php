@@ -9,14 +9,10 @@ use OutOfBoundsException;
 
 /**
  * @access private
- *
- * @author Addshore
  */
 class PageRestorer extends Service {
 
 	/**
-	 * @since 0.3
-	 *
 	 * @param Page $page
 	 * @param array $extraParams
 	 */
@@ -32,7 +28,6 @@ class PageRestorer extends Service {
 	}
 
 	/**
-	 *
 	 * @return mixed[]
 	 */
 	private function getUndeleteParams( Title $title, array $extraParams ): array {

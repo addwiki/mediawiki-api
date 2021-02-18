@@ -7,8 +7,6 @@ use Addwiki\Mediawiki\DataModel\User;
 
 /**
  * @access private
- *
- * @author Addshore
  */
 class UserGetter extends Service {
 

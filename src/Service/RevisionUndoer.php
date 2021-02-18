@@ -7,8 +7,6 @@ use Addwiki\Mediawiki\DataModel\Revision;
 
 /**
  * @access private
- *
- * @author Addshore
  */
 class RevisionUndoer extends Service {
 

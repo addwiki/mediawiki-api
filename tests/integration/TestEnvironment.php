@@ -8,15 +8,9 @@ use Addwiki\Mediawiki\Api\Guzzle\ClientFactory;
 use Addwiki\Mediawiki\Api\MediawikiFactory;
 use Exception;
 
-/**
- * @author Addshore
- */
 class TestEnvironment {
 
-	/**
-	 * @var string
-	 */
-	public $apiUrl;
+	public string $apiUrl;
 	public string $pageUrl;
 	private MediawikiFactory $factory;
 

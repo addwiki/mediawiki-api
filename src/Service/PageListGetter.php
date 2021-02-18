@@ -10,8 +10,6 @@ use Addwiki\Mediawiki\DataModel\Title;
 
 /**
  * @access private
- *
- * @author Addshore
  */
 class PageListGetter extends Service {
 
@@ -21,9 +19,6 @@ class PageListGetter extends Service {
 	 *     cmlimit: default 10, maximum 500 (5000 for bots)
 	 *
 	 * @link https://www.mediawiki.org/wiki/API:Categorymembers
-	 * @since 0.3
-	 *
-	 *
 	 */
 	public function getPageListFromCategoryName( string $name, array $extraParams = [] ): Pages {
 		$params = array_merge( $extraParams, [
@@ -37,9 +32,6 @@ class PageListGetter extends Service {
 	 * List pages that transclude a certain page.
 	 *
 	 * @link https://www.mediawiki.org/wiki/API:Embeddedin
-	 * @since 0.5
-	 *
-	 *
 	 */
 	public function getPageListFromPageTransclusions( string $pageName, array $extraParams = [] ): Pages {
 		$params = array_merge( $extraParams, [
@@ -53,7 +45,6 @@ class PageListGetter extends Service {
 	 * Get all pages that link to the given page.
 	 *
 	 * @link https://www.mediawiki.org/wiki/API:Linkshere
-	 * @since 0.5
 	 *
 	 * @param string $pageName The page name
 	 * @param string[] $extraParams Any extra parameters to use

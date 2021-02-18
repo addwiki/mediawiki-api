@@ -7,14 +7,9 @@ use Addwiki\Mediawiki\DataModel\Page;
 
 /**
  * @access private
- *
- * @author Addshore
  */
 class PageWatcher extends Service {
 
-	/**
-	 * @param Page $page
-	 */
 	public function watch( Page $page ): bool {
 		$params = [
 			'token' => $this->api->getToken( 'watch' ),

@@ -7,8 +7,6 @@ use Addwiki\Mediawiki\DataModel\NamespaceInfo;
 
 /**
  * @access private
- *
- * @author gbirke
  */
 class NamespaceGetter extends Service {
 

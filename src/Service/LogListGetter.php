@@ -12,8 +12,6 @@ use Addwiki\Mediawiki\DataModel\Title;
 
 /**
  * @access private
- *
- * @author Thomas Arrow
  */
 class LogListGetter extends Service {
 
