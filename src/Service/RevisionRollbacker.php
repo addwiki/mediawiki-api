@@ -18,10 +18,8 @@ class RevisionRollbacker extends Service {
 	 *
 	 * @param Revision $revision
 	 * @param Title|null $title if using MW 1.24 of lower (https://gerrit.wikimedia.org/r/#/c/133063/)
-	 *
-	 * @return bool
 	 */
-	public function rollback( Revision $revision, Title $title = null ) {
+	public function rollback( Revision $revision, Title $title = null ): bool {
 		$this->api->postRequest(
 			new SimpleRequest( 'rollback', $this->getRollbackParams( $revision, $title ) )
 		);
@@ -30,12 +28,10 @@ class RevisionRollbacker extends Service {
 	}
 
 	/**
-	 * @param Revision $revision
-	 * @param Title|null $title
 	 *
-	 * @return array
+	 * @return array <string mixed>|array<string, string|null>
 	 */
-	private function getRollbackParams( Revision $revision, $title ) {
+	private function getRollbackParams( Revision $revision, ?Title $title ): array {
 		$params = [];
 		if ( $title !== null ) {
 			// This is needed prior to https://gerrit.wikimedia.org/r/#/c/133063/
@@ -52,10 +48,8 @@ class RevisionRollbacker extends Service {
 
 	/**
 	 * @param Revision $revision
-	 *
-	 * @return string
 	 */
-	private function getTokenForRevision( Revision $revision ) {
+	private function getTokenForRevision( Revision $revision ): string {
 		$result = $this->api->postRequest(
 			new SimpleRequest(
 				'query', [

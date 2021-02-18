@@ -20,9 +20,8 @@ class UserBlocker extends Service {
 	 * @param array $extraParams
 	 *
 	 * @throws InvalidArgumentException
-	 * @return bool
 	 */
-	public function block( $user, array $extraParams = [] ) {
+	public function block( $user, array $extraParams = [] ): bool {
 		if ( !$user instanceof User && !is_string( $user ) ) {
 			throw new InvalidArgumentException( '$user must be either a string or User object' );
 		}

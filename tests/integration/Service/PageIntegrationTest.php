@@ -14,10 +14,7 @@ use PHPUnit\Framework\TestCase;
  */
 class PageIntegrationTest extends TestCase {
 
-	/**
-	 * @var PageIdentifier
-	 */
-	private static $localPageIdentifier;
+	private static ?PageIdentifier $localPageIdentifier = null;
 
 	public static function setUpBeforeClass(): void {
 		parent::setUpBeforeClass();
@@ -25,7 +22,7 @@ class PageIntegrationTest extends TestCase {
 		self::$localPageIdentifier = new PageIdentifier( $title );
 	}
 
-	public function testCreatePage() {
+	public function testCreatePage(): void {
 		$factory = TestEnvironment::newInstance()->getFactory();
 		$this->assertTrue(
 			$factory->newRevisionSaver()->save(
@@ -42,7 +39,7 @@ class PageIntegrationTest extends TestCase {
 	 * This is testGetPageUsingTitle as currently we only know the title
 	 * @depends testCreatePage
 	 */
-	public function testGetPageUsingTitle() {
+	public function testGetPageUsingTitle(): void {
 		$factory = TestEnvironment::newInstance()->getFactory();
 		$page = $factory->newPageGetter()->getFromPageIdentifier( self::$localPageIdentifier );
 		$this->assertTrue( is_int( $page->getPageIdentifier()->getId() ) );
@@ -56,7 +53,7 @@ class PageIntegrationTest extends TestCase {
 	/**
 	 * @depends testGetPageUsingTitle
 	 */
-	public function testGetPageUsingId() {
+	public function testGetPageUsingId(): void {
 		$factory = TestEnvironment::newInstance()->getFactory();
 		$page = $factory->newPageGetter()->getFromPageId( self::$localPageIdentifier->getId() );
 		$this->assertEquals( self::$localPageIdentifier->getId(), $page->getPageIdentifier()->getId() );

@@ -20,7 +20,7 @@ class LogListGetter extends Service {
 	/**
 	 * @param array $extraParams
 	 *
-	 * @return LogList
+	 * @return LogList|void
 	 */
 	public function getLogList( array $extraParams = [] ) {
 		$logList = new LogList();
@@ -60,11 +60,10 @@ class LogListGetter extends Service {
 	}
 
 	/**
-	 * @param array $event
 	 *
-	 * @return array
+	 * @return mixed[]
 	 */
-	private function getLogDetailsFromEvent( $event ) {
+	private function getLogDetailsFromEvent( array $event ): array {
 		$ignoreKeys = array_flip( [
 			'logid',
 			'ns',

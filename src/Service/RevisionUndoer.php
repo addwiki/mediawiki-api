@@ -14,10 +14,8 @@ class RevisionUndoer extends Service {
 
 	/**
 	 * @param Revision $revision
-	 *
-	 * @return bool
 	 */
-	public function undo( Revision $revision ) {
+	public function undo( Revision $revision ): bool {
 		$this->api->postRequest( new SimpleRequest(
 			'edit',
 			$this->getParamsFromRevision( $revision )
@@ -28,9 +26,9 @@ class RevisionUndoer extends Service {
 	/**
 	 * @param Revision $revision
 	 *
-	 * @return array
+	 * @return array <string int|string|null>
 	 */
-	private function getParamsFromRevision( Revision $revision ) {
+	private function getParamsFromRevision( Revision $revision ): array {
 		$params = [
 			'undo' => $revision->getId(),
 			'token' => $this->api->getToken(),

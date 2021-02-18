@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
  */
 class FluentGeneratorTest extends TestCase {
 
-	public function testConstructionWithNoGPrefix() {
+	public function testConstructionWithNoGPrefix(): void {
 		$generator = new FluentGenerator( 'name' );
 		$generator->set( 'foo', 'bar' );
 
@@ -25,7 +25,7 @@ class FluentGeneratorTest extends TestCase {
 		);
 	}
 
-	public function testConstructionWithGPrefix() {
+	public function testConstructionWithGPrefix(): void {
 		$generator = new FluentGenerator( 'name' );
 		$generator->set( 'gfoo', 'bar' );
 
@@ -38,7 +38,7 @@ class FluentGeneratorTest extends TestCase {
 		);
 	}
 
-	public function testFluidity() {
+	public function testFluidity(): void {
 		$generator = FluentGenerator::factory( 'name' )
 			->set( 'foo', 'bar' )
 			->set( 'gcat', 'meow' );

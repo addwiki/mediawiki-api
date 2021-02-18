@@ -14,13 +14,10 @@ use InvalidArgumentException;
 class UserCreator extends Service {
 
 	/**
-	 * @param string $username
-	 * @param string $password
-	 * @param string|null $email
 	 *
-	 * @return bool
+	 * @return bool|void
 	 */
-	public function create( $username, $password, $email = null ) {
+	public function create( string $username, string $password, ?string $email = null ) {
 		if ( !is_string( $username ) ) {
 			throw new InvalidArgumentException( '$username should be a string' );
 		}
@@ -59,11 +56,9 @@ class UserCreator extends Service {
 	 * Create a user in the pre 1.27 manner.
 	 * @link https://www.mediawiki.org/wiki/API:Account_creation/pre-1.27
 	 *
-	 * @param array $params
 	 *
-	 * @return bool
 	 */
-	protected function createPreOneTwentySeven( $params ) {
+	protected function createPreOneTwentySeven( array $params ): bool {
 		$newParams = [
 			'name' => $params['username'],
 			'password' => $params['password'],

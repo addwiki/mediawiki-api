@@ -15,19 +15,16 @@ class UserRightsChanger extends Service {
 	/**
 	 * @since 0.3
 	 *
-	 * @param User $user
 	 * @param string[] $add
 	 * @param string[] $remove
-	 * @param array $extraParams
 	 *
-	 * @return bool
 	 */
 	public function change(
 		User $user,
-		$add = [],
-		$remove = [],
+		array $add = [],
+		array $remove = [],
 		array $extraParams = []
-	) {
+	): bool {
 		$result = $this->api->postRequest(
 			new SimpleRequest(
 				'query', [

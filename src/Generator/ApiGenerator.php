@@ -22,6 +22,6 @@ interface ApiGenerator {
 	 *
 	 * @return string[]
 	 */
-	public function getParams();
+	public function getParams(): array;
 
 }

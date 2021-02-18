@@ -23,12 +23,9 @@ class PageListGetter extends Service {
 	 * @link https://www.mediawiki.org/wiki/API:Categorymembers
 	 * @since 0.3
 	 *
-	 * @param string $name
-	 * @param array $extraParams
 	 *
-	 * @return Pages
 	 */
-	public function getPageListFromCategoryName( $name, array $extraParams = [] ) {
+	public function getPageListFromCategoryName( string $name, array $extraParams = [] ): Pages {
 		$params = array_merge( $extraParams, [
 			'list' => 'categorymembers',
 			'cmtitle' => $name,
@@ -42,12 +39,9 @@ class PageListGetter extends Service {
 	 * @link https://www.mediawiki.org/wiki/API:Embeddedin
 	 * @since 0.5
 	 *
-	 * @param string $pageName
-	 * @param array $extraParams
 	 *
-	 * @return Pages
 	 */
-	public function getPageListFromPageTransclusions( $pageName, array $extraParams = [] ) {
+	public function getPageListFromPageTransclusions( string $pageName, array $extraParams = [] ): Pages {
 		$params = array_merge( $extraParams, [
 			'list' => 'embeddedin',
 			'eititle' => $pageName,
@@ -64,10 +58,8 @@ class PageListGetter extends Service {
 	 * @param string $pageName The page name
 	 * @param string[] $extraParams Any extra parameters to use
 	 *                 glhprop, glhnamespace, glhshow, glhlimit
-	 *
-	 * @return Pages
 	 */
-	public function getFromWhatLinksHere( $pageName, $extraParams = [] ) {
+	public function getFromWhatLinksHere( string $pageName, array $extraParams = [] ): Pages {
 		$params = array_merge( $extraParams, [
 			'prop' => 'info',
 			'generator' => 'linkshere',
@@ -84,10 +76,8 @@ class PageListGetter extends Service {
 	 * @param string $pageName The page name
 	 * @param string[] $extraParams Any extra parameters to use
 	 *                 gpltitles, gplnamespace, gpldir, gpllimit
-	 *
-	 * @return Pages
 	 */
-	public function getLinksFromHere( $pageName, $extraParams = [] ) {
+	public function getLinksFromHere( string $pageName, array $extraParams = [] ): Pages {
 		$params = array_merge( $extraParams, [
 			'prop' => 'info',
 			'generator' => 'links',
@@ -102,10 +92,8 @@ class PageListGetter extends Service {
 	 * @link https://www.mediawiki.org/wiki/API:Allpages
 	 *
 	 * @param string $prefix The page title prefix.
-	 *
-	 * @return Pages
 	 */
-	public function getFromPrefix( $prefix ) {
+	public function getFromPrefix( string $prefix ): Pages {
 		$params = [
 			'list' => 'allpages',
 			'apprefix' => $prefix,
@@ -119,10 +107,8 @@ class PageListGetter extends Service {
 	 * @link https://www.mediawiki.org/wiki/API:Random
 	 *
 	 * @param array $extraParams
-	 *
-	 * @return Pages
 	 */
-	public function getRandom( array $extraParams = [] ) {
+	public function getRandom( array $extraParams = [] ): Pages {
 		$params = array_merge( $extraParams, [ 'list' => 'random' ] );
 		return $this->runQuery( $params, null, 'random', 'id', false );
 	}
@@ -131,13 +117,12 @@ class PageListGetter extends Service {
 	 * Run a query to completion.
 	 *
 	 * @param string[] $params Query parameters
-	 * @param string $contName Result subelement name for continue details
+	 * @param string|null $contName Result subelement name for continue details
 	 * @param string $resName Result element name for main results array
 	 * @param string $pageIdName Result element name for page ID
 	 * @param bool $cont Whether to continue the query, using multiple requests
-	 * @return Pages
 	 */
-	protected function runQuery( $params, $contName, $resName, $pageIdName = 'pageid', $cont = true ) {
+	protected function runQuery( array $params, ?string $contName, string $resName, string $pageIdName = 'pageid', bool $cont = true ): Pages {
 		$pages = new Pages();
 		$negativeId = -1;
 

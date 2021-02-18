@@ -25,6 +25,7 @@ use Addwiki\Mediawiki\Api\Service\UserBlocker;
 use Addwiki\Mediawiki\Api\Service\UserCreator;
 use Addwiki\Mediawiki\Api\Service\UserGetter;
 use Addwiki\Mediawiki\Api\Service\UserRightsChanger;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -34,13 +35,16 @@ use PHPUnit\Framework\TestCase;
  */
 class MediawikiFactoryTest extends TestCase {
 
+	/**
+	 * @return MediawikiApi&MockObject
+	 */
 	public function getMockMediawikiApi() {
 		return $this->getMockBuilder( MediawikiApi::class )
 			->disableOriginalConstructor()
 			->getMock();
 	}
 
-	public function provideFactoryMethodsTest() {
+	public function provideFactoryMethodsTest(): array {
 		return [
 			[ RevisionSaver::class, 'newRevisionSaver' ],
 			[ RevisionUndoer::class, 'newRevisionUndoer' ],
@@ -69,7 +73,7 @@ class MediawikiFactoryTest extends TestCase {
 	/**
 	 * @dataProvider provideFactoryMethodsTest
 	 */
-	public function testFactoryMethod( $class, $method ) {
+	public function testFactoryMethod( string $class, string $method ): void {
 		$factory = new MediawikiFactory( $this->getMockMediawikiApi() );
 		$this->assertInstanceOf( $class, $factory->$method() );
 	}

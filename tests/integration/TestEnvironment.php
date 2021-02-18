@@ -17,23 +17,16 @@ class TestEnvironment {
 	 * @var string
 	 */
 	public $apiUrl;
-	/**
-	 * @var string
-	 */
-	public $pageUrl;
-	/** @var MediawikiFactory */
-	private $factory;
+	public string $pageUrl;
+	private MediawikiFactory $factory;
 
-	/** @var \Addwiki\Mediawiki\Api\Client\MediawikiApi */
-	protected $api;
+	protected MediawikiApi $api;
 
 	/**
 	 * Get a new TestEnvironment.
 	 * This is identical to calling self::__construct() but is useful for fluent construction.
-	 *
-	 * @return TestEnvironment
 	 */
-	public static function newInstance() {
+	public static function newInstance(): TestEnvironment {
 		return new self();
 	}
 
@@ -66,9 +59,8 @@ class TestEnvironment {
 
 	/**
 	 * Get the MediawikiApi to test against
-	 * @return MediawikiApi
 	 */
-	public function getApi() {
+	public function getApi(): MediawikiApi {
 		return $this->api;
 	}
 
@@ -77,7 +69,7 @@ class TestEnvironment {
 	 *
 	 * @return MediawikiFactory The factory instance.
 	 */
-	public function getFactory() {
+	public function getFactory(): MediawikiFactory {
 		return $this->factory;
 	}
 
@@ -85,9 +77,8 @@ class TestEnvironment {
 	 * Run all jobs in the queue. This only works if the MediaWiki installation has $wgJobRunRate
 	 * set to greater than zero (for test-running, you should set it to something higher than 50).
 	 * @todo This and TestEnvironment::getJobQueueLength() should probably not live here.
-	 * @return void
 	 */
-	public function runJobs() {
+	public function runJobs(): void {
 		$reqestProps = [ 'meta' => 'siteinfo', 'siprop' => 'general' ];
 		$siteInfoRequest = new SimpleRequest( 'query', $reqestProps );
 		$out = $this->getApi()->getRequest( $siteInfoRequest );
@@ -106,11 +97,10 @@ class TestEnvironment {
 
 	/**
 	 * Get the number of jobs currently in the queue.
-	 * @param \Addwiki\Mediawiki\Api\Client\MediawikiApi $api
-	 * @return int
+	 * @param MediawikiApi $api
 	 * @todo This and TestEnvironment::runJobs() should probably not live here.
 	 */
-	public function getJobQueueLength( MediawikiApi $api ) {
+	public function getJobQueueLength( MediawikiApi $api ): int {
 		$req = new SimpleRequest( 'query', [
 				'meta' => 'siteinfo',
 				'siprop' => 'statistics',

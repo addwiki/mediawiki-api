@@ -16,14 +16,11 @@ class PageProtector extends Service {
 	/**
 	 * @since 0.3
 	 *
-	 * @param Page $page
 	 * @param string[] $protections where the 'key' is the action and the 'value' is the group
-	 * @param array $extraParams
 	 *
-	 * @return bool
 	 * @throws InvalidArgumentException
 	 */
-	public function protect( Page $page, $protections, array $extraParams = [] ) {
+	public function protect( Page $page, array $protections, array $extraParams = [] ): bool {
 		if ( !is_array( $protections ) || empty( $protections ) ) {
 			throw new InvalidArgumentException(
 				'$protections must be an array with keys and values'

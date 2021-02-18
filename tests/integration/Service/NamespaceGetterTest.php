@@ -10,25 +10,25 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class NamespaceGetterTest extends TestCase {
-	public function testGetNamespaceByCanonicalNameReturnsNullIfNamespaceWasNotFound() {
+	public function testGetNamespaceByCanonicalNameReturnsNullIfNamespaceWasNotFound(): void {
 		$nsGetter = new NamespaceGetter( $this->getApi() );
 		$this->assertNull( $nsGetter->getNamespaceByCanonicalName( 'Dummy' ) );
 	}
 
-	public function testGetNamespaceByCanonicalNameReturnsNamespaceIfNamespaceWasFound() {
+	public function testGetNamespaceByCanonicalNameReturnsNamespaceIfNamespaceWasFound(): void {
 		$nsGetter = new NamespaceGetter( $this->getApi() );
 		$expectedNamespace = new NamespaceInfo( 1, 'Talk', 'Diskussion', 'first-letter' );
 		$this->assertEquals( $expectedNamespace, $nsGetter->getNamespaceByCanonicalName( 'Talk' ) );
 	}
 
-	public function testGetNamespaceByNameTriesAllNames() {
+	public function testGetNamespaceByNameTriesAllNames(): void {
 		$nsGetter = new NamespaceGetter( $this->getApi() );
 		$expectedNamespace = new NamespaceInfo( 1, 'Talk', 'Diskussion', 'first-letter' );
 		$this->assertEquals( $expectedNamespace, $nsGetter->getNamespaceByName( 'Talk' ) );
 		$this->assertEquals( $expectedNamespace, $nsGetter->getNamespaceByName( 'Diskussion' ) );
 	}
 
-	public function testGetNamespaceByNameTriesAliases() {
+	public function testGetNamespaceByNameTriesAliases(): void {
 		$nsGetter = new NamespaceGetter( $this->getApi() );
 		$expectedNamespace = new NamespaceInfo(
 			3,
@@ -44,7 +44,7 @@ class NamespaceGetterTest extends TestCase {
 		$this->assertEquals( $expectedNamespace, $nsGetter->getNamespaceByName( 'BD' ) );
 	}
 
-	public function testGetNamespacesReturnsAllNamespaces() {
+	public function testGetNamespacesReturnsAllNamespaces(): void {
 		$nsGetter = new NamespaceGetter( $this->getApi() );
 		$talkNamespace = new NamespaceInfo( 1, 'Talk', 'Diskussion', 'first-letter' );
 		$gadgetNamespace = new NamespaceInfo(
@@ -74,7 +74,7 @@ class NamespaceGetterTest extends TestCase {
 		return $api;
 	}
 
-	private function getRequest() {
+	private function getRequest(): SimpleRequest {
 		return new SimpleRequest(
 			'query', [
 			'meta' => 'siteinfo',

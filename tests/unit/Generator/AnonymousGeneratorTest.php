@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
  */
 class AnonymousGeneratorTest extends TestCase {
 
-	public function testConstruction() {
+	public function testConstruction(): void {
 		$generator = new AnonymousGenerator( 'name', [ 'gfoo' => 'bar' ] );
 
 		$this->assertEquals(

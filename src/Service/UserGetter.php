@@ -12,12 +12,7 @@ use Addwiki\Mediawiki\DataModel\User;
  */
 class UserGetter extends Service {
 
-	/**
-	 * @param string $username
-	 *
-	 * @return User
-	 */
-	public function getFromUsername( $username ) {
+	public function getFromUsername( string $username ): User {
 		$result = $this->api->getRequest(
 			new SimpleRequest(
 				'query', [
@@ -32,11 +27,10 @@ class UserGetter extends Service {
 	}
 
 	/**
-	 * @param array $array
 	 *
-	 * @return User
+	 * @return User|void
 	 */
-	private function newUserFromListUsersResult( $array ) {
+	private function newUserFromListUsersResult( array $array ) {
 		if ( array_key_exists( 'userid', $array ) ) {
 			return new User(
 				$array['name'],

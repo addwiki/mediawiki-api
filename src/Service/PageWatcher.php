@@ -14,10 +14,8 @@ class PageWatcher extends Service {
 
 	/**
 	 * @param Page $page
-	 *
-	 * @return bool
 	 */
-	public function watch( Page $page ) {
+	public function watch( Page $page ): bool {
 		$params = [
 			'token' => $this->api->getToken( 'watch' ),
 		];

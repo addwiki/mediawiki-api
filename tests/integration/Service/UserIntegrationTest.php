@@ -11,10 +11,7 @@ use PHPUnit\Framework\TestCase;
  */
 class UserIntegrationTest extends TestCase {
 
-	/**
-	 * @var ApiUser
-	 */
-	private static $localApiUser;
+	private static ?ApiUser $localApiUser = null;
 
 	public static function setUpBeforeClass(): void {
 		parent::setUpBeforeClass();
@@ -22,7 +19,7 @@ class UserIntegrationTest extends TestCase {
 		self::$localApiUser = new ApiUser( 'TestUser - ' . strval( time() ), $strTime . '-pass' );
 	}
 
-	public function testCreateUser() {
+	public function testCreateUser(): void {
 		$factory = TestEnvironment::newInstance()->getFactory();
 		$createResult = $factory->newUserCreator()->create(
 			self::$localApiUser->getUsername(),

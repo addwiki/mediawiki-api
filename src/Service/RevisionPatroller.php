@@ -19,7 +19,7 @@ class RevisionPatroller extends Service {
 	 *
 	 * @return bool success
 	 */
-	public function patrol( Revision $revision ) {
+	public function patrol( Revision $revision ): bool {
 		$this->api->postRequest( new SimpleRequest(
 			'patrol', [
 				'revid' => $revision->getId(),
@@ -30,10 +30,8 @@ class RevisionPatroller extends Service {
 
 	/**
 	 * @param Revision $revision
-	 *
-	 * @return string
 	 */
-	private function getTokenForRevision( Revision $revision ) {
+	private function getTokenForRevision( Revision $revision ): string {
 		$result = $this->api->postRequest( new SimpleRequest( 'query', [
 			'list' => 'recentchanges',
 			'rcstart' => $revision->getTimestamp(),

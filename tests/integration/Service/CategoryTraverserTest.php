@@ -15,14 +15,11 @@ use PHPUnit\Framework\TestCase;
 
 class CategoryTraverserTest extends TestCase {
 
-	/** @var TestEnvironment */
-	protected $testEnvironment;
+	protected ?TestEnvironment $testEnvironment = null;
 
-	/** @var MediawikiFactory */
-	protected $factory;
+	protected ?MediawikiFactory $factory = null;
 
-	/** @var CategoryTraverser */
-	protected $traverser;
+	protected ?CategoryTraverser $traverser = null;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -35,7 +32,7 @@ class CategoryTraverserTest extends TestCase {
 	 * A convenience wrapper around a PageDeleter.
 	 * @param string[] $titles The titles to delete.
 	 */
-	public function deletePages( $titles ) {
+	public function deletePages( array $titles ): void {
 		$deleter = $this->factory->newPageDeleter();
 		foreach ( $titles as $t ) {
 			// @todo Properly delete?
@@ -50,7 +47,7 @@ class CategoryTraverserTest extends TestCase {
 	 * @param string $content The wikitext to save to the page.
 	 * @return Page The saved Page.
 	 */
-	protected function savePage( $title, $content ) {
+	protected function savePage( string $title, string $content ): Page {
 		$pageIdentifier = new PageIdentifier( new Title( $title ) );
 		$revision = new Revision( new Content( $content ), $pageIdentifier );
 		$this->factory->newRevisionSaver()->save( $revision );
@@ -60,7 +57,7 @@ class CategoryTraverserTest extends TestCase {
 	/**
 	 * Get a list of all pages in a category or any of its descendants.
 	 */
-	public function testDescendants() {
+	public function testDescendants(): void {
 		$rootCat = $this->savePage( 'Category:Root category', '' );
 		$this->savePage( 'Category:Sub category B', '[[Category:Root category]]' );
 		$this->savePage( 'Category:Sub category C', '[[Category:Root category]]' );
@@ -70,7 +67,7 @@ class CategoryTraverserTest extends TestCase {
 		$this->savePage( 'Test page C1', 'Testing. [[Category:Sub category C]]' );
 		$this->testEnvironment->runJobs();
 
-		$callback = function ( Page $pageInfo, Page $parentCat ) {
+		$callback = function ( Page $pageInfo, Page $parentCat ): void {
 			$parentCatName = $parentCat->getPageIdentifier()->getTitle()->getText();
 			$thisPageName = $pageInfo->getPageIdentifier()->getTitle()->getText();
 			if ( $parentCatName === 'Category:Root category' ) {
@@ -98,7 +95,7 @@ class CategoryTraverserTest extends TestCase {
 	 * Make sure there aren't duplicate results when there are multiple paths to
 	 * the same page.
 	 */
-	public function testDescendantsWithMultiplePaths() {
+	public function testDescendantsWithMultiplePaths(): void {
 		$grandparent = $this->savePage( 'Category:Grandparent', '' );
 		$this->savePage( 'Category:Parent 1', '[[Category:Grandparent]]' );
 		$this->savePage( 'Category:Parent 2', '[[Category:Grandparent]]' );
@@ -132,7 +129,7 @@ class CategoryTraverserTest extends TestCase {
 	 *    D
 	 *
 	 */
-	public function testDescendantsOnlyVisitCatsOnce() {
+	public function testDescendantsOnlyVisitCatsOnce(): void {
 		global $wgVisitedCats;
 		$wgVisitedCats = [];
 		$catA = $this->savePage( 'Category:A cat', '' );
@@ -140,7 +137,7 @@ class CategoryTraverserTest extends TestCase {
 		$this->savePage( 'Category:C cat', 'Testing. [[Category:A cat]][[Category:B cat]]' );
 		$this->savePage( 'Category:D cat', 'Testing. [[Category:C cat]]' );
 		$this->testEnvironment->runJobs();
-		$callback = function ( Page $pageInfo, Page $parentCat ) {
+		$callback = function ( Page $pageInfo, Page $parentCat ): void {
 			global $wgVisitedCats;
 			$wgVisitedCats[] = $parentCat->getPageIdentifier()->getTitle()->getText();
 		};
@@ -168,7 +165,7 @@ class CategoryTraverserTest extends TestCase {
 	 *    E    <-- throw an Exception when we get to this repetition
 	 *
 	 */
-	public function testDescendIntoLoop() {
+	public function testDescendIntoLoop(): void {
 		$catA = $this->savePage( 'Category:E cat', '[[Category:H cat]]' );
 		$catB = $this->savePage( 'Category:F cat', '[[Category:E cat]]' );
 		$catC = $this->savePage( 'Category:G cat', '[[Category:E cat]]' );

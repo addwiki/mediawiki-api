@@ -11,31 +11,26 @@ namespace Addwiki\Mediawiki\Api\Generator;
  */
 class FluentGenerator implements ApiGenerator {
 
-	private $name;
-	private $params;
+	private string $name;
+	private array $params = [];
 
-	/**
-	 * @param string $name
-	 */
-	public function __construct( $name ) {
+	public function __construct( string $name ) {
 		$this->name = $name;
 	}
 
 	/**
 	 * Convenience method for using this fluidly
 	 *
-	 * @param string $name
 	 *
-	 * @return FluentGenerator
 	 */
-	public static function factory( $name ) {
+	public static function factory( string $name ): FluentGenerator {
 		return new self( $name );
 	}
 
 	/**
 	 * @return string[]
 	 */
-	public function getParams() {
+	public function getParams(): array {
 		$params = $this->params;
 		$params['generator'] = $this->name;
 		return $params;
@@ -43,22 +38,16 @@ class FluentGenerator implements ApiGenerator {
 
 	/**
 	 * @param string $key optionally with the 'g' prefix
-	 * @param string $value
 	 *
 	 * @return $this
 	 */
-	public function set( $key, $value ) {
+	public function set( string $key, string $value ): self {
 		$key = $this->addKeyPrefixIfNeeded( $key );
 		$this->params[$key] = $value;
 		return $this;
 	}
 
-	/**
-	 * @param string $key
-	 *
-	 * @return string
-	 */
-	private function addKeyPrefixIfNeeded( $key ) {
+	private function addKeyPrefixIfNeeded( string $key ): string {
 		if ( strtolower( substr( $key, 0, 1 ) ) === 'g' ) {
 			return $key;
 		}

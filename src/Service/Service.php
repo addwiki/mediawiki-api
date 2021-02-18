@@ -10,11 +10,10 @@ use Addwiki\Mediawiki\Api\Client\MediawikiApi;
  */
 abstract class Service {
 
-	/** @var MediawikiApi */
-	protected $api;
+	protected MediawikiApi $api;
 
 	/**
-	 * @param \Addwiki\Mediawiki\Api\Client\MediawikiApi $api The API to in for this service.
+	 * @param MediawikiApi $api The API to in for this service.
 	 */
 	public function __construct( MediawikiApi $api ) {
 		$this->api = $api;

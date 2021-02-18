@@ -13,8 +13,7 @@ use Exception;
  */
 class FileUploader extends Service {
 
-	/** @var int */
-	protected $chunkSize;
+	protected ?int $chunkSize = null;
 
 	/**
 	 * Set the chunk size used for chunked uploading.
@@ -26,7 +25,7 @@ class FileUploader extends Service {
 	 *
 	 * @param int $chunkSize In bytes.
 	 */
-	public function setChunkSize( $chunkSize ) {
+	public function setChunkSize( int $chunkSize ): void {
 		$this->chunkSize = $chunkSize;
 	}
 
@@ -36,23 +35,21 @@ class FileUploader extends Service {
 	 * @param string $targetName The name to give the file on the wiki (no 'File:' prefix required).
 	 * @param string $location Can be local path or remote URL.
 	 * @param string $text Initial page text for new files.
-	 * @param string $comment Upload comment. Also used as the initial page text for new files if
+	 * @param string|null $comment Upload comment. Also used as the initial page text for new files if
 	 * text parameter not provided.
-	 * @param string $watchlist Unconditionally add or remove the page from your watchlist, use
+	 * @param string|null $watchlist Unconditionally add or remove the page from your watchlist, use
 	 * preferences or do not change watch. Possible values: 'watch', 'preferences', 'nochange'.
 	 * @param bool $ignoreWarnings Ignore any warnings. This must be set to upload a new version of
 	 * an existing image.
-	 *
-	 * @return bool
 	 */
 	public function upload(
-		$targetName,
-		$location,
-		$text = '',
-		$comment = '',
-		$watchlist = 'preferences',
-		$ignoreWarnings = false
-	) {
+		string $targetName,
+		string $location,
+		string $text = '',
+		?string $comment = '',
+		?string $watchlist = 'preferences',
+		bool $ignoreWarnings = false
+	): bool {
 		$params = [
 			'filename' => $targetName,
 			'token' => $this->api->getToken(),
@@ -70,7 +67,7 @@ class FileUploader extends Service {
 			$params['text'] = $text;
 		}
 		// Revision comment.
-		if ( !empty( $comment ) ) {
+		if ( $comment !== null && !empty( $comment ) ) {
 			$params['comment'] = $comment;
 		}
 
@@ -78,7 +75,7 @@ class FileUploader extends Service {
 			// Normal single-request upload.
 			$params['filesize'] = filesize( $location );
 			$params['file'] = fopen( $location, 'r' );
-			if ( is_int( $this->chunkSize ) && $this->chunkSize > 0 ) {
+			if ( $this->chunkSize !== null && $this->chunkSize > 0 ) {
 				// Chunked upload.
 				$params = $this->uploadByChunks( $params );
 			}
@@ -97,7 +94,7 @@ class FileUploader extends Service {
 	 * @return mixed[]
 	 * @throws Exception
 	 */
-	protected function uploadByChunks( $params ) {
+	protected function uploadByChunks( array $params ) {
 		// Get the file handle for looping, but don't keep it in the request parameters.
 		$fileHandle = $params['file'];
 		unset( $params['file'] );

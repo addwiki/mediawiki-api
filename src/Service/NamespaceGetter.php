@@ -15,10 +15,9 @@ class NamespaceGetter extends Service {
 	/**
 	 * Find a namespace by its canonical name
 	 *
-	 * @param string $canonicalName
-	 * @return NamespaceInfo|null
+	 * @return mixed|null
 	 */
-	public function getNamespaceByCanonicalName( $canonicalName ) {
+	public function getNamespaceByCanonicalName( string $canonicalName ) {
 		$result = $this->getNamespaceResult()['query'];
 		foreach ( $result['namespaces'] as $nsInfo ) {
 			if ( !empty( $nsInfo['canonical'] ) && $nsInfo['canonical'] === $canonicalName ) {
@@ -31,10 +30,9 @@ class NamespaceGetter extends Service {
 	/**
 	 * Find a namespace by its canonical name, local name or namespace alias
 	 *
-	 * @param string $name
-	 * @return NamespaceInfo|null
+	 * @return mixed|null
 	 */
-	public function getNamespaceByName( $name ) {
+	public function getNamespaceByName( string $name ) {
 		$result = $this->getNamespaceResult()['query'];
 		foreach ( $result['namespaces'] as $nsInfo ) {
 			if ( ( !empty( $nsInfo['canonical'] ) && $nsInfo['canonical'] === $name ) ||
@@ -56,7 +54,7 @@ class NamespaceGetter extends Service {
 	/**
 	 * @return NamespaceInfo[]
 	 */
-	public function getNamespaces() {
+	public function getNamespaces(): array {
 		$namespaces = [];
 		$result = $this->getNamespaceResult()['query'];
 		foreach ( $result['namespaces'] as $nsInfo ) {
@@ -67,7 +65,7 @@ class NamespaceGetter extends Service {
 		return $namespaces;
 	}
 
-	private function createNamespaceFromQuery( $nsInfo, $namespaceAliases ) {
+	private function createNamespaceFromQuery( $nsInfo, $namespaceAliases ): NamespaceInfo {
 		return new NamespaceInfo(
 			$nsInfo['id'],
 			empty( $nsInfo['canonical'] ) ? '' : $nsInfo['canonical'],
@@ -79,11 +77,10 @@ class NamespaceGetter extends Service {
 	}
 
 	/**
-	 * @param int $id
 	 * @param array $namespaceAliases Alias list, as returned by the API
 	 * @return string[]
 	 */
-	private function getAliases( $id, $namespaceAliases ) {
+	private function getAliases( int $id, array $namespaceAliases ): array {
 		$aliases = [];
 		foreach ( $namespaceAliases as $alias ) {
 			if ( $alias['id'] === $id ) {
@@ -94,9 +91,9 @@ class NamespaceGetter extends Service {
 	}
 
 	/**
-	 * @return array
+	 * @return mixed[]
 	 */
-	private function getNamespaceResult() {
+	private function getNamespaceResult(): array {
 		return $this->api->getRequest( new SimpleRequest(
 			'query', [
 				'meta' => 'siteinfo',

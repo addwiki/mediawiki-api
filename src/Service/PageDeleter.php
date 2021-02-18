@@ -20,10 +20,8 @@ class PageDeleter extends Service {
 	 *
 	 * @param Page $page
 	 * @param array $extraParams
-	 *
-	 * @return bool
 	 */
-	public function delete( Page $page, array $extraParams = [] ) {
+	public function delete( Page $page, array $extraParams = [] ): bool {
 		$this->api->postRequest( new SimpleRequest(
 			'delete',
 			$this->getDeleteParams( $page->getPageIdentifier(), $extraParams )
@@ -36,10 +34,8 @@ class PageDeleter extends Service {
 	 *
 	 * @param Revision $revision
 	 * @param array $extraParams
-	 *
-	 * @return bool
 	 */
-	public function deleteFromRevision( Revision $revision, array $extraParams = [] ) {
+	public function deleteFromRevision( Revision $revision, array $extraParams = [] ): bool {
 		$this->api->postRequest( new SimpleRequest(
 			'delete',
 			$this->getDeleteParams( $revision->getPageIdentifier(), $extraParams )
@@ -50,12 +46,9 @@ class PageDeleter extends Service {
 	/**
 	 * @since 0.2
 	 *
-	 * @param int $pageid
-	 * @param array $extraParams
 	 *
-	 * @return bool
 	 */
-	public function deleteFromPageId( $pageid, array $extraParams = [] ) {
+	public function deleteFromPageId( int $pageid, array $extraParams = [] ): bool {
 		$this->api->postRequest( new SimpleRequest(
 			'delete',
 			$this->getDeleteParams( new PageIdentifier( null, $pageid ), $extraParams )
@@ -68,10 +61,8 @@ class PageDeleter extends Service {
 	 *
 	 * @param Title|string $title
 	 * @param array $extraParams
-	 *
-	 * @return bool
 	 */
-	public function deleteFromPageTitle( $title, array $extraParams = [] ) {
+	public function deleteFromPageTitle( $title, array $extraParams = [] ): bool {
 		if ( is_string( $title ) ) {
 			$title = new Title( $title );
 		}
@@ -83,12 +74,10 @@ class PageDeleter extends Service {
 	}
 
 	/**
-	 * @param PageIdentifier $identifier
-	 * @param array $extraParams
 	 *
-	 * @return array
+	 * @return mixed[]
 	 */
-	private function getDeleteParams( PageIdentifier $identifier, $extraParams ) {
+	private function getDeleteParams( PageIdentifier $identifier, array $extraParams ): array {
 		$params = [];
 
 		if ( $identifier->getId() !== null ) {

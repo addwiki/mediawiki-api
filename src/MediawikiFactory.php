@@ -35,10 +35,7 @@ use Addwiki\Mediawiki\Api\Service\UserRightsChanger;
  */
 class MediawikiFactory {
 
-	/**
-	 * @var MediawikiApi
-	 */
-	private $api;
+	private MediawikiApi $api;
 
 	/**
 	 * @param MediawikiApi $api
@@ -49,193 +46,169 @@ class MediawikiFactory {
 
 	/**
 	 * Get a new CategoryTraverser object for this API.
-	 * @return CategoryTraverser
 	 */
-	public function newCategoryTraverser() {
+	public function newCategoryTraverser(): CategoryTraverser {
 		return new CategoryTraverser( $this->api );
 	}
 
 	/**
 	 * @since 0.3
-	 * @return RevisionSaver
 	 */
-	public function newRevisionSaver() {
+	public function newRevisionSaver(): RevisionSaver {
 		return new RevisionSaver( $this->api );
 	}
 
 	/**
 	 * @since 0.5
-	 * @return RevisionUndoer
 	 */
-	public function newRevisionUndoer() {
+	public function newRevisionUndoer(): RevisionUndoer {
 		return new RevisionUndoer( $this->api );
 	}
 
 	/**
 	 * @since 0.3
-	 * @return PageGetter
 	 */
-	public function newPageGetter() {
+	public function newPageGetter(): PageGetter {
 		return new PageGetter( $this->api );
 	}
 
 	/**
 	 * @since 0.3
-	 * @return UserGetter
 	 */
-	public function newUserGetter() {
+	public function newUserGetter(): UserGetter {
 		return new UserGetter( $this->api );
 	}
 
 	/**
 	 * @since 0.3
-	 * @return PageDeleter
 	 */
-	public function newPageDeleter() {
+	public function newPageDeleter(): PageDeleter {
 		return new PageDeleter( $this->api );
 	}
 
 	/**
 	 * @since 0.3
-	 * @return PageMover
 	 */
-	public function newPageMover() {
+	public function newPageMover(): PageMover {
 		return new PageMover( $this->api );
 	}
 
 	/**
 	 * @since 0.3
-	 * @return PageListGetter
 	 */
-	public function newPageListGetter() {
+	public function newPageListGetter(): PageListGetter {
 		return new PageListGetter( $this->api );
 	}
 
 	/**
 	 * @since 0.3
-	 * @return PageRestorer
 	 */
-	public function newPageRestorer() {
+	public function newPageRestorer(): PageRestorer {
 		return new PageRestorer( $this->api );
 	}
 
 	/**
 	 * @since 0.3
-	 * @return PagePurger
 	 */
-	public function newPagePurger() {
+	public function newPagePurger(): PagePurger {
 		return new PagePurger( $this->api );
 	}
 
 	/**
 	 * @since 0.3
-	 * @return RevisionRollbacker
 	 */
-	public function newRevisionRollbacker() {
+	public function newRevisionRollbacker(): RevisionRollbacker {
 		return new RevisionRollbacker( $this->api );
 	}
 
 	/**
 	 * @since 0.3
-	 * @return RevisionPatroller
 	 */
-	public function newRevisionPatroller() {
+	public function newRevisionPatroller(): RevisionPatroller {
 		return new RevisionPatroller( $this->api );
 	}
 
 	/**
 	 * @since 0.3
-	 * @return PageProtector
 	 */
-	public function newPageProtector() {
+	public function newPageProtector(): PageProtector {
 		return new PageProtector( $this->api );
 	}
 
 	/**
 	 * @since 0.5
-	 * @return PageWatcher
 	 */
-	public function newPageWatcher() {
+	public function newPageWatcher(): PageWatcher {
 		return new PageWatcher( $this->api );
 	}
 
 	/**
 	 * @since 0.3
-	 * @return RevisionDeleter
 	 */
-	public function newRevisionDeleter() {
+	public function newRevisionDeleter(): RevisionDeleter {
 		return new RevisionDeleter( $this->api );
 	}
 
 	/**
 	 * @since 0.3
-	 * @return RevisionRestorer
 	 */
-	public function newRevisionRestorer() {
+	public function newRevisionRestorer(): RevisionRestorer {
 		return new RevisionRestorer( $this->api );
 	}
 
 	/**
 	 * @since 0.3
-	 * @return UserBlocker
 	 */
-	public function newUserBlocker() {
+	public function newUserBlocker(): UserBlocker {
 		return new UserBlocker( $this->api );
 	}
 
 	/**
 	 * @since 0.3
-	 * @return UserRightsChanger
 	 */
-	public function newUserRightsChanger() {
+	public function newUserRightsChanger(): UserRightsChanger {
 		return new UserRightsChanger( $this->api );
 	}
 
 	/**
 	 * @since 0.5
-	 * @return UserCreator
 	 */
-	public function newUserCreator() {
+	public function newUserCreator(): UserCreator {
 		return new UserCreator( $this->api );
 	}
 
 	/**
 	 * @since 0.4
-	 * @return LogListGetter
 	 */
-	public function newLogListGetter() {
+	public function newLogListGetter(): LogListGetter {
 		return new LogListGetter( $this->api );
 	}
 
 	/**
 	 * @since 0.5
-	 * @return FileUploader
 	 */
-	public function newFileUploader() {
+	public function newFileUploader(): FileUploader {
 		return new FileUploader( $this->api );
 	}
 
 	/**
 	 * @since 0.5
-	 * @return ImageRotator
 	 */
-	public function newImageRotator() {
+	public function newImageRotator(): ImageRotator {
 		return new ImageRotator( $this->api );
 	}
 
 	/**
 	 * @since 0.6
-	 * @return Parser
 	 */
-	public function newParser() {
+	public function newParser(): Parser {
 		return new Parser( $this->api );
 	}
 
 	/**
 	 * @since 0.7
-	 * @return NamespaceGetter
 	 */
-	public function newNamespaceGetter() {
+	public function newNamespaceGetter(): NamespaceGetter {
 		return new NamespaceGetter( $this->api );
 	}
 }

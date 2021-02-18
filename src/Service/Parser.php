@@ -19,7 +19,7 @@ class Parser extends Service {
 	 *
 	 * @return array the parse result (raw from the api)
 	 */
-	public function parsePage( PageIdentifier $pageIdentifier ) {
+	public function parsePage( PageIdentifier $pageIdentifier ): array {
 		return $this->parsePageAsync( $pageIdentifier )->wait();
 	}
 
@@ -28,7 +28,7 @@ class Parser extends Service {
 	 *
 	 * @return PromiseInterface of array the parse result (raw from the api)
 	 */
-	public function parsePageAsync( PageIdentifier $pageIdentifier ) {
+	public function parsePageAsync( PageIdentifier $pageIdentifier ): \GuzzleHttp\Promise\PromiseInterface {
 		$params = [];
 		if ( $pageIdentifier->getId() !== null ) {
 			$params['pageid'] = $pageIdentifier->getId();
@@ -40,9 +40,7 @@ class Parser extends Service {
 
 		$promise = $this->api->getRequestAsync( new SimpleRequest( 'parse', $params ) );
 
-		return $promise->then( function ( $result ) {
-			return $result['parse'];
-		} );
+		return $promise->then( fn( $result ) => $result['parse'] );
 	}
 
 }

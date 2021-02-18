@@ -11,13 +11,12 @@ use Exception;
  */
 class CategoryLoopException extends Exception {
 
-	/** @var Pages */
-	protected $categoryPath;
+	protected ?Pages $categoryPath = null;
 
 	/**
 	 * @param Pages $path
 	 */
-	public function setCategoryPath( Pages $path ) {
+	public function setCategoryPath( Pages $path ): void {
 		$this->categoryPath = $path;
 	}
 
@@ -26,7 +25,7 @@ class CategoryLoopException extends Exception {
 	 * child page of the last item.
 	 * @return Pages The set of category Pages that comprise the category loop.
 	 */
-	public function getCategoryPath() {
+	public function getCategoryPath(): Pages {
 		return $this->categoryPath;
 	}
 

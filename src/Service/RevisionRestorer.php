@@ -16,10 +16,8 @@ class RevisionRestorer extends Service {
 	 * @since 0.5
 	 *
 	 * @param Revision $revision
-	 *
-	 * @return bool
 	 */
-	public function restore( Revision $revision ) {
+	public function restore( Revision $revision ): bool {
 		$params = [
 			'type' => 'revision',
 			'show' => 'content',

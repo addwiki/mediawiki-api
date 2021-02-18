@@ -16,10 +16,8 @@ class RevisionDeleter extends Service {
 	 * @since 0.5
 	 *
 	 * @param Revision $revision
-	 *
-	 * @return bool
 	 */
-	public function delete( Revision $revision ) {
+	public function delete( Revision $revision ): bool {
 		$params = [
 			'type' => 'revision',
 			'hide' => 'content',

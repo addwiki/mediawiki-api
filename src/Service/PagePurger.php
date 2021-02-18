@@ -29,7 +29,7 @@ class PagePurger extends Service {
 	 *
 	 * @return bool return true if the purge was successful
 	 */
-	public function purge( Page $page ) {
+	public function purge( Page $page ): bool {
 		if ( $page->getPageIdentifier()->getId() ) {
 			$params = [ 'pageids' => $page->getPageIdentifier()->getId() ];
 		} else {
@@ -60,7 +60,7 @@ class PagePurger extends Service {
 	 *
 	 * @return Pages the pages that have been purged successfully
 	 */
-	public function purgePages( Pages $pages ) {
+	public function purgePages( Pages $pages ): Pages {
 		$pagesArray = $pages->toArray();
 		$pagesIds = [];
 
@@ -108,10 +108,8 @@ class PagePurger extends Service {
 	 * @since 0.6
 	 *
 	 * @param ApiGenerator $generator
-	 *
-	 * @return bool
 	 */
-	public function purgeGenerator( ApiGenerator $generator ) {
+	public function purgeGenerator( ApiGenerator $generator ): bool {
 		$this->api->postRequest(
 			new SimpleRequest( 'purge', $generator->getParams() )
 		);

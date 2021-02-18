@@ -23,7 +23,7 @@
         ]
     },
     "require": {
-        "php": ">=7.3",
+        "php": ">=7.4",
         "addwiki/mediawiki-api-base": "^3.0",
         "addwiki/mediawiki-datamodel": "^3.0"
     },

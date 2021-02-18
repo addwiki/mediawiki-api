@@ -18,6 +18,9 @@ use PHPUnit\Framework\TestCase;
  */
 class PagePurgerTest extends TestCase {
 
+	/**
+	 * @return MediawikiApi|MockObject
+	 */
 	private function getMockApi() {
 		/** @var MediawikiApi|MockObject $mock */
 		$mock = $this->getMockBuilder( MediawikiApi::class )
@@ -26,23 +29,22 @@ class PagePurgerTest extends TestCase {
 		return $mock;
 	}
 
-	public function testValidConstruction() {
+	public function testValidConstruction(): void {
 		new PagePurger( $this->getMockApi() );
 		$this->assertTrue( true );
 	}
 
-	public function testPurgePage() {
+	public function testPurgePage(): void {
 		$api = $this->getMockApi();
 		$api->expects( $this->once() )
 			->method( 'postRequest' )
 			->with(
 				$this->isInstanceOf( SimpleRequest::class )
 			)
-			->will( $this->returnValue(
-			[
+			->willReturn( [
 				"batchcomplete" => "",
 				"purge" => [ [ "ns" => 0, "title" => "Foo", "purged" => "" ] ]
-			] ) );
+			] );
 
 		$service = new PagePurger( $api );
 
@@ -56,14 +58,14 @@ class PagePurgerTest extends TestCase {
 		$this->assertTrue( $service->purge( $page ) );
 	}
 
-	public function testIncorrectPurgePage() {
+	public function testIncorrectPurgePage(): void {
 		$api = $this->getMockApi();
 		$api->expects( $this->once() )
 			->method( 'postRequest' )
 			->with(
 				$this->isInstanceOf( SimpleRequest::class )
 			)
-			->will( $this->returnValue( [
+			->willReturn( [
 				"batchcomplete" => "",
 				"purge" =>
 					[ [
@@ -71,7 +73,7 @@ class PagePurgerTest extends TestCase {
 						"title" => "This page really does not exist",
 						"missing" => ""
 					] ]
-			] ) );
+			] );
 
 		$service = new PagePurger( $api );
 
@@ -85,15 +87,14 @@ class PagePurgerTest extends TestCase {
 		$this->assertFalse( $service->purge( $page ) );
 	}
 
-	public function testPurgePages() {
+	public function testPurgePages(): void {
 		$api = $this->getMockApi();
 		$api->expects( $this->once() )
 			->method( 'postRequest' )
 			->with(
 				$this->isInstanceOf( SimpleRequest::class )
 			)
-			->will( $this->returnValue(
-				[
+			->willReturn( [
 					"batchcomplete" => "",
 					"purge" => [
 						[
@@ -107,8 +108,7 @@ class PagePurgerTest extends TestCase {
 							"purged" => ""
 						],
 				]
-			]
-			) );
+			] );
 
 		$service = new PagePurger( $api );
 
@@ -128,15 +128,14 @@ class PagePurgerTest extends TestCase {
 			$this->assertEquals( $service->purgePages( $pages ), $pages );
 	}
 
-	public function testIncorrectPurgePages() {
+	public function testIncorrectPurgePages(): void {
 		$api = $this->getMockApi();
 		$api->expects( $this->once() )
 			->method( 'postRequest' )
 			->with(
 				$this->isInstanceOf( SimpleRequest::class )
 			)
-			->will( $this->returnValue(
-				[
+			->willReturn( [
 				"batchcomplete" => "",
 				"purge" => [
 					[
@@ -155,8 +154,7 @@ class PagePurgerTest extends TestCase {
 						"missing" => ""
 					],
 				]
-			]
-			) );
+			] );
 
 		$service = new PagePurger( $api );
 

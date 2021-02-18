@@ -14,11 +14,9 @@ use PHPUnit\Framework\TestCase;
  */
 class FileUploaderTest extends TestCase {
 
-	/** @var MediawikiFactory */
-	protected $factory;
+	protected ?MediawikiFactory $factory = null;
 
-	/** @var FileUploader */
-	protected $fileUploader;
+	protected ?FileUploader $fileUploader = null;
 
 	/**
 	 * Create a FileUploader to use in all these tests.
@@ -35,7 +33,7 @@ class FileUploaderTest extends TestCase {
 		$api->login( $localApiUser );
 	}
 
-	public function testUpload() {
+	public function testUpload(): void {
 		$testPagename = uniqid( 'file-uploader-test-' ) . '.png';
 		$testTitle = new Title( 'File:' . $testPagename );
 
@@ -46,7 +44,7 @@ class FileUploaderTest extends TestCase {
 		// Upload a file.
 		$testFilename = dirname( __DIR__, 2 ) . '/fixtures/blue ℳ𝒲♥𝓊𝓃𝒾𝒸ℴ𝒹ℯ.png';
 		$uploaded = $this->fileUploader->upload( $testPagename, $testFilename, 'Testing',
-			null, null, true );
+			'', null, true );
 		$this->assertTrue( $uploaded );
 
 		// Get the file again, and check that it exists this time.
@@ -54,7 +52,7 @@ class FileUploaderTest extends TestCase {
 		$this->assertGreaterThan( 0, $testFile2->getPageIdentifier()->getId() );
 	}
 
-	public function testUploadByChunks() {
+	public function testUploadByChunks(): void {
 		$testPagename = uniqid( 'file-uploader-test-' ) . '.png';
 		$testTitle = new Title( 'File:' . $testPagename );
 

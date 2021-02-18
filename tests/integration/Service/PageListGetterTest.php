@@ -15,14 +15,11 @@ use PHPUnit\Framework\TestCase;
  */
 class PageListGetterTest extends TestCase {
 
-	/** @var string */
-	private $emptyCatName = 'Category:Empty category';
+	private string $emptyCatName = 'Category:Empty category';
 
-	/** @var string */
-	private $nonemptyCatName = 'Category:Test category';
+	private string $nonemptyCatName = 'Category:Test category';
 
-	/** @var PageListGetter */
-	private $pageListGetter;
+	private ?PageListGetter $pageListGetter = null;
 
 	/**
 	 * Set up some test categories and pages.
@@ -56,7 +53,7 @@ class PageListGetterTest extends TestCase {
 		$this->pageListGetter = $factory->newPageListGetter();
 	}
 
-	public function testGetPageListFromCategoryName() {
+	public function testGetPageListFromCategoryName(): void {
 		// The empty category.
 		$emptyCategory = $this->pageListGetter->getPageListFromCategoryName( $this->emptyCatName );
 		$this->assertCount( 0, $emptyCategory->toArray() );
@@ -66,13 +63,13 @@ class PageListGetterTest extends TestCase {
 		$this->assertCount( 35, $testCategory->toArray() );
 	}
 
-	public function testGetPageListFromPageTransclusions() {
+	public function testGetPageListFromPageTransclusions(): void {
 		$linksHere = $this->pageListGetter->getPageListFromPageTransclusions( 'Template:Test' );
 		// Only odd-numbered test pages link to the 'Test' template.
 		$this->assertCount( 18, $linksHere->toArray() );
 	}
 
-	public function testGetFromWhatLinksHere() {
+	public function testGetFromWhatLinksHere(): void {
 		// Every even-numbered test page links to Main Page.
 		$mainPageLinks = $this->pageListGetter->getFromWhatLinksHere( 'Main Page' );
 		$this->assertCount( 17, $mainPageLinks->toArray() );
@@ -82,13 +79,13 @@ class PageListGetterTest extends TestCase {
 		$this->assertCount( 0, $testPageLinks->toArray() );
 	}
 
-	public function testGetFromPrefix() {
+	public function testGetFromPrefix(): void {
 		// Pages with this prefix should be test pages 1, & 10-15; i.e. 7 of them.
 		$testPages = $this->pageListGetter->getFromPrefix( 'Test page 1' );
 		$this->assertCount( 11, $testPages->toArray() );
 	}
 
-	public function testGetRandom() {
+	public function testGetRandom(): void {
 		// Default is 1.
 		$randomPages1 = $this->pageListGetter->getRandom();
 		$this->assertCount( 1, $randomPages1->toArray() );

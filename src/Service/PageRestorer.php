@@ -19,10 +19,8 @@ class PageRestorer extends Service {
 	 *
 	 * @param Page $page
 	 * @param array $extraParams
-	 *
-	 * @return bool
 	 */
-	public function restore( Page $page, array $extraParams = [] ) {
+	public function restore( Page $page, array $extraParams = [] ): bool {
 		$this->api->postRequest(
 			new SimpleRequest(
 				'undelete',
@@ -34,12 +32,10 @@ class PageRestorer extends Service {
 	}
 
 	/**
-	 * @param Title $title
-	 * @param array $extraParams
 	 *
-	 * @return array
+	 * @return mixed[]
 	 */
-	private function getUndeleteParams( Title $title, $extraParams ) {
+	private function getUndeleteParams( Title $title, array $extraParams ): array {
 		$params = [];
 
 		$params['title'] = $title->getTitle();
@@ -52,7 +48,7 @@ class PageRestorer extends Service {
 	 * @param Title $title
 	 *
 	 * @throws OutOfBoundsException
-	 * @return string
+	 * @return mixed|void
 	 */
 	private function getUndeleteToken( Title $title ) {
 		$response = $this->api->postRequest(

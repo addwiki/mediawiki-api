@@ -36,13 +36,13 @@ class CategoryTraverser extends Service {
 	/**
 	 * @var callable[]
 	 */
-	protected $callbacks = [];
+	protected array $callbacks = [];
 
 	/**
 	 * Used to remember the previously-visited categories when traversing.
 	 * @var string[]
 	 */
-	protected $alreadyVisited = [];
+	protected array $alreadyVisited = [];
 
 	/**
 	 * @param MediawikiApi $api The API to connect to.
@@ -56,9 +56,8 @@ class CategoryTraverser extends Service {
 	 * Query the remote site for the list of namespaces in use, so that later we can tell what's a
 	 * category and what's not. This populates $this->namespaces, and will not re-request on
 	 * repeated invocations.
-	 * @return void
 	 */
-	protected function retrieveNamespaces() {
+	protected function retrieveNamespaces(): void {
 		if ( is_array( $this->namespaces ) ) {
 			return;
 		}
@@ -75,7 +74,7 @@ class CategoryTraverser extends Service {
 	 * @param int $type One of the 'CALLBACK_' constants of this class.
 	 * @param callable $callback A callable that takes two \Addwiki\Mediawiki\DataModel\Page parameters.
 	 */
-	public function addCallback( $type, $callback ) {
+	public function addCallback( int $type, callable $callback ): void {
 		if ( !isset( $this->callbacks[$type] ) ) {
 			$this->callbacks[$type] = [];
 		}
@@ -86,12 +85,12 @@ class CategoryTraverser extends Service {
 	 * Visit every descendant page of $rootCategoryName (which will be a Category
 	 * page, because there are no desecendants of any other pages).
 	 * @param Page $rootCat The full name of the page to start at.
-	 * @param Page[]|null $currentPath Used only when recursing into this method, to track each path
+	 * @param Pages|null $currentPath Used only when recursing into this method, to track each path
 	 * through the category hierarchy in case of loops.
 	 * @return Pages All descendants of the given category.
 	 * @throws CategoryLoopException If a category loop is detected.
 	 */
-	public function descend( Page $rootCat, $currentPath = null ) {
+	public function descend( Page $rootCat, ?Pages $currentPath = null ): Pages {
 		// Make sure we know the namespace IDs.
 		$this->retrieveNamespaces();
 
@@ -154,7 +153,7 @@ class CategoryTraverser extends Service {
 	 * @param int $type The callback type; should match one of the 'CALLBACK_' constants.
 	 * @param mixed[] $params The parameters to pass to the callback function.
 	 */
-	protected function call( $type, $params ) {
+	protected function call( int $type, array $params ): void {
 		if ( !isset( $this->callbacks[$type] ) ) {
 			return;
 		}

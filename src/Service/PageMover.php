@@ -19,10 +19,8 @@ class PageMover extends Service {
 	 * @param Page $page
 	 * @param Title $target
 	 * @param array $extraParams
-	 *
-	 * @return bool
 	 */
-	public function move( Page $page, Title $target, array $extraParams = [] ) {
+	public function move( Page $page, Title $target, array $extraParams = [] ): bool {
 		$this->api->postRequest(
 			new SimpleRequest(
 				'move', $this->getMoveParams( $page->getId(), $target, $extraParams )
@@ -35,13 +33,9 @@ class PageMover extends Service {
 	/**
 	 * @since 0.2
 	 *
-	 * @param int $pageid
-	 * @param Title $target
-	 * @param array $extraParams
 	 *
-	 * @return bool
 	 */
-	public function moveFromPageId( $pageid, Title $target, array $extraParams = [] ) {
+	public function moveFromPageId( int $pageid, Title $target, array $extraParams = [] ): bool {
 		$this->api->postRequest(
 			new SimpleRequest( 'move', $this->getMoveParams( $pageid, $target, $extraParams ) )
 		);
@@ -50,13 +44,10 @@ class PageMover extends Service {
 	}
 
 	/**
-	 * @param int $pageid
-	 * @param Title $target
-	 * @param array $extraParams
 	 *
-	 * @return array
+	 * @return mixed[]
 	 */
-	private function getMoveParams( $pageid, $target, $extraParams ) {
+	private function getMoveParams( int $pageid, \Addwiki\Mediawiki\DataModel\Title $target, array $extraParams ): array {
 		$params = [];
 		$params['fromid'] = $pageid;
 		$params['to'] = $target->getTitle();

@@ -23,8 +23,8 @@ class RevisionSaver extends Service {
 	 *
 	 * @return bool success
 	 */
-	public function save( Revision $revision, EditInfo $editInfo = null ) {
-		$editInfo = $editInfo ?? $revision->getEditInfo();
+	public function save( Revision $revision, EditInfo $editInfo = null ): bool {
+		$editInfo ??= $revision->getEditInfo();
 
 		$result = $this->api->postRequest(
 			new SimpleRequest( 'edit', $this->getEditParams( $revision, $editInfo ) )
@@ -37,9 +37,9 @@ class RevisionSaver extends Service {
 	 * @param EditInfo|null $editInfo
 	 *
 	 * @throws RuntimeException
-	 * @return array
+	 * @return mixed[]
 	 */
-	private function getEditParams( Revision $revision, EditInfo $editInfo = null ) {
+	private function getEditParams( Revision $revision, EditInfo $editInfo = null ): array {
 		if ( !$revision->getPageIdentifier()->identifiesPage() ) {
 			throw new RuntimeException( '$revision PageIdentifier does not identify a page' );
 		}
@@ -77,10 +77,9 @@ class RevisionSaver extends Service {
 	}
 
 	/**
-	 * @param null|EditInfo $editInfo
-	 * @param array &$params
+	 * @param array $params
 	 */
-	private function addEditInfoParams( $editInfo, &$params ) {
+	private function addEditInfoParams( ?EditInfo $editInfo, &$params ): void {
 		if ( $editInfo !== null ) {
 			$params['summary'] = $editInfo->getSummary();
 			if ( $editInfo->getMinor() ) {
