@@ -8,7 +8,7 @@
 
 Use composer to install the library and all its dependencies:
 
-    composer require "addwiki/mediawiki-api:~0.7.0"
+    composer require "addwiki/mediawiki-api:~3.0"
 
 ## Example Usage
 
@@ -17,16 +17,16 @@ Use composer to install the library and all its dependencies:
 require_once( __DIR__ . '/vendor/autoload.php' );
 
 // Log in to a wiki
-$api = new \Mediawiki\Api\MediawikiApi( 'http://localhost/w/api.php' );
-$api->login( new \Mediawiki\Api\ApiUser( 'username', 'password' ) );
-$services = new \Mediawiki\Api\MediawikiFactory( $api );
+$api = new \Addwiki\Mediawiki\Api\Client\MediawikiApi( 'http://localhost/w/api.php' );
+$api->login( new \Addwiki\Mediawiki\Api\Client\ApiUser( 'username', 'password' ) );
+$services = new \Addwiki\Mediawiki\Api\MediawikiFactory( $api );
 
 // Get a page
 $page = $services->newPageGetter()->getFromTitle( 'Foo' );
 
 // Edit a page
-$content = new \Mediawiki\DataModel\Content( 'New Text' );
-$revision = new \Mediawiki\DataModel\Revision( $content, $page->getPageIdentifier() );
+$content = new \Addwiki\Mediawiki\DataModel\Content( 'New Text' );
+$revision = new \Addwiki\Mediawiki\DataModel\Revision( $content, $page->getPageIdentifier() );
 $services->newRevisionSaver()->save( $revision );
 
 // Move a page
@@ -42,10 +42,10 @@ $services->newPageDeleter()->delete(
 );
 
 // Create a new page
-$newContent = new \Mediawiki\DataModel\Content( 'Hello World' );
-$title = new \Mediawiki\DataModel\Title( 'New Page' );
-$identifier = new \Mediawiki\DataModel\PageIdentifier( $title );
-$revision = new \Mediawiki\DataModel\Revision( $newContent, $identifier );
+$newContent = new \Addwiki\Mediawiki\DataModel\Content( 'Hello World' );
+$title = new \Addwiki\Mediawiki\DataModel\Title( 'New Page' );
+$identifier = new \Addwiki\Mediawiki\DataModel\PageIdentifier( $title );
+$revision = new \Addwiki\Mediawiki\DataModel\Revision( $newContent, $identifier );
 $services->newRevisionSaver()->save( $revision );
 
 // List all pages in a category

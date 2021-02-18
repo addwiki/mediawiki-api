@@ -1,11 +1,11 @@
 <?php
 
-namespace Mediawiki\Api\Service;
+namespace Addwiki\Mediawiki\Api\Service;
 
-use Mediawiki\Api\Generator\ApiGenerator;
-use Mediawiki\Api\SimpleRequest;
-use Mediawiki\DataModel\Page;
-use Mediawiki\DataModel\Pages;
+use Addwiki\Mediawiki\Api\Client\SimpleRequest;
+use Addwiki\Mediawiki\Api\Generator\ApiGenerator;
+use Addwiki\Mediawiki\DataModel\Page;
+use Addwiki\Mediawiki\DataModel\Pages;
 
 /**
  * @access private

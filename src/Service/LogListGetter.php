@@ -1,14 +1,14 @@
 <?php
 
-namespace Mediawiki\Api\Service;
+namespace Addwiki\Mediawiki\Api\Service;
 
-use Mediawiki\Api\SimpleRequest;
-use Mediawiki\DataModel\Log;
-use Mediawiki\DataModel\LogList;
-use Mediawiki\DataModel\Page;
-use Mediawiki\DataModel\PageIdentifier;
-use Mediawiki\DataModel\Revisions;
-use Mediawiki\DataModel\Title;
+use Addwiki\Mediawiki\Api\Client\SimpleRequest;
+use Addwiki\Mediawiki\DataModel\Log;
+use Addwiki\Mediawiki\DataModel\LogList;
+use Addwiki\Mediawiki\DataModel\Page;
+use Addwiki\Mediawiki\DataModel\PageIdentifier;
+use Addwiki\Mediawiki\DataModel\Revisions;
+use Addwiki\Mediawiki\DataModel\Title;
 
 /**
  * @access private

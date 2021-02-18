@@ -1,10 +1,10 @@
 <?php
 
-namespace Mediawiki\Api\Service;
+namespace Addwiki\Mediawiki\Api\Service;
 
+use Addwiki\Mediawiki\Api\Client\SimpleRequest;
+use Addwiki\Mediawiki\DataModel\PageIdentifier;
 use GuzzleHttp\Promise\PromiseInterface;
-use Mediawiki\Api\SimpleRequest;
-use Mediawiki\DataModel\PageIdentifier;
 use RuntimeException;
 
 /**

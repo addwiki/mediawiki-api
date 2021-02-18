@@ -1,11 +1,12 @@
 <?php
 
-namespace Mediawiki\Api\Test;
+namespace Addwiki\Mediawiki\Api\Tests\Integration\Service;
 
-use Mediawiki\Api\MediawikiApi;
-use Mediawiki\Api\Service\NamespaceGetter;
-use Mediawiki\Api\SimpleRequest;
-use Mediawiki\DataModel\NamespaceInfo;
+use Addwiki\Mediawiki\Api\Client\MediawikiApi;
+use Addwiki\Mediawiki\Api\Client\SimpleRequest;
+use Addwiki\Mediawiki\Api\Service\NamespaceGetter;
+use Addwiki\Mediawiki\DataModel\NamespaceInfo;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class NamespaceGetterTest extends TestCase {
@@ -62,7 +63,7 @@ class NamespaceGetterTest extends TestCase {
 	}
 
 	/**
-	 * @return \PHPUnit_Framework_MockObject_MockObject|MediawikiApi
+	 * @return MockObject|MediawikiApi
 	 */
 	private function getApi() {
 		$api = $this->getMockBuilder( MediawikiApi::class )->disableOriginalConstructor()->getMock();
@@ -82,6 +83,6 @@ class NamespaceGetterTest extends TestCase {
 	}
 
 	private function getNamespaceFixture() {
-		return json_decode( file_get_contents( __DIR__ . '/../fixtures/namespaces.json' ), true );
+		return json_decode( file_get_contents( __DIR__ . '/../../fixtures/namespaces.json' ), true );
 	}
 }

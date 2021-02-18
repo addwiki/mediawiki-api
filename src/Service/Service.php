@@ -1,8 +1,8 @@
 <?php
 
-namespace Mediawiki\Api\Service;
+namespace Addwiki\Mediawiki\Api\Service;
 
-use Mediawiki\Api\MediawikiApi;
+use Addwiki\Mediawiki\Api\Client\MediawikiApi;
 
 /**
  * The base service functions that all services inherit.
@@ -14,7 +14,7 @@ abstract class Service {
 	protected $api;
 
 	/**
-	 * @param MediawikiApi $api The API to in for this service.
+	 * @param \Addwiki\Mediawiki\Api\Client\MediawikiApi $api The API to in for this service.
 	 */
 	public function __construct( MediawikiApi $api ) {
 		$this->api = $api;

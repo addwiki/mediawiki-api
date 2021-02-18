@@ -1,13 +1,13 @@
 <?php
 
-namespace Mediawiki\Api\Service;
+namespace Addwiki\Mediawiki\Api\Service;
 
-use Mediawiki\Api\CategoryLoopException;
-use Mediawiki\Api\MediawikiApi;
-use Mediawiki\Api\SimpleRequest;
-use Mediawiki\DataModel\Page;
-use Mediawiki\DataModel\Pages;
-use Mediawiki\DataModel\Title;
+use Addwiki\Mediawiki\Api\CategoryLoopException;
+use Addwiki\Mediawiki\Api\Client\MediawikiApi;
+use Addwiki\Mediawiki\Api\Client\SimpleRequest;
+use Addwiki\Mediawiki\DataModel\Page;
+use Addwiki\Mediawiki\DataModel\Pages;
+use Addwiki\Mediawiki\DataModel\Title;
 
 /**
  * Category traverser.
@@ -73,7 +73,7 @@ class CategoryTraverser extends Service {
 	 * Register a callback that will be called for each page or category visited during the
 	 * traversal.
 	 * @param int $type One of the 'CALLBACK_' constants of this class.
-	 * @param callable $callback A callable that takes two \Mediawiki\DataModel\Page parameters.
+	 * @param callable $callback A callable that takes two \Addwiki\Mediawiki\DataModel\Page parameters.
 	 */
 	public function addCallback( $type, $callback ) {
 		if ( !isset( $this->callbacks[$type] ) ) {

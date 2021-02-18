@@ -1,30 +1,30 @@
 <?php
 
-namespace Mediawiki\Api\Test;
+namespace Addwiki\Mediawiki\Api\Tests\Unit;
 
-use Mediawiki\Api\MediawikiApi;
-use Mediawiki\Api\MediawikiFactory;
-use Mediawiki\Api\Service\FileUploader;
-use Mediawiki\Api\Service\ImageRotator;
-use Mediawiki\Api\Service\LogListGetter;
-use Mediawiki\Api\Service\PageDeleter;
-use Mediawiki\Api\Service\PageGetter;
-use Mediawiki\Api\Service\PageListGetter;
-use Mediawiki\Api\Service\PageMover;
-use Mediawiki\Api\Service\PageProtector;
-use Mediawiki\Api\Service\PagePurger;
-use Mediawiki\Api\Service\PageRestorer;
-use Mediawiki\Api\Service\PageWatcher;
-use Mediawiki\Api\Service\RevisionDeleter;
-use Mediawiki\Api\Service\RevisionPatroller;
-use Mediawiki\Api\Service\RevisionRestorer;
-use Mediawiki\Api\Service\RevisionRollbacker;
-use Mediawiki\Api\Service\RevisionSaver;
-use Mediawiki\Api\Service\RevisionUndoer;
-use Mediawiki\Api\Service\UserBlocker;
-use Mediawiki\Api\Service\UserCreator;
-use Mediawiki\Api\Service\UserGetter;
-use Mediawiki\Api\Service\UserRightsChanger;
+use Addwiki\Mediawiki\Api\Client\MediawikiApi;
+use Addwiki\Mediawiki\Api\MediawikiFactory;
+use Addwiki\Mediawiki\Api\Service\FileUploader;
+use Addwiki\Mediawiki\Api\Service\ImageRotator;
+use Addwiki\Mediawiki\Api\Service\LogListGetter;
+use Addwiki\Mediawiki\Api\Service\PageDeleter;
+use Addwiki\Mediawiki\Api\Service\PageGetter;
+use Addwiki\Mediawiki\Api\Service\PageListGetter;
+use Addwiki\Mediawiki\Api\Service\PageMover;
+use Addwiki\Mediawiki\Api\Service\PageProtector;
+use Addwiki\Mediawiki\Api\Service\PagePurger;
+use Addwiki\Mediawiki\Api\Service\PageRestorer;
+use Addwiki\Mediawiki\Api\Service\PageWatcher;
+use Addwiki\Mediawiki\Api\Service\RevisionDeleter;
+use Addwiki\Mediawiki\Api\Service\RevisionPatroller;
+use Addwiki\Mediawiki\Api\Service\RevisionRestorer;
+use Addwiki\Mediawiki\Api\Service\RevisionRollbacker;
+use Addwiki\Mediawiki\Api\Service\RevisionSaver;
+use Addwiki\Mediawiki\Api\Service\RevisionUndoer;
+use Addwiki\Mediawiki\Api\Service\UserBlocker;
+use Addwiki\Mediawiki\Api\Service\UserCreator;
+use Addwiki\Mediawiki\Api\Service\UserGetter;
+use Addwiki\Mediawiki\Api\Service\UserRightsChanger;
 use PHPUnit\Framework\TestCase;
 
 /**

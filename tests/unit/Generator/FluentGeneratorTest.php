@@ -1,14 +1,14 @@
 <?php
 
-namespace Mediawiki\Api\Test\Generator;
+namespace Addwiki\Mediawiki\Api\Tests\Unit\Generator;
 
-use Mediawiki\Api\Generator\FluentGenerator;
+use Addwiki\Mediawiki\Api\Generator\FluentGenerator;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @author Addshore
  *
- * @covers \Mediawiki\Api\Generator\FluentGenerator
+ * @covers \Addwiki\Mediawiki\Api\Generator\FluentGenerator
  */
 class FluentGeneratorTest extends TestCase {
 

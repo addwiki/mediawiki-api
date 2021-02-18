@@ -1,9 +1,9 @@
 <?php
 
-namespace Mediawiki\Api\Service;
+namespace Addwiki\Mediawiki\Api\Service;
 
-use Mediawiki\Api\SimpleRequest;
-use Mediawiki\DataModel\NamespaceInfo;
+use Addwiki\Mediawiki\Api\Client\SimpleRequest;
+use Addwiki\Mediawiki\DataModel\NamespaceInfo;
 
 /**
  * @access private

@@ -1,8 +1,9 @@
 <?php
 
-namespace Mediawiki\Api\Test;
+namespace Addwiki\Mediawiki\Api\Tests\Integration\Service;
 
-use Mediawiki\Api\ApiUser;
+use Addwiki\Mediawiki\Api\Client\ApiUser;
+use Addwiki\Mediawiki\Api\Tests\Integration\TestEnvironment;
 use PHPUnit\Framework\TestCase;
 
 /**

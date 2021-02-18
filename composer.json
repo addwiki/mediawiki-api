@@ -24,8 +24,8 @@
     },
     "require": {
         "php": ">=7.3",
-        "addwiki/mediawiki-api-base": "^2.8",
-        "addwiki/mediawiki-datamodel": "^2.8"
+        "addwiki/mediawiki-api-base": "^3.0",
+        "addwiki/mediawiki-datamodel": "^3.0"
     },
     "require-dev": {
         "phpunit/phpunit": "~9",
@@ -35,20 +35,18 @@
     },
     "autoload": {
         "psr-4": {
-            "Mediawiki\\Api\\": "src/"
+            "Addwiki\\Mediawiki\\Api\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Mediawiki\\Api\\Test\\": [
-                "tests/integration",
-                "tests/unit"
-            ]
+            "Addwiki\\Mediawiki\\Api\\Tests\\Unit\\": "tests/unit/",
+            "Addwiki\\Mediawiki\\Api\\Tests\\Integration\\": "tests/integration/"
         }
     },
     "extra": {
         "branch-alias": {
-            "dev-main": "2.9-dev"
+            "dev-main": "3.0-dev"
         }
     },
     "minimum-stability": "dev",

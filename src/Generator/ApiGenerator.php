@@ -1,6 +1,6 @@
 <?php
 
-namespace Mediawiki\Api\Generator;
+namespace Addwiki\Mediawiki\Api\Generator;
 
 /**
  * Interface relating to Mediawiki generators
