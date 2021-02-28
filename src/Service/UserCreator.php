@@ -4,7 +4,6 @@ namespace Addwiki\Mediawiki\Api\Service;
 
 use Addwiki\Mediawiki\Api\Client\SimpleRequest;
 use Addwiki\Mediawiki\Api\Client\UsageException;
-use InvalidArgumentException;
 
 /**
  * @access private
@@ -12,16 +11,6 @@ use InvalidArgumentException;
 class UserCreator extends Service {
 
 	public function create( string $username, string $password, ?string $email = null ): bool {
-		if ( !is_string( $username ) ) {
-			throw new InvalidArgumentException( '$username should be a string' );
-		}
-		if ( !is_string( $password ) ) {
-			throw new InvalidArgumentException( '$password should be a string' );
-		}
-		if ( !is_string( $email ) && $email !== null ) {
-			throw new InvalidArgumentException( '$email should be a string or null' );
-		}
-
 		$params = [
 			'createreturnurl' => $this->api->getApiUrl(),
 			'createtoken' => $this->api->getToken( 'createaccount' ),
