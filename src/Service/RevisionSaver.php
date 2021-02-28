@@ -62,7 +62,7 @@ class RevisionSaver extends Service {
 
 		$params['token'] = $this->api->getToken();
 
-		if ( $this->api->isLoggedin() ) {
+		if ( $this->api->isLoggedIn() ) {
 			$params['assert'] = 'user';
 		}
 
