@@ -67,4 +67,5 @@ class FileUploaderTest extends TestCase {
 		$testFile2 = $this->factory->newPageGetter()->getFromTitle( $testTitle );
 		$this->assertGreaterThan( 0, $testFile2->getPageIdentifier()->getId() );
 	}
+
 }
