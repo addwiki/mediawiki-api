@@ -2,7 +2,7 @@
 
 namespace Addwiki\Mediawiki\Api\Service;
 
-use Addwiki\Mediawiki\Api\Client\SimpleRequest;
+use Addwiki\Mediawiki\Api\Client\Request\SimpleRequest;
 use Addwiki\Mediawiki\Api\Generator\ApiGenerator;
 use Addwiki\Mediawiki\DataModel\Page;
 use Addwiki\Mediawiki\DataModel\Pages;

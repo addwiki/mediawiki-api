@@ -4,7 +4,7 @@ namespace Addwiki\Mediawiki\Api\Service;
 
 use Addwiki\Mediawiki\Api\CategoryLoopException;
 use Addwiki\Mediawiki\Api\Client\MediawikiApi;
-use Addwiki\Mediawiki\Api\Client\SimpleRequest;
+use Addwiki\Mediawiki\Api\Client\Request\SimpleRequest;
 use Addwiki\Mediawiki\DataModel\Page;
 use Addwiki\Mediawiki\DataModel\Pages;
 use Addwiki\Mediawiki\DataModel\Title;

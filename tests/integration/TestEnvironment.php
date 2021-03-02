@@ -3,7 +3,7 @@
 namespace Addwiki\Mediawiki\Api\Tests\Integration;
 
 use Addwiki\Mediawiki\Api\Client\MediawikiApi;
-use Addwiki\Mediawiki\Api\Client\SimpleRequest;
+use Addwiki\Mediawiki\Api\Client\Request\SimpleRequest;
 use Addwiki\Mediawiki\Api\Guzzle\ClientFactory;
 use Addwiki\Mediawiki\Api\MediawikiFactory;
 use Exception;

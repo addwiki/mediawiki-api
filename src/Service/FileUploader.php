@@ -2,8 +2,8 @@
 
 namespace Addwiki\Mediawiki\Api\Service;
 
-use Addwiki\Mediawiki\Api\Client\MultipartRequest;
-use Addwiki\Mediawiki\Api\Client\SimpleRequest;
+use Addwiki\Mediawiki\Api\Client\Request\MultipartRequest;
+use Addwiki\Mediawiki\Api\Client\Request\SimpleRequest;
 use Exception;
 
 /**

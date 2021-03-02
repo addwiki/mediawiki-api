@@ -3,7 +3,7 @@
 namespace Addwiki\Mediawiki\Api\Tests\Integration\Service;
 
 use Addwiki\Mediawiki\Api\Client\MediawikiApi;
-use Addwiki\Mediawiki\Api\Client\SimpleRequest;
+use Addwiki\Mediawiki\Api\Client\Request\SimpleRequest;
 use Addwiki\Mediawiki\Api\Service\NamespaceGetter;
 use Addwiki\Mediawiki\DataModel\NamespaceInfo;
 use PHPUnit\Framework\MockObject\MockObject;
