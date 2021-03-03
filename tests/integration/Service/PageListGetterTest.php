@@ -2,6 +2,7 @@
 
 namespace Addwiki\Mediawiki\Api\Tests\Integration\Service;
 
+use Addwiki\Mediawiki\Api\MediawikiFactory;
 use Addwiki\Mediawiki\Api\Service\PageListGetter;
 use Addwiki\Mediawiki\Api\Tests\Integration\TestEnvironment;
 use Addwiki\Mediawiki\DataModel\Content;
@@ -26,7 +27,7 @@ class PageListGetterTest extends TestCase {
 	 */
 	protected function setUp(): void {
 		$testEnvironment = TestEnvironment::newInstance();
-		$factory = $testEnvironment->getFactory();
+		$factory = new MediawikiFactory( $testEnvironment->getApi() );
 
 		// An empty category.
 		$emptyCat = new PageIdentifier( new Title( $this->emptyCatName ) );

@@ -2,7 +2,6 @@
 
 namespace Addwiki\Mediawiki\Api\Tests\Integration\Service;
 
-use Addwiki\Mediawiki\Api\Client\ApiUser;
 use Addwiki\Mediawiki\Api\MediawikiFactory;
 use Addwiki\Mediawiki\Api\Service\FileUploader;
 use Addwiki\Mediawiki\Api\Tests\Integration\TestEnvironment;
@@ -24,13 +23,8 @@ class FileUploaderTest extends TestCase {
 	protected function setup(): void {
 		parent::setup();
 		$testEnvironment = TestEnvironment::newInstance();
-		$this->factory = $testEnvironment->getFactory();
+		$this->factory = new MediawikiFactory( $testEnvironment->getApiAuthed() );
 		$this->fileUploader = $this->factory->newFileUploader();
-
-		// Log in as the sysop user (created as part of the docker-compose stuff)
-		$localApiUser = new ApiUser( 'CIUser', 'LongCIPass123' );
-		$api = $testEnvironment->getApi();
-		$api->login( $localApiUser );
 	}
 
 	public function testUpload(): void {

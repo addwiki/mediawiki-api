@@ -24,7 +24,7 @@ class CategoryTraverserTest extends TestCase {
 	protected function setUp(): void {
 		parent::setUp();
 		$this->testEnvironment = TestEnvironment::newInstance();
-		$this->factory = $this->testEnvironment->getFactory();
+		$this->factory = new MediawikiFactory( $this->testEnvironment->getApi() );
 		$this->traverser = $this->factory->newCategoryTraverser();
 	}
 

@@ -2,19 +2,19 @@
 
 namespace Addwiki\Mediawiki\Api\Tests\Integration;
 
+use Addwiki\Mediawiki\Api\Client\Auth\UserAndPassword;
 use Addwiki\Mediawiki\Api\Client\MediawikiApi;
 use Addwiki\Mediawiki\Api\Client\Request\SimpleRequest;
 use Addwiki\Mediawiki\Api\Guzzle\ClientFactory;
-use Addwiki\Mediawiki\Api\MediawikiFactory;
 use Exception;
 
 class TestEnvironment {
 
 	public string $apiUrl;
 	public string $pageUrl;
-	private MediawikiFactory $factory;
 
 	protected MediawikiApi $api;
+	protected MediawikiApi $apiAuthed;
 
 	/**
 	 * Get a new TestEnvironment.
@@ -47,8 +47,7 @@ class TestEnvironment {
 		$this->apiUrl = $apiUrl;
 		$this->pageUrl = str_replace( 'api.php', 'index.php?title=Special:SpecialPages', $apiUrl );
 		$this->api = MediawikiApi::newFromApiEndpoint( $this->apiUrl );
-
-		$this->factory = new MediawikiFactory( $this->api );
+		$this->apiAuthed = MediawikiApi::newFromApiEndpoint( $this->apiUrl, new UserAndPassword( 'CIUser', 'LongCIPass123' ) );
 	}
 
 	/**
@@ -59,12 +58,10 @@ class TestEnvironment {
 	}
 
 	/**
-	 * Get the MediaWiki factory.
-	 *
-	 * @return MediawikiFactory The factory instance.
+	 * Get the MediawikiApi to test against (with authentication with the CI user)
 	 */
-	public function getFactory(): MediawikiFactory {
-		return $this->factory;
+	public function getApiAuthed(): MediawikiApi {
+		return $this->apiAuthed;
 	}
 
 	/**

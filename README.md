@@ -16,9 +16,9 @@ Use composer to install the library and all its dependencies:
 // Load all the stuff
 require_once( __DIR__ . '/vendor/autoload.php' );
 
-// Log in to a wiki
-$api = new \Addwiki\Mediawiki\Api\Client\MediawikiApi( 'http://localhost/w/api.php' );
-$api->login( new \Addwiki\Mediawiki\Api\Client\ApiUser( 'username', 'password' ) );
+// Create an authenticated API and services
+$auth = new \Addwiki\Mediawiki\Api\Client\Auth\UserAndPassword( 'username', 'password' )
+$api = new \Addwiki\Mediawiki\Api\Client\MediawikiApi( 'http://localhost/w/api.php', $auth );
 $services = new \Addwiki\Mediawiki\Api\MediawikiFactory( $api );
 
 // Get a page
