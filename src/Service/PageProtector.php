@@ -2,7 +2,7 @@
 
 namespace Addwiki\Mediawiki\Api\Service;
 
-use Addwiki\Mediawiki\Api\Client\Request\SimpleRequest;
+use Addwiki\Mediawiki\Api\Client\Action\Request\ActionRequest;
 use Addwiki\Mediawiki\DataModel\Page;
 use InvalidArgumentException;
 
@@ -38,8 +38,8 @@ class PageProtector extends Service {
 		}
 		$params['protections'] = rtrim( $protectionsString, '|' );
 
-		$this->api->postRequest(
-			new SimpleRequest( 'protect', array_merge( $extraParams, $params ) )
+		$this->api->request(
+			ActionRequest::simplePost( 'protect', array_merge( $extraParams, $params ) )
 		);
 
 		return true;

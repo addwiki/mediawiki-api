@@ -2,9 +2,9 @@
 
 namespace Addwiki\Mediawiki\Api\Tests\Integration;
 
+use Addwiki\Mediawiki\Api\Client\Action\ActionApi;
+use Addwiki\Mediawiki\Api\Client\Action\Request\ActionRequest;
 use Addwiki\Mediawiki\Api\Client\Auth\UserAndPassword;
-use Addwiki\Mediawiki\Api\Client\MediawikiApi;
-use Addwiki\Mediawiki\Api\Client\Request\SimpleRequest;
 use Addwiki\Mediawiki\Api\Guzzle\ClientFactory;
 use Exception;
 
@@ -13,8 +13,8 @@ class TestEnvironment {
 	public string $apiUrl;
 	public string $pageUrl;
 
-	protected MediawikiApi $api;
-	protected MediawikiApi $apiAuthed;
+	protected ActionApi $api;
+	protected ActionApi $apiAuthed;
 
 	/**
 	 * Get a new TestEnvironment.
@@ -46,21 +46,21 @@ class TestEnvironment {
 
 		$this->apiUrl = $apiUrl;
 		$this->pageUrl = str_replace( 'api.php', 'index.php?title=Special:SpecialPages', $apiUrl );
-		$this->api = MediawikiApi::newFromApiEndpoint( $this->apiUrl );
-		$this->apiAuthed = MediawikiApi::newFromApiEndpoint( $this->apiUrl, new UserAndPassword( 'CIUser', 'LongCIPass123' ) );
+		$this->api = new ActionApi( $this->apiUrl );
+		$this->apiAuthed = new ActionApi( $this->apiUrl, new UserAndPassword( 'CIUser', 'LongCIPass123' ) );
 	}
 
 	/**
 	 * Get the MediawikiApi to test against
 	 */
-	public function getApi(): MediawikiApi {
+	public function getApi(): ActionApi {
 		return $this->api;
 	}
 
 	/**
 	 * Get the MediawikiApi to test against (with authentication with the CI user)
 	 */
-	public function getApiAuthed(): MediawikiApi {
+	public function getApiAuthed(): ActionApi {
 		return $this->apiAuthed;
 	}
 
@@ -71,8 +71,8 @@ class TestEnvironment {
 	 */
 	public function runJobs(): void {
 		$reqestProps = [ 'meta' => 'siteinfo', 'siprop' => 'general' ];
-		$siteInfoRequest = new SimpleRequest( 'query', $reqestProps );
-		$out = $this->getApi()->getRequest( $siteInfoRequest );
+		$siteInfoRequest = ActionRequest::simpleGet( 'query', $reqestProps );
+		$out = $this->getApi()->request( $siteInfoRequest );
 		$mainPageUrl = $out['query']['general']['base'];
 		$i = 0;
 		while ( $this->getJobQueueLength( $this->getApi() ) > 0 ) {
@@ -88,16 +88,16 @@ class TestEnvironment {
 
 	/**
 	 * Get the number of jobs currently in the queue.
-	 * @param MediawikiApi $api
+	 * @param \Addwiki\Mediawiki\Api\Client\Action\ActionApi $api
 	 * @todo This and TestEnvironment::runJobs() should probably not live here.
 	 */
-	public function getJobQueueLength( MediawikiApi $api ): int {
-		$req = new SimpleRequest( 'query', [
+	public function getJobQueueLength( ActionApi $api ): int {
+		$req = ActionRequest::simpleGet( 'query', [
 				'meta' => 'siteinfo',
 				'siprop' => 'statistics',
 			]
 		);
-		$out = $api->getRequest( $req );
+		$out = $api->request( $req );
 		return (int)$out['query']['statistics']['jobs'];
 	}
 }

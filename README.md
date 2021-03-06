@@ -18,7 +18,7 @@ require_once( __DIR__ . '/vendor/autoload.php' );
 
 // Create an authenticated API and services
 $auth = new \Addwiki\Mediawiki\Api\Client\Auth\UserAndPassword( 'username', 'password' )
-$api = new \Addwiki\Mediawiki\Api\Client\MediawikiApi( 'http://localhost/w/api.php', $auth );
+$api = new \Addwiki\Mediawiki\Api\Client\Action\MediawikiApi( 'http://localhost/w/api.php', $auth );
 $services = new \Addwiki\Mediawiki\Api\MediawikiFactory( $api );
 
 // Get a page

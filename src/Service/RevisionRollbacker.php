@@ -2,7 +2,7 @@
 
 namespace Addwiki\Mediawiki\Api\Service;
 
-use Addwiki\Mediawiki\Api\Client\Request\SimpleRequest;
+use Addwiki\Mediawiki\Api\Client\Action\Request\ActionRequest;
 use Addwiki\Mediawiki\DataModel\Revision;
 use Addwiki\Mediawiki\DataModel\Title;
 
@@ -16,8 +16,8 @@ class RevisionRollbacker extends Service {
 	 * @param Title|null $title if using MW 1.24 of lower (https://gerrit.wikimedia.org/r/#/c/133063/)
 	 */
 	public function rollback( Revision $revision, Title $title = null ): bool {
-		$this->api->postRequest(
-			new SimpleRequest( 'rollback', $this->getRollbackParams( $revision, $title ) )
+		$this->api->request(
+			ActionRequest::simplePost( 'rollback', $this->getRollbackParams( $revision, $title ) )
 		);
 
 		return true;
@@ -46,8 +46,8 @@ class RevisionRollbacker extends Service {
 	 * @param Revision $revision
 	 */
 	private function getTokenForRevision( Revision $revision ): string {
-		$result = $this->api->postRequest(
-			new SimpleRequest(
+		$result = $this->api->request(
+			ActionRequest::simplePost(
 				'query', [
 				'prop' => 'revisions',
 				'revids' => $revision->getId(),

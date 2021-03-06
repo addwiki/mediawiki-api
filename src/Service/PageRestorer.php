@@ -2,7 +2,7 @@
 
 namespace Addwiki\Mediawiki\Api\Service;
 
-use Addwiki\Mediawiki\Api\Client\Request\SimpleRequest;
+use Addwiki\Mediawiki\Api\Client\Action\Request\ActionRequest;
 use Addwiki\Mediawiki\DataModel\Page;
 use Addwiki\Mediawiki\DataModel\Title;
 use OutOfBoundsException;
@@ -17,8 +17,8 @@ class PageRestorer extends Service {
 	 * @param array $extraParams
 	 */
 	public function restore( Page $page, array $extraParams = [] ): bool {
-		$this->api->postRequest(
-			new SimpleRequest(
+		$this->api->request(
+			ActionRequest::simplePost(
 				'undelete',
 				$this->getUndeleteParams( $page->getTitle(), $extraParams )
 			)
@@ -46,8 +46,8 @@ class PageRestorer extends Service {
 	 * @return mixed|void
 	 */
 	private function getUndeleteToken( Title $title ) {
-		$response = $this->api->postRequest(
-			new SimpleRequest(
+		$response = $this->api->request(
+			ActionRequest::simplePost(
 				'query', [
 				'list' => 'deletedrevs',
 				'titles' => $title->getTitle(),

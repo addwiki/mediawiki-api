@@ -2,7 +2,7 @@
 
 namespace Addwiki\Mediawiki\Api\Service;
 
-use Addwiki\Mediawiki\Api\Client\Request\SimpleRequest;
+use Addwiki\Mediawiki\Api\Client\Action\Request\ActionRequest;
 use Addwiki\Mediawiki\DataModel\Page;
 use Addwiki\Mediawiki\DataModel\PageIdentifier;
 use Addwiki\Mediawiki\DataModel\Revision;
@@ -14,7 +14,7 @@ use Addwiki\Mediawiki\DataModel\Title;
 class PageDeleter extends Service {
 
 	public function delete( Page $page, array $extraParams = [] ): bool {
-		$this->api->postRequest( new SimpleRequest(
+		$this->api->request( ActionRequest::simplePost(
 			'delete',
 			$this->getDeleteParams( $page->getPageIdentifier(), $extraParams )
 		) );
@@ -22,7 +22,7 @@ class PageDeleter extends Service {
 	}
 
 	public function deleteFromRevision( Revision $revision, array $extraParams = [] ): bool {
-		$this->api->postRequest( new SimpleRequest(
+		$this->api->request( ActionRequest::simplePost(
 			'delete',
 			$this->getDeleteParams( $revision->getPageIdentifier(), $extraParams )
 		) );
@@ -30,7 +30,7 @@ class PageDeleter extends Service {
 	}
 
 	public function deleteFromPageId( int $pageid, array $extraParams = [] ): bool {
-		$this->api->postRequest( new SimpleRequest(
+		$this->api->request( ActionRequest::simplePost(
 			'delete',
 			$this->getDeleteParams( new PageIdentifier( null, $pageid ), $extraParams )
 		) );
@@ -45,7 +45,7 @@ class PageDeleter extends Service {
 		if ( is_string( $title ) ) {
 			$title = new Title( $title );
 		}
-		$this->api->postRequest( new SimpleRequest(
+		$this->api->request( ActionRequest::simplePost(
 			'delete',
 			$this->getDeleteParams( new PageIdentifier( $title ), $extraParams )
 		) );

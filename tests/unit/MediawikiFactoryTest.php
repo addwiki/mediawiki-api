@@ -2,7 +2,7 @@
 
 namespace Addwiki\Mediawiki\Api\Tests\Unit;
 
-use Addwiki\Mediawiki\Api\Client\MediawikiApi;
+use Addwiki\Mediawiki\Api\Client\Action\ActionApi;
 use Addwiki\Mediawiki\Api\MediawikiFactory;
 use Addwiki\Mediawiki\Api\Service\FileUploader;
 use Addwiki\Mediawiki\Api\Service\ImageRotator;
@@ -34,10 +34,10 @@ use PHPUnit\Framework\TestCase;
 class MediawikiFactoryTest extends TestCase {
 
 	/**
-	 * @return MediawikiApi&MockObject
+	 * @return ActionApi&MockObject
 	 */
 	public function getMockMediawikiApi() {
-		return $this->getMockBuilder( MediawikiApi::class )
+		return $this->getMockBuilder( ActionApi::class )
 			->disableOriginalConstructor()
 			->getMock();
 	}

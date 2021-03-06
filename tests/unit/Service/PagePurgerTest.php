@@ -2,8 +2,8 @@
 
 namespace Addwiki\Mediawiki\Api\Tests\Unit\Service;
 
-use Addwiki\Mediawiki\Api\Client\MediawikiApi;
-use Addwiki\Mediawiki\Api\Client\Request\SimpleRequest;
+use Addwiki\Mediawiki\Api\Client\Action\ActionApi;
+use Addwiki\Mediawiki\Api\Client\Request\Request;
 use Addwiki\Mediawiki\Api\Service\PagePurger;
 use Addwiki\Mediawiki\DataModel\Page;
 use Addwiki\Mediawiki\DataModel\PageIdentifier;
@@ -18,11 +18,11 @@ use PHPUnit\Framework\TestCase;
 class PagePurgerTest extends TestCase {
 
 	/**
-	 * @return MediawikiApi|MockObject
+	 * @return \Addwiki\Mediawiki\Api\Client\Action\ActionApi|MockObject
 	 */
 	private function getMockApi() {
-		/** @var MediawikiApi|MockObject $mock */
-		$mock = $this->getMockBuilder( MediawikiApi::class )
+		/** @var ActionApi|MockObject $mock */
+		$mock = $this->getMockBuilder( ActionApi::class )
 			->disableOriginalConstructor()
 			->getMock();
 		return $mock;
@@ -36,9 +36,9 @@ class PagePurgerTest extends TestCase {
 	public function testPurgePage(): void {
 		$api = $this->getMockApi();
 		$api->expects( $this->once() )
-			->method( 'postRequest' )
+			->method( 'request' )
 			->with(
-				$this->isInstanceOf( SimpleRequest::class )
+				$this->isInstanceOf( Request::class )
 			)
 			->willReturn( [
 				"batchcomplete" => "",
@@ -60,9 +60,9 @@ class PagePurgerTest extends TestCase {
 	public function testIncorrectPurgePage(): void {
 		$api = $this->getMockApi();
 		$api->expects( $this->once() )
-			->method( 'postRequest' )
+			->method( 'request' )
 			->with(
-				$this->isInstanceOf( SimpleRequest::class )
+				$this->isInstanceOf( Request::class )
 			)
 			->willReturn( [
 				"batchcomplete" => "",
@@ -89,9 +89,9 @@ class PagePurgerTest extends TestCase {
 	public function testPurgePages(): void {
 		$api = $this->getMockApi();
 		$api->expects( $this->once() )
-			->method( 'postRequest' )
+			->method( 'request' )
 			->with(
-				$this->isInstanceOf( SimpleRequest::class )
+				$this->isInstanceOf( Request::class )
 			)
 			->willReturn( [
 					"batchcomplete" => "",
@@ -130,9 +130,9 @@ class PagePurgerTest extends TestCase {
 	public function testIncorrectPurgePages(): void {
 		$api = $this->getMockApi();
 		$api->expects( $this->once() )
-			->method( 'postRequest' )
+			->method( 'request' )
 			->with(
-				$this->isInstanceOf( SimpleRequest::class )
+				$this->isInstanceOf( Request::class )
 			)
 			->willReturn( [
 				"batchcomplete" => "",

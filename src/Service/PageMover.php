@@ -2,7 +2,7 @@
 
 namespace Addwiki\Mediawiki\Api\Service;
 
-use Addwiki\Mediawiki\Api\Client\Request\SimpleRequest;
+use Addwiki\Mediawiki\Api\Client\Action\Request\ActionRequest;
 use Addwiki\Mediawiki\DataModel\Page;
 use Addwiki\Mediawiki\DataModel\Title;
 
@@ -17,8 +17,8 @@ class PageMover extends Service {
 	 * @param array $extraParams
 	 */
 	public function move( Page $page, Title $target, array $extraParams = [] ): bool {
-		$this->api->postRequest(
-			new SimpleRequest(
+		$this->api->request(
+			ActionRequest::simplePost(
 				'move', $this->getMoveParams( $page->getId(), $target, $extraParams )
 			)
 		);
@@ -27,8 +27,8 @@ class PageMover extends Service {
 	}
 
 	public function moveFromPageId( int $pageid, Title $target, array $extraParams = [] ): bool {
-		$this->api->postRequest(
-			new SimpleRequest( 'move', $this->getMoveParams( $pageid, $target, $extraParams ) )
+		$this->api->request(
+			ActionRequest::simplePost( 'move', $this->getMoveParams( $pageid, $target, $extraParams ) )
 		);
 
 		return true;

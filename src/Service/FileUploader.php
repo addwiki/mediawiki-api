@@ -2,8 +2,7 @@
 
 namespace Addwiki\Mediawiki\Api\Service;
 
-use Addwiki\Mediawiki\Api\Client\Request\MultipartRequest;
-use Addwiki\Mediawiki\Api\Client\Request\SimpleRequest;
+use Addwiki\Mediawiki\Api\Client\Action\Request\ActionRequest;
 use Exception;
 
 /**
@@ -82,7 +81,8 @@ class FileUploader extends Service {
 			$params['url'] = $location;
 		}
 
-		$response = $this->api->postRequest( new SimpleRequest( 'upload', $params ) );
+		// TODO force this POST to be a multipart...!
+		$response = $this->api->request( ActionRequest::simplePost( 'upload', $params )->setMultipart( true ) );
 		return ( $response['upload']['result'] === 'Success' );
 	}
 
@@ -103,13 +103,14 @@ class FileUploader extends Service {
 			// 1. Make the request.
 			$params['chunk'] = fread( $fileHandle, $this->chunkSize );
 			$contentDisposition = 'form-data; name="chunk"; filename="' . $params['filename'] . '"';
-			$request = MultipartRequest::factory()
+			$request = ActionRequest::factory()
+				->setMethod( 'POST' )
 				->setParams( $params )
 				->setAction( 'upload' )
 				->setMultipartParams( [
 					'chunk' => [ 'headers' => [ 'Content-Disposition' => $contentDisposition ] ],
 				] );
-			$response = $this->api->postRequest( $request );
+			$response = $this->api->request( $request );
 
 			// 2. Deal with the response.
 			++$chunksDone;

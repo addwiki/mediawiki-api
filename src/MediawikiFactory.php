@@ -2,7 +2,7 @@
 
 namespace Addwiki\Mediawiki\Api;
 
-use Addwiki\Mediawiki\Api\Client\MediawikiApi;
+use Addwiki\Mediawiki\Api\Client\Action\ActionApi;
 use Addwiki\Mediawiki\Api\Service\CategoryTraverser;
 use Addwiki\Mediawiki\Api\Service\FileUploader;
 use Addwiki\Mediawiki\Api\Service\ImageRotator;
@@ -33,9 +33,9 @@ use Addwiki\Mediawiki\Api\Service\UserRightsChanger;
  */
 class MediawikiFactory {
 
-	private MediawikiApi $api;
+	private ActionApi $api;
 
-	public function __construct( MediawikiApi $api ) {
+	public function __construct( ActionApi $api ) {
 		$this->api = $api;
 	}
 

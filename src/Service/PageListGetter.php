@@ -2,7 +2,7 @@
 
 namespace Addwiki\Mediawiki\Api\Service;
 
-use Addwiki\Mediawiki\Api\Client\Request\SimpleRequest;
+use Addwiki\Mediawiki\Api\Client\Action\Request\ActionRequest;
 use Addwiki\Mediawiki\DataModel\Page;
 use Addwiki\Mediawiki\DataModel\PageIdentifier;
 use Addwiki\Mediawiki\DataModel\Pages;
@@ -125,7 +125,7 @@ class PageListGetter extends Service {
 			}
 
 			// Run the actual query.
-			$result = $this->api->getRequest( new SimpleRequest( 'query', $params ) );
+			$result = $this->api->request( ActionRequest::simpleGet( 'query', $params ) );
 			if ( !array_key_exists( 'query', $result ) ) {
 				return $pages;
 			}
