@@ -5,9 +5,7 @@ namespace Addwiki\Mediawiki\Api\Service;
 use Addwiki\Mediawiki\Api\Client\Action\Request\ActionRequest;
 use Addwiki\Mediawiki\DataModel\Log;
 use Addwiki\Mediawiki\DataModel\LogList;
-use Addwiki\Mediawiki\DataModel\Page;
 use Addwiki\Mediawiki\DataModel\PageIdentifier;
-use Addwiki\Mediawiki\DataModel\Revisions;
 use Addwiki\Mediawiki\DataModel\Title;
 
 /**
@@ -40,12 +38,9 @@ class LogListGetter extends Service {
 						$logevent['action'],
 						$logevent['timestamp'],
 						$logevent['user'],
-						new Page(
-							new PageIdentifier(
-								new Title( $logevent['title'], $logevent['ns'] ),
-								$logevent['pageid']
-							),
-							new Revisions()
+						new PageIdentifier(
+							new Title( $logevent['title'], $logevent['ns'] ),
+							$logevent['pageid']
 						),
 						$logevent['comment'],
 						$this->getLogDetailsFromEvent( $logevent )

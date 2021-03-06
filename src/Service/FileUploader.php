@@ -106,7 +106,7 @@ class FileUploader extends Service {
 			$request = ActionRequest::factory()
 				->setMethod( 'POST' )
 				->setParams( $params )
-				->setAction( 'upload' )
+				->addParams( [ 'action' => 'upload' ] )
 				->setMultipartParams( [
 					'chunk' => [ 'headers' => [ 'Content-Disposition' => $contentDisposition ] ],
 				] );

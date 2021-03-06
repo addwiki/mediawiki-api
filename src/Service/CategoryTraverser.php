@@ -29,12 +29,12 @@ class CategoryTraverser extends Service {
 	public const CALLBACK_PAGE = 20;
 
 	/**
-	 * @var string[]|null
+	 * @var array[]|null
 	 */
 	protected $namespaces;
 
 	/**
-	 * @var callable[]
+	 * @var callable[][]
 	 */
 	protected array $callbacks = [];
 
@@ -112,7 +112,7 @@ class CategoryTraverser extends Service {
 				$isCat = false;
 				if ( isset( $this->namespaces[ $memberTitle->getNs() ] ) ) {
 					$ns = $this->namespaces[ $memberTitle->getNs() ];
-					$isCat = ( isset( $ns['canonical'] ) && $ns['canonical'] === 'Category' );
+					$isCat = ( array_key_exists( 'canonical', $ns ) && $ns['canonical'] === 'Category' );
 				}
 				// If it's a category, descend into it.
 				if ( $isCat ) {

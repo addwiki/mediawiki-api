@@ -31,10 +31,10 @@ class RevisionRollbacker extends Service {
 		$params = [];
 		if ( $title !== null ) {
 			// This is needed prior to https://gerrit.wikimedia.org/r/#/c/133063/
-			$params['title'] = $title->getTitle();
+			$params['title'] = $title->getText();
 		} else {
 			// This will work after https://gerrit.wikimedia.org/r/#/c/133063/
-			$params['pageid'] = $revision->getPageId();
+			$params['pageid'] = $revision->getPageIdentifier()->getId();
 		}
 		$params['user'] = $revision->getUser();
 		$params['token'] = $this->getTokenForRevision( $revision );
