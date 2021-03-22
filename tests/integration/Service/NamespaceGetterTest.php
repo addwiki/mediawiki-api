@@ -63,7 +63,7 @@ class NamespaceGetterTest extends TestCase {
 	}
 
 	/**
-	 * @return MockObject|\Addwiki\Mediawiki\Api\Client\Action\ActionApi
+	 * @return MockObject|ActionApi
 	 */
 	private function getApi() {
 		$api = $this->getMockBuilder( ActionApi::class )->disableOriginalConstructor()->getMock();

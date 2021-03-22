@@ -18,7 +18,7 @@ use PHPUnit\Framework\TestCase;
 class PagePurgerTest extends TestCase {
 
 	/**
-	 * @return \Addwiki\Mediawiki\Api\Client\Action\ActionApi|MockObject
+	 * @return ActionApi|MockObject
 	 */
 	private function getMockApi() {
 		/** @var ActionApi|MockObject $mock */

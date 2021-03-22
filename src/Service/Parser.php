@@ -13,7 +13,6 @@ use RuntimeException;
 class Parser extends Service {
 
 	/**
-	 * @param PageIdentifier $pageIdentifier
 	 *
 	 * @return array the parse result (raw from the api)
 	 */
@@ -22,11 +21,10 @@ class Parser extends Service {
 	}
 
 	/**
-	 * @param PageIdentifier $pageIdentifier
 	 *
 	 * @return PromiseInterface of array the parse result (raw from the api)
 	 */
-	public function parsePageAsync( PageIdentifier $pageIdentifier ): \GuzzleHttp\Promise\PromiseInterface {
+	public function parsePageAsync( PageIdentifier $pageIdentifier ): PromiseInterface {
 		$params = [];
 		if ( $pageIdentifier->getId() !== null ) {
 			$params['pageid'] = $pageIdentifier->getId();

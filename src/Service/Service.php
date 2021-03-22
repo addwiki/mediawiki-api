@@ -12,7 +12,7 @@ abstract class Service {
 	protected ActionApi $api;
 
 	/**
-	 * @param \Addwiki\Mediawiki\Api\Client\Action\ActionApi $api The API to in for this service.
+	 * @param ActionApi $api The API to in for this service.
 	 */
 	public function __construct( ActionApi $api ) {
 		$this->api = $api;

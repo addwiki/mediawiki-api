@@ -10,9 +10,6 @@ use Addwiki\Mediawiki\DataModel\Revision;
  */
 class RevisionUndoer extends Service {
 
-	/**
-	 * @param Revision $revision
-	 */
 	public function undo( Revision $revision ): bool {
 		$this->api->request( ActionRequest::simplePost(
 			'edit',
@@ -22,7 +19,6 @@ class RevisionUndoer extends Service {
 	}
 
 	/**
-	 * @param Revision $revision
 	 *
 	 * @return array <string int|string|null>
 	 */

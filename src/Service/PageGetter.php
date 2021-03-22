@@ -31,7 +31,6 @@ class PageGetter extends Service {
 
 	/**
 	 * @param string|Title $title
-	 * @param array $extraParams
 	 */
 	public function getFromTitle( $title, array $extraParams = [] ): Page {
 		if ( $title instanceof Title ) {
@@ -61,8 +60,6 @@ class PageGetter extends Service {
 	}
 
 	/**
-	 * @param PageIdentifier $pageIdentifier
-	 * @param array $extraParams
 	 *
 	 * @throws RuntimeException
 	 * @return Page|void
@@ -81,10 +78,6 @@ class PageGetter extends Service {
 		}
 	}
 
-	/**
-	 * @param Page $page
-	 * @param array $extraParams
-	 */
 	public function getFromPage( Page $page, array $extraParams = [] ): Page {
 		$result =
 			$this->api->request(
@@ -102,10 +95,6 @@ class PageGetter extends Service {
 		);
 	}
 
-	/**
-	 * @param Revision $revision
-	 * @param array $extraParams
-	 */
 	public function getFromRevision( Revision $revision, array $extraParams = [] ): Page {
 		$result =
 			$this->api->request(

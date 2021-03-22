@@ -13,7 +13,6 @@ class UserBlocker extends Service {
 
 	/**
 	 * @param User|string $user
-	 * @param array $extraParams
 	 *
 	 * @throws InvalidArgumentException
 	 */

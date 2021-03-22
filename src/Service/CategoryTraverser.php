@@ -7,7 +7,6 @@ use Addwiki\Mediawiki\Api\Client\Action\ActionApi;
 use Addwiki\Mediawiki\Api\Client\Action\Request\ActionRequest;
 use Addwiki\Mediawiki\DataModel\Page;
 use Addwiki\Mediawiki\DataModel\Pages;
-use Addwiki\Mediawiki\DataModel\Title;
 
 /**
  * Category traverser.
@@ -105,7 +104,6 @@ class CategoryTraverser extends Service {
 			$pageListGetter = new PageListGetter( $this->api );
 			$members = $pageListGetter->getPageListFromCategoryName( $rootCatName );
 			foreach ( $members->toArray() as $member ) {
-				/** @var Title */
 				$memberTitle = $member->getPageIdentifier()->getTitle();
 
 				// See if this page is a Category page.

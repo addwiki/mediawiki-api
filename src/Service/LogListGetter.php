@@ -14,7 +14,6 @@ use Addwiki\Mediawiki\DataModel\Title;
 class LogListGetter extends Service {
 
 	/**
-	 * @param array $extraParams
 	 *
 	 * @return LogList|void
 	 */

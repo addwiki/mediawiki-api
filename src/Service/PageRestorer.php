@@ -12,10 +12,6 @@ use OutOfBoundsException;
  */
 class PageRestorer extends Service {
 
-	/**
-	 * @param Page $page
-	 * @param array $extraParams
-	 */
 	public function restore( Page $page, array $extraParams = [] ): bool {
 		$this->api->request(
 			ActionRequest::simplePost(
@@ -40,7 +36,6 @@ class PageRestorer extends Service {
 	}
 
 	/**
-	 * @param Title $title
 	 *
 	 * @throws OutOfBoundsException
 	 * @return mixed|void

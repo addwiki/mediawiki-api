@@ -88,7 +88,6 @@ class TestEnvironment {
 
 	/**
 	 * Get the number of jobs currently in the queue.
-	 * @param \Addwiki\Mediawiki\Api\Client\Action\ActionApi $api
 	 * @todo This and TestEnvironment::runJobs() should probably not live here.
 	 */
 	public function getJobQueueLength( ActionApi $api ): int {

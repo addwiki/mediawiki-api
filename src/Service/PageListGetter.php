@@ -96,8 +96,6 @@ class PageListGetter extends Service {
 	 * Get up to 10 random pages.
 	 *
 	 * @link https://www.mediawiki.org/wiki/API:Random
-	 *
-	 * @param array $extraParams
 	 */
 	public function getRandom( array $extraParams = [] ): Pages {
 		$params = array_merge( $extraParams, [ 'list' => 'random' ] );

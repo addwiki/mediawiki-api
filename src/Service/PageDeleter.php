@@ -39,7 +39,6 @@ class PageDeleter extends Service {
 
 	/**
 	 * @param Title|string $title
-	 * @param array $extraParams
 	 */
 	public function deleteFromPageTitle( $title, array $extraParams = [] ): bool {
 		if ( is_string( $title ) ) {

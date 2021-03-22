@@ -13,9 +13,6 @@ class CategoryLoopException extends Exception {
 
 	protected ?Pages $categoryPath = null;
 
-	/**
-	 * @param Pages $path
-	 */
 	public function setCategoryPath( Pages $path ): void {
 		$this->categoryPath = $path;
 	}

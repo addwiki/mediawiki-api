@@ -97,9 +97,6 @@ class PagePurger extends Service {
 		return $purgedPages;
 	}
 
-	/**
-	 * @param ApiGenerator $generator
-	 */
 	public function purgeGenerator( ApiGenerator $generator ): bool {
 		$this->api->request(
 			ActionRequest::simplePost( 'purge', $generator->getParams() )

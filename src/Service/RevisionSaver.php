@@ -13,9 +13,7 @@ use RuntimeException;
 class RevisionSaver extends Service {
 
 	/**
-	 * @param Revision $revision
 	 * @param EditInfo|null $editInfo
-	 *
 	 * @return bool success
 	 */
 	public function save( Revision $revision, EditInfo $editInfo = null ): bool {
@@ -28,7 +26,6 @@ class RevisionSaver extends Service {
 	}
 
 	/**
-	 * @param Revision $revision
 	 * @param EditInfo|null $editInfo
 	 *
 	 * @throws RuntimeException

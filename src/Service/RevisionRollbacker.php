@@ -12,7 +12,6 @@ use Addwiki\Mediawiki\DataModel\Title;
 class RevisionRollbacker extends Service {
 
 	/**
-	 * @param Revision $revision
 	 * @param Title|null $title if using MW 1.24 of lower (https://gerrit.wikimedia.org/r/#/c/133063/)
 	 */
 	public function rollback( Revision $revision, Title $title = null ): bool {
@@ -42,9 +41,6 @@ class RevisionRollbacker extends Service {
 		return $params;
 	}
 
-	/**
-	 * @param Revision $revision
-	 */
 	private function getTokenForRevision( Revision $revision ): string {
 		$result = $this->api->request(
 			ActionRequest::simplePost(

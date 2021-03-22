@@ -51,15 +51,15 @@ class FileUploaderTest extends TestCase {
 			foreach ( $expectedMultipartParts as $expectedPart ) {
 				foreach ( $options['multipart'] as $actualPart ) {
 					if ( !in_array( $expectedPart['name'], [ 'filename', 'file' ] ) && $expectedPart === $actualPart ) {
-						$foundParts++;
+						++$foundParts;
 					}
 					if ( $expectedPart['name'] === 'filename' && $expectedPart['name'] == $actualPart['name'] ) {
 						$this->assertIsString( $actualPart['contents'] );
-						$foundParts++;
+						++$foundParts;
 					}
 					if ( $expectedPart['name'] === 'file' && $expectedPart['name'] == $actualPart['name'] ) {
 						$this->assertTrue( is_resource( $actualPart['contents'] ) );
-						$foundParts++;
+						++$foundParts;
 					}
 				}
 			}
@@ -113,7 +113,7 @@ class FileUploaderTest extends TestCase {
 		$client = $this->createMock( ClientInterface::class );
 		$client->method( 'request' )
 		->willReturnCallback( function ( $method, $url, $options ) use ( $expectedMultipartParts, &$callbackCounter ) {
-			$callbackCounter++;
+			++$callbackCounter;
 			$this->assertSame( 'POST', $method );
 			$this->assertSame( 'someUrl', $url );
 			$this->assertArrayHasKey( 'headers', $options );
@@ -129,11 +129,11 @@ class FileUploaderTest extends TestCase {
 			foreach ( $expectedMultipartParts[$callbackCounter] as $expectedPart ) {
 				foreach ( $options['multipart'] as $actualPart ) {
 					if ( !in_array( $expectedPart['name'], [ 'filename', 'chunk' ] ) && $expectedPart === $actualPart ) {
-						$foundParts++;
+						++$foundParts;
 					}
 					if ( $expectedPart['name'] === 'filename' && $expectedPart['name'] == $actualPart['name'] ) {
 						$this->assertIsString( $actualPart['contents'] );
-						$foundParts++;
+						++$foundParts;
 					}
 					if ( $expectedPart['name'] === 'chunk' && $expectedPart['name'] == $actualPart['name'] ) {
 						$this->assertStringContainsString(
@@ -141,7 +141,7 @@ class FileUploaderTest extends TestCase {
 							$actualPart['headers']['Content-Disposition']
 						);
 						$this->assertIsString( $actualPart['contents'] );
-						$foundParts++;
+						++$foundParts;
 					}
 				}
 			}
@@ -158,6 +158,7 @@ class FileUploaderTest extends TestCase {
 
 		// Upload a file.
 		$service->setChunkSize( 1024 * 10 );
+
 		$uploaded = $service->upload( $testPagename, $testFilename, 'Testing', null, null, true );
 		$this->assertTrue( $uploaded );
 	}
