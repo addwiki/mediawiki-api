@@ -29,14 +29,12 @@ class CategoryTraverserTest extends TestCase {
 	}
 
 	/**
-	 * A convenience wrapper around a PageDeleter.
-	 * @param string[] $titles The titles to delete.
+	 * A convenience wrapper to blank pages.
+	 * TODO actually delete them?
+	 * @param string[] $titles The titles to blank.
 	 */
-	public function deletePages( array $titles ): void {
-		$deleter = $this->factory->newPageDeleter();
+	public function blankPages( array $titles ): void {
 		foreach ( $titles as $t ) {
-			// @todo Properly delete?
-			// $deleter->deleteFromPageTitle( new Title( $t ) );
 			$this->savePage( $t, '' );
 		}
 	}
@@ -80,7 +78,7 @@ class CategoryTraverserTest extends TestCase {
 		$this->traverser->addCallback( CategoryTraverser::CALLBACK_PAGE, $callback );
 		$decendants = $this->traverser->descend( $rootCat );
 		$this->assertCount( 4, $decendants->toArray() );
-		$this->deletePages( [
+		$this->blankPages( [
 			'Category:Root category',
 			'Category:Sub category B',
 			'Category:Sub category C',
@@ -106,7 +104,7 @@ class CategoryTraverserTest extends TestCase {
 		$this->testEnvironment->runJobs();
 		$decendants = $this->traverser->descend( $grandparent );
 		$this->assertCount( 4, $decendants->toArray() );
-		$this->deletePages( [
+		$this->blankPages( [
 			'Category:Grandparent',
 			'Category:Parent 1',
 			'Category:Parent 2',
@@ -145,7 +143,7 @@ class CategoryTraverserTest extends TestCase {
 		$descendants = $this->traverser->descend( $catA );
 		$this->assertCount( 0, $descendants->toArray() );
 		$this->assertCount( 3, $wgVisitedCats );
-		$this->deletePages( [
+		$this->blankPages( [
 			'Category:A cat',
 			'Category:B cat',
 			'Category:C cat',
@@ -167,10 +165,10 @@ class CategoryTraverserTest extends TestCase {
 	 */
 	public function testDescendIntoLoop(): void {
 		$catA = $this->savePage( 'Category:E cat', '[[Category:H cat]]' );
-		$catB = $this->savePage( 'Category:F cat', '[[Category:E cat]]' );
-		$catC = $this->savePage( 'Category:G cat', '[[Category:E cat]]' );
-		$catD = $this->savePage( 'Category:H cat', '[[Category:F cat]]' );
-		$catE = $this->savePage( 'Category:I cat', '[[Category:F cat]]' );
+		$this->savePage( 'Category:F cat', '[[Category:E cat]]' );
+		$this->savePage( 'Category:G cat', '[[Category:E cat]]' );
+		$this->savePage( 'Category:H cat', '[[Category:F cat]]' );
+		$this->savePage( 'Category:I cat', '[[Category:F cat]]' );
 		$this->testEnvironment->runJobs();
 		$haveCaught = false;
 		try {
@@ -191,7 +189,7 @@ class CategoryTraverserTest extends TestCase {
 			$this->assertEquals( $expectedCatLoop, $actualCatLoop );
 		}
 		$this->assertTrue( $haveCaught );
-		$this->deletePages( [
+		$this->blankPages( [
 			'Category:E cat',
 			'Category:F cat',
 			'Category:G cat',
