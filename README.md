@@ -60,7 +60,7 @@ To run the integration tests, you need to have a running MediaWiki instance. The
 
 to the `LocalSettings.php` of your MediaWiki.
 
-By default, the tests will use the URL `http://localhost/w/api.php` as the API endpoint. If you have a different URL (e.g. `http://localhost:8080/w/api.php`), you need to configure the URL as an environemnt variable before running the tests. Example:
+By default, the tests will use the URL `http://localhost/w/api.php` as the API endpoint. If you have a different URL (e.g. `http://localhost:8080/w/api.php`), you need to configure the URL as an environment variable before running the tests. Example:
 
     export MEDIAWIKI_API_URL='http://localhost:8080/w/api.php'
 

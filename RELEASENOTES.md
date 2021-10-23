@@ -1,6 +1,6 @@
 # Release Notes
 
-## Unreleased
+## Version 3.0 (23 October 2021)
 
 - Installable with 7.4+ (including PHP8)
 - Typing added throughout
