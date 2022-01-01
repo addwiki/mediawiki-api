@@ -11,9 +11,11 @@ use Exception;
 class TestEnvironment {
 
 	public string $apiUrl;
+
 	public string $pageUrl;
 
 	protected ActionApi $api;
+
 	protected ActionApi $apiAuthed;
 
 	/**

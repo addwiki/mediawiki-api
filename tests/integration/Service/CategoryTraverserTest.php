@@ -71,6 +71,7 @@ class CategoryTraverserTest extends TestCase {
 			if ( $parentCatName === 'Category:Root category' ) {
 				$this->assertEquals( 'Test page A1', $thisPageName );
 			}
+
 			if ( $parentCatName === 'Category:Sub category C' ) {
 				$this->assertEquals( 'Test page C1', $thisPageName );
 			}
@@ -186,8 +187,10 @@ class CategoryTraverserTest extends TestCase {
 			foreach ( $categoryLoopException->getCategoryPath()->toArray() as $p ) {
 				$actualCatLoop[] = $p->getPageIdentifier()->getTitle()->getText();
 			}
+
 			$this->assertEquals( $expectedCatLoop, $actualCatLoop );
 		}
+
 		$this->assertTrue( $haveCaught );
 		$this->blankPages( [
 			'Category:E cat',

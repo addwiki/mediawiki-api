@@ -22,6 +22,7 @@ class NamespaceGetter extends Service {
 				return $this->createNamespaceFromQuery( $nsInfo, $result['namespacealiases'] );
 			}
 		}
+
 		return null;
 	}
 
@@ -38,6 +39,7 @@ class NamespaceGetter extends Service {
 				return $this->createNamespaceFromQuery( $nsInfo, $result['namespacealiases'] );
 			}
 		}
+
 		foreach ( $result['namespacealiases'] as $alias ) {
 			if ( $alias['*'] === $name && !empty( $result['namespaces'][$alias['id']] ) ) {
 				return $this->createNamespaceFromQuery(
@@ -46,6 +48,7 @@ class NamespaceGetter extends Service {
 				);
 			}
 		}
+
 		return null;
 	}
 
@@ -60,6 +63,7 @@ class NamespaceGetter extends Service {
 				$nsInfo, $result['namespacealiases']
 			);
 		}
+
 		return $namespaces;
 	}
 
@@ -85,6 +89,7 @@ class NamespaceGetter extends Service {
 				$aliases[] = $alias['*'];
 			}
 		}
+
 		return $aliases;
 	}
 

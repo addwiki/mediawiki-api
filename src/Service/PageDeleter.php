@@ -44,6 +44,7 @@ class PageDeleter extends Service {
 		if ( is_string( $title ) ) {
 			$title = new Title( $title );
 		}
+
 		$this->api->request( ActionRequest::simplePost(
 			'delete',
 			$this->getDeleteParams( new PageIdentifier( $title ), $extraParams )

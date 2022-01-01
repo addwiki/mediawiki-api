@@ -35,6 +35,7 @@ class RevisionRollbacker extends Service {
 			// This will work after https://gerrit.wikimedia.org/r/#/c/133063/
 			$params['pageid'] = $revision->getPageIdentifier()->getId();
 		}
+
 		$params['user'] = $revision->getUser();
 		$params['token'] = $this->getTokenForRevision( $revision );
 

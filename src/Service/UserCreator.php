@@ -31,6 +31,7 @@ class UserCreator extends Service {
 			if ( $usageException->getApiCode() === 'noname' ) {
 				return $this->createPreOneTwentySeven( $params );
 			}
+
 			throw $usageException;
 		}
 	}
@@ -47,6 +48,7 @@ class UserCreator extends Service {
 		if ( array_key_exists( 'email', $params ) ) {
 			$newParams['email'] = $params['email'];
 		}
+
 		// First get the token.
 		$tokenRequest = ActionRequest::simplePost( 'createaccount', $newParams );
 		$result = $this->api->request( $tokenRequest );
@@ -56,6 +58,7 @@ class UserCreator extends Service {
 			$request = ActionRequest::simplePost( 'createaccount', $newParams );
 			$result = $this->api->request( $request );
 		}
+
 		return ( $result['createaccount']['result'] === 'Success' );
 	}
 

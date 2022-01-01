@@ -37,6 +37,7 @@ class UserRightsChanger extends Service {
 		if ( !empty( $add ) ) {
 			$params['add'] = implode( '|', $add );
 		}
+
 		if ( !empty( $remove ) ) {
 			$params['remove'] = implode( '|', $remove );
 		}

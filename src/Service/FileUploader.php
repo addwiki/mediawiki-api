@@ -55,14 +55,17 @@ class FileUploader extends Service {
 		if ( in_array( $watchlist, [ 'watch', 'nochange' ] ) ) {
 			$params['watchlist'] = $watchlist;
 		}
+
 		// Ignore warnings?
 		if ( $ignoreWarnings ) {
 			$params['ignorewarnings'] = '1';
 		}
+
 		// Page text.
 		if ( !empty( $text ) ) {
 			$params['text'] = $text;
 		}
+
 		// Revision comment.
 		if ( $comment !== null && !empty( $comment ) ) {
 			$params['comment'] = $comment;
@@ -119,6 +122,7 @@ class FileUploader extends Service {
 				// This should never happen. Even the last response still has the filekey.
 				throw new Exception( 'Unable to get filekey for chunked upload' );
 			}
+
 			$params['filekey'] = $response['upload']['filekey'];
 			if ( $response['upload']['result'] === 'Continue' ) {
 				// Amend parameters for next upload POST request.

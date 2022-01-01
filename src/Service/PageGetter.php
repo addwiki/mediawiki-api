@@ -36,6 +36,7 @@ class PageGetter extends Service {
 		if ( $title instanceof Title ) {
 			$title = $title->getTitle();
 		}
+
 		$result =
 			$this->api->request(
 				ActionRequest::simpleGet(
@@ -71,6 +72,7 @@ class PageGetter extends Service {
 		if ( !$pageIdentifier->identifiesPage() ) {
 			throw new RuntimeException( '$pageIdentifier does not identify a page' );
 		}
+
 		if ( $pageIdentifier->getId() !== null ) {
 			return $this->getFromPageId( $pageIdentifier->getId(), $extraParams );
 		} else {

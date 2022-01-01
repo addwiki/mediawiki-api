@@ -53,16 +53,19 @@ class FileUploaderTest extends TestCase {
 					if ( !in_array( $expectedPart['name'], [ 'filename', 'file' ] ) && $expectedPart === $actualPart ) {
 						++$foundParts;
 					}
+
 					if ( $expectedPart['name'] === 'filename' && $expectedPart['name'] == $actualPart['name'] ) {
 						$this->assertIsString( $actualPart['contents'] );
 						++$foundParts;
 					}
+
 					if ( $expectedPart['name'] === 'file' && $expectedPart['name'] == $actualPart['name'] ) {
 						$this->assertTrue( is_resource( $actualPart['contents'] ) );
 						++$foundParts;
 					}
 				}
 			}
+
 			$this->assertSame( count( $expectedMultipartParts ), $foundParts );
 
 			return $this->getMockResponse( [ 'upload' => [ 'result' => 'Success' ] ] );
@@ -131,10 +134,12 @@ class FileUploaderTest extends TestCase {
 					if ( !in_array( $expectedPart['name'], [ 'filename', 'chunk' ] ) && $expectedPart === $actualPart ) {
 						++$foundParts;
 					}
+
 					if ( $expectedPart['name'] === 'filename' && $expectedPart['name'] == $actualPart['name'] ) {
 						$this->assertIsString( $actualPart['contents'] );
 						++$foundParts;
 					}
+
 					if ( $expectedPart['name'] === 'chunk' && $expectedPart['name'] == $actualPart['name'] ) {
 						$this->assertStringContainsString(
 							'form-data; name="chunk"; filename="file-uploader-test-',
@@ -145,6 +150,7 @@ class FileUploaderTest extends TestCase {
 					}
 				}
 			}
+
 			$this->assertSame( count( $expectedMultipartParts[$callbackCounter] ), $foundParts );
 
 			return $this->getMockResponse( [ 'upload' => [ 'result' => 'Success', 'filekey' => 'someKey' ] ] );
@@ -168,6 +174,7 @@ class FileUploaderTest extends TestCase {
 		foreach ( $multiPartOptions as $actualPart ) {
 			$multipartByName[ $actualPart['name'] ] = $actualPart;
 		}
+
 		return $multipartByName;
 	}
 

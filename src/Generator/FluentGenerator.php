@@ -8,6 +8,7 @@ namespace Addwiki\Mediawiki\Api\Generator;
 class FluentGenerator implements ApiGenerator {
 
 	private string $name;
+
 	private array $params = [];
 
 	public function __construct( string $name ) {
@@ -45,6 +46,7 @@ class FluentGenerator implements ApiGenerator {
 		if ( strtolower( substr( $key, 0, 1 ) ) === 'g' ) {
 			return $key;
 		}
+
 		return 'g' . $key;
 	}
 

@@ -34,8 +34,10 @@ class PageProtector extends Service {
 					'All keys and elements of $protections must be strings'
 				);
 			}
+
 			$protectionsString = $action . '=' . $value . '|';
 		}
+
 		$params['protections'] = rtrim( $protectionsString, '|' );
 
 		$this->api->request(

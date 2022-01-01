@@ -22,6 +22,7 @@ class CategoryTraverser extends Service {
 	 * @var int
 	 */
 	public const CALLBACK_CATEGORY = 10;
+
 	/**
 	 * @var int
 	 */
@@ -57,6 +58,7 @@ class CategoryTraverser extends Service {
 		if ( is_array( $this->namespaces ) ) {
 			return;
 		}
+
 		$params = [ 'meta' => 'siteinfo', 'siprop' => 'namespaces' ];
 		$namespaces = $this->api->request( ActionRequest::simpleGet( 'query', $params ) );
 		if ( isset( $namespaces['query']['namespaces'] ) ) {
@@ -74,6 +76,7 @@ class CategoryTraverser extends Service {
 		if ( !isset( $this->callbacks[$type] ) ) {
 			$this->callbacks[$type] = [];
 		}
+
 		$this->callbacks[$type][] = $callback;
 	}
 
@@ -95,6 +98,7 @@ class CategoryTraverser extends Service {
 			$this->alreadyVisited = [];
 			$currentPath = new Pages();
 		}
+
 		$this->alreadyVisited[] = $rootCatName;
 		$currentPath->addPage( $rootCat );
 
@@ -112,6 +116,7 @@ class CategoryTraverser extends Service {
 					$ns = $this->namespaces[ $memberTitle->getNs() ];
 					$isCat = ( array_key_exists( 'canonical', $ns ) && $ns['canonical'] === 'Category' );
 				}
+
 				// If it's a category, descend into it.
 				if ( $isCat ) {
 					// If this member has already been visited on this branch of the traversal,
@@ -122,11 +127,13 @@ class CategoryTraverser extends Service {
 						$loop->setCategoryPath( $currentPath );
 						throw $loop;
 					}
+
 					// Don't go any further if we've already visited this member
 					// (does not indicate a loop, however; we've already caught that above).
 					if ( in_array( $memberTitle->getText(), $this->alreadyVisited ) ) {
 						continue;
 					}
+
 					// Call any registered callbacked, and carry on to the next branch.
 					$this->call( self::CALLBACK_CATEGORY, [ $member, $rootCat ] );
 					$newDescendants = $this->descend( $member, $currentPath );
@@ -140,6 +147,7 @@ class CategoryTraverser extends Service {
 				}
 			}
 		} while ( isset( $result['continue'] ) );
+
 		return $descendants;
 	}
 
@@ -152,6 +160,7 @@ class CategoryTraverser extends Service {
 		if ( !isset( $this->callbacks[$type] ) ) {
 			return;
 		}
+
 		foreach ( $this->callbacks[$type] as $callback ) {
 			if ( is_callable( $callback ) ) {
 				call_user_func_array( $callback, $params );

@@ -43,6 +43,7 @@ class RevisionSaver extends Service {
 		if ( !is_string( $data ) ) {
 			throw new RuntimeException( 'Dont know how to save content of this model.' );
 		}
+
 		$params['text'] = $content->getData();
 		$params['md5'] = md5( $content->getData() );
 
@@ -70,10 +71,12 @@ class RevisionSaver extends Service {
 			if ( $editInfo->getMinor() ) {
 				$params['minor'] = true;
 			}
+
 			if ( $editInfo->getBot() ) {
 				$params['bot'] = true;
 				$params['assert'] = 'bot';
 			}
+
 			if ( $editInfo->getMaxlag() ) {
 				$params['maxlag'] = $editInfo->getMaxlag();
 			}
