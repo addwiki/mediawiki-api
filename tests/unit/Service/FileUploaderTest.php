@@ -169,7 +169,7 @@ class FileUploaderTest extends TestCase {
 		$this->assertTrue( $uploaded );
 	}
 
-	private function getMultiPartByName( array $multiPartOptions ) : array {
+	private function getMultiPartByName( array $multiPartOptions ): array {
 		$multipartByName = [];
 		foreach ( $multiPartOptions as $actualPart ) {
 			$multipartByName[ $actualPart['name'] ] = $actualPart;
