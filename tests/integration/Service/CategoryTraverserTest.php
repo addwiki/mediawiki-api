@@ -136,7 +136,7 @@ class CategoryTraverserTest extends TestCase {
 		$this->savePage( 'Category:C cat', 'Testing. [[Category:A cat]][[Category:B cat]]' );
 		$this->savePage( 'Category:D cat', 'Testing. [[Category:C cat]]' );
 		$this->testEnvironment->runJobs();
-		$callback = function ( Page $pageInfo, Page $parentCat ): void {
+		$callback = static function ( Page $pageInfo, Page $parentCat ): void {
 			global $wgVisitedCats;
 			$wgVisitedCats[] = $parentCat->getPageIdentifier()->getTitle()->getText();
 		};
