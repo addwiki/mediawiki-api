@@ -19,6 +19,8 @@ use Addwiki\Mediawiki\DataModel\Pages;
 class CategoryTraverser extends Service {
 
 	/**
+	 * If a category callback returns false, then that category will not be descended into
+	 *
 	 * @var int
 	 */
 	public const CALLBACK_CATEGORY = 10;
@@ -134,10 +136,13 @@ class CategoryTraverser extends Service {
 						continue;
 					}
 
-					// Call any registered callbacked, and carry on to the next branch.
-					$this->call( self::CALLBACK_CATEGORY, [ $member, $rootCat ] );
-					$newDescendants = $this->descend( $member, $currentPath );
-					$descendants->addPages( $newDescendants );
+					// Call any registered callbacked
+					$result = $this->call( self::CALLBACK_CATEGORY, [ $member, $rootCat ] );
+					// Carry on to the next branch if result is not false
+					if ( $result !== false ) {
+						$newDescendants = $this->descend( $member, $currentPath );
+						$descendants->addPages( $newDescendants );
+					}
 					// Re-set the path.
 					$currentPath = new Pages();
 				} else {
@@ -155,17 +160,23 @@ class CategoryTraverser extends Service {
 	 * Call all the registered callbacks of a particular type.
 	 * @param int $type The callback type; should match one of the 'CALLBACK_' constants.
 	 * @param mixed[] $params The parameters to pass to the callback function.
+	 * @return null|bool false if one of the callbacks returned false, otherwise null.
 	 */
-	protected function call( int $type, array $params ): void {
+	protected function call( int $type, array $params ): ?bool {
 		if ( !isset( $this->callbacks[$type] ) ) {
-			return;
+			return null;
 		}
 
+		$return = null;
 		foreach ( $this->callbacks[$type] as $callback ) {
 			if ( is_callable( $callback ) ) {
-				call_user_func_array( $callback, $params );
+				$result = call_user_func_array( $callback, $params );
+				if ( $result === false ) {
+					$return = false;
+				}
 			}
 		}
+		return $return;
 	}
 
 }
