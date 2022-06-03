@@ -2,9 +2,8 @@ name: Close All Pull Requests
 
 on:
   push:
-  pull_request:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: '42 5 * * *'
 
 jobs:
   run:
