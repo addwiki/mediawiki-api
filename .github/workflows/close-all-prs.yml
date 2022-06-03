@@ -1,0 +1,23 @@
+name: Close All Pull Requests
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: crondaemon/close-pr@v1
+      with:
+        comment: |
+            Hi, thank you for your contribution.
+            Unfortunately, this repository is read-only. It's a split from our main monorepo repository.
+            We'd like to kindly ask you to move the contribution there - https://github.com/addwiki/addwiki.
+            You'll find the code that you have just changed in one of the 'packages' directories
+            We'll check it, review it and give you feed back.
+            Thank you
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
