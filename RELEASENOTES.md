@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- ...
+- Installatble with PHP 8.1+
 
 ## Version 3.0 (23 October 2021)
 
